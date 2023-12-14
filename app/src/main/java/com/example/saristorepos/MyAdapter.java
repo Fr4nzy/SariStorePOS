@@ -45,6 +45,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.recPrice.setText(String.valueOf(currentItem.getDataPrice()));
         holder.recStock.setText(String.valueOf(currentItem.getDataStock()));
 
+        // Check if the stock is less than or equal to 0
+        if (currentItem.getDataStock() <= 0) {
+            holder.outOfStockWarning.setVisibility(View.VISIBLE);
+        } else {
+            holder.outOfStockWarning.setVisibility(View.GONE);
+        }
+
         // Handle item click
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView recImage;
-        TextView recProduct, recPrice, recStock;
+        TextView recProduct, recPrice, recStock, outOfStockWarning;
         CardView recCard;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -85,6 +92,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             recPrice = itemView.findViewById(R.id.recPrice);
             recStock = itemView.findViewById(R.id.recStock);
             recProduct = itemView.findViewById(R.id.recProduct);
+            outOfStockWarning = itemView.findViewById(R.id.outOfStockWarning);
         }
     }
 }

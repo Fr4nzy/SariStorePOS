@@ -96,7 +96,7 @@ public class viewPOS extends AppCompatActivity {
 
     private void updateTotalPrice() {
         // Update the totalTextView with the new total price
-        totalTextView.setText("Total: $" + String.format("%.2f", totalPrice));
+        totalTextView.setText("Total: ₱" + String.format("%.2f", totalPrice));
     }
     private void updateCartCount() {
         // Update the cart count TextView with the number of items in the cart

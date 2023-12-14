@@ -19,6 +19,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import android.content.DialogInterface;
+
+
 
 public class addtocart extends AppCompatActivity {
 
@@ -64,27 +71,75 @@ public class addtocart extends AppCompatActivity {
     }
 
     // Method to handle the "Purchase" button click
+    // Method to handle the "Purchase" button click
     public void purchaseClick(View view) {
-        // Check if any product has a stock less than or equal to 0
-        if (isStockAvailable(cartItemList)) {
-            // Calculate the total amount
+        if (isStockAvailable(cartItemList) && isQuantityValid(cartItemList)) {
             double totalAmount = calculateTotalAmount(cartItemList);
-
-            // Deduct the purchased quantity from the stock
             deductStockFromDatabase(cartItemList);
+
 
             // Display the receipt
             showReceipt(totalAmount);
+
+            // Clear the cart after purchase
+            cartItemList.clear();
+            cartAdapter.notifyDataSetChanged();
         } else {
-            // Show an error message if any product is out of stock
-            showErrorDialog("Some products are out of stock. Please remove or update them from your cart.");
+            showExceedStockWarning("Please check stock availability and update them.");
         }
     }
 
+
+    // Helper method to check if the quantity of any product exceeds the available stock
+    private boolean isQuantityValid(ArrayList<DataClass> cartItemList) {
+        for (DataClass cartItem : cartItemList) {
+            int stock = cartItem.getDataStock();
+            int quantity = cartItem.getQuantity();
+            if (quantity > stock) {
+                return false; // Quantity exceeds available stock
+            }
+        }
+        return true; // All products have a valid quantity
+    }
+
+    // Helper method to show a warning message about exceeding the available stock
+    private void showExceedStockWarning(String warningMessage) {
+        new AlertDialog.Builder(this)
+                .setTitle("Warning")
+                .setMessage(warningMessage)
+                .setPositiveButton("OK", null)
+                .show();
+    }
+
+    private void showStockUpdateWarning(String warningMessage) {
+        new AlertDialog.Builder(this)
+                .setTitle("Warning")
+                .setMessage(warningMessage)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        // Intent intent = new Intent(addtocart.this, viewInventory.class);
+                        // startActivity(intent);
+                        // finish();
+                    }
+                })
+                .show();
+    }
+
+    private String getCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date currentDate = new Date();
+        return dateFormat.format(currentDate);
+    }
+
     private void showReceipt(double totalAmount) {
+        // Get the current date
+        String currentDate = getCurrentDate();
+
         // Create a StringBuilder to build the receipt message
         StringBuilder receiptMessage = new StringBuilder();
-        receiptMessage.append("Receipt:\n\n");
+        receiptMessage.append("Receipt - ").append(currentDate).append("\n\n");
 
         // Add details for each item in the cart
         for (DataClass item : cartItemList) {
@@ -102,7 +157,14 @@ public class addtocart extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Receipt")
                 .setMessage(receiptMessage.toString())
-                .setPositiveButton("OK", null)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // After pressing OK, load to viewPOS class
+                        Intent intent = new Intent(addtocart.this, viewPOS.class);
+                        startActivity(intent);
+                    }
+                })
                 .show();
     }
 
