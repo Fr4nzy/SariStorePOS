@@ -16,13 +16,7 @@
             android:name=".ForecastEntry"
             android:exported="false" />
         <activity
-            android:name=".ForecasetEntry"
-            android:exported="false" />
-        <activity
-            android:name=".activity_forecast_entry"
-            android:exported="false" />
-        <activity
-            android:name=".SignUp"
+            android:name=".SignupActivity"
             android:exported="false" />
         <activity
             android:name=".addtocart"
