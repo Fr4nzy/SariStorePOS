@@ -1,89 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background"
-    tools:context=".Upload">
+    android:orientation="vertical"
+    tools:context=".Upload"
+    tools:visibility="visible">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
         app:cardCornerRadius="30dp"
-        app:cardElevation="20dp">
+        app:cardElevation="20dp"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/border"
+            android:orientation="vertical"
             android:padding="20dp"
-            android:background="@drawable/border">
+            tools:visibility="visible">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Upload Data"
-                android:textSize="30sp"
                 android:textAlignment="center"
-                android:textColor="@color/lavender"/>
+                android:textColor="@color/lavender"
+                android:textSize="30sp"
+                tools:visibility="visible" />
 
             <ImageView
+                android:id="@+id/uploadImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/upload"
-                android:id="@+id/uploadImage"
                 android:layout_marginTop="10dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/upload"
+                tools:visibility="visible" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
                 android:id="@+id/uploadProduct"
-                android:background="@drawable/border"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginTop="20dp"
-                android:padding="16dp"
+                android:background="@drawable/border"
+                android:gravity="start|center_vertical"
                 android:hint="Product name"
-                android:gravity="start|center_vertical"
-                android:textColor="@color/lavender"/>
+                android:padding="16dp"
+                android:textColor="@color/lavender"
+                tools:visibility="visible" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
                 android:id="@+id/uploadPrice"
-                android:background="@drawable/border"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="Price"
-                android:gravity="start|center_vertical"
-                android:textColor="@color/lavender"/>
-
-            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:id="@+id/uploadStock"
-                android:background="@drawable/border"
                 android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="Stock"
+                android:background="@drawable/border"
                 android:gravity="start|center_vertical"
-                android:textColor="@color/lavender"/>
+                android:hint="Price"
+                android:padding="16dp"
+                android:textColor="@color/lavender"
+                tools:visibility="visible" />
+
+            <EditText
+                android:id="@+id/uploadStock"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border"
+                android:gravity="start|center_vertical"
+                android:hint="Stock"
+                android:padding="16dp"
+                android:textColor="@color/lavender"
+                tools:visibility="visible" />
 
             <Button
+                android:id="@+id/barcodeInsert"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Save"
-                android:id="@+id/saveButton"
-                android:textSize="18sp"
                 android:layout_marginTop="20dp"
+                android:background="@drawable/roundback"
+                android:text="Barcode"
                 android:textColor="@color/white"
-                android:background="@drawable/roundback"/>
+                android:textSize="18sp"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/roundback"
+                android:text="Save"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:visibility="visible" />
 
         </LinearLayout>
 

@@ -30,17 +30,22 @@
         android:layout_marginTop="10dp"
         android:scrollbars="vertical" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.github.clans.fab.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/lavender"
-        app:tint="@color/white"
         android:src="@drawable/add"
-        android:contentDescription="Add Product" />
+        app:fab_size="normal"
+        app:fab_label="Add Product"
+        app:backgroundTint="@color/lavender"
+        app:rippleColor="@android:color/white"
+        app:borderWidth="0dp"
+        app:fab_colorNormal="@color/lavender"
+        app:fab_colorRipple="@android:color/white"/>
+
 
 
 </RelativeLayout>

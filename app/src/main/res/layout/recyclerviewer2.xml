@@ -38,45 +38,50 @@
             android:layout_toEndOf="@id/rec2Image"
             android:text="Product"
             android:textColor="@color/lavender"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:visibility="visible" />
+
 
         <TextView
             android:id="@+id/rec2Price"
             android:layout_width="80dp"
             android:layout_height="30dp"
-            android:layout_marginStart="92dp"
+            android:layout_marginStart="88dp"
             android:layout_marginTop="20dp"
             android:layout_toEndOf="@id/rec2Product"
             android:text="₱ Price"
             android:textAlignment="center"
             android:textColor="@color/lavender"
-            android:textSize="16sp" />
-
+            android:textSize="16sp"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/rec2Stock"
             android:layout_width="140dp"
             android:layout_height="12dp"
+            android:layout_below="@+id/rec2Product"
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@id/rec2Image"
-            android:layout_below="@+id/rec2Product"
-            android:text="Stock"
             android:maxLines="0"
+            android:text="Stock"
             android:textColor="@color/lavender"
-            android:textSize="8sp" />
+            android:textSize="8sp"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/cartImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rec2Price"
-            android:layout_marginStart="105dp"
+            android:layout_marginStart="115dp"
+            android:layout_marginTop="2dp"
             android:layout_toEndOf="@id/rec2Product"
             android:clickable="true"
             android:contentDescription="Shopping Cart Icon"
             android:onClick="onCartIconClick"
             android:src="@drawable/cart"
-            tools:ignore="TouchTargetSizeCheck" />
+            tools:ignore="TouchTargetSizeCheck"
+            tools:visibility="visible" />
 
     </RelativeLayout>
 

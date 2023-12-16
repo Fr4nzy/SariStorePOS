@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "873693014270",
-    "project_id": "saristorepos",
-    "storage_bucket": "saristorepos.appspot.com"
+    "project_number": "649363559184",
+    "project_id": "sari-store-pos",
+    "storage_bucket": "sari-store-pos.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:873693014270:android:202baffba95f181bc71daf",
+        "mobilesdk_app_id": "1:649363559184:android:39a765a6cfe1bc2e994b95",
         "android_client_info": {
-          "package_name": "com.example.saristorepos"
+          "package_name": "com.projectfkklp.saristorepos"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCY1D5PL3VaLJlMp1tezr48dXH5urvAVjM"
+          "current_key": "AIzaSyCOqE6nhUfH4QZjCXDHsLCdrzWMGZp24Uc"
         }
       ],
       "services": {

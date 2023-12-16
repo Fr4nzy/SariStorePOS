@@ -3,7 +3,7 @@ package com.workday.insights.timeseries.arima;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.saristorepos.MyObjectSerializer;
+import com.projectfkklp.saristorepos.MyObjectSerializer;
 import com.workday.insights.timeseries.arima.struct.ArimaModel;
 import com.workday.insights.timeseries.arima.struct.ArimaParams;
 import com.workday.insights.timeseries.arima.struct.ForecastResult;
