@@ -12,7 +12,20 @@
           "package_name": "com.projectfkklp.saristorepos"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "649363559184-bmjq485s05u4m7b3enoulf24k745v64s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.projectfkklp.saristorepos",
+            "certificate_hash": "6404cc2bfc39ab4eac8f94743472f3c7e16a3936"
+          }
+        },
+        {
+          "client_id": "649363559184-ke7hb2lqtpr0nlveel92tgnhsda3nh9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCOqE6nhUfH4QZjCXDHsLCdrzWMGZp24Uc"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "649363559184-ke7hb2lqtpr0nlveel92tgnhsda3nh9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

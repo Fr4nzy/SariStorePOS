@@ -36,20 +36,20 @@ public final class Arima {
         try {
             // Set ARIMA model parameters.
             //p (Autoregressive Order): Start with a value between 0 and 2.
-            int p = 2;
+            int p = 3;
             //d (Integrated Order): Begin with 1,
             // and increase if differencing is necessary for stationary.
-            int d = 1;
+            int d = 0;
             //q (Moving Average Order): Start with 0 or 1.
-            int q = 1;
+            int q = 3;
             //P (Seasonal Autoregressive Order): Consider values between 0 and 2.
-            int P = 0;
+            int P = 1;
             //D (Seasonal Integrated Order): Start with 1 for weekly data, and adjust if needed.
-            int D = 0;
+            int D = 1;
             //Q (Seasonal Moving Average Order): Consider values between 0 and 1.
             int Q = 0;
             //m (Seasonal Period): Set this to 52 if you have weekly data, assuming a year with 52 weeks.
-            int m = 0;
+            int m = 52;
             ArimaParams arimaParams = new ArimaParams(p, d, q, P, D, Q, m);
 
             // Load Dataset

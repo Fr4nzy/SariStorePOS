@@ -12,29 +12,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Cart:"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.042"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/totalTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cartTextView"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="56dp"
-        android:text="Total: ₱0.00"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/totalTextView"
+        android:layout_below="@id/barcodeSearch"
         android:layout_marginTop="148dp"
         android:layout_weight="1"
         android:scrollbars="vertical"

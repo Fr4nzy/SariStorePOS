@@ -35,7 +35,7 @@ android {
 
 dependencies {
 
-    implementation("com.google.android.play:integrity:1.3.0")
+
     implementation("com.firebaseui:firebase-ui-auth:8.0.2")
     implementation("com.google.firebase:firebase-firestore:24.10.0")
     implementation("com.google.firebase:firebase-storage:20.3.0")

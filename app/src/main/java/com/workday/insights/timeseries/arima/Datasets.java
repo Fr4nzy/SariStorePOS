@@ -53,8 +53,7 @@ public final class Datasets {
     public static double[] loadTrainingDatasets(Context context) {
         double[] originalArray = loadDatasets(context);
         int subsetSize = (int) Math.ceil(TRAINING_SIZE * originalArray.length);
-        double[] subsetArray = Arrays.copyOfRange(originalArray, 0, subsetSize);
-        return subsetArray;
+        return Arrays.copyOfRange(originalArray, 0, subsetSize);
     }
 
     public static double[] loadTestingDatasets(Context context) {
@@ -62,8 +61,7 @@ public final class Datasets {
         double testingSizeInPercent = 1 - TRAINING_SIZE;
         int from = (int) Math.ceil(TRAINING_SIZE * originalArray.length);
         int subsetSize = (int) Math.floor(testingSizeInPercent * originalArray.length);
-        double[] subsetArray = Arrays.copyOfRange(originalArray, from, from+subsetSize);
-        return subsetArray;
+        return Arrays.copyOfRange(originalArray, from, from+subsetSize);
     }
 
 }
