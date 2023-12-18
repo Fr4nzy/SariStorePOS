@@ -31,11 +31,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         this.quantityChangeListener = listener;
     }
 
+    private int cartItemCount = 0;
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cartrecyclerview, parent, false);
-        return new CartViewHolder(view);
+        CartViewHolder cartViewHolder = new CartViewHolder(view);
+        DataClass cartItem = dataList.get(cartItemCount);
+        updatePrice(cartViewHolder, cartItem);
+        cartItemCount++;
+        return cartViewHolder;
     }
 
     @Override

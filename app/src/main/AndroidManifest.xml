@@ -31,9 +31,6 @@
             android:name=".Upload"
             android:exported="false" />
         <activity
-            android:name=".DataClass"
-            android:exported="false" />
-        <activity
             android:name=".salesReport"
             android:exported="false" />
         <activity
