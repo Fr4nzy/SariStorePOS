@@ -11,11 +11,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -23,6 +29,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,26 +39,47 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class viewPOS extends AppCompatActivity {
 
+    // Add the following member variable
+    private String userUid;
+    FirebaseAuth mAuth;
     RecyclerView posRecyclerView;
+    SearchView searchView;
     List<DataClass> productList;
     CollectionReference productsCollection;
     private TextView cartCountTextView;
     private MyAdapterPOS adapter;
     private List<DataClass> cartItemList = new ArrayList<>();
     private final List<DataClass> originalProductList = new ArrayList<>();
+    private List<DataClass> filteredProductList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pos);
 
-        // Initialize views and lists
+        mAuth = FirebaseAuth.getInstance();
+
+        // Initialize views, lists, and set up SearchView
+        searchView = findViewById(R.id.searchViewPos);
         posRecyclerView = findViewById(R.id.recyclerView2);
         cartCountTextView = findViewById(R.id.cartTextView);
         productList = new ArrayList<>();
         cartItemList = new ArrayList<>();
 
         Button barcodeSearch = findViewById(R.id.barcodeSearch);
+
+        // Get the current user's UID
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            userUid = currentUser.getUid();
+        } else {
+            // Handle the case when the user is not authenticated
+            // You may want to redirect them to the login activity
+            Toast.makeText(this, "Failed to Authenticate User", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, login.class);
+            startActivity(intent);
+        }
 
         // Set up RecyclerView
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
@@ -61,7 +90,9 @@ public class viewPOS extends AppCompatActivity {
         posRecyclerView.setAdapter(adapter);
 
         // Firestore initialization
-        productsCollection = FirebaseFirestore.getInstance().collection("products");
+        productsCollection = FirebaseFirestore.getInstance().collection("users")
+                .document(userUid)  // Use user's UID as the document ID
+                .collection("products");
 
         // Firestore event listener to fetch product data and listen for updates
         productsCollection.addSnapshotListener((value, error) -> {
@@ -71,6 +102,7 @@ public class viewPOS extends AppCompatActivity {
                 return;
             }
 
+            originalProductList.clear();
             productList.clear();
             for (DocumentSnapshot document : Objects.requireNonNull(value).getDocuments()) {
                 DataClass dataClass = document.toObject(DataClass.class);
@@ -87,6 +119,7 @@ public class viewPOS extends AppCompatActivity {
         // Set up Firestore event listener to fetch initial data
         productsCollection.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
+                originalProductList.clear();
                 productList.clear();
                 for (DocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     DataClass dataClass = document.toObject(DataClass.class);
@@ -97,6 +130,15 @@ public class viewPOS extends AppCompatActivity {
                         Log.d("FirestoreListener", "Fetched data: " + dataClass.getProduct() + ", " + dataClass.getPrice() + ", " + dataClass.getStock());
                     }
                 }
+                // Sort the productList alphabetically based on the product names
+                Collections.sort(productList, new Comparator<DataClass>() {
+                    @Override
+                    public int compare(DataClass product1, DataClass product2) {
+                        return product1.getProduct().compareToIgnoreCase(product2.getProduct());
+                    }
+                });
+
+
                 adapter.notifyDataSetChanged();
 
                 // Set up real-time Firestore listener for subsequent updates
@@ -132,7 +174,55 @@ public class viewPOS extends AppCompatActivity {
             // Launch ZXing barcode scanner
             new IntentIntegrator(viewPOS.this).initiateScan();
         });
+
+        // Set up SearchView listener
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return true;
+            }
+        });
+
+        // Add the following code to handle close button click
+        searchView.setOnCloseListener(() -> {
+            // Clear the search and show the original data
+            clearSearch();
+            return false;
+        });
     }
+
+    private void filter(String searchText) {
+        // Save the original productList before applying the filter
+        List<DataClass> originalList = new ArrayList<>(productList);
+
+        List<DataClass> filteredList = new ArrayList<>();
+
+        for (DataClass product : originalList) {
+            if (product.getProduct().toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(product);
+            }
+        }
+
+        // Save the filtered list
+        filteredProductList.clear();
+        filteredProductList.addAll(filteredList);
+
+        // Update the RecyclerView with the filtered list
+        adapter.updateProductList(filteredList);
+    }
+
+    private void clearSearch() {
+        // Clear the search and show the original data
+        adapter.updateProductList(productList);
+        filteredProductList.clear();
+    }
+
 
     private void setUpFirestoreListener() {
         // Real-time Firestore event listener to listen for updates
@@ -236,7 +326,7 @@ public class viewPOS extends AppCompatActivity {
 
     public void newAddToCartClick(View view) {
         // Ensure cartItemList is not null before passing it to the intent
-        if (cartItemList != null) {
+        if (cartItemList != null && !cartItemList.isEmpty()) {
             Intent intent = new Intent(viewPOS.this, addtocart.class);
 
             // Convert the List<DataClass> to ArrayList<DataClass>
@@ -246,9 +336,19 @@ public class viewPOS extends AppCompatActivity {
             startActivity(intent);
         } else {
             // Handle the case when cartItemList is null
-            Toast.makeText(this, "Cart is empty", Toast.LENGTH_SHORT).show();
+            showEmptyCartAlert();
         }
     }
+
+    private void showEmptyCartAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Empty Cart");
+        builder.setMessage("No added items in the cart");
+        builder.setPositiveButton("OK", null);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 
     private void updateQuantityInViewPOS(String cartItemKey, int newQuantity) {
         // Find the item in your productList and update its quantity

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
@@ -60,17 +61,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         holder.btnPlus.setOnClickListener(v -> {
             int newQuantity = cartItem.getQuantity() + 1;
-            cartItem.setQuantity(newQuantity);
-            updatePrice(holder, cartItem);
-            notifyDataSetChanged();
-            if (quantityChangeListener != null) {
-                quantityChangeListener.onQuantityChange(holder.getAdapterPosition(), newQuantity);
+            if (newQuantity <= cartItem.getStock()) {
+                cartItem.setQuantity(newQuantity);
+                updatePrice(holder, cartItem);
+                updateButtonVisibility(holder, cartItem);
+                notifyDataSetChanged();
+                if (quantityChangeListener != null) {
+                    quantityChangeListener.onQuantityChange(holder.getAdapterPosition(), newQuantity);
+                }
+                v.clearFocus();
+            } else {
+                // Show a warning or handle the case where quantity exceeds stock
+                Toast.makeText(context, "Cannot add more than available stock", Toast.LENGTH_SHORT).show();
             }
-            v.clearFocus();
         });
     }
 
-
+    // Add this method to update button visibility based on stock
+    private void updateButtonVisibility(CartViewHolder holder, DataClass cartItem) {
+        holder.btnMinus.setEnabled(cartItem.getQuantity() > 1);
+        holder.btnPlus.setEnabled(cartItem.getQuantity() < cartItem.getStock());
+    }
 
     private void updatePrice(CartViewHolder holder, DataClass cartItem) {
         double totalPrice = cartItem.getTotalPrice();
@@ -80,13 +91,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     private void updateOverallTotalAmount() {
-        double overallTotalAmount = 0.0;
-        for (DataClass cartItem : dataList) {
-            overallTotalAmount += cartItem.getTotalPrice();
-        }
-
         if (context instanceof addtocart) {
-            ((addtocart) context).updateOverallTotalAmount(overallTotalAmount);
+            ((addtocart) context).updateOverallTotalAmount();
         }
     }
 

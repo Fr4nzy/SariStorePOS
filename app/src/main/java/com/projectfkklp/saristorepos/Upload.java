@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -126,7 +128,14 @@ public class Upload extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String barcode = tempBarcode;
 
-        db.collection("products")
+        // Check if the barcode is empty or null
+        if (barcode == null || barcode.isEmpty()) {
+            // Barcode is empty or null, proceed to upload data to Firestore
+            uploadDataToFirestore();
+            return;
+        }
+
+        db.collection("users").document().collection("products")
                 .whereEqualTo("barcode", barcode)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -142,8 +151,13 @@ public class Upload extends AppCompatActivity {
                         // Handle error if needed
                         Toast.makeText(Upload.this, "Error checking duplicate barcode: " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
+
+                    // Reset tempBarcode after checking for duplicates
+                    tempBarcode = null;
                 });
     }
+
+
 
     private void showBarcodeDuplicateWarning() {
         new AlertDialog.Builder(this)
@@ -167,15 +181,28 @@ public class Upload extends AppCompatActivity {
         dataMap.put("imageURL", imageURL);
         dataMap.put("barcode", tempBarcode); // Add the temporarily scanned barcode
 
-        // Access Firestore instance and add the data
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("products")
-                .add(dataMap)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(Upload.this, "Data Uploaded to Firestore", Toast.LENGTH_SHORT).show();
-                    finish();
-                })
-                .addOnFailureListener(e -> Toast.makeText(Upload.this, "Firestore Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        // Access FirebaseAuth to get the current user
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            // Access Firestore instance and add the data to the user's collection
+            String userUid = currentUser.getUid();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("users")
+                    .document(userUid)
+                    .collection("products") // Use the specific subcollection for products
+                    .add(dataMap)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(Upload.this, "Data Uploaded to Firestore", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(Upload.this, "Firestore Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        } else {
+            // Handle the case where the user is not signed in
+            Toast.makeText(Upload.this, "User not signed in", Toast.LENGTH_SHORT).show();
+        }
     }
+
 
 }

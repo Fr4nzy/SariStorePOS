@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
@@ -38,6 +40,15 @@ public class salesReport extends AppCompatActivity {
         ForecastResult forecastResult = Arima.forecast(offset + size, this);
         double[] forecastData = forecastResult.getForecast();
         double[] actualData = Datasets.loadTestingDatasets(this);
+
+        // Add a button to navigate to TransactionHistory activity
+        Button checkTransactionHistoryBtn = findViewById(R.id.checkthBtn);
+        checkTransactionHistoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(salesReport.this, TransactionHistory.class));
+            }
+        });
 
         // Line Chart Start
         LineChart lineChart = findViewById(R.id.chart);
@@ -82,7 +93,9 @@ public class salesReport extends AppCompatActivity {
         lineChart.setData(lineData);
 
         lineChart.invalidate();
+
     }
+
 
     // Custom X-axis value formatter for days
     private static class DayAxisValueFormatter extends ValueFormatter {

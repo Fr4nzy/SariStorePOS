@@ -1,6 +1,5 @@
 package com.projectfkklp.saristorepos;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -11,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -56,12 +57,18 @@ public class DetailActivity extends AppCompatActivity {
     private void deleteProduct() {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final FirebaseStorage storage = FirebaseStorage.getInstance();
+        // Access FirebaseAuth to get the current user
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        // Reference to the Firestore document
+        // Reference to the Firestore document in the "users" collection and "products" subcollection
         StorageReference imageRef = storage.getReferenceFromUrl(imageUrl);
         imageRef.delete().addOnSuccessListener(aVoid -> {
             // Image deletion successful
-            db.collection("products").document(key)
+            String userUid = currentUser.getUid();
+            db.collection("users").document(userUid)  // Assuming userUid is the user's UID
+                    .collection("products")
+                    .document(key)
                     .delete()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -79,12 +86,11 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-
     private void editProduct() {
         Intent intent = new Intent(DetailActivity.this, UpdateActivity.class);
         intent.putExtra("Product", detailProduct.getText().toString());
         intent.putExtra("Price", detailPrice.getText().toString());
-        intent.putExtra("Stock", String.valueOf(stock)); // Change to String.valueOf(stock) for int
+        intent.putExtra("Stock", String.valueOf(stock));
         intent.putExtra("Image", imageUrl);
         intent.putExtra("Key", key);
         startActivity(intent);

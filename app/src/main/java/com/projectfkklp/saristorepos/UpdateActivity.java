@@ -16,6 +16,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -37,6 +39,7 @@ public class UpdateActivity extends AppCompatActivity {
     Uri uri;
     DocumentReference documentReference;
     StorageReference storageReference;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,8 @@ public class UpdateActivity extends AppCompatActivity {
         updateImage = findViewById(R.id.updateImage);
         updateStock = findViewById(R.id.updateStock);
         updateProduct = findViewById(R.id.updateProduct);
+
+        mAuth = FirebaseAuth.getInstance();
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -71,7 +76,16 @@ public class UpdateActivity extends AppCompatActivity {
             oldImageURL = bundle.getString("Image");
         }
 
-        documentReference = FirebaseFirestore.getInstance().collection("products").document(key);
+        // Get the current user from FirebaseAuth
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userUid = currentUser.getUid();
+
+        documentReference = FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(userUid)  // Assuming userUid is the user's UID
+                .collection("products")
+                .document(key);
+
 
         updateImage.setOnClickListener(view -> {
             Intent photoPicker = new Intent(Intent.ACTION_PICK);

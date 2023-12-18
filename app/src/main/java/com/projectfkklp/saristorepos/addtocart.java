@@ -1,6 +1,5 @@
 package com.projectfkklp.saristorepos;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,16 +7,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,18 +32,34 @@ public class addtocart extends AppCompatActivity {
 
     private ArrayList<DataClass> cartItemList;
     private CartAdapter cartAdapter;
-    private CollectionReference productsCollection;
+    private CollectionReference usersCollection;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addtocart);
 
+        FirebaseApp.initializeApp(this);
+
+        mAuth = FirebaseAuth.getInstance();
+
         // Initialize Firestore
-        productsCollection = FirebaseFirestore.getInstance().collection("products");
+        usersCollection = FirebaseFirestore.getInstance().collection("users");
 
         // Retrieve the cartItemList from the Intent
-        cartItemList = getIntent().getParcelableArrayListExtra("cartItemList");
+        if (cartItemList == null) {
+            cartItemList = getIntent().getParcelableArrayListExtra("cartItemList");
+            assert cartItemList != null;
+            for (DataClass cartItem : cartItemList) {
+                cartItem.setQuantity(1);
+            }
+        }
+        updateOverallTotalAmount();
+
+        // Add click listener to the "Purchase" button
+        Button purchaseButton = findViewById(R.id.purchaseButton);
+        purchaseButton.setOnClickListener(this::purchaseClick);
 
         // Initialize views and set up RecyclerView
         RecyclerView cartRecyclerView = findViewById(R.id.cartrecyclerview);
@@ -52,15 +70,13 @@ public class addtocart extends AppCompatActivity {
         cartAdapter = new CartAdapter(this, cartItemList);
         cartRecyclerView.setAdapter(cartAdapter);
 
-        // Add click listener to the "Purchase" button
-        Button purchaseButton = findViewById(R.id.purchaseButton);
-        purchaseButton.setOnClickListener(this::purchaseClick);
     }
 
     // Add this method to update the overall total amount
-    public void updateOverallTotalAmount(double totalAmount) {
+    public void updateOverallTotalAmount() {
         // Implement the logic to update the total amount in your activity
         // For example, find the TextView and update its text.
+        double totalAmount = calculateTotalAmount();
         TextView totalItemPriceTextView = findViewById(R.id.totalItemPrice);
         String formattedTotalAmount = String.format("Total Price: %.2f", totalAmount);
         totalItemPriceTextView.setText(formattedTotalAmount);
@@ -69,7 +85,7 @@ public class addtocart extends AppCompatActivity {
     // Method to handle the "Purchase" button click
     public void purchaseClick(View view) {
         if (isStockAvailable(cartItemList) && isQuantityValid(cartItemList)) {
-            double totalAmount = calculateTotalAmount(cartItemList);
+            double totalAmount = calculateTotalAmount();
             deductStockFromDatabase(cartItemList);
 
             // Display the receipt
@@ -134,7 +150,7 @@ public class addtocart extends AppCompatActivity {
 
         // Create a StringBuilder to build the receipt message
         StringBuilder receiptMessage = new StringBuilder();
-        receiptMessage.append("Receipt - ").append(currentDate).append("\n");
+        receiptMessage.append("Date/Time - ").append(currentDate).append("\n");
         receiptMessage.append("Transaction ID: ").append(transactionId).append("\n\n");
 
         // Add details for each item in the cart
@@ -156,14 +172,20 @@ public class addtocart extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Receipt")
                 .setMessage(receiptMessage.toString())
-                .setPositiveButton("OK", (dialogInterface, i) -> {
-                    // After pressing OK, finish both activities
+                .setPositiveButton("Confirm", (dialogInterface, i) -> {
+                    // Handle confirmation (transaction completed)
                     Toast.makeText(this, "Transaction Complete", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(addtocart.this, viewPOS.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent); // Start viewPOS and clear its previous instances
                     finish(); // Finish the current activity (addtocart)
                 })
+                .setNegativeButton("Cancel", (dialogInterface, i) -> {
+                    // Handle cancellation (transaction canceled)
+                    Toast.makeText(this, "Transaction Canceled", Toast.LENGTH_SHORT).show();
+                    // You can add any additional actions or leave it empty
+                })
+                .setCancelable(false) // Prevent canceling by tapping outside the dialog
                 .show();
     }
 
@@ -176,7 +198,9 @@ public class addtocart extends AppCompatActivity {
     // Store the transaction data in Firestore
     private void storeTransactionData(String transactionId, String currentDate, double totalAmount, ArrayList<DataClass> cartItemList) {
         // Get a reference to the Firestore collection for transactions
-        CollectionReference transactionsCollection = FirebaseFirestore.getInstance().collection("transactions");
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userUid = currentUser.getUid();
+        CollectionReference transactionsCollection = usersCollection.document(userUid).collection("transactions");
 
         // Create a new document with the generated transaction ID
         DocumentReference transactionDocument = transactionsCollection.document(transactionId);
@@ -194,6 +218,7 @@ public class addtocart extends AppCompatActivity {
                     showErrorDialog("Failed to store transaction data: " + e.getMessage());
                 });
     }
+
 
     // Add a new class for storing transaction data
     public class TransactionData {
@@ -251,55 +276,53 @@ public class addtocart extends AppCompatActivity {
 
     // Helper method to deduct the purchased quantity from the stock in Firestore
     private void deductStockFromDatabase(ArrayList<DataClass> cartItemList) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         for (DataClass cartItem : cartItemList) {
+            // Get the user's UID
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            String userUid = currentUser.getUid();
+
             // Get the product key from the cart item
             String productKey = cartItem.getKey();
 
             // Get the purchased quantity from the cart item
             int purchasedQuantity = cartItem.getQuantity();
 
-            // Update the stock in Firestore by deducting the purchased quantity
-            DocumentReference productRef = productsCollection.document(productKey);
-            productRef.get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            // Get the current stock value
-                            Long stockValue = documentSnapshot.getLong("stock");
+            // Create a reference to the product document in Firestore
+            DocumentReference productRef = db.collection("users").document(userUid)
+                    .collection("products").document(productKey);
 
-                            // Check for null and handle it gracefully
-                            if (stockValue != null) {
-                                int currentStock = stockValue.intValue();
+            db.runTransaction(transaction -> {
+                DocumentSnapshot snapshot = transaction.get(productRef);
 
-                                // Calculate the new stock value after deducting the purchased quantity
-                                int newStock = currentStock - purchasedQuantity;
+                // Check if the document exists
+                if (snapshot.exists()) {
+                    // Get the current stock value
+                    Long currentStock = snapshot.getLong("stock");
 
-                                // Update the stock value in Firestore
-                                productRef.update("stock", newStock)
-                                        .addOnSuccessListener(aVoid -> {
-                                            // Stock updated successfully
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            // Handle failure if needed
-                                            showErrorDialog("Failed to update stock: " + e.getMessage());
-                                        });
-                            } else {
-                                // Handle the case where 'stock' field is null
-                                showErrorDialog("Stock value is null for product: " + productKey);
-                            }
-                        } else {
-                            // Handle the case where the document does not exist
-                            showErrorDialog("Document does not exist for product: " + productKey);
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        // Handle failure if needed
-                        showErrorDialog("Failed to retrieve document for product: " + productKey + "\nError: " + e.getMessage());
-                    });
+                    // Check for null and handle it gracefully
+                    if (currentStock != null) {
+                        // Calculate the new stock value after deducting the purchased quantity
+                        int newStock = Math.max(currentStock.intValue() - purchasedQuantity, 0);
+
+                        // Update the stock value in Firestore
+                        transaction.update(productRef, "stock", newStock);
+                    }
+                }
+
+                return null;
+            }).addOnSuccessListener(result -> {
+                // Stock updated successfully
+            }).addOnFailureListener(e -> {
+                // Handle failure if needed
+                showErrorDialog("Failed to update stock: " + e.getMessage());
+            });
         }
     }
 
     // Helper method to calculate the total amount
-    private double calculateTotalAmount(ArrayList<DataClass> cartItemList) {
+    private double calculateTotalAmount() {
         double totalAmount = 0.0;
         for (DataClass item : cartItemList) {
             totalAmount += item.getTotalPrice();

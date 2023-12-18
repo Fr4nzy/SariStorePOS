@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,7 +50,15 @@ public class MyAdapterPOS extends RecyclerView.Adapter<MyAdapterPOS.MyViewHolder
         holder.rec2Product.setText(currentItem.getProduct());
         holder.rec2Price.setText(String.valueOf(currentItem.getPrice()));
         holder.rec2Stock.setText(String.valueOf(currentItem.getStock()));
+        // Change card color if the product is out of stock
+        if (currentItem.getStock() <= 0) {
+            holder.rec2Card.setCardBackgroundColor(context.getResources().getColor(R.color.outOfStockColor));
+        } else {
+            // Set the default card color here (if needed)
+            holder.rec2Card.setCardBackgroundColor(context.getResources().getColor(R.color.defaultCardColor));
+        }
     }
+
 
     @Override
     public int getItemCount() {
@@ -85,30 +94,37 @@ public class MyAdapterPOS extends RecyclerView.Adapter<MyAdapterPOS.MyViewHolder
 
             // Set click listener for cartImageView
             cartImageView.setOnClickListener(v -> {
-                // If onItemClickListener is set, trigger its onItemClick method
-                if (onItemClickListener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        onItemClickListener.onItemClick(dataList.get(position));
-                    }
-                }
-            });
-
-            // Set click listener for rec2Card or other views if needed
-            rec2Card.setOnClickListener(v -> {
                 // Handle click on the card view
                 if (onItemClickListener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        onItemClickListener.onItemClick(dataList.get(position));
+                        DataClass clickedItem = dataList.get(position);
+
+                        // Check if the product is in stock
+                        if (clickedItem.getStock() > 0) {
+                            // Product is in stock, proceed with adding to cart
+                            onItemClickListener.onItemClick(clickedItem);
+                        } else {
+                            // Product is out of stock, show an alert dialog
+                            showOutOfStockDialog();
+                        }
                     }
                 }
             });
-
-            // Add more click listeners for other views as needed
         }
-
     }
+
+    private void showOutOfStockDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Out of Stock");
+        builder.setMessage("This product is currently out of stock.");
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
+            // Add more click listeners for other views as needed
+
+
+
     public void updateProductList(List<DataClass> newList) {
         dataList.clear();
         dataList.addAll(newList);
