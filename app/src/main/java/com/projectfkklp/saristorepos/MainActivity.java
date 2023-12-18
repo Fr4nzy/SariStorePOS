@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
+import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -37,12 +39,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (view.getId() == R.id.salesReport) {
             i = new Intent(this, ForecastEntry.class); // Assuming SalesReport is the correct class name
         } else if (view.getId() == R.id.logout) {
-            i = new Intent(this, login.class); // Assuming Login is the correct class name
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear user session, sign out from Firebase, and go to the login screen
+            // Clear user session, sign out from Firebase, and go to the login screen
             FirebaseAuth.getInstance().signOut(); // Sign out from Firebase
             clearUserSession();
-            startActivity(i);
-            finish(); // Close the current activity to prevent going back to it on pressing back
+            // Ensure that the user is fully signed out
+            AuthUI.getInstance().signOut(this).addOnCompleteListener(task -> {
+                // After signing out, go to the login screen
+                final Intent intent = new Intent(MainActivity.this, login.class); // Assuming Login is the correct class name
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish(); // Close the current activity to prevent going back to it on pressing back
+            });
+            return; // Exit the onClick method after initiating the sign-out process
         } else {
             return; // Do nothing for other cases
         }
