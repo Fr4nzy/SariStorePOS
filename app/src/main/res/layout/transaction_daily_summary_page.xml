@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.transaction.transaction_daily_summary.TransactionDailySummaryPage">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/summary_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Daily Sales Summary"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textAppearance="@font/amaranth_bold" />
+
+        <TextView
+            android:id="@+id/summary_overall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Overall Summary\nTotal Sold Items: 100\nTotal Sales: Pesos Sign 1000"
+            android:inputType="textMultiLine"
+            android:lines="4"
+
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/summary_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/switch_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/baseline_360_24"
+        android:onClick="onSwitchClick"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="5dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="5dp">
+
+        <Button
+            android:id="@+id/prev_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/navigate_left_disabled_icon"
+            android:onClick="onPrevClick"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/navigate_right_disabled_icon"
+            android:onClick="onNextClick"
+            android:enabled="false"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

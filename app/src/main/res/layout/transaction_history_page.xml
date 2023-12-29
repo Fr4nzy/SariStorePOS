@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.transaction.transaction_history.TransactionHistoryPage">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/transactionhistorylbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Transaction History"
+            android:textAppearance="@font/amaranth_bold"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/history_summary_overall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="Lower Date - Upper Date" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/transactionHistoryRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="45dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/history_switch_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/baseline_360_24"
+        android:onClick="onSwitchClick" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="5dp">
+
+        <Button
+            android:id="@+id/history_prev_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/navigate_left_disabled_icon"
+            android:onClick="onPrevClick"
+            android:enabled="false"
+            />
+
+        <Button
+            android:id="@+id/history_next_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/navigate_right_disabled_icon"
+            android:onClick="onNextClick"
+            android:enabled="false"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

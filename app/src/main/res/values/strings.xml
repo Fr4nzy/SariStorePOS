@@ -7,4 +7,6 @@
     <string name="transaction_total_amount">Transaction TOTAL AMOUNT</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
 </resources>

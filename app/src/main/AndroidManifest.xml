@@ -13,34 +13,40 @@
         android:theme="@style/Theme.SariStorePOS"
         tools:targetApi="31">
         <activity
-            android:name=".TransactionHistory"
+            android:name=".activities.transaction.transaction_daily_summary.TransactionDailySummaryPage"
             android:exported="false" />
         <activity
-            android:name=".ForecastEntry"
+            android:name=".activities.analytics.AnalyticsDailySalesPage"
             android:exported="false" />
         <activity
-            android:name=".addtocart"
+            android:name=".activities.transaction.transaction_history.TransactionHistoryPage"
             android:exported="false" />
         <activity
-            android:name=".UpdateActivity"
+            android:name=".activities.analytics.AnalyticsForecastEntryPage"
             android:exported="false" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".activities.pos.PosCheckoutPage"
             android:exported="false" />
         <activity
-            android:name=".Upload"
+            android:name=".activities.inventory.InventoryEditProductPage"
             android:exported="false" />
         <activity
-            android:name=".salesReport"
+            android:name=".activities.inventory.InventoryProductDetailPage"
             android:exported="false" />
         <activity
-            android:name=".viewPOS"
+            android:name=".activities.inventory.InventoryCreateProductPage"
             android:exported="false" />
         <activity
-            android:name=".viewInventory"
+            android:name=".activities.analytics.AnalyticsForecastPage"
             android:exported="false" />
         <activity
-            android:name=".login"
+            android:name=".activities.pos.PosPage"
+            android:exported="false" />
+        <activity
+            android:name=".activities.inventory.InventoryProductListPage"
+            android:exported="false" />
+        <activity
+            android:name=".activities.user.UserLoginPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,8 +55,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.dashboard.DashboardPage"
             android:exported="false" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

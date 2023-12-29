@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.dashboard.DashboardPage">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchViewPos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:focusable="false"
+        app:closeIcon="@drawable/close"
+        app:iconifiedByDefault="false"
+        app:queryHint="Search..."
+        app:searchHintIcon="@null"
+        app:searchIcon="@drawable/search"
+        android:layout_margin="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/cartTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cart: 0"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
+
+            <Button
+                android:id="@+id/barcodeSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundback"
+                android:onClick="searchviabarcodeclick"
+                android:padding="10dp"
+                android:text="Scan Barcode"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"/>
+
+            <Button
+                android:id="@+id/newAddToCartButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundback"
+                android:onClick="newAddToCartClick"
+                android:text="Checkout"
+                android:textColor="@color/white"
+                android:padding="10dp"
+                android:layout_marginStart="10dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pos_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_below="@id/newAddToCartButton"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
+
+
+
+</LinearLayout>

@@ -20,7 +20,7 @@ public class ArimaModel {
     private double rmse;
 
     /**
-     * Constructor for ArimaModel
+     * Constructor for Arima
      *
      * @param params ARIMA parameter
      * @param data original data
