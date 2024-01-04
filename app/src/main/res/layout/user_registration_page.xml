@@ -43,7 +43,8 @@
                 android:hint="Name"
                 android:drawableLeft="@drawable/baseline_person_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/gray"/>
+                android:textColor="@color/gray"
+                android:inputType="textPersonName"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -55,7 +56,9 @@
                 android:hint="Gmail"
                 android:drawableLeft="@drawable/baseline_email_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/gray"/>
+                android:textColor="@color/gray"
+                android:editable="false"
+                android:onClick="changeGmail"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -67,7 +70,9 @@
                 android:hint="Phone Number"
                 android:drawableLeft="@drawable/baseline_person_pin_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/gray"/>
+                android:textColor="@color/gray"
+                android:editable="false"
+                android:onClick="changePhoneNumber"/>
 
             <Button
                 android:layout_width="match_parent"
@@ -78,18 +83,21 @@
                 android:textSize="18sp"
                 android:textColor="@color/white"
                 android:layout_marginTop="30dp"
-                app:cornerRadius = "20dp"/>
+                app:cornerRadius = "20dp"
+                android:onClick="register"/>
 
             <TextView
+                android:id="@+id/loginRedirectText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/loginRedirectText"
-                android:text="Login using other account"
                 android:layout_gravity="center"
-                android:padding="8dp"
                 android:layout_marginTop="10dp"
-                android:textSize="18sp"
-                android:textColor="@color/lavender"/>
+                android:minHeight="48dp"
+                android:onClick="loginUsingOtherAccount"
+                android:padding="8dp"
+                android:text="Login using other account"
+                android:textColor="@color/lavender"
+                android:textSize="18sp" />
 
         </LinearLayout>
 

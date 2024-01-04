@@ -3,12 +3,10 @@ package com.projectfkklp.saristorepos.repositories;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.projectfkklp.saristorepos.enums.SIgnInMethod;
+import com.projectfkklp.saristorepos.enums.SignInMethod;
 import com.projectfkklp.saristorepos.interfaces.OnUserRetrieve;
-import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.User;
 
-import java.text.ParseException;
 import java.util.List;
 
 public class UserRepository {
@@ -17,7 +15,7 @@ public class UserRepository {
             .collection("users");
     }
 
-    public static  void getSignedInUser(SIgnInMethod signInMethod, OnUserRetrieve callback){
+    public static  void getSignedInUser(SignInMethod signInMethod, OnUserRetrieve callback){
         String userUid = AuthenticationRepository.getCurrentUserUid();
 
         getCollectionReference()
