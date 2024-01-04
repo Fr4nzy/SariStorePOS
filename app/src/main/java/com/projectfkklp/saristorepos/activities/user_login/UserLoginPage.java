@@ -22,27 +22,12 @@ import com.projectfkklp.saristorepos.enums.SIgnInMethod;
 import com.projectfkklp.saristorepos.managers.AuthenticationManager;
 import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
+import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
 
 import java.util.Collections;
 import java.util.Objects;
 
 public class UserLoginPage extends AppCompatActivity {
-    private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
-        new ActivityResultContracts.StartActivityForResult(),
-        this::onSignInResult
-    );
-    private final Intent phoneSignInIntent = AuthUI.getInstance()
-        .createSignInIntentBuilder()
-        .setAvailableProviders(Collections.singletonList(
-            new AuthUI.IdpConfig.PhoneBuilder().build()
-        ))
-        .build();
-    private final Intent gmailSignInIntent = AuthUI.getInstance()
-        .createSignInIntentBuilder()
-        .setAvailableProviders(Collections.singletonList(
-            new AuthUI.IdpConfig.GoogleBuilder().build()
-        ))
-        .build();
     private SIgnInMethod signInMethod;
 
     @Override
@@ -55,12 +40,12 @@ public class UserLoginPage extends AppCompatActivity {
     }
 
     public void loginViaPhone(View view){
-        signInLauncher.launch(phoneSignInIntent);
+        AuthenticationUtils.authenticateViaPhone(this, this::onSignInResult);
         signInMethod = SIgnInMethod.PHONE;
     }
 
     public void loginViaGmail(View view){
-        signInLauncher.launch(gmailSignInIntent);
+        AuthenticationUtils.authenticateViaGmail(this, this::onSignInResult);
         signInMethod = SIgnInMethod.GMAIL;
     }
 
