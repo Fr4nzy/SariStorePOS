@@ -11,6 +11,6 @@ public class StoreSelectorPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_store_selector_page);
+        setContentView(R.layout.store_selector_page);
     }
 }
