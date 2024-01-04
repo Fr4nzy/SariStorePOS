@@ -1,22 +1,21 @@
 package com.projectfkklp.saristorepos.models;
 
+import com.projectfkklp.saristorepos.utils.ModelUtils;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class User {
     private String id;
-    private String username;
+    private String name;
     private String phoneUid;
     private String gmailUid;
 
 
     // Setter methods
-    public void setId(String id) {
-        this.id = id;
-    }
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setPhoneUid(String phoneUid) {
@@ -31,8 +30,8 @@ public class User {
     public String getId() {
         return id;
     }
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
     public String getPhoneUid() {
@@ -48,6 +47,7 @@ public class User {
     private Date dailySalesUpdatedAt;
 
     public User() {
+        id = ModelUtils.createUUID();
         this.dailySales = new ArrayList<>();
         this.dailySalesUpdatedAt = new Date();
     }

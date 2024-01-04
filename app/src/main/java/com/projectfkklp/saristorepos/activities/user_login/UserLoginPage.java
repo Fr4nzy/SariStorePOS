@@ -13,19 +13,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseUser;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
 import com.projectfkklp.saristorepos.activities.user_registration.UserRegistrationPage;
-import com.projectfkklp.saristorepos.enums.SIgnInMethod;
+import com.projectfkklp.saristorepos.enums.SignInMethod;
 import com.projectfkklp.saristorepos.managers.AuthenticationManager;
 import com.projectfkklp.saristorepos.managers.SessionManager;
+import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
 import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
 
 import java.util.Objects;
 
 public class UserLoginPage extends AppCompatActivity {
-    private SIgnInMethod signInMethod;
+    private SignInMethod signInMethod;
     private ActivityResultLauncher<Intent> signInLauncher;
 
     @Override
@@ -41,19 +43,30 @@ public class UserLoginPage extends AppCompatActivity {
 
     public void loginViaPhone(View view){
         signInLauncher.launch(AuthenticationUtils.PHONE_SIGN_IN_INTENT);
-        signInMethod = SIgnInMethod.PHONE;
+        signInMethod = SignInMethod.PHONE;
     }
 
     public void loginViaGmail(View view){
         signInLauncher.launch(AuthenticationUtils.GMAIL_SIGN_IN_INTENT);
-        signInMethod = SIgnInMethod.GMAIL;
+        signInMethod = SignInMethod.GMAIL;
     }
 
     private void onSignInResult(@NonNull ActivityResult result) {
         if (result.getResultCode() == RESULT_OK) {
+            FirebaseUser firebaseUser = AuthenticationRepository.getCurrentUser();
             UserRepository.getSignedInUser(signInMethod, user -> {
                 if (user == null) {
-                    startActivity(new Intent(this, UserRegistrationPage.class));
+                    Intent intent = new Intent(this, UserRegistrationPage.class);
+                    intent.putExtra("uid", firebaseUser.getUid());
+                    intent.putExtra("name", firebaseUser.getDisplayName());
+                    intent.putExtra("signInMethod", signInMethod.value);
+                    intent.putExtra("identifier",
+                        signInMethod.value == SignInMethod.PHONE.value
+                            ? firebaseUser.getPhoneNumber()
+                            : firebaseUser.getProviderData().get(1).getEmail()
+                        );
+
+                    startActivity(intent);
                 }
                 else {
                     SessionManager.setUser(this, user);

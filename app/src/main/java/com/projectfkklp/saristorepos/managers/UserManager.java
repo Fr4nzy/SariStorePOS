@@ -4,15 +4,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.projectfkklp.saristorepos.interfaces.OnTransactionAdded;
+import com.projectfkklp.saristorepos.classes.ValidationStatus;
+import com.projectfkklp.saristorepos.interfaces.OnUserRegister;
 import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
 import com.projectfkklp.saristorepos.utils.DateUtils;
+import com.projectfkklp.saristorepos.validators.UserRegistrationValidator;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 
 public class UserManager {
@@ -63,5 +64,16 @@ public class UserManager {
             user.setDailySalesUpdatedAt(currentDate);
             UserManager.saveUser(user);
         });
+    }
+
+    public static void registerUser(User user, OnUserRegister onRegister){
+        ValidationStatus validationStatus = UserRegistrationValidator.validate(user);
+        Task<Void> task = null;
+
+        if (validationStatus.isValid()) {
+            task = getCollectionReference().document(user.getId()).set(user);
+        }
+
+        onRegister.onUserRegister(user, validationStatus, task);
     }
 }
