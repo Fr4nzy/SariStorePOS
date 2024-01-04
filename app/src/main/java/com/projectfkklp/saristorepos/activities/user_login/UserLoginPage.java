@@ -7,11 +7,9 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.FirebaseApp;
@@ -24,11 +22,11 @@ import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
 import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
 
-import java.util.Collections;
 import java.util.Objects;
 
 public class UserLoginPage extends AppCompatActivity {
     private SIgnInMethod signInMethod;
+    private ActivityResultLauncher<Intent> signInLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +35,17 @@ public class UserLoginPage extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
         AuthenticationManager.logout(this, task -> {});
+
+        signInLauncher = AuthenticationUtils.createSignInLauncher(this, this::onSignInResult);
     }
 
     public void loginViaPhone(View view){
-        AuthenticationUtils.authenticateViaPhone(this, this::onSignInResult);
+        signInLauncher.launch(AuthenticationUtils.PHONE_SIGN_IN_INTENT);
         signInMethod = SIgnInMethod.PHONE;
     }
 
     public void loginViaGmail(View view){
-        AuthenticationUtils.authenticateViaGmail(this, this::onSignInResult);
+        signInLauncher.launch(AuthenticationUtils.GMAIL_SIGN_IN_INTENT);
         signInMethod = SIgnInMethod.GMAIL;
     }
 

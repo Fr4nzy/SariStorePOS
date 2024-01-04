@@ -17,20 +17,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Collections;
 
 public class AuthenticationUtils {
-    private static final Intent phoneSignInIntent = AuthUI.getInstance()
+    public static final Intent PHONE_SIGN_IN_INTENT = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(Collections.singletonList(
                     new AuthUI.IdpConfig.PhoneBuilder().build()
             ))
             .build();
-    private static final Intent gmailSignInIntent = AuthUI.getInstance()
+    public static final Intent GMAIL_SIGN_IN_INTENT = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(Collections.singletonList(
                     new AuthUI.IdpConfig.GoogleBuilder().build()
             ))
             .build();
 
-    private static ActivityResultLauncher<Intent> createSignInLauncher(
+    public static ActivityResultLauncher<Intent> createSignInLauncher(
         ComponentActivity activity,
         ActivityResultCallback<ActivityResult> callback
     ){
@@ -43,14 +43,6 @@ public class AuthenticationUtils {
                 }
             }
         );
-    }
-
-    public static void authenticateViaPhone(ComponentActivity activity, ActivityResultCallback<ActivityResult> callback){
-        createSignInLauncher(activity, callback).launch(phoneSignInIntent);
-    }
-
-    public static void authenticateViaGmail(ComponentActivity activity, ActivityResultCallback<ActivityResult> callback){
-        createSignInLauncher(activity, callback).launch(gmailSignInIntent);
     }
 
     public static void signOutFirebase(Context context, OnCompleteListener<Void> onCompleteListener){
