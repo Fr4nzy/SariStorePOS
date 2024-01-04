@@ -5,6 +5,45 @@ import java.util.Date;
 import java.util.List;
 
 public class User {
+    private String id;
+    private String username;
+    private String phoneUid;
+    private String gmailUid;
+
+
+    // Setter methods
+    public void setId(String id) {
+        this.id = id;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPhoneUid(String phoneUid) {
+        this.phoneUid = phoneUid;
+    }
+
+    public void setGmailUid(String gmailUid) {
+        this.gmailUid = gmailUid;
+    }
+
+    // Getter methods
+    public String getId() {
+        return id;
+    }
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPhoneUid() {
+        return phoneUid;
+    }
+
+    public String getGmailUid() {
+        return gmailUid;
+    }
+
+    // TODO: details below need to be moved to Store model
     private List<Double> dailySales;
     private Date dailySalesUpdatedAt;
 

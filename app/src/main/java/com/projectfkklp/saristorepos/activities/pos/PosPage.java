@@ -35,7 +35,7 @@ import java.util.Objects;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.projectfkklp.saristorepos.activities.user.UserLoginPage;
+import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.adapters.PointOfSalePageAdapter;
 import com.projectfkklp.saristorepos.R;

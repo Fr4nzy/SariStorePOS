@@ -17,7 +17,7 @@ import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.inventory.InventoryProductListPage;
 import com.projectfkklp.saristorepos.activities.pos.PosPage;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary.TransactionDailySummaryPage;
-import com.projectfkklp.saristorepos.activities.user.UserLoginPage;
+import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
 import com.projectfkklp.saristorepos.activities.analytics.AnalyticsDailySalesPage;
 import com.projectfkklp.saristorepos.activities.analytics.AnalyticsForecastEntryPage;
 import com.projectfkklp.saristorepos.utils.CacheUtils;
