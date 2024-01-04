@@ -6,7 +6,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cache {
+public class CacheUtils {
     public static final String PREFERENCES_NAME = "com.projectfkklp.saristorepos";
 
     public static void putInt(Context context, String key, int value) {

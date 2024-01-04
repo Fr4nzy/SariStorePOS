@@ -20,7 +20,7 @@ import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_su
 import com.projectfkklp.saristorepos.activities.user.UserLoginPage;
 import com.projectfkklp.saristorepos.activities.analytics.AnalyticsDailySalesPage;
 import com.projectfkklp.saristorepos.activities.analytics.AnalyticsForecastEntryPage;
-import com.projectfkklp.saristorepos.utils.Cache;
+import com.projectfkklp.saristorepos.utils.CacheUtils;
 
 public class DashboardPage extends AppCompatActivity implements View.OnClickListener {
 
@@ -109,6 +109,6 @@ public class DashboardPage extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
         });
 
-        Cache.dump(this);
+        CacheUtils.dump(this);
     }
 }
