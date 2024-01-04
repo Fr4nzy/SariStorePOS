@@ -13,8 +13,11 @@
         android:theme="@style/Theme.SariStorePOS"
         tools:targetApi="31">
         <activity
+            android:name=".activities.store_selector.StoreSelectorPage"
+            android:exported="false" />
+        <activity
             android:name=".activities.entry.EntryPage"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,8 +59,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.user.UserLoginPage"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".activities.dashboard.DashboardPage"
             android:exported="false" />
