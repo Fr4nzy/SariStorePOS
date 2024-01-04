@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/loginbg"
-    tools:context="com.projectfkklp.saristorepos.activities.user.UserLoginPage">
+    tools:context="com.projectfkklp.saristorepos.activities.user_login.UserLoginPage">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -63,7 +63,6 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
@@ -71,10 +70,10 @@
                 android:text="with Phone Number"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:cornerRadius="20dp" />
+                app:cornerRadius="20dp"
+                android:onClick="loginViaPhone"/>
 
             <Button
-                android:id="@+id/gmail_button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
@@ -82,7 +81,8 @@
                 android:text="using Gmail"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:cornerRadius="20dp" />
+                app:cornerRadius="20dp"
+                android:onClick="loginViaGmail"/>
 
         </LinearLayout>
 

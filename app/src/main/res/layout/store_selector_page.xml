@@ -6,4 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".activities.store_selector.StoreSelectorPage">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Store Selector Page!"
+        android:textSize="24dp"
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="276dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

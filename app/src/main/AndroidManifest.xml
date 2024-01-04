@@ -58,8 +58,11 @@
             android:name=".activities.inventory.InventoryProductListPage"
             android:exported="false" />
         <activity
-            android:name=".activities.user.UserLoginPage"
-            android:exported="false"></activity>
+            android:name=".activities.user_login.UserLoginPage"
+            android:exported="false"/>
+        <activity
+            android:name=".activities.user_registration.UserRegistrationPage"
+            android:exported="false"/>
         <activity
             android:name=".activities.dashboard.DashboardPage"
             android:exported="false" />

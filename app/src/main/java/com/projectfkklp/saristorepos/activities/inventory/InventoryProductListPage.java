@@ -20,7 +20,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.projectfkklp.saristorepos.activities.user.UserLoginPage;
+import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.adapters.InventoryPageAdapter;
 import com.projectfkklp.saristorepos.R;
