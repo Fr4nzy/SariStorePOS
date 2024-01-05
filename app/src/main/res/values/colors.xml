@@ -13,5 +13,9 @@
     <color name="gray">#3A3E3A</color>
     <color name="outOfStockColor">#D3D3D3</color>
     <color name="defaultCardColor">#FFFFFF</color>
-
+    <color name="lightGray">#B0B0B0</color>
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="positiveButtonColor">#4CAF50</color>
+    <color name="negativeButtonColor">#FF4081</color>
 </resources>

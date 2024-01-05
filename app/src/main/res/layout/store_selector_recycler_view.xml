@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:id="@+id/store_selector_store_name"
+            android:text="Store Name"
+            android:textColor="@color/lavender"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_gravity="fill"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/store_selector_store_role"
+            android:text="User Role"
+            android:textColor="@color/lavender"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_gravity="fill"
+            />
+
+        <TextView
+            android:id="@+id/store_selector_store_id"
+            android:text="Store ID"
+            android:textColor="@color/lightGray"
+            android:textSize="9sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_gravity="top"
+            android:paddingTop="5dp"
+            />
+
+        <TextView
+            android:id="@+id/store_selector_store_status"
+            android:text="Status"
+            android:textColor="@color/lavender"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_gravity="fill"
+            android:textAlignment="textEnd"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_rowSpan="2"
+            android:layout_gravity="end"
+            >
+            <Button
+                android:id="@+id/store_selector_store_positive_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Positive"
+                android:textSize="10dp"
+                android:backgroundTint="@color/positiveButtonColor"
+                android:layout_marginRight="5dp"
+                />
+            <Button
+                android:id="@+id/store_selector_store_negative_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Negative"
+                android:textSize="10dp"
+                android:backgroundTint="@color/negativeButtonColor"
+                />
+        </LinearLayout>
+
+    </GridLayout>
+
+</androidx.cardview.widget.CardView>
