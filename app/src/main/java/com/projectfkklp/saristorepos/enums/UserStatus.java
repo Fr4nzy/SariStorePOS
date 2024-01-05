@@ -15,7 +15,7 @@ public enum UserStatus {
             "Accept",
             "Decline",
             "Declining Invitation from %s",
-            "Are you sure you want to to decline the invitivation?"
+            "Are you sure you want to decline the invitation?"
     ),
     REQUESTED(
             3,
