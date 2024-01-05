@@ -4,9 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.store_finder.StoreFinderPage;
+import com.projectfkklp.saristorepos.activities.store_registration.StoreRegistrationPage;
+import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
 import com.projectfkklp.saristorepos.adapters.CheckoutPageAdapter;
 import com.projectfkklp.saristorepos.adapters.StoreSelectorPageAdapter;
 import com.projectfkklp.saristorepos.enums.UserRole;
@@ -83,4 +88,17 @@ public class StoreSelectorPage extends AppCompatActivity {
         storeSelectorPageAdapter = new StoreSelectorPageAdapter(this, userStoreRelations, stores);
         storeSelectoreRecycler.setAdapter(storeSelectorPageAdapter);
     }
+
+    public void gotoUserProfilePage(View view){
+        startActivity(new Intent(this, UserProfilePage.class));
+    }
+
+    public void gotoStoreFinderPage(View view){
+        startActivity(new Intent(this, StoreFinderPage.class));
+    }
+
+    public void gotoStoreRegistrationPage(View view){
+        startActivity(new Intent(this, StoreRegistrationPage.class));
+    }
+
 }

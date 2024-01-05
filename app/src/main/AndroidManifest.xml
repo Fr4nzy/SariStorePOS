@@ -13,6 +13,15 @@
         android:theme="@style/Theme.SariStorePOS"
         tools:targetApi="31">
         <activity
+            android:name=".activities.store_finder.StoreFinderPage"
+            android:exported="false" />
+        <activity
+            android:name=".activities.store_registration.StoreRegistrationPage"
+            android:exported="false" />
+        <activity
+            android:name=".activities.user_profile.UserProfilePage"
+            android:exported="false" />
+        <activity
             android:name=".activities.store_selector.StoreSelectorPage"
             android:exported="false" />
         <activity
@@ -59,10 +68,10 @@
             android:exported="false" />
         <activity
             android:name=".activities.user_login.UserLoginPage"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activities.user_registration.UserRegistrationPage"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activities.dashboard.DashboardPage"
             android:exported="false" />
