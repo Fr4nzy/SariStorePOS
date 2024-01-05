@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
-
 }
 
 android {
@@ -62,7 +61,5 @@ dependencies {
 
     implementation("com.google.code.gson:gson:2.8.8")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
-
-
+    implementation("com.google.android.material:material:<version>")
 }

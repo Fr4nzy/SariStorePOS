@@ -34,16 +34,10 @@ public class CheckoutPageAdapter extends RecyclerView.Adapter<CheckoutPageAdapte
         this.quantityChangeListener = listener;
     }
 
-    //If uncommented, dataList value will go OutOfBounds
-    /*private int cartItemCount = 0;*/
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pos_checkout_recycler_view, parent, false);
-        /*CartViewHolder cartViewHolder = new CartViewHolder(view);
-        Product cartItem = dataList.get(cartItemCount);
-        updatePrice(cartViewHolder, cartItem);
-        cartItemCount++;*/
         return new CartViewHolder(view);
     }
 
