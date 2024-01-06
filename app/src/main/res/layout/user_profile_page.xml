@@ -7,22 +7,25 @@
 
     <!-- Logout Button -->
 
-    <Button
+    <TextView
         android:id="@+id/btnLogout"
+        android:layout_below="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_log_out"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"/>
+        android:text="@string/string_sign_out"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:textColor="@color/lavender"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
 
@@ -89,6 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/delete"
+                app:tint="#8692F7"
                 android:contentDescription="Delete Phone Number"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -124,6 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/delete"
+                app:tint="#8692F7"
                 android:contentDescription="Delete Gmail"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="8dp"
@@ -133,46 +138,48 @@
         </LinearLayout>
 
 
-        <!-- Toggle Edit,View and Update Mode Button -->
-
         <LinearLayout
+            android:id="@+id/llEditDeleteButtons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center">
 
-            <Button
-                style="?android:attr/buttonBarButtonStyle"
-                android:id="@+id/btnToggleEditMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:text="@string/string_edit_mode"
-                android:visibility="visible" />
+            <ImageButton
+                android:id="@+id/editBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#FFFFFF"
+                android:src="@drawable/edit"
+                app:tint="#8692F7"
+                android:scaleType="fitCenter"
+                />
+
+            <ImageButton
+                android:layout_marginStart="220dp"
+                android:id="@+id/deleteBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#FFFFFF"
+                android:src="@drawable/delete"
+                app:tint="#8692F7"
+                android:scaleType="fitCenter"
+                />
+
+        </LinearLayout>
 
 
-            <Button
-                android:id="@+id/btnToggleViewMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/string_view_mode"
-                android:visibility="gone" />
+        <!-- Update Button -->
 
             <Button
-                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/btnProfileUpdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/string_update"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
-                android:layout_marginStart="45dp"
+                android:layout_marginStart="120dp"
                 android:visibility="visible"/>
-
-        </LinearLayout>
-
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

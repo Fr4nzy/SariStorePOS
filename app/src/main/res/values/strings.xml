@@ -10,13 +10,11 @@
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_profile_page_label">User Profile Page</string>
     <string name="string_update">Update</string>
-    <string name="string_edit_mode">Edit Mode</string>
-    <string name="string_view_mode">View Mode</string>
+    <string name="string_edit_mode">Edit</string>
     <string name="string_name">Name</string>
     <string name="string_phone_number">Phone Number</string>
     <string name="string_gmail">Gmail</string>
-    <string name="string_log_out">Log Out</string>
+    <string name="string_sign_out">Sign Out</string>
 </resources>
