@@ -27,6 +27,7 @@ import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
 import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
+import com.projectfkklp.saristorepos.utils.ProgressUtils;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -149,6 +150,7 @@ public class UserRegistrationPage  extends AppCompatActivity {
     }
 
     public void register(View view){
+        ProgressUtils.showDialog(this, "Registering...");
         UserManager.registerUser(user, (registrationUser, validationStatus, task)->{
             if (task == null) {
                 HashMap<String, String> errors = validationStatus.getErrors();
@@ -164,6 +166,8 @@ public class UserRegistrationPage  extends AppCompatActivity {
                 ActivityUtils.navigateTo(this, StoreSelectorPage.class);
             }).addOnFailureListener(failedTask->{
                 Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
+            }).addOnCompleteListener(completeTask->{
+                ProgressUtils.dismissDialog();
             });
 
         });
