@@ -49,6 +49,10 @@ public class ProgressUtils {
             builder.setView(ll);
 
             dialog = builder.create();
+            // To prevent dialog box from getting dismissed on back key pressed
+            dialog.setCancelable(false);
+            // And to prevent dialog box from getting dismissed on outside touch
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             Window window = dialog.getWindow();
             if (window != null) {
