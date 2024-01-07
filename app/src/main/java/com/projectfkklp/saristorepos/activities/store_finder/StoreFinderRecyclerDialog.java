@@ -1,4 +1,4 @@
-package com.projectfkklp.saristorepos.activities.user_profile;
+package com.projectfkklp.saristorepos.activities.store_finder;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,13 +12,13 @@ import com.projectfkklp.saristorepos.utils.TestingUtils;
 
 import android.view.Window;
 
-public class UserProfileRecyclerDialog extends Dialog implements
+public class StoreFinderRecyclerDialog extends Dialog implements
         android.view.View.OnClickListener {
 
     public Activity activity;
-    public Button btnJoinAsOwner, btnJoinAsAssistant;
+    public Button btnJoinAsOwner, btnJoinAsAssistant, btnDismiss;
 
-    public UserProfileRecyclerDialog(Activity a) {
+    public StoreFinderRecyclerDialog(Activity a) {
         super(a);
 
         this.activity = a;
@@ -31,9 +31,10 @@ public class UserProfileRecyclerDialog extends Dialog implements
         setContentView(R.layout.store_finder_recycler_dialog);
         btnJoinAsOwner = findViewById(R.id.btn_join_as_owner);
         btnJoinAsAssistant = findViewById(R.id.btn_join_as_assistant);
+        btnDismiss = findViewById(R.id.btn_store_finder_dialog_dismiss);
         btnJoinAsOwner.setOnClickListener(this);
         btnJoinAsAssistant.setOnClickListener(this);
-
+        btnDismiss.setOnClickListener(this);
     }
 
     @Override

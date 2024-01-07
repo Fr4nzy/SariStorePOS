@@ -14,7 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.user_profile.UserProfileRecyclerDialog;
+import com.projectfkklp.saristorepos.activities.store_finder.StoreFinderRecyclerDialog;
 import com.projectfkklp.saristorepos.models.Store;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class StoreFinderPageAdapter extends RecyclerView.Adapter<StoreFinderPage
         holder.storeIdText.setText(searchedStore.getId());
 
         holder.cardView.setOnClickListener(l->{
-            UserProfileRecyclerDialog cdd = new UserProfileRecyclerDialog((Activity) context);
+            StoreFinderRecyclerDialog cdd = new StoreFinderRecyclerDialog((Activity) context);
             cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             cdd.show();
         });

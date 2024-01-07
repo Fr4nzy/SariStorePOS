@@ -77,7 +77,7 @@
                 android:backgroundTint="@color/positiveButtonColor"/>
 
             <Button
-                android:id="@+id/btn_store_finder_dialog_cancel"
+                android:id="@+id/btn_store_finder_dialog_dismiss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
