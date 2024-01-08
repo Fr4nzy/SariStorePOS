@@ -51,6 +51,11 @@ public class User {
         this.dailySales = new ArrayList<>();
         this.dailySalesUpdatedAt = new Date();
     }
+    public User(String name, String phoneUid, String gmailUid){
+        this.name = name;
+        this.phoneUid = phoneUid;
+        this.gmailUid = gmailUid;
+    }
     public User(List<Double> dailySales, Date dailySalesUpdatedAt) {
         this.dailySales = dailySales;
         this.dailySalesUpdatedAt = dailySalesUpdatedAt;
