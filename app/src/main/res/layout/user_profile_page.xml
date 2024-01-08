@@ -37,15 +37,48 @@
             android:padding="24dp"
             android:background="@drawable/lavender_border">
 
-        <TextView
-            android:id="@+id/profileLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/user_profile_page_label"
-            android:textSize="30sp"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textColor="@color/lavender" />
+            <LinearLayout
+                android:id="@+id/llEditDeleteButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/profileLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_profile_page_label"
+                    android:textSize="30sp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/lavender" />
+
+                <ImageView
+                    android:id="@+id/editBtn"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="#FFFFFF"
+                    android:src="@drawable/edit"
+                    app:tint="#8692F7"
+                    android:scaleType="fitCenter"
+                    android:visibility="visible"
+                    />
+
+                <ImageView
+                    android:id="@+id/deleteBtn"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="#FFFFFF"
+                    android:src="@drawable/delete"
+                    app:tint="#8692F7"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
 
         <!-- Name -->
 
@@ -75,30 +108,17 @@
 
             <EditText
                 android:id="@+id/etPhoneNumber"
-                android:layout_width="250dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:drawableStart="@drawable/baseline_call_24"
+                android:drawableEnd="@drawable/delete"
                 android:drawablePadding="8dp"
                 android:enabled="false"
                 android:hint="@string/string_phone_number"
                 android:inputType="phone"
                 android:minHeight="48dp"
                 android:autofillHints="" />
-
-            <ImageView
-                android:id="@+id/btnDeletePhoneNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/delete"
-                app:tint="#8692F7"
-                android:contentDescription="Delete Phone Number"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:clickable="true"
-                android:visibility="gone" />
-
         </LinearLayout>
 
         <!-- Gmail -->
@@ -112,62 +132,18 @@
 
             <EditText
                 android:id="@+id/etGmail"
-                android:layout_width="250dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:drawableStart="@drawable/baseline_email_24"
+                android:drawableEnd="@drawable/delete"
                 android:drawablePadding="8dp"
                 android:enabled="false"
                 android:hint="@string/string_gmail"
                 android:inputType="textEmailAddress"
                 android:minHeight="48dp"
                 android:autofillHints="" />
-
-            <ImageView
-                android:id="@+id/btnDeleteGmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/delete"
-                app:tint="#8692F7"
-                android:contentDescription="Delete Gmail"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:clickable="true"
-                android:visibility="gone" />
         </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/llEditDeleteButtons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <ImageButton
-                android:id="@+id/editBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="#FFFFFF"
-                android:src="@drawable/edit"
-                app:tint="#8692F7"
-                android:scaleType="fitCenter"
-                />
-
-            <ImageButton
-                android:layout_marginStart="220dp"
-                android:id="@+id/deleteBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="#FFFFFF"
-                android:src="@drawable/delete"
-                app:tint="#8692F7"
-                android:scaleType="fitCenter"
-                />
-
-        </LinearLayout>
-
 
         <!-- Update Button -->
 
