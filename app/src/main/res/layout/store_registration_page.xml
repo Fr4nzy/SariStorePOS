@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:paddingTop="80dp"
     android:background="@drawable/loginbg"
     tools:context="com.projectfkklp.saristorepos.activities.user_login.UserLoginPage">
 
@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Please enter your store name"
+                android:text="Please enter your store details"
                 android:textAlignment="center"
                 android:textColor="#0A20DF"
                 android:textSize="20sp"
@@ -64,12 +64,25 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/store_name"
+                android:id="@+id/store_registration_name"
                 android:background="@drawable/lavender_border"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Store Name"
                 android:drawableLeft="@drawable/store"
+                android:drawablePadding="8dp"
+                android:textColor="@color/gray"
+                android:inputType="textPersonName"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/store_registration_address"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:hint="Store Address"
+                android:drawableLeft="@drawable/baseline_location_pin_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/gray"
                 android:inputType="textPersonName"/>
