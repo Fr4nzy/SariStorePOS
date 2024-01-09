@@ -20,6 +20,7 @@ import com.projectfkklp.saristorepos.activities.user_registration.UserRegistrati
 import com.projectfkklp.saristorepos.enums.SignInMethod;
 import com.projectfkklp.saristorepos.managers.AuthenticationManager;
 import com.projectfkklp.saristorepos.managers.SessionManager;
+import com.projectfkklp.saristorepos.managers.UserManager;
 import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
 import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
@@ -69,6 +70,15 @@ public class UserLoginPage extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else {
+                    // Since we login via gmail via provider
+                    // And sometimes gmail can be changed
+                    // This extra steps, update the user gmail in firebase database
+                    if (signInMethod.value == SignInMethod.GMAIL.value) {
+                        user.setGmail(firebaseUser.getProviderData().get(1).getEmail());
+                        UserManager.saveUser(user);
+                    }
+
+                    // Start session and next activity
                     SessionManager.setUser(this, user);
                     startActivity(new Intent(this, StoreSelectorPage.class));
                 }
