@@ -163,15 +163,16 @@ public class UserRegistrationPage  extends AppCompatActivity {
                 return;
             }
 
-            task.addOnSuccessListener(successTask->{
-                SessionManager.setUser(this, user);
-                Toast.makeText(this, "Registration success", Toast.LENGTH_SHORT).show();
-                ActivityUtils.navigateTo(this, StoreSelectorPage.class);
-            }).addOnFailureListener(failedTask->{
-                Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
-            }).addOnCompleteListener(completeTask->{
-                ProgressUtils.dismissDialog();
-            });
+            task
+                .addOnSuccessListener(successTask->{
+                    SessionManager.setUser(this, user);
+                    Toast.makeText(this, "Registration success", Toast.LENGTH_SHORT).show();
+                    ActivityUtils.navigateTo(this, StoreSelectorPage.class);
+                })
+                .addOnFailureListener(failedTask->
+                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
+                )
+                .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog());
 
         });
     }
