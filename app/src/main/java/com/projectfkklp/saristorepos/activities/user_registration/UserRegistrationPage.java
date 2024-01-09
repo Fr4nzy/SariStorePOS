@@ -86,10 +86,12 @@ public class UserRegistrationPage  extends AppCompatActivity {
         nameText.setText(name);
         if (signInMethod == SignInMethod.PHONE.value) {
             user.setPhoneUid(uid);
+            user.setPhoneNumber(identifier);
             phoneText.setText(identifier);
         }
         else {
             user.setGmailUid(uid);
+            user.setGmail(identifier);
             gmailText.setText(identifier);
         }
     }
@@ -107,16 +109,17 @@ public class UserRegistrationPage  extends AppCompatActivity {
                     }
 
                     String uid = firebaseUser.getUid();
-                    String identifier = signInMethod.value == SignInMethod.PHONE.value
-                        ? firebaseUser.getPhoneNumber()
-                        : firebaseUser.getProviderData().get(1).getEmail();
 
                     if (signInMethod.value == SignInMethod.PHONE.value) {
+                        String identifier = firebaseUser.getPhoneNumber();
                         user.setPhoneUid(uid);
+                        user.setPhoneNumber(identifier);
                         phoneText.setText(identifier);
                     }
                     else {
+                        String identifier = firebaseUser.getProviderData().get(1).getEmail();
                         user.setGmailUid(uid);
+                        user.setGmail(identifier);
                         gmailText.setText(identifier);
                     }
                 }
