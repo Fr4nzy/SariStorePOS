@@ -10,19 +10,27 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.adapters.StoreFinderPageAdapter;
 import com.projectfkklp.saristorepos.models.Store;
-import com.projectfkklp.saristorepos.utils.TestingUtils;
+import com.projectfkklp.saristorepos.models.UserStoreRelation;
+import com.projectfkklp.saristorepos.repositories.SessionRepository;
+import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.repositories.UserStoreRelationRepository;
+import com.projectfkklp.saristorepos.utils.RepositoryUtils;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StoreFinderPage extends AppCompatActivity {
     private List<Store> searchedStores;
     SearchView storeSearch;
     ProgressBar searchProgress;
-    StoreFinderPageAdapter storeFinderPageAdapter;
+    StoreFinderAdapter storeFinderPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +60,7 @@ public class StoreFinderPage extends AppCompatActivity {
 
                @Override
                public boolean onQueryTextSubmit(String query) {
-                   onSearch(query);
+                   onSearch(query.toUpperCase());
                    return true;
                }
            }
@@ -66,17 +74,54 @@ public class StoreFinderPage extends AppCompatActivity {
         storeSelectoreRecycler.setLayoutManager(layoutManager);
 
         // Set up adapter
-        storeFinderPageAdapter = new StoreFinderPageAdapter(this, searchedStores);
+        storeFinderPageAdapter = new StoreFinderAdapter(this, searchedStores);
         storeSelectoreRecycler.setAdapter(storeFinderPageAdapter);
     }
 
     private void onSearch(String searchText){
         searchProgress.setVisibility(View.VISIBLE);
 
-        TestingUtils.delay(1000, ()->{
-            fetchDummySearchedStores();
-            searchProgress.setVisibility(View.GONE);
-        });
+        // Before proceeding in searching stores,
+        // fetch first the associated relations
+        // to filter out non associated stores to the current user
+        UserStoreRelationRepository
+            .getRelationsByUserId(SessionRepository.getCurrentUser(this).getId())
+            .continueWithTask(task -> {
+                List<UserStoreRelation> userStoreRelations = task.getResult().toObjects(UserStoreRelation.class);
+                List<String> associatedStoreIds = userStoreRelations.stream()
+                    .map(UserStoreRelation::getStoreId)
+                    .collect(Collectors.toList());
+
+                return searchStores(searchText, associatedStoreIds);
+            })
+            .addOnSuccessListener(results->{
+                searchedStores.clear();
+
+                List<Object> toMergeResults = results.subList(0, 3);
+                QuerySnapshot associatedStoresResult = (QuerySnapshot) results.get(3);
+                List<Store> associatedStores = associatedStoresResult.toObjects(Store.class);
+
+                for (DocumentSnapshot document : RepositoryUtils.mergeResults(toMergeResults)) {
+                    Store store = document.toObject(Store.class);
+
+                    boolean isAssociated = associatedStores.stream()
+                            .anyMatch(associatedStore -> associatedStore.getId().equals(store.getId()));
+
+                    // If not associated, add it to searchedStores
+                    if (!isAssociated) {
+                        searchedStores.add(store);
+                    }
+                }
+
+                storeFinderPageAdapter.notifyDataSetChanged();
+            })
+            .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
+            .addOnCompleteListener(task-> searchProgress.setVisibility(View.GONE))
+        ;
+    }
+
+    public Task<List<Object>> searchStores(String searchText, List<String> storeToExcludeIds){
+        return StoreRepository.searchStores(searchText, storeToExcludeIds);
     }
 
     private void clearSearchStores(){
@@ -84,30 +129,11 @@ public class StoreFinderPage extends AppCompatActivity {
         storeFinderPageAdapter.notifyDataSetChanged();
     }
 
-    private void fetchDummySearchedStores() {
-        String[] storeIds = new String[]{
-                "17f1e065a4f001",
-                "17f1e065a4f002",
-                "17f1e065a4f003",
-                "17f1e065a4f004",
-                "17f1e065a4f005",
-                "17f1e065a4f006",
-                "17f1e065a4f007"
-        };
-
-        searchedStores.add(new Store(storeIds[0], "Store A", "Sitio Yakal, Brgy Malinao, Sta Cruz, Laguna"));
-        searchedStores.add(new Store(storeIds[1], "Store B", "Sitio Manga, Brgy Malinao, Sta Cruz, Laguna"));
-        searchedStores.add(new Store(storeIds[2], "Store C", "Sitio Yakal, Brgy Malinao, Lumban, Laguna"));
-        searchedStores.add(new Store(storeIds[3], "Store D", "Sitio Yakal, Brgy Malinao, Pagsanjan, Laguna"));
-        searchedStores.add(new Store(storeIds[4], "Store E", "Sitio Yakal, Brgy Malinao, Los Banos, Laguna"));
-        searchedStores.add(new Store(storeIds[5], "Store F", "Sitio Yakal, Brgy Malinao, Calamba, Laguna"));
-        searchedStores.add(new Store(storeIds[6], "Store G", "Sitio Yakal, Brgy Malinao, San Pablo City, Laguna"));
-
-        storeFinderPageAdapter.notifyDataSetChanged();
-    }
-
     public void navigateBack(View view){
         finish();
     }
 
+    public void research() {
+        onSearch(storeSearch.getQuery().toString().toUpperCase());
+    }
 }

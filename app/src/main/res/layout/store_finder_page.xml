@@ -38,7 +38,7 @@
                 app:iconifiedByDefault="false"
                 app:queryHint="Search name/address/@id"
                 app:searchHintIcon="@null"
-                app:searchIcon="@drawable/search" />
+                app:searchIcon="@drawable/search"/>
 
         </LinearLayout>
 

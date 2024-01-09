@@ -5,10 +5,16 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.android.gms.tasks.Task;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.classes.ValidationStatus;
 import com.projectfkklp.saristorepos.enums.UserRole;
+import com.projectfkklp.saristorepos.interfaces.OnSetFirebaseDocument;
+import com.projectfkklp.saristorepos.managers.UserStoreRelationManager;
+import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
-import com.projectfkklp.saristorepos.utils.TestingUtils;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import android.view.Window;
 
@@ -17,11 +23,13 @@ public class StoreFinderRecyclerDialog extends Dialog implements
 
     public Activity activity;
     public Button btnJoinAsOwner, btnJoinAsAssistant, btnDismiss;
+    private final Store store;
 
-    public StoreFinderRecyclerDialog(Activity a) {
+    public StoreFinderRecyclerDialog(Activity a, Store store) {
         super(a);
 
         this.activity = a;
+        this.store = store;
     }
 
     @Override
@@ -58,9 +66,29 @@ public class StoreFinderRecyclerDialog extends Dialog implements
 
     private void joinAs(UserRole userRole){
         ProgressUtils.showDialog(activity, "Joining as "+userRole.label);
-        TestingUtils.delay(1000, ()->{
-            dismiss();
-            ProgressUtils.dismissDialog();
+
+        UserStoreRelationManager.request(getContext(), store, userRole, new OnSetFirebaseDocument() {
+            @Override
+            public void onInvalid(ValidationStatus validationStatus) {
+                dismiss();
+                ProgressUtils.dismissDialog();
+                ToastUtils.showFormattedErrors(getContext(), validationStatus.getErrors());
+            }
+            @Override
+            public void onSuccess(Void task) {
+                ToastUtils.show(getContext(), "Request to join has been sent");
+                StoreFinderPage storeFinderPage = (StoreFinderPage)activity;
+                storeFinderPage.research();
+            }
+            @Override
+            public void onFailed(Exception exception) {
+                ToastUtils.show(getContext(), exception.getMessage());
+            }
+            @Override
+            public void onComplete(Task<Void> task) {
+                dismiss();
+                ProgressUtils.dismissDialog();
+            }
         });
     }
 }
