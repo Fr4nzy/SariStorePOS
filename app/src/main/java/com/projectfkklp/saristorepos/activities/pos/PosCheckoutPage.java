@@ -20,7 +20,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.projectfkklp.saristorepos.adapters.CheckoutPageAdapter;
 import com.projectfkklp.saristorepos.managers.TransactionManager;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.R;
@@ -34,7 +33,7 @@ import java.util.Date;
 public class PosCheckoutPage extends AppCompatActivity {
 
     private ArrayList<Product> cartItemList;
-    private CheckoutPageAdapter checkoutPageAdapter;
+    private PosCheckoutPageAdapter posCheckoutPageAdapter;
     private CollectionReference usersCollection;
     private FirebaseAuth mAuth;
 
@@ -70,8 +69,8 @@ public class PosCheckoutPage extends AppCompatActivity {
         cartRecyclerView.setLayoutManager(layoutManager);
 
         // Set up adapter
-        checkoutPageAdapter = new CheckoutPageAdapter(this, cartItemList);
-        cartRecyclerView.setAdapter(checkoutPageAdapter);
+        posCheckoutPageAdapter = new PosCheckoutPageAdapter(this, cartItemList);
+        cartRecyclerView.setAdapter(posCheckoutPageAdapter);
 
     }
 
@@ -156,7 +155,7 @@ public class PosCheckoutPage extends AppCompatActivity {
                         task -> cartItemList.clear()
                     );
                     deductStockFromDatabase(cartItemList);
-                    checkoutPageAdapter.notifyDataSetChanged();
+                    posCheckoutPageAdapter.notifyDataSetChanged();
 
                     // Handle confirmation (transaction completed)
                     Toast.makeText(this, "Transaction Complete", Toast.LENGTH_SHORT).show();

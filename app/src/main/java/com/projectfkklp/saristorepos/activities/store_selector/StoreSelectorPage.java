@@ -15,6 +15,8 @@ import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.store_finder.StoreFinderPage;
 import com.projectfkklp.saristorepos.activities.store_registration.StoreRegistrationPage;
 import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
+import com.projectfkklp.saristorepos.enums.UserRole;
+import com.projectfkklp.saristorepos.enums.UserStatus;
 import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.models.UserStoreRelation;
 import com.projectfkklp.saristorepos.models.Store;

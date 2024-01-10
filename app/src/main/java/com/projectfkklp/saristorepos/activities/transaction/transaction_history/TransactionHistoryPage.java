@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary.TransactionDailySummaryPage;
-import com.projectfkklp.saristorepos.adapters.TransactionHistoryAdapter;
 import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.repositories.TransactionRepository;
 import com.projectfkklp.saristorepos.utils.DateUtils;
