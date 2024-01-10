@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.widget.SearchView;
@@ -29,6 +30,8 @@ import java.util.stream.Collectors;
 public class StoreFinderPage extends AppCompatActivity {
     private List<Store> searchedStores;
     SearchView storeSearch;
+
+    FrameLayout emptySearchFrame;
     ProgressBar searchProgress;
     StoreFinderAdapter storeFinderPageAdapter;
 
@@ -49,6 +52,7 @@ public class StoreFinderPage extends AppCompatActivity {
     private void initializeViews(){
         storeSearch = findViewById(R.id.store_search_view);
         searchProgress = findViewById(R.id.store_finder_search_progress);
+        emptySearchFrame = findViewById(R.id.store_finder_empty_search_frame);
         storeSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                @Override
                public boolean onQueryTextChange(String newText) {
@@ -80,6 +84,7 @@ public class StoreFinderPage extends AppCompatActivity {
 
     private void onSearch(String searchText){
         searchProgress.setVisibility(View.VISIBLE);
+        emptySearchFrame.setVisibility(View.GONE);
 
         // Before proceeding in searching stores,
         // fetch first the associated relations
@@ -118,7 +123,13 @@ public class StoreFinderPage extends AppCompatActivity {
                 storeFinderPageAdapter.notifyDataSetChanged();
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
-            .addOnCompleteListener(task-> searchProgress.setVisibility(View.GONE))
+            .addOnCompleteListener(task->{
+                searchProgress.setVisibility(View.GONE);
+
+                if (searchedStores.isEmpty()){
+                    emptySearchFrame.setVisibility(View.VISIBLE);
+                }
+            })
         ;
     }
 
@@ -127,6 +138,7 @@ public class StoreFinderPage extends AppCompatActivity {
     }
 
     private void clearSearchStores(){
+        emptySearchFrame.setVisibility(View.VISIBLE);
         searchedStores.clear();
         storeFinderPageAdapter.notifyDataSetChanged();
     }
