@@ -1,4 +1,4 @@
-package com.projectfkklp.saristorepos.adapters;
+package com.projectfkklp.saristorepos.activities.transaction.transaction_history;
 
 import android.view.LayoutInflater;
 import android.view.View;

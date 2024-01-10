@@ -1,27 +1,26 @@
-package com.projectfkklp.saristorepos.adapters;
+package com.projectfkklp.saristorepos.activities.pos;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
-import android.widget.Button;
+
 import android.widget.Toast;
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.pos.PosCheckoutPage;
 import com.projectfkklp.saristorepos.models.Product;
 
-public class CheckoutPageAdapter extends RecyclerView.Adapter<CheckoutPageAdapter.CartViewHolder> {
+public class PosCheckoutPageAdapter extends RecyclerView.Adapter<PosCheckoutPageRecycler> {
 
     private final Context context;
     private final List<Product> dataList;
     private OnQuantityChangeListener quantityChangeListener;
 
-    public CheckoutPageAdapter(Context context, List<Product> dataList) {
+    public PosCheckoutPageAdapter(Context context, List<Product> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
@@ -36,13 +35,13 @@ public class CheckoutPageAdapter extends RecyclerView.Adapter<CheckoutPageAdapte
 
     @NonNull
     @Override
-    public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PosCheckoutPageRecycler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pos_checkout_recycler_view, parent, false);
-        return new CartViewHolder(view);
+        return new PosCheckoutPageRecycler(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PosCheckoutPageRecycler holder, int position) {
         Product cartItem = dataList.get(position);
 
         holder.cartProduct.setText(cartItem.getProduct());
@@ -89,12 +88,12 @@ public class CheckoutPageAdapter extends RecyclerView.Adapter<CheckoutPageAdapte
     }
 
     // Add this method to update button visibility based on stock
-    private void updateButtonVisibility(CartViewHolder holder, Product cartItem) {
+    private void updateButtonVisibility(PosCheckoutPageRecycler holder, Product cartItem) {
         holder.btnMinus.setEnabled(cartItem.getQuantity() > 1);
         holder.btnPlus.setEnabled(cartItem.getQuantity() < cartItem.getStock());
     }
 
-    private void updatePrice(CartViewHolder holder, Product cartItem) {
+    private void updatePrice(PosCheckoutPageRecycler holder, Product cartItem) {
         double totalPrice = cartItem.getTotalPrice();
         String formattedTotalPrice = String.format("%.2f", totalPrice);
         holder.cartPrice.setText(formattedTotalPrice);
@@ -112,19 +111,5 @@ public class CheckoutPageAdapter extends RecyclerView.Adapter<CheckoutPageAdapte
         return dataList.size();
     }
 
-    static class CartViewHolder extends RecyclerView.ViewHolder {
-        TextView cartProduct, cartPrice, quantityTextView;
-        Button btnMinus, btnPlus;
-
-        public CartViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            cartProduct = itemView.findViewById(R.id.rec2Product);
-            cartPrice = itemView.findViewById(R.id.recPrice);
-            quantityTextView = itemView.findViewById(R.id.quantityTextView);
-            btnMinus = itemView.findViewById(R.id.btnMinus);
-            btnPlus = itemView.findViewById(R.id.btnPlus);
-        }
-    }
 }
 

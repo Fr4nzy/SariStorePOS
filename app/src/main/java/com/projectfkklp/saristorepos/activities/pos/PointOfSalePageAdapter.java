@@ -1,4 +1,4 @@
-package com.projectfkklp.saristorepos.adapters;
+package com.projectfkklp.saristorepos.activities.pos;
 
 import android.content.Context;
 import android.util.Log;

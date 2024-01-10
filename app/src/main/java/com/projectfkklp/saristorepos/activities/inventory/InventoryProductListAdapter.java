@@ -1,43 +1,39 @@
-package com.projectfkklp.saristorepos.adapters;
+package com.projectfkklp.saristorepos.activities.inventory;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.inventory.InventoryProductDetailPage;
 import com.projectfkklp.saristorepos.models.Product;
 
 import java.util.List;
 
-public class InventoryPageAdapter extends RecyclerView.Adapter<InventoryPageAdapter.MyViewHolder> {
+public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryProductListRecycler> {
 
     private Context context;
     private List<Product> dataList;
 
-    public InventoryPageAdapter(Context context, List<Product> dataList) {
+    public InventoryProductListAdapter(Context context, List<Product> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public InventoryProductListRecycler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_product_list_recycler_view, parent, false);
-        return new MyViewHolder(view);
+        return new InventoryProductListRecycler(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull InventoryProductListRecycler holder, int position) {
         Product currentItem = dataList.get(position);
 
         // Use Glide to load the image
@@ -80,23 +76,5 @@ public class InventoryPageAdapter extends RecyclerView.Adapter<InventoryPageAdap
         return dataList.size();
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView recImage;
-        TextView recProduct, recPrice, recStock, outOfStockWarning;
-        CardView recCard;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            // Initialize views
-            recImage = itemView.findViewById(R.id.recImage);
-            recCard = itemView.findViewById(R.id.recCard);
-            recPrice = itemView.findViewById(R.id.recPrice);
-            recStock = itemView.findViewById(R.id.recStock);
-            recProduct = itemView.findViewById(R.id.recProduct);
-            outOfStockWarning = itemView.findViewById(R.id.outOfStockWarning);
-        }
-    }
 }
 

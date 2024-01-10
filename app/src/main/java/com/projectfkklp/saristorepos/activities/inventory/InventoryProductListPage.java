@@ -22,7 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
 import com.projectfkklp.saristorepos.models.Product;
-import com.projectfkklp.saristorepos.adapters.InventoryPageAdapter;
 import com.projectfkklp.saristorepos.R;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class InventoryProductListPage extends AppCompatActivity{
     CollectionReference productsCollection;
     ListenerRegistration eventListener;
     AlertDialog dialog;
-    InventoryPageAdapter adapter;
+    InventoryProductListAdapter adapter;
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -59,7 +58,7 @@ public class InventoryProductListPage extends AppCompatActivity{
         dataList = new ArrayList<>();
         filteredDataList = new ArrayList<>();
 
-        adapter = new InventoryPageAdapter(this, filteredDataList);
+        adapter = new InventoryProductListAdapter(this, filteredDataList);
         recyclerView.setAdapter(adapter);
 
         mAuth = FirebaseAuth.getInstance();

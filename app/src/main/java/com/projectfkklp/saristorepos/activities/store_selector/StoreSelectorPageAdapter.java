@@ -1,4 +1,4 @@
-package com.projectfkklp.saristorepos.adapters;
+package com.projectfkklp.saristorepos.activities.store_selector;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -6,8 +6,6 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class StoreSelectorPageAdapter extends RecyclerView.Adapter<StoreSelectorPageAdapter.StoreSelectorViewHolder> {
+public class StoreSelectorPageAdapter extends RecyclerView.Adapter<StoreSelectorRecycler> {
 
     private Context context;
     private List<UserStoreRelation> userStoreRelations;
@@ -35,13 +33,13 @@ public class StoreSelectorPageAdapter extends RecyclerView.Adapter<StoreSelector
 
     @NonNull
     @Override
-    public StoreSelectorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StoreSelectorRecycler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.store_selector_recycler_view, parent, false);
-        return new StoreSelectorViewHolder(view);
+        return new StoreSelectorRecycler(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StoreSelectorViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StoreSelectorRecycler holder, int position) {
         UserStoreRelation userStoreRelation = userStoreRelations.get(position);
         Optional<Store> optionalStore = stores.stream()
                 .filter(s -> Objects.equals(s.getId(), userStoreRelation.getStoreId()))
@@ -108,23 +106,4 @@ public class StoreSelectorPageAdapter extends RecyclerView.Adapter<StoreSelector
         return userStoreRelations.size();
     }
 
-    static class StoreSelectorViewHolder extends RecyclerView.ViewHolder {
-        TextView storeNameText;
-        TextView storeIdText;
-        TextView storeUserRole;
-        TextView userStatusText;
-        Button positiveButton;
-        Button negativeButton;
-
-        public StoreSelectorViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            storeNameText = itemView.findViewById(R.id.store_selector_store_name);
-            storeIdText = itemView.findViewById(R.id.store_selector_store_id);
-            storeUserRole = itemView.findViewById(R.id.store_selector_store_role);
-            userStatusText = itemView.findViewById(R.id.store_selector_store_status);
-            positiveButton = itemView.findViewById(R.id.store_selector_store_positive_action);
-            negativeButton = itemView.findViewById(R.id.store_selector_store_negative_action);
-        }
-    }
 }
