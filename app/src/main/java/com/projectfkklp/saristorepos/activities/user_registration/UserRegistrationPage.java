@@ -27,6 +27,7 @@ import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
 import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
+import com.projectfkklp.saristorepos.utils.ProgressUtils;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -85,10 +86,12 @@ public class UserRegistrationPage  extends AppCompatActivity {
         nameText.setText(name);
         if (signInMethod == SignInMethod.PHONE.value) {
             user.setPhoneUid(uid);
+            user.setPhoneNumber(identifier);
             phoneText.setText(identifier);
         }
         else {
             user.setGmailUid(uid);
+            user.setGmail(identifier);
             gmailText.setText(identifier);
         }
     }
@@ -106,16 +109,17 @@ public class UserRegistrationPage  extends AppCompatActivity {
                     }
 
                     String uid = firebaseUser.getUid();
-                    String identifier = signInMethod.value == SignInMethod.PHONE.value
-                        ? firebaseUser.getPhoneNumber()
-                        : firebaseUser.getProviderData().get(1).getEmail();
 
                     if (signInMethod.value == SignInMethod.PHONE.value) {
+                        String identifier = firebaseUser.getPhoneNumber();
                         user.setPhoneUid(uid);
+                        user.setPhoneNumber(identifier);
                         phoneText.setText(identifier);
                     }
                     else {
+                        String identifier = firebaseUser.getProviderData().get(1).getEmail();
                         user.setGmailUid(uid);
+                        user.setGmail(identifier);
                         gmailText.setText(identifier);
                     }
                 }
@@ -149,6 +153,7 @@ public class UserRegistrationPage  extends AppCompatActivity {
     }
 
     public void register(View view){
+        ProgressUtils.showDialog(this, "Registering...");
         UserManager.registerUser(user, (registrationUser, validationStatus, task)->{
             if (task == null) {
                 HashMap<String, String> errors = validationStatus.getErrors();
@@ -158,13 +163,16 @@ public class UserRegistrationPage  extends AppCompatActivity {
                 return;
             }
 
-            task.addOnSuccessListener(successTask->{
-                SessionManager.setUser(this, user);
-                Toast.makeText(this, "Registration success", Toast.LENGTH_SHORT).show();
-                ActivityUtils.navigateTo(this, StoreSelectorPage.class);
-            }).addOnFailureListener(failedTask->{
-                Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
-            });
+            task
+                .addOnSuccessListener(successTask->{
+                    SessionManager.setUser(this, user);
+                    Toast.makeText(this, "Registration success", Toast.LENGTH_SHORT).show();
+                    ActivityUtils.navigateTo(this, StoreSelectorPage.class);
+                })
+                .addOnFailureListener(failedTask->
+                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
+                )
+                .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog());
 
         });
     }

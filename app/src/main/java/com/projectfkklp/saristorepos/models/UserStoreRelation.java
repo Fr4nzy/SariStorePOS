@@ -4,6 +4,7 @@ import com.projectfkklp.saristorepos.enums.UserRole;
 import com.projectfkklp.saristorepos.enums.UserStatus;
 
 public class UserStoreRelation {
+    private String id;
     private String userId;
     private String storeId;
     private UserRole role;
@@ -15,11 +16,21 @@ public class UserStoreRelation {
     }
 
     // Constructor to initialize all fields
-    public UserStoreRelation(String userId, String storeId, UserRole role, UserStatus status) {
+    public UserStoreRelation(String id, String userId, String storeId, UserRole role, UserStatus status) {
+        this.id = id;
         this.userId = userId;
         this.storeId = storeId;
         this.role = role;
         this.status = status;
+    }
+
+    // Getter and Setter methods for 'id'
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     // Getter and Setter methods for 'userId'

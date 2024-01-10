@@ -1,14 +1,148 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.user_profile.UserProfilePage">
+    android:background="@drawable/background"
+    android:gravity="center"
+    android:orientation="vertical">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:padding="24dp"
+            android:background="@drawable/lavender_border">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/user_profile_toggle_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/edit"
+                    app:tint="@color/gray"
+                    android:onClick="toggleMode"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_profile_page_label"
+                    android:textSize="25sp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/lavender" />
+
+            </LinearLayout>
+
+            <!-- Name -->
+            <EditText
+                android:id="@+id/user_profile_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/baseline_person_24"
+                android:drawablePadding="8dp"
+                android:enabled="false"
+                android:hint="@string/string_name"
+                android:inputType="textPersonName"
+                android:textColor="@color/black"/>
+
+        <!-- Phone Number -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/user_profile_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/baseline_call_24"
+                android:drawablePadding="8dp"
+                android:hint="@string/string_phone_number"
+                android:inputType="phone"
+                android:enabled="false"
+                android:paddingEnd="32dp"
+                android:textColor="@color/black"/>
+
+            <ImageView
+                android:id="@+id/user_profile_unlink_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/baseline_link_off_24"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:onClick="showUnlinkPhoneConfirmationDialog"/>
+
+        </RelativeLayout>
+
+        <!-- Gmail -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/user_profile_gmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/baseline_email_24"
+                android:drawablePadding="8dp"
+                android:hint="@string/string_gmail"
+                android:inputType="phone"
+                android:enabled="false"
+                android:paddingEnd="32dp"
+                android:textColor="@color/black"/>
+
+            <ImageView
+                android:id="@+id/user_profile_unlink_gmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/baseline_link_off_24"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:onClick="showUnlinkGmailConfirmationDialog"/>
+
+        </RelativeLayout>
+
+        <!-- Update Button -->
+        <Button
+            android:id="@+id/user_profile_update_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_update"
+            android:visibility="gone"
+            android:enabled="false"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:onClick="updateUser"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Logout Button -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Profile Page"/>
+        android:text="@string/string_sign_out"
+        android:textSize="18sp"
+        android:textColor="@color/lavender" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

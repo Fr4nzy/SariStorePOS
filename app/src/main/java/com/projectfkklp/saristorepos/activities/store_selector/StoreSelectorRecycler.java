@@ -11,6 +11,7 @@ import com.projectfkklp.saristorepos.R;
 
 class StoreSelectorRecycler extends RecyclerView.ViewHolder {
     TextView storeNameText;
+    TextView storeAddressText;
     TextView storeIdText;
     TextView storeUserRole;
     TextView userStatusText;
@@ -21,6 +22,7 @@ class StoreSelectorRecycler extends RecyclerView.ViewHolder {
         super(itemView);
 
         storeNameText = itemView.findViewById(R.id.store_selector_store_name);
+        storeAddressText = itemView.findViewById(R.id.store_selector_store_address);
         storeIdText = itemView.findViewById(R.id.store_selector_store_id);
         storeUserRole = itemView.findViewById(R.id.store_selector_store_role);
         userStatusText = itemView.findViewById(R.id.store_selector_store_status);

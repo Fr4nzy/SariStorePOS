@@ -5,6 +5,7 @@ import com.projectfkklp.saristorepos.utils.ModelUtils;
 public class Store {
     private String id;
     private String name;
+    private String address;
 
     public Store(){
         id = ModelUtils.createShortId();
@@ -13,6 +14,12 @@ public class Store {
     public Store(String id, String name){
         this.id = id;
         this.name = name;
+    }
+
+    public Store(String id, String name, String address){
+        this.id = id;
+        this.name = name;
+        this.address = address;
     }
 
     // Getter and Setter methods for 'id'
@@ -31,5 +38,14 @@ public class Store {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    // Getter and Setter methods for 'name'
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

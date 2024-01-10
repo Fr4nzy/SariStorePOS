@@ -25,21 +25,21 @@ public class ModelUtils {
 
     public static String createShortId(int idLength) {
         Random random = new Random();
-        StringBuilder storeId = new StringBuilder();
+        StringBuilder shortId = new StringBuilder();
 
         for (int i = 0; i < idLength; i++) {
             int randomIndex = random.nextInt(ALLOWED_CHARACTERS.length());
-            storeId.append(ALLOWED_CHARACTERS.charAt(randomIndex));
+            shortId.append(ALLOWED_CHARACTERS.charAt(randomIndex));
         }
 
-        return storeId.toString();
+        return shortId.toString();
     }
 
     public static String createShortId(){
         long timeId = createUniqueCurrentTimeMS();
-        String shortId = createShortId(3);
+        String shortId = Long.toHexString(timeId) + createShortId(3);
 
-        return Long.toHexString(timeId) + shortId;
+        return shortId.toUpperCase();
     }
 
 }

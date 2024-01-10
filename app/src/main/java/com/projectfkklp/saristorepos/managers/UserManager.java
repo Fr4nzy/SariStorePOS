@@ -18,11 +18,10 @@ import java.util.List;
 
 public class UserManager {
     public static CollectionReference getCollectionReference() {
-        return  FirebaseFirestore.getInstance()
-                .collection("users");
+        return  FirebaseFirestore.getInstance().collection("users");
     }
     public static Task<Void> saveUser(User user) {
-        DocumentReference document = getCollectionReference().document(AuthenticationRepository.getCurrentUserUid());
+        DocumentReference document = getCollectionReference().document(user.getId());
 
         return document.set(user);
     }
