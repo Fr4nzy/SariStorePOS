@@ -6,18 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".activities.store_finder.StoreFinderPage"
     android:orientation="vertical">
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         app:cardCornerRadius="8dp">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp">
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
@@ -27,7 +24,6 @@
                 android:scaleType="fitCenter"
                 android:layout_marginEnd="5dp"
                 android:onClick="navigateBack"/>
-
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/store_search_view"
                 android:layout_width="match_parent"
@@ -39,20 +35,15 @@
                 app:queryHint="Search name/address/@id"
                 app:searchHintIcon="@null"
                 app:searchIcon="@drawable/search"/>
-
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ProgressBar
-            android:id="@+id/store_finder_search_progress"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/store_finder_recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
+            android:layout_height="wrap_content"/>
         <FrameLayout
             android:id="@+id/store_finder_empty_search_frame"
             android:layout_width="wrap_content"
@@ -63,10 +54,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </FrameLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/store_finder_recycler"
+        <ProgressBar
+            android:id="@+id/store_finder_search_progress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 </LinearLayout>

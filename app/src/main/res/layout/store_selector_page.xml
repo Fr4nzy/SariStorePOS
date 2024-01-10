@@ -80,14 +80,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="550dp">
-
-            <ProgressBar
-                android:id="@+id/store_selector_page_progress"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/store_selector_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="visible" />
-
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"/>
             <FrameLayout
                 android:id="@+id/store_selector_empty_frame"
                 android:layout_width="wrap_content"
@@ -99,14 +97,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
             </FrameLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/store_selector_recycler"
+            <ProgressBar
+                android:id="@+id/store_selector_page_progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"/>
-
+                android:layout_centerInParent="true" />
         </RelativeLayout>
 
             <TextView

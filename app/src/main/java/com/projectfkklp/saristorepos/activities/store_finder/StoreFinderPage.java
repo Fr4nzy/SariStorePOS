@@ -73,7 +73,7 @@ public class StoreFinderPage extends AppCompatActivity {
 
     private void initializeRecyclerView(){
         // Initialize views and set up RecyclerView
-        RecyclerView storeSelectoreRecycler = findViewById(R.id.store_finder_recycler);
+         RecyclerView storeSelectoreRecycler = findViewById(R.id.store_finder_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         storeSelectoreRecycler.setLayoutManager(layoutManager);
 
@@ -120,16 +120,11 @@ public class StoreFinderPage extends AppCompatActivity {
                     }
                 }
 
+                emptySearchFrame.setVisibility(searchedStores.isEmpty() ? View.VISIBLE: View.GONE);
                 storeFinderPageAdapter.notifyDataSetChanged();
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
-            .addOnCompleteListener(task->{
-                searchProgress.setVisibility(View.GONE);
-
-                if (searchedStores.isEmpty()){
-                    emptySearchFrame.setVisibility(View.VISIBLE);
-                }
-            })
+            .addOnCompleteListener(task-> searchProgress.setVisibility(View.GONE))
         ;
     }
 

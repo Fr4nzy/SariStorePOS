@@ -23,6 +23,7 @@ import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
 import com.projectfkklp.saristorepos.repositories.UserStoreRelationRepository;
+import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class StoreSelectorPage extends AppCompatActivity {
     private void loadAssociatedStores(){
         // Fetch Associated Stores from Firebase
         // Then, update recycler view
+        loadingProgressBar.setVisibility(View.VISIBLE);
         UserStoreRelationRepository
             .getRelationsByUserId(user.getId())
             .continueWithTask(task->{
@@ -84,6 +86,7 @@ public class StoreSelectorPage extends AppCompatActivity {
                     ? successTask.toObjects(Store.class)
                     : new ArrayList<>();
                 initializeRecyclerView();
+                emptyFrame.setVisibility(stores.isEmpty()? View.VISIBLE: View.GONE);
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
             .addOnCompleteListener(task-> loadingProgressBar.setVisibility(View.GONE))
@@ -107,11 +110,6 @@ public class StoreSelectorPage extends AppCompatActivity {
         // If no stores to display,
         // Then display empty fragment frame
         // And no need to setup recycler view
-        if (stores.isEmpty()){
-            emptyFrame.setVisibility(View.VISIBLE);
-            return;
-        }
-
         // Set up RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         storeSelectorRecycler.setLayoutManager(layoutManager);
