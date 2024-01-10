@@ -4,7 +4,7 @@
     android:background="@android:color/white">
 
     <ImageView
-        android:id="@+id/emptyImage"
+        android:id="@+id/fragment_empty_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_centerInParent="true"
@@ -12,13 +12,13 @@
         android:src="@drawable/empty_icon" />
 
     <TextView
-        android:id="@+id/emptyText"
+        android:id="@+id/fragment_empty_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No Content Available"
         android:textSize="18sp"
         android:textColor="@android:color/darker_gray"
-        android:layout_below="@id/emptyImage"
+        android:layout_below="@id/fragment_empty_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"/>
 
