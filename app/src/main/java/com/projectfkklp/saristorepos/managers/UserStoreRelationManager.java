@@ -21,8 +21,9 @@ public class UserStoreRelationManager {
     }
 
     public static void request(Context context, Store store, UserRole userRole, OnSetFirebaseDocument onSetFirebaseDocument){
-        String documentId = ModelUtils.createUUID();
+        String id = ModelUtils.createUUID();
         UserStoreRelation userStoreRelation = new UserStoreRelation(
+            id,
             SessionRepository.getCurrentUser(context).getId(),
             store.getId(),
             userRole,
@@ -32,7 +33,7 @@ public class UserStoreRelationManager {
         UserStoreRelationValidator.validate(context, userStoreRelation, validationStatus -> {
             if (validationStatus.isValid()) {
                 getCollectionReference()
-                    .document(documentId)
+                    .document(id)
                     .set(userStoreRelation)
                     .addOnSuccessListener(onSetFirebaseDocument::onSuccess)
                     .addOnFailureListener(onSetFirebaseDocument::onFailed)
@@ -43,4 +44,14 @@ public class UserStoreRelationManager {
             }
         });
     }
+
+    public static Task<Void> delete(String userStoreRelationId){
+        return getCollectionReference().document(userStoreRelationId).delete();
+    }
+
+    public static Task<Void> accept(UserStoreRelation userStoreRelation){
+        userStoreRelation.setStatus(UserStatus.ACTIVE);
+        return getCollectionReference().document(userStoreRelation.getId()).set(userStoreRelation);
+    }
+
 }

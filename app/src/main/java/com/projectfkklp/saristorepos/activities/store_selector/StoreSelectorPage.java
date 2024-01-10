@@ -7,71 +7,88 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.store_finder.StoreFinderPage;
 import com.projectfkklp.saristorepos.activities.store_registration.StoreRegistrationPage;
 import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
-import com.projectfkklp.saristorepos.adapters.CheckoutPageAdapter;
-import com.projectfkklp.saristorepos.adapters.StoreSelectorPageAdapter;
-import com.projectfkklp.saristorepos.enums.UserRole;
-import com.projectfkklp.saristorepos.enums.UserStatus;
+import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.models.UserStoreRelation;
 import com.projectfkklp.saristorepos.models.Store;
+import com.projectfkklp.saristorepos.repositories.SessionRepository;
+import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.repositories.UserStoreRelationRepository;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class StoreSelectorPage extends AppCompatActivity {
-    StoreSelectorPageAdapter storeSelectorPageAdapter;
-
-    private ArrayList<UserStoreRelation> userStoreRelations;
-    private ArrayList<Store> stores;
+    ProgressBar loadingProgressBar;
+    TextView userNameText;
+    RecyclerView storeSelectorRecycler;
+    StoreSelectorAdapter storeSelectorPageAdapter;
+    private User user;
+    private List<UserStoreRelation> userStoreRelations;
+    private List<Store> stores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.store_selector_page);
 
-        initializeDummyItems();
-        sortUserStoreRelations();
-        initializeRecyclerView();
+        user = SessionRepository.getCurrentUser(this);
+        initializeViews();
     }
 
-    private void initializeDummyItems(){
-        String[] storeIds = new String[]{
-            "17f1e065a4f001",
-            "17f1e065a4f002",
-            "17f1e065a4f003",
-            "17f1e065a4f004",
-            "17f1e065a4f005",
-            "17f1e065a4f006",
-            "17f1e065a4f007"
-        };
-        userStoreRelations = new ArrayList<>();
-        stores = new ArrayList<>();
+    @Override
+    protected void onStart() {
+        // we use OnStart lice cycle
+        // to reload (re-fetch from firebase) the associated stores
+        // specially, when we pause this activity
+        // e.g. we go to StoreFinderPage, and get back to this page
+        // So the changes made can reflect here
+        super.onStart();
 
-        userStoreRelations.add(new UserStoreRelation("", storeIds[0], UserRole.ASSISTANT, UserStatus.ACTIVE));
-        stores.add(new Store(storeIds[0], "Store A"));
+        loadAssociatedStores();
+    }
 
-        userStoreRelations.add(new UserStoreRelation("", storeIds[1], UserRole.ASSISTANT, UserStatus.INVITED));
-        stores.add(new Store(storeIds[1], "Store B"));
+    private void loadAssociatedStores(){
+        // Fetch Associated Stores from Firebase
+        // Then, update recycler view
+        UserStoreRelationRepository
+            .getRelationsByUserId(user.getId())
+            .continueWithTask(task->{
+                // Fetch userStoreRelations from the task
+                userStoreRelations = task.getResult().toObjects(UserStoreRelation.class);
+                sortUserStoreRelations();
 
-        userStoreRelations.add(new UserStoreRelation("", storeIds[2], UserRole.ASSISTANT, UserStatus.REQUESTED));
-        stores.add(new Store(storeIds[2], "Store C"));
+                // extract store ids
+                List<String> storeIds = userStoreRelations.stream()
+                        .map(UserStoreRelation::getStoreId)
+                        .collect(Collectors.toList());
 
-        userStoreRelations.add(new UserStoreRelation("", storeIds[3], UserRole.OWNER, UserStatus.ACTIVE));
-        stores.add(new Store(storeIds[3], "Store D"));
+                // continue by fetching associated stores using extracted store ids
+                return StoreRepository.getStoresByIds(storeIds);
+            })
+            .addOnSuccessListener(successTask->{
+                stores = successTask.toObjects(Store.class);
+                initializeRecyclerView();
+            })
+            .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
+            .addOnCompleteListener(task-> loadingProgressBar.setVisibility(View.GONE))
+        ;
+    }
 
-        userStoreRelations.add(new UserStoreRelation("", storeIds[4], UserRole.OWNER, UserStatus.INVITED));
-        stores.add(new Store(storeIds[4], "Store E"));
+    private  void initializeViews(){
+        userNameText = findViewById(R.id.store_selector_page_user_name);
+        storeSelectorRecycler = findViewById(R.id.store_selector_recycler);
+        loadingProgressBar = findViewById(R.id.store_selector_page_progress);
 
-        userStoreRelations.add(new UserStoreRelation("", storeIds[5], UserRole.OWNER, UserStatus.REQUESTED));
-        stores.add(new Store(storeIds[5], "Store F"));
-
-        userStoreRelations.add(new UserStoreRelation("", storeIds[6], UserRole.OWNER, UserStatus.ACTIVE));
-        stores.add(new Store(storeIds[6], "Store G"));
+        userNameText.setText(user.getName());
     }
 
     private void sortUserStoreRelations(){
@@ -79,14 +96,13 @@ public class StoreSelectorPage extends AppCompatActivity {
     }
 
     private void initializeRecyclerView(){
-        // Initialize views and set up RecyclerView
-        RecyclerView storeSelectoreRecycler = findViewById(R.id.store_selector_recycler);
+        // Set up RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        storeSelectoreRecycler.setLayoutManager(layoutManager);
+        storeSelectorRecycler.setLayoutManager(layoutManager);
 
         // Set up adapter
-        storeSelectorPageAdapter = new StoreSelectorPageAdapter(this, userStoreRelations, stores);
-        storeSelectoreRecycler.setAdapter(storeSelectorPageAdapter);
+        storeSelectorPageAdapter = new StoreSelectorAdapter(this, userStoreRelations, stores);
+        storeSelectorRecycler.setAdapter(storeSelectorPageAdapter);
     }
 
     public void gotoUserProfilePage(View view){

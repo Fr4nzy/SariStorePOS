@@ -32,6 +32,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/store_selector_page_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Juan Dela Cruz"
@@ -75,23 +76,36 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/store_selector_recycler"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:nestedScrollingEnabled="false"/>
+            android:layout_height="match_parent"
+            android:minHeight="550dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Register your own store"
-            android:minHeight="48dp"
-            android:padding="8dp"
-            android:textColor="@color/lavender"
-            android:textSize="15sp"
-            android:onClick="gotoStoreRegistrationPage"/>
+            <ProgressBar
+                android:id="@+id/store_selector_page_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="visible" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/store_selector_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"/>
+
+        </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Register your own store"
+                android:minHeight="48dp"
+                android:padding="8dp"
+                android:textColor="@color/lavender"
+                android:textSize="15sp"
+                android:onClick="gotoStoreRegistrationPage"/>
 
     </LinearLayout>
 

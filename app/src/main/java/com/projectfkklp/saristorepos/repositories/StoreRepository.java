@@ -35,6 +35,12 @@ public class StoreRepository {
         return Tasks.whenAllSuccess(nameQuery, addressQuery, idQuery, associatedStores);
     }
 
+    public static Task<QuerySnapshot> getStoresByIds(List<String> storeIds){
+        return getCollectionReference()
+            .whereIn("id", storeIds)
+            .get();
+    }
+
 }
 
 
