@@ -17,4 +17,6 @@
     <string name="string_phone_number">Phone Number</string>
     <string name="string_gmail">Gmail</string>
     <string name="string_sign_out">Sign Out</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

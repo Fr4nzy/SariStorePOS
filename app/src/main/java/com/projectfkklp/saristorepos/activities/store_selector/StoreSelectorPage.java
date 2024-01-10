@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,12 +23,14 @@ import com.projectfkklp.saristorepos.repositories.StoreRepository;
 import com.projectfkklp.saristorepos.repositories.UserStoreRelationRepository;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class StoreSelectorPage extends AppCompatActivity {
     ProgressBar loadingProgressBar;
+    FrameLayout emptyFrame;
     TextView userNameText;
     RecyclerView storeSelectorRecycler;
     StoreSelectorAdapter storeSelectorPageAdapter;
@@ -75,7 +78,9 @@ public class StoreSelectorPage extends AppCompatActivity {
                 return StoreRepository.getStoresByIds(storeIds);
             })
             .addOnSuccessListener(successTask->{
-                stores = successTask.toObjects(Store.class);
+                stores = successTask != null
+                    ? successTask.toObjects(Store.class)
+                    : new ArrayList<>();
                 initializeRecyclerView();
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
@@ -87,6 +92,7 @@ public class StoreSelectorPage extends AppCompatActivity {
         userNameText = findViewById(R.id.store_selector_page_user_name);
         storeSelectorRecycler = findViewById(R.id.store_selector_recycler);
         loadingProgressBar = findViewById(R.id.store_selector_page_progress);
+        emptyFrame = findViewById(R.id.store_selector_empty_frame);
 
         userNameText.setText(user.getName());
     }
@@ -96,6 +102,14 @@ public class StoreSelectorPage extends AppCompatActivity {
     }
 
     private void initializeRecyclerView(){
+        // If no stores to display,
+        // Then display empty fragment frame
+        // And no need to setup recycler view
+        if (stores.isEmpty()){
+            emptyFrame.setVisibility(View.VISIBLE);
+            return;
+        }
+
         // Set up RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         storeSelectorRecycler.setLayoutManager(layoutManager);

@@ -99,7 +99,9 @@ public class StoreFinderPage extends AppCompatActivity {
 
                 List<Object> toMergeResults = results.subList(0, 3);
                 QuerySnapshot associatedStoresResult = (QuerySnapshot) results.get(3);
-                List<Store> associatedStores = associatedStoresResult.toObjects(Store.class);
+                List<Store> associatedStores = associatedStoresResult != null
+                    ? associatedStoresResult.toObjects(Store.class)
+                    : new ArrayList<>();
 
                 for (DocumentSnapshot document : RepositoryUtils.mergeResults(toMergeResults)) {
                     Store store = document.toObject(Store.class);

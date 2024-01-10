@@ -87,6 +87,19 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:visibility="visible" />
+
+            <FrameLayout
+                android:id="@+id/store_selector_empty_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone">
+                <fragment
+                    android:name="com.projectfkklp.saristorepos.fragments.EmptyFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </FrameLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/store_selector_recycler"
                 android:layout_width="match_parent"

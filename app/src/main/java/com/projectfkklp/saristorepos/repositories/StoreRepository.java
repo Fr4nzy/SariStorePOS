@@ -19,26 +19,35 @@ public class StoreRepository {
     public static Task<List<Object>> searchStores(String searchText, List<String> associatedStoreIds){
         CollectionReference collectionRef = getCollectionReference();
 
-        Task<QuerySnapshot> nameQuery = collectionRef
-                .where(RepositoryUtils.match("name", searchText))
-                .get();
-        Task<QuerySnapshot> addressQuery = collectionRef
-                .where(RepositoryUtils.match("address", searchText))
-                .get();
-        Task<QuerySnapshot> idQuery = collectionRef
-                .where(RepositoryUtils.match("id", searchText))
-                .get();
-        Task<QuerySnapshot> associatedStores = collectionRef
+        Task<QuerySnapshot> nameTask = collectionRef
+            .where(RepositoryUtils.match("name", searchText))
+            .get();
+        Task<QuerySnapshot> addressTask = collectionRef
+            .where(RepositoryUtils.match("address", searchText))
+            .get();
+        Task<QuerySnapshot> idTask = collectionRef
+            .where(RepositoryUtils.match("id", searchText))
+            .get();
+
+        Task<QuerySnapshot> associatedStoresTask;
+        if (!associatedStoreIds.isEmpty()) {
+            associatedStoresTask = collectionRef
                 .where(Filter.inArray("id", associatedStoreIds))
                 .get();
+        } else {
+            // Handle the case when associatedStoreIds is empty
+            associatedStoresTask = Tasks.forResult(null);
+        }
 
-        return Tasks.whenAllSuccess(nameQuery, addressQuery, idQuery, associatedStores);
+        return Tasks.whenAllSuccess(nameTask, addressTask, idTask, associatedStoresTask);
     }
 
     public static Task<QuerySnapshot> getStoresByIds(List<String> storeIds){
-        return getCollectionReference()
-            .whereIn("id", storeIds)
-            .get();
+        return storeIds.isEmpty()
+            ? Tasks.forResult(null)
+            : getCollectionReference()
+                .whereIn("id", storeIds)
+                .get();
     }
 
 }
