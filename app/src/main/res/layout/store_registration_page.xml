@@ -18,7 +18,7 @@
         android:layout_marginBottom="0dp"
         android:foregroundGravity="center"
         android:paddingBottom="0dp"
-        android:src="@drawable/store1" />
+        android:src="@drawable/store_colored" />
 
     <TextView
         android:layout_width="match_parent"

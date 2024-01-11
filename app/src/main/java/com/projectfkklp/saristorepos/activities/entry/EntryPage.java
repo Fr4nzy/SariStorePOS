@@ -35,19 +35,16 @@ public class EntryPage extends AppCompatActivity {
     }
 
     private void checkSessions() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (SessionRepository.getCurrentUser(activity) == null) {
-                    // User session not exists, go to login page
-                    ActivityUtils.navigateTo( activity, UserLoginPage.class);
-                } else if (SessionRepository.getCurrentStore(activity) == null) {
-                    // Store session not exists, go to store selector page
-                    ActivityUtils.navigateTo(activity, StoreSelectorPage.class);
-                } else {
-                    // Both user and store sessions exist, go to dashboard
-                    ActivityUtils.navigateTo(activity,DashboardPage.class);
-                }
+        new Handler().postDelayed(() -> {
+            if (SessionRepository.getCurrentUser(activity) == null) {
+                // User session not exists, go to login page
+                ActivityUtils.navigateTo( activity, UserLoginPage.class);
+            } else if (SessionRepository.getCurrentStore(activity) == null) {
+                // Store session not exists, go to store selector page
+                ActivityUtils.navigateTo(activity, StoreSelectorPage.class);
+            } else {
+                // Both user and store sessions exist, go to dashboard
+                ActivityUtils.navigateTo(activity, DashboardPage.class);
             }
         }, 1000);
     }
