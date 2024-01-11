@@ -17,7 +17,6 @@ import com.projectfkklp.saristorepos.enums.UserStatus;
 import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.managers.UserStoreRelationManager;
 import com.projectfkklp.saristorepos.models.Store;
-import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.models.UserStoreRelation;
 import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
