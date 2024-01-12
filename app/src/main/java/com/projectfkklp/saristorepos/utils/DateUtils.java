@@ -12,13 +12,17 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DateUtils {
-    private static final SimpleDateFormat TIMESTAMP_FORMAT = new SimpleDateFormat(
+    public static final SimpleDateFormat TIMESTAMP_FORMAT = new SimpleDateFormat(
             "yyyy-MM-dd HH:mm:ss",
             Locale.getDefault()
     );
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
             "yyyy-MM-dd",
+            Locale.getDefault()
+    );
+    public static final SimpleDateFormat SHORT_DATE_FORMAT = new SimpleDateFormat(
+            "dd-MMM",
             Locale.getDefault()
     );
 
