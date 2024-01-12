@@ -34,7 +34,7 @@ public class DashboardPage extends AppCompatActivity {
 
     private void generateAnalyticsChart(){
         float[] actualSales = generateRandomDoubleArray(7);
-        float[] forecastSales = generateRandomDoubleArray(13);
+        float[] forecastSales = generateRandomDoubleArray(10);
         analyticsChart.setData(actualSales, forecastSales);
     }
 
