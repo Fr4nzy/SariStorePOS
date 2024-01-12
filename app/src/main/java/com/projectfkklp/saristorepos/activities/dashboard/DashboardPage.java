@@ -2,24 +2,16 @@ package com.projectfkklp.saristorepos.activities.dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
 
-import java.util.ArrayList;
-
 public class DashboardPage extends AppCompatActivity {
+    DashboardSalesLineChart analyticsChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +21,29 @@ public class DashboardPage extends AppCompatActivity {
         // Inflate the layout using DataBinding
         // To make it possible to pass data in reusable layout
         DataBindingUtil.setContentView(this,R.layout.dashboard_page);
+
+        initializeViews();
+
+        // Dashboard Cards
+        generateAnalyticsChart();
+    }
+
+    private void initializeViews(){
+        analyticsChart = findViewById(R.id.dashboard_analytics_chart);
+    }
+
+    private void generateAnalyticsChart(){
+        float[] actualSales = generateRandomDoubleArray(7);
+        float[] forecastSales = generateRandomDoubleArray(13);
+        analyticsChart.setData(actualSales, forecastSales);
+    }
+
+    private float[] generateRandomDoubleArray(int count){
+        float[] values = new float[count];
+
+        for (int i=0;i<count;i++) values[i] = (float) (Math.random() * 2500) + 3;
+
+        return values;
     }
 
     public void gotoStoreSelector(View view){

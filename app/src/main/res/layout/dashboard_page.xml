@@ -66,7 +66,8 @@
         <GridLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:columnCount="2"
             android:rowCount="3"
             android:alignmentMode="alignMargins"
@@ -79,16 +80,17 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="15dp"
                 android:layout_column="0"
                 android:layout_row="0"
                 android:layout_columnSpan="2"
                 android:layout_margin="8dp"
                 android:layout_marginBottom="4dp">
-
-                <!-- Your content for the first CardView (e.g., icon, title, etc.) -->
-
+                <com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesLineChart
+                    android:id="@+id/dashboard_analytics_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
             </androidx.cardview.widget.CardView>
 
             <!-- Second CardView in the first row -->
@@ -97,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="15dp"
                 android:layout_margin="4dp"
                 android:layout_marginLeft="8dp">
@@ -112,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="15dp"
                 android:layout_margin="4dp"
                 android:layout_marginRight="8dp">
@@ -127,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="15dp"
                 android:layout_margin="4dp"
                 android:layout_marginLeft="8dp"
@@ -142,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="15dp"
                 android:layout_margin="4dp"
                 android:layout_marginRight="8dp"
