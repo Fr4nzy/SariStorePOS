@@ -77,7 +77,8 @@
                 android:inputType="phone"
                 android:enabled="false"
                 android:paddingEnd="32dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:onClick="changeProfilePhoneNumber"/>
 
             <ImageView
                 android:id="@+id/user_profile_unlink_phone"
@@ -107,7 +108,8 @@
                 android:inputType="phone"
                 android:enabled="false"
                 android:paddingEnd="32dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:onClick="changeProfileGmail"/>
 
             <ImageView
                 android:id="@+id/user_profile_unlink_gmail"

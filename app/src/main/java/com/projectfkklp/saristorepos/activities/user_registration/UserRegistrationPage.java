@@ -28,6 +28,8 @@ import com.projectfkklp.saristorepos.repositories.UserRepository;
 import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
+
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -124,7 +126,7 @@ public class UserRegistrationPage  extends AppCompatActivity {
                     }
                 }
                 else {
-                    Toast.makeText(this, "Already in use", Toast.LENGTH_SHORT).show();
+                    ToastUtils.show(this, "Already in Use");
                 }
             });
         }

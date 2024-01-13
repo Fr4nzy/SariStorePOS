@@ -1,9 +1,12 @@
 package com.projectfkklp.saristorepos.activities.user_profile;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,12 +14,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.firebase.ui.auth.ErrorCodes;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseUser;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.enums.AuthenticationProvider;
 import com.projectfkklp.saristorepos.models.User;
+import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
+import com.projectfkklp.saristorepos.repositories.UserRepository;
+import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.TestingUtils;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
+
+import java.util.Objects;
 
 public class UserProfilePage extends AppCompatActivity {
     ImageView iconButtonToggleMode;
@@ -32,6 +46,10 @@ public class UserProfilePage extends AppCompatActivity {
     private boolean isEditing;
     private User currentUser;
     private User editUser;
+
+    private ActivityResultLauncher<Intent> profileLauncher;
+    private AuthenticationProvider authenticationProvider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +57,11 @@ public class UserProfilePage extends AppCompatActivity {
 
         currentUser = SessionRepository.getCurrentUser(this);
 
-        initializeData();
         initializeViews();
+        initializeData();
         initializeDialogs();
+
+        profileLauncher = AuthenticationUtils.createSignInLauncher(this, this::profileSignIn);
     }
 
     private void initializeData(){
@@ -55,6 +75,8 @@ public class UserProfilePage extends AppCompatActivity {
     private void initializeViews(){
         iconButtonToggleMode = findViewById(R.id.user_profile_toggle_mode);
         profileNameText = findViewById(R.id.user_profile_name);
+        phoneText = findViewById(R.id.user_profile_phone);
+        gmailText = findViewById(R.id.user_profile_gmail);
         unlinkPhoneButton = findViewById(R.id.user_profile_unlink_phone);
         unlinkGmailButton = findViewById(R.id.user_profile_unlink_gmail);
         updateButton = findViewById(R.id.user_profile_update_button);
@@ -78,11 +100,49 @@ public class UserProfilePage extends AppCompatActivity {
             }
         });
 
-        phoneText = findViewById(R.id.user_profile_phone);
-        gmailText = findViewById(R.id.user_profile_gmail);
-
         phoneText.setText(currentUser.getPhoneNumber());
+        phoneText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                editUser.setPhoneUid(editable.toString());
+                updateButton.setEnabled(hasEdits());
+            }
+        });
+
         gmailText.setText(currentUser.getGmail());
+        gmailText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                editUser.setGmailUid(editable.toString());
+                updateButton.setEnabled(hasEdits());
+            }
+        });
+    }
+
+    public void changeProfilePhoneNumber(View view){
+        profileLauncher.launch(AuthenticationUtils.PHONE_SIGN_IN_INTENT);
+        authenticationProvider = AuthenticationProvider.PHONE;
+    }
+
+    public void changeProfileGmail(View view){
+        profileLauncher.launch(AuthenticationUtils.GMAIL_SIGN_IN_INTENT);
+        authenticationProvider = AuthenticationProvider.GMAIL;
     }
 
     private void initializeDialogs(){
@@ -181,5 +241,51 @@ public class UserProfilePage extends AppCompatActivity {
             disableEditing();
             ProgressUtils.dismissDialog();
         });
+    }
+
+    private void profileSignIn(@NonNull ActivityResult result) {
+        if (result.getResultCode() == RESULT_OK) {
+            FirebaseUser firebaseUser = AuthenticationRepository.getCurrentAuthentication();
+            UserRepository.getUserByAuthentication(authenticationProvider, signedInUser -> {
+                if (signedInUser == null) {
+                    String name = firebaseUser.getDisplayName();
+
+                    if (name != null) {
+                        currentUser.setName(name);
+                        profileNameText.setText(name);
+                    }
+
+                    String uid = firebaseUser.getUid();
+
+                    if (authenticationProvider.value == AuthenticationProvider.PHONE.value) {
+                        String identifier = firebaseUser.getPhoneNumber();
+                        currentUser.setPhoneUid(uid);
+                        currentUser.setPhoneNumber(identifier);
+                        phoneText.setText(identifier);
+                    }
+                    else {
+                        String identifier = firebaseUser.getProviderData().get(1).getEmail();
+                        currentUser.setGmailUid(uid);
+                        currentUser.setGmail(identifier);
+                        gmailText.setText(identifier);
+                    }
+                }
+                else {
+                    ToastUtils.show(this, "Already in Use");
+                }
+            });
+        }
+        else {
+            // Sign in failed
+            IdpResponse response = IdpResponse.fromResultIntent(result.getData());
+            if (response == null) {
+                Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
+            }
+            else if (Objects.requireNonNull(response.getError()).getErrorCode() == ErrorCodes.NO_NETWORK) {
+                Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Unknown error occurred", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

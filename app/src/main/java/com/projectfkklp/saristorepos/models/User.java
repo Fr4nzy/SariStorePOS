@@ -51,7 +51,6 @@ public class User {
     public String getGmail() {
         return gmail;
     }
-
     public String getGmailUid() {
         return gmailUid;
     }
