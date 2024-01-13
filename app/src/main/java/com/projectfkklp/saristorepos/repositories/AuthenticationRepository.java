@@ -16,4 +16,6 @@ public class AuthenticationRepository {
     public static String getCurrentAuthenticationUid() {
         return getCurrentAuthentication().getUid();
     }
+
+
 }

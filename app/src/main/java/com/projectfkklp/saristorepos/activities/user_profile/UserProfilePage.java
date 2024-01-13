@@ -3,6 +3,7 @@ package com.projectfkklp.saristorepos.activities.user_profile;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.User;
+import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.TestingUtils;
 
@@ -35,6 +37,8 @@ public class UserProfilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile_page);
 
+        currentUser = SessionRepository.getCurrentUser(this);
+
         initializeData();
         initializeViews();
         initializeDialogs();
@@ -42,8 +46,9 @@ public class UserProfilePage extends AppCompatActivity {
 
     private void initializeData(){
         isEditing=false;
+
         // dummy currentUser
-        currentUser = new User("Juan Dela Cruz", "", "");
+        /*currentUser = new User("Juan Dela Cruz", "", "");*/
         editUser = new User(currentUser.getName(), currentUser.getPhoneUid(), currentUser.getGmailUid());
     }
 
@@ -75,6 +80,9 @@ public class UserProfilePage extends AppCompatActivity {
 
         phoneText = findViewById(R.id.user_profile_phone);
         gmailText = findViewById(R.id.user_profile_gmail);
+
+        phoneText.setText(currentUser.getPhoneNumber());
+        gmailText.setText(currentUser.getGmail());
     }
 
     private void initializeDialogs(){
