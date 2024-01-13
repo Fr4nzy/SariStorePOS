@@ -3,7 +3,7 @@ package com.projectfkklp.saristorepos.repositories;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.projectfkklp.saristorepos.enums.SignInMethod;
+import com.projectfkklp.saristorepos.enums.AuthenticationProvider;
 import com.projectfkklp.saristorepos.interfaces.OnUserRetrieve;
 import com.projectfkklp.saristorepos.models.User;
 
@@ -15,12 +15,12 @@ public class UserRepository {
             .collection("users");
     }
 
-    public static  void getSignedInUser(SignInMethod signInMethod, OnUserRetrieve callback){
-        String userUid = AuthenticationRepository.getCurrentUserUid();
+    public static void getUserByAuthentication(AuthenticationProvider authenticationProvider, OnUserRetrieve callback){
+        String authenticationUid = AuthenticationRepository.getCurrentAuthenticationUid();
 
         getCollectionReference()
             .limit(1)
-            .whereEqualTo(signInMethod.uidField, userUid)
+            .whereEqualTo(authenticationProvider.key, authenticationUid)
             .get().addOnSuccessListener(task->{
                 List<User> users= task.toObjects(User.class);
                 User user = !users.isEmpty() ? users.get(0) : null;
@@ -30,7 +30,7 @@ public class UserRepository {
 
     public static void getCurrentUser(OnUserRetrieve callback){
         getCollectionReference()
-            .document(AuthenticationRepository.getCurrentUserUid())
+            .document(AuthenticationRepository.getCurrentAuthenticationUid())
             .get()
             .addOnCompleteListener(task -> {
                 DocumentSnapshot document = task.getResult();

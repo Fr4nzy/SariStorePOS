@@ -23,7 +23,7 @@ public class TransactionRepository {
     public static CollectionReference getCollectionReference() {
         return FirebaseFirestore.getInstance()
                 .collection("users")
-                .document(AuthenticationRepository.getCurrentUserUid())
+                .document(AuthenticationRepository.getCurrentAuthenticationUid())
                 .collection("transactions");
     }
 

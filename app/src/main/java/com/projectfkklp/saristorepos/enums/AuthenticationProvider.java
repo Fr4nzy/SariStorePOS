@@ -1,14 +1,14 @@
 package com.projectfkklp.saristorepos.enums;
 
-public enum SignInMethod {
+public enum AuthenticationProvider {
     PHONE(1, "phoneUid"),
     GMAIL(2, "gmailUid");
 
     public final int value;
-    public final String uidField;
+    public final String key;
 
-    SignInMethod(int value, String uidField) {
+    AuthenticationProvider(int value, String key) {
         this.value = value;
-        this.uidField = uidField;
+        this.key = key;
     }
 }

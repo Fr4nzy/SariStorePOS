@@ -27,7 +27,7 @@ public class UserManager {
     }
 
     public static Task<Void> deleteUser(){
-        DocumentReference document = getCollectionReference().document(AuthenticationRepository.getCurrentUserUid());
+        DocumentReference document = getCollectionReference().document(AuthenticationRepository.getCurrentAuthenticationUid());
 
         return document.delete();
     }
