@@ -82,7 +82,7 @@ public class UserLoginPage extends AppCompatActivity {
                     SessionManager.setUser(this, user);
                     startActivity(new Intent(this, StoreSelectorPage.class));
                 }
-            });
+            }, AuthenticationRepository.getCurrentAuthenticationUid());
         } else {
             // Sign in failed
             IdpResponse response = IdpResponse.fromResultIntent(result.getData());

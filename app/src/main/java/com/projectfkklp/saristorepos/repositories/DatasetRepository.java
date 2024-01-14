@@ -18,7 +18,7 @@ public class DatasetRepository {
     private static final String JSON_FILE = "daily_sales.json";
 
     public static void getDatasetFromFirebase(OnDatasetRetrieved onDatasetRetrieved) {
-        UserRepository.getCurrentUser(user->{
+        UserRepository.getUserByCurrentAuthentication(user->{
             List<Double> dailySales = user.getDailySales();
             Date updatedAt = user.getDailySalesUpdatedAt();
             Date currentDate = new Date();

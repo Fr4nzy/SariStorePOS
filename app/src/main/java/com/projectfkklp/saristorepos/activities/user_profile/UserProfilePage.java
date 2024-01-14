@@ -193,6 +193,8 @@ public class UserProfilePage extends AppCompatActivity {
         isEditing=true;
         iconButtonToggleMode.setImageResource(R.drawable.baseline_cancel_24);
         profileNameText.setEnabled(true);
+        phoneText.setEnabled(true); // Enable phoneText EditText
+        gmailText.setEnabled(true); // Enable gmailText EditText
 
         unlinkPhoneButton.setVisibility(View.VISIBLE);
         unlinkGmailButton.setVisibility(View.VISIBLE);
@@ -207,6 +209,10 @@ public class UserProfilePage extends AppCompatActivity {
         iconButtonToggleMode.setImageResource(R.drawable.edit);
         profileNameText.setEnabled(false);
         profileNameText.setText(currentUser.getName());
+        phoneText.setEnabled(false); // Disable phoneText EditText
+        phoneText.setText(currentUser.getPhoneNumber());
+        gmailText.setEnabled(false); // Disable gmailText EditText
+        gmailText.setText(currentUser.getGmail());
 
         unlinkPhoneButton.setVisibility(View.GONE);
         unlinkGmailButton.setVisibility(View.GONE);
@@ -273,7 +279,7 @@ public class UserProfilePage extends AppCompatActivity {
                 else {
                     ToastUtils.show(this, "Already in Use");
                 }
-            });
+            }, AuthenticationRepository.getCurrentAuthenticationUid());
         }
         else {
             // Sign in failed

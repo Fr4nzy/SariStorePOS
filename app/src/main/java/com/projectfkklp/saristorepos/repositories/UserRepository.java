@@ -15,9 +15,7 @@ public class UserRepository {
             .collection("users");
     }
 
-    public static void getUserByAuthentication(AuthenticationProvider authenticationProvider, OnUserRetrieve callback){
-        String authenticationUid = AuthenticationRepository.getCurrentAuthenticationUid();
-
+    public static void getUserByAuthentication(AuthenticationProvider authenticationProvider, OnUserRetrieve callback, String authenticationUid){
         getCollectionReference()
             .limit(1)
             .whereEqualTo(authenticationProvider.key, authenticationUid)
@@ -28,7 +26,7 @@ public class UserRepository {
             });
     }
 
-    public static void getCurrentUser(OnUserRetrieve callback){
+    public static void getUserByCurrentAuthentication(OnUserRetrieve callback){
         getCollectionReference()
             .document(AuthenticationRepository.getCurrentAuthenticationUid())
             .get()

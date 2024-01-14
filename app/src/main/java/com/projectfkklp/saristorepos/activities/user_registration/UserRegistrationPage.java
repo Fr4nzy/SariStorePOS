@@ -128,7 +128,7 @@ public class UserRegistrationPage  extends AppCompatActivity {
                 else {
                     ToastUtils.show(this, "Already in Use");
                 }
-            });
+            }, AuthenticationRepository.getCurrentAuthenticationUid());
         }
         else {
             // Sign in failed

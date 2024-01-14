@@ -32,8 +32,14 @@ public class UserManager {
         return document.delete();
     }
 
+    public static Task<Void> updateUser(User user) {
+        DocumentReference document = getCollectionReference().document(user.getId());
+
+        return document.set(user);
+    }
+
     public static void updateUserDailySales(double newTransactionAmount){
-        UserRepository.getCurrentUser(user->{
+        UserRepository.getUserByCurrentAuthentication(user->{
             List<Double> dailySales = user.getDailySales();
             Date updatedAt = user.getDailySalesUpdatedAt();
             Date currentDate = new Date();
