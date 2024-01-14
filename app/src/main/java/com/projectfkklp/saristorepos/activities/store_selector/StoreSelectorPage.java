@@ -128,7 +128,8 @@ public class StoreSelectorPage extends AppCompatActivity {
     }
 
     public void gotoStoreRegistrationPage(View view){
-        startActivity(new Intent(this, StoreRegistrationPage.class));
+            Intent intent = new Intent(this, StoreRegistrationPage.class);
+            startActivity(intent);
+        }
     }
 
-}

@@ -7,7 +7,7 @@ public class Store {
     private String name;
     private String address;
 
-    public Store(){
+    public Store(String store_name){
         id = ModelUtils.createShortId();
     }
 

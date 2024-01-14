@@ -16,6 +16,9 @@
             android:name=".activities.dashboard.DashboardPage"
             android:exported="false" />
         <activity
+            android:name=".DashboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.store_finder.StoreFinderPage"
             android:exported="false" />
         <activity
