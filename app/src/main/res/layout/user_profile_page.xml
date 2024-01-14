@@ -1,6 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
@@ -67,18 +68,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <EditText
+            <TextView
                 android:id="@+id/user_profile_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/baseline_call_24"
+                android:padding="8dp"
+                android:textSize="18sp"
                 android:drawablePadding="8dp"
                 android:hint="@string/string_phone_number"
-                android:inputType="phone"
                 android:enabled="false"
-                android:paddingEnd="32dp"
                 android:textColor="@color/black"
-                android:onClick="changeProfilePhoneNumber"/>
+                android:onClick="changeProfilePhoneNumber"
+                tools:ignore="RtlSymmetry"
+                app:drawableStartCompat="@drawable/baseline_call_24" />
 
             <ImageView
                 android:id="@+id/user_profile_unlink_phone"
@@ -98,18 +100,18 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <EditText
+            <TextView
                 android:id="@+id/user_profile_gmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/baseline_email_24"
+                android:padding="8dp"
+                android:textSize="18sp"
                 android:drawablePadding="8dp"
                 android:hint="@string/string_gmail"
-                android:inputType="phone"
                 android:enabled="false"
-                android:paddingEnd="32dp"
                 android:textColor="@color/black"
-                android:onClick="changeProfileGmail"/>
+                android:onClick="changeProfileGmail"
+                app:drawableStartCompat="@drawable/baseline_email_24" />
 
             <ImageView
                 android:id="@+id/user_profile_unlink_gmail"
@@ -133,7 +135,8 @@
             android:enabled="false"
             android:gravity="center"
             android:layout_gravity="center"
-            android:onClick="updateUser"/>
+            android:onClick="updateUser" />
+
 
         </LinearLayout>
 

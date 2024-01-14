@@ -157,7 +157,7 @@ public class UserRegistrationPage  extends AppCompatActivity {
     public void register(View view){
         ProgressUtils.showDialog(this, "Registering...");
         UserManager.registerUser(user, (registrationUser, validationStatus, task)->{
-            if (task == null) {
+            if (!validationStatus.isValid()) {
                 HashMap<String, String> errors = validationStatus.getErrors();
                 if (errors.get("name") != null) {
                     nameText.setError(errors.get("name"));
