@@ -3,8 +3,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/red"
-        android:visibility="gone">
+        android:backgroundTint="@color/red">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -26,8 +25,7 @@
                     android:id="@+id/custom_error_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Error 1\nError 2\nError 3" />
+                    android:textColor="@color/white" />
             </LinearLayout>
             <TextView
                 android:id="@+id/custom_error_close"

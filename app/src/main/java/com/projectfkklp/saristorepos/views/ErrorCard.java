@@ -33,6 +33,7 @@ public class ErrorCard extends CardView {
 
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.views_error_card, this, true);
+        setVisibility(View.GONE);
 
         contentTextView = findViewById(R.id.custom_error_content);
         closeButton = findViewById(R.id.custom_error_close);
