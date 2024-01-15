@@ -53,6 +53,7 @@
             <!-- Name -->
             <EditText
                 android:id="@+id/user_profile_name"
+                android:autofillHints="name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/baseline_person_24"
@@ -70,6 +71,7 @@
 
             <TextView
                 android:id="@+id/user_profile_phone"
+                android:autofillHints="phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -102,6 +104,7 @@
 
             <TextView
                 android:id="@+id/user_profile_gmail"
+                android:autofillHints="emailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
