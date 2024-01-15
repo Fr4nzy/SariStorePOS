@@ -10,7 +10,7 @@ import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
 import com.projectfkklp.saristorepos.utils.DateUtils;
-import com.projectfkklp.saristorepos.validators.UserRegistrationValidator;
+import com.projectfkklp.saristorepos.validators.UserValidator;
 
 import java.util.Date;
 import java.util.List;
@@ -30,12 +30,6 @@ public class UserManager {
         DocumentReference document = getCollectionReference().document(AuthenticationRepository.getCurrentAuthenticationUid());
 
         return document.delete();
-    }
-
-    public static Task<Void> updateUser(User user) {
-        DocumentReference document = getCollectionReference().document(user.getId());
-
-        return document.set(user);
     }
 
     public static void updateUserDailySales(double newTransactionAmount){
@@ -72,7 +66,7 @@ public class UserManager {
     }
 
     public static void registerUser(User user, OnUserRegister onRegister){
-        ValidationStatus validationStatus = UserRegistrationValidator.validate(user);
+        ValidationStatus validationStatus = UserValidator.validate(user);
         Task<Void> task = null;
 
         if (validationStatus.isValid()) {
@@ -81,4 +75,16 @@ public class UserManager {
 
         onRegister.onUserRegister(user, validationStatus, task);
     }
+
+    public static void updateUser(User user, OnUserRegister onUpdateUser) {
+        ValidationStatus validationStatus = UserValidator.validate(user);
+        Task<Void> task = null;
+
+        if (validationStatus.isValid()) {
+            task = getCollectionReference().document(user.getId()).set(user);
+        }
+
+        onUpdateUser.onUserRegister(user, validationStatus, task);
+    }
+
 }

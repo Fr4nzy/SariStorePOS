@@ -22,18 +22,24 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseUser;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.enums.AuthenticationProvider;
+import com.projectfkklp.saristorepos.managers.SessionManager;
+import com.projectfkklp.saristorepos.managers.UserManager;
 import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
+import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
-import com.projectfkklp.saristorepos.utils.TestingUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
+import com.projectfkklp.saristorepos.views.ErrorCard;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class UserProfilePage extends AppCompatActivity {
+    ErrorCard formErrors;
     ImageView iconButtonToggleMode;
     EditText profileNameText;
     TextView phoneText;
@@ -63,16 +69,17 @@ public class UserProfilePage extends AppCompatActivity {
         initializeDialogs();
 
         profileLauncher = AuthenticationUtils.createSignInLauncher(this, this::profileSignIn);
+
     }
 
     private void initializeData(){
         isEditing=false;
-
-        editUser = new User(currentUser.getName(), currentUser.getPhoneUid(), currentUser.getGmailUid());
+        editUser = currentUser.clone();
     }
 
     private void initializeViews(){
         iconButtonToggleMode = findViewById(R.id.user_profile_toggle_mode);
+        formErrors = findViewById(R.id.user_profile_errors);
         profileNameText = findViewById(R.id.user_profile_name);
         phoneText = findViewById(R.id.user_profile_phone);
         gmailText = findViewById(R.id.user_profile_gmail);
@@ -142,7 +149,6 @@ public class UserProfilePage extends AppCompatActivity {
             enableEditing();
             return;
         }
-
         // Else, check if there are any changes
         if (hasEdits()) {
             showCancelConfirmationDialog();
@@ -153,11 +159,9 @@ public class UserProfilePage extends AppCompatActivity {
     }
 
     private boolean hasEdits() {
-        return
-            !editUser.getName().equals(currentUser.getName())
-            || !editUser.getGmailUid().equals(currentUser.getGmailUid())
-            || !editUser.getPhoneUid().equals(currentUser.getPhoneUid())
-        ;
+        return !Objects.equals(editUser.getName(), currentUser.getName())
+                || !Objects.equals(editUser.getGmailUid(), currentUser.getGmailUid())
+                || !Objects.equals(editUser.getPhoneUid(), currentUser.getPhoneUid());
     }
 
     private void enableEditing(){
@@ -180,6 +184,8 @@ public class UserProfilePage extends AppCompatActivity {
 
         iconButtonToggleMode.setImageResource(R.drawable.edit);
         profileNameText.setEnabled(false);
+        phoneText.setEnabled(false);
+        gmailText.setEnabled(false);
         profileNameText.setText(currentUser.getName());
         phoneText.setText(currentUser.getPhoneNumber());
         gmailText.setText(currentUser.getGmail());
@@ -215,10 +221,33 @@ public class UserProfilePage extends AppCompatActivity {
     }
 
     public void updateUser(View view){
-        ProgressUtils.showDialog(this, "Updating User");
-        TestingUtils.delay(1000, ()->{
-            disableEditing();
-            ProgressUtils.dismissDialog();
+        ProgressUtils.showDialog(this, "Updating...");
+        UserManager.updateUser(editUser, (updateUser, validationStatus, task)->{
+            if (!validationStatus.isValid()) {
+                ArrayList<String> errorsArray = new ArrayList<>();
+                HashMap<String, String> errors = validationStatus.getErrors();
+                if (errors.get("name") != null) {
+                    profileNameText.setError(errors.get("name"));
+                } else if (errors.get("identifier") != null) {
+                    errorsArray.add(errors.get("identifier"));
+                }
+                if (!errorsArray.isEmpty()) {
+                    formErrors.setErrors(errorsArray);
+                }
+                ProgressUtils.dismissDialog();
+                return;
+            }
+
+            task
+                .addOnSuccessListener(successTask->{
+                    SessionManager.setUser(this, editUser);
+                    Toast.makeText(this, "Updating success", Toast.LENGTH_SHORT).show();
+                    ActivityUtils.navigateTo(this, UserProfilePage.class);
+                })
+                .addOnFailureListener(failedTask->
+                        Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show()
+                )
+                .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog());
         });
     }
 
@@ -238,12 +267,14 @@ public class UserProfilePage extends AppCompatActivity {
                         currentUser.setPhoneUid(uid);
                         currentUser.setPhoneNumber(identifier);
                         phoneText.setText(identifier);
+                        unlinkPhoneButton.setVisibility(!currentUser.getPhoneNumber().isEmpty() ? View.VISIBLE : View.GONE);
                     }
                     else {
                         String identifier = firebaseUser.getProviderData().get(1).getEmail();
                         currentUser.setGmailUid(uid);
                         currentUser.setGmail(identifier);
                         gmailText.setText(identifier);
+                        unlinkGmailButton.setVisibility(!currentUser.getGmail().isEmpty() ? View.VISIBLE : View.GONE);
                     }
                 }
                 else {

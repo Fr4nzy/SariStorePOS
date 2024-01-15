@@ -162,6 +162,7 @@ public class UserRegistrationPage  extends AppCompatActivity {
                 if (errors.get("name") != null) {
                     nameText.setError(errors.get("name"));
                 }
+                ProgressUtils.dismissDialog();
                 return;
             }
 
