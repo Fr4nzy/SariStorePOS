@@ -41,4 +41,8 @@ public class StringUtils {
         return str == null || str.isEmpty();
     }
 
+    public static  String formatWithMetricPrefix(float value){
+        return formatWithMetricPrefix((long)value);
+    }
+
 }

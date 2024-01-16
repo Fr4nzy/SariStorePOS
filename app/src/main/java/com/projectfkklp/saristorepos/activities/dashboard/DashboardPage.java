@@ -7,11 +7,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
+import com.projectfkklp.saristorepos.utils.StringUtils;
+
+import java.text.DecimalFormat;
+import java.util.HashMap;
 
 public class DashboardPage extends AppCompatActivity {
     DashboardSalesLineChart analyticsChart;
+    DashboardTopPieChart topSoldChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +32,47 @@ public class DashboardPage extends AppCompatActivity {
 
         // Dashboard Cards
         generateAnalyticsChart();
+        generateTopSoldChart();
     }
 
     private void initializeViews(){
         analyticsChart = findViewById(R.id.dashboard_analytics_chart);
+        topSoldChart = findViewById(R.id.dashboard_top_sold_chart);
+        topSoldChart.initializePieChart("Top Sold Products");
     }
 
     private void generateAnalyticsChart(){
         float[] actualSales = generateRandomDoubleArray(7);
         float[] forecastSales = generateRandomDoubleArray(10);
         analyticsChart.setData(actualSales, forecastSales);
+    }
+
+    private void generateTopSoldChart() {
+        HashMap<String, Integer> soldEntries = new HashMap<>();
+        soldEntries.put("Sky flakes", 3000);
+        soldEntries.put("Coke", 2000);
+        soldEntries.put("Pepsi", 1000);
+        soldEntries.put("Other 1", 900);
+        soldEntries.put("Other 2", 800);
+        soldEntries.put("Other 3", 300);
+
+        int total = soldEntries.values().stream().mapToInt(Integer::intValue).sum();
+        topSoldChart.setData(soldEntries, new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                if (total == 0) {
+                    return "N/A"; // Avoid division by zero
+                }
+
+                float percentValue = (value / total) * 100;
+                String formattedValue = StringUtils.formatWithMetricPrefix(value);
+
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                String formattedPercent = decimalFormat.format(percentValue);
+
+                return String.format("%s (%s%%)", formattedValue, formattedPercent);
+            }
+        });
     }
 
     private float[] generateRandomDoubleArray(int count){
