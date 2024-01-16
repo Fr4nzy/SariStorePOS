@@ -146,14 +146,13 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:onClick="updateUser" />
-
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <!-- Logout Button -->
     <TextView
+        android:id="@+id/user_profile_signout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_sign_out"

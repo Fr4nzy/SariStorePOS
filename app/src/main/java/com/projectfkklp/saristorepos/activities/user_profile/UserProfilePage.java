@@ -44,6 +44,7 @@ public class UserProfilePage extends AppCompatActivity {
     EditText profileNameText;
     TextView phoneText;
     TextView gmailText;
+    TextView signOut;
     Button updateButton;
     ImageView unlinkPhoneButton;
     ImageView unlinkGmailButton;
@@ -85,6 +86,7 @@ public class UserProfilePage extends AppCompatActivity {
         unlinkPhoneButton = findViewById(R.id.user_profile_unlink_phone);
         unlinkGmailButton = findViewById(R.id.user_profile_unlink_gmail);
         updateButton = findViewById(R.id.user_profile_update_button);
+        signOut = findViewById(R.id.user_profile_signout);
 
         phoneText.setText(currentUser.getPhoneNumber());
         gmailText.setText(currentUser.getGmail());

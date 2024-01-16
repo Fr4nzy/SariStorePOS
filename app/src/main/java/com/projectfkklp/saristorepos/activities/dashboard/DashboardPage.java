@@ -21,6 +21,8 @@ public class DashboardPage extends AppCompatActivity {
     DashboardSalesLineChart analyticsChart;
     DashboardTopPieChart topSellingChart;
     DashboardTopPieChart topSoldChart;
+    DashboardTopPieChart todaySalesChart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +37,19 @@ public class DashboardPage extends AppCompatActivity {
 
         // Dashboard Cards
         generateAnalyticsChart();
+        generateTodaySalesChart();
         generateTopSellingChart();
         generateTopSoldChart();
     }
 
     private void initializeViews(){
         analyticsChart = findViewById(R.id.dashboard_analytics_chart);
+
+        todaySalesChart = findViewById(R.id.dashboard_today_sales_chart);
         topSellingChart = findViewById(R.id.dashboard_top_selling_chart);
         topSoldChart = findViewById(R.id.dashboard_top_sold_chart);
 
+        todaySalesChart.initializePieChart("Today Sales");
         topSellingChart.initializePieChart("Top Selling Product");
         topSoldChart.initializePieChart("Top Sold Products");
     }
@@ -52,6 +58,38 @@ public class DashboardPage extends AppCompatActivity {
         float[] actualSales = generateRandomDoubleArray(7);
         float[] forecastSales = generateRandomDoubleArray(10);
         analyticsChart.setData(actualSales, forecastSales);
+    }
+
+    private int getRandomSalesValue() {
+        // Adjust the range of random sales values as needed
+        return (int) (Math.random() * 1000) + 100; // Example range: 100 to 1100
+    }
+
+    private void generateTodaySalesChart() {
+        HashMap<String, Integer> todaySalesEntries = new HashMap<>();
+        todaySalesEntries.put("Product 1", getRandomSalesValue());
+        todaySalesEntries.put("Product 2", getRandomSalesValue());
+        todaySalesEntries.put("Product 3", getRandomSalesValue());
+        todaySalesEntries.put("Product 4", getRandomSalesValue());
+        todaySalesEntries.put("Product 5", getRandomSalesValue());
+
+        int totalTodaySales = todaySalesEntries.values().stream().mapToInt(Integer::intValue).sum();
+        todaySalesChart.setData(todaySalesEntries, new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                if (totalTodaySales == 0) {
+                    return "N/A"; // Avoid division by zero
+                }
+
+                float percentValue = (value / totalTodaySales) * 100;
+                String formattedValue = StringUtils.formatToPeso(value);
+
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                String formattedPercent = decimalFormat.format(percentValue);
+
+                return String.format("%s (%s%%)", formattedValue, formattedPercent);
+            }
+        });
     }
 
     private void generateTopSellingChart() {
