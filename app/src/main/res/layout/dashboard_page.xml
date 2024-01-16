@@ -117,81 +117,10 @@
                 app:cardCornerRadius="5dp"
                 app:cardElevation="15dp"
                 android:layout_margin="4dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp">
+                android:layout_marginRight="8dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="8dp">
+                <!-- Your content for the third CardView (e.g., icon, title, etc.) -->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sales and Sold Items"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="*Current vs Previous"
-                        android:textSize="7sp" />
-
-                    <!-- Adding the new LinearLayout inside the existing one -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="15dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="2dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Week"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="15dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="22dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Month"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="15dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="22dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Year"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Fourth CardView in the second row -->
