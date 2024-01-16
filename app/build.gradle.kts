@@ -57,7 +57,6 @@ dependencies {
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     implementation ("com.google.android.material:material:x.y.z")
     implementation("com.github.clans:fab:1.6.4")
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     implementation("com.google.code.gson:gson:2.8.8")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")

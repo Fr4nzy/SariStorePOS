@@ -21,6 +21,7 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseUser;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
 import com.projectfkklp.saristorepos.enums.AuthenticationProvider;
 import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.managers.UserManager;
@@ -44,6 +45,7 @@ public class UserProfilePage extends AppCompatActivity {
     EditText profileNameText;
     TextView phoneText;
     TextView gmailText;
+    TextView signOut;
     Button updateButton;
     ImageView unlinkPhoneButton;
     ImageView unlinkGmailButton;
@@ -69,6 +71,12 @@ public class UserProfilePage extends AppCompatActivity {
         initializeDialogs();
 
         profileLauncher = AuthenticationUtils.createSignInLauncher(this, this::profileSignIn);
+        signOut.setOnClickListener(view -> {
+            // Clear sessions and navigate to login page
+            SessionManager.reset(UserProfilePage.this);
+            ActivityUtils.navigateToWithFlags(UserProfilePage.this, UserLoginPage.class);
+            finish();
+        });
     }
 
     private void initializeData(){
@@ -85,6 +93,7 @@ public class UserProfilePage extends AppCompatActivity {
         unlinkPhoneButton = findViewById(R.id.user_profile_unlink_phone);
         unlinkGmailButton = findViewById(R.id.user_profile_unlink_gmail);
         updateButton = findViewById(R.id.user_profile_update_button);
+        signOut = findViewById(R.id.user_profile_signout);
 
         phoneText.setText(currentUser.getPhoneNumber());
         gmailText.setText(currentUser.getGmail());
@@ -107,7 +116,6 @@ public class UserProfilePage extends AppCompatActivity {
                 updateButton.setEnabled(hasEdits());
             }
         });
-
     }
 
     public void changeProfilePhoneNumber(View view){
@@ -193,14 +201,8 @@ public class UserProfilePage extends AppCompatActivity {
     private void showCancelConfirmationDialog(){
         cancelConfirmationDialog.show();
     }
-
-    public void showUnlinkPhoneConfirmationDialog(View view){
-        unlinkPhoneConfirmationDialog.show();
-    }
-
-    public void showUnlinkGmailConfirmationDialog(View view){
-        unlinkGmailConfirmationDialog.show();
-    }
+    public void showUnlinkPhoneConfirmationDialog(View view){   unlinkPhoneConfirmationDialog.show();   }
+    public void showUnlinkGmailConfirmationDialog(View view){   unlinkGmailConfirmationDialog.show();   }
 
     private void unlinkPhone(){
         editUser.setPhoneUid("");
