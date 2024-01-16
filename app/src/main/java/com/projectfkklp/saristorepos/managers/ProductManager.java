@@ -1,6 +1,5 @@
 package com.projectfkklp.saristorepos.managers;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -13,7 +12,7 @@ public class ProductManager {
     public static CollectionReference getCollectionReference() {
         return  FirebaseFirestore.getInstance()
                 .collection("users")
-                .document(AuthenticationRepository.getCurrentUserUid())
+                .document(AuthenticationRepository.getCurrentAuthenticationUid())
                 .collection("products");
     }
 

@@ -5,12 +5,12 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.projectfkklp.saristorepos.classes.ValidationStatus;
-import com.projectfkklp.saristorepos.interfaces.OnUserRegister;
+import com.projectfkklp.saristorepos.interfaces.OnUserSave;
 import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
 import com.projectfkklp.saristorepos.utils.DateUtils;
-import com.projectfkklp.saristorepos.validators.UserRegistrationValidator;
+import com.projectfkklp.saristorepos.validators.UserValidator;
 
 import java.util.Date;
 import java.util.List;
@@ -27,13 +27,13 @@ public class UserManager {
     }
 
     public static Task<Void> deleteUser(){
-        DocumentReference document = getCollectionReference().document(AuthenticationRepository.getCurrentUserUid());
+        DocumentReference document = getCollectionReference().document(AuthenticationRepository.getCurrentAuthenticationUid());
 
         return document.delete();
     }
 
     public static void updateUserDailySales(double newTransactionAmount){
-        UserRepository.getCurrentUser(user->{
+        UserRepository.getUserByCurrentAuthentication(user->{
             List<Double> dailySales = user.getDailySales();
             Date updatedAt = user.getDailySalesUpdatedAt();
             Date currentDate = new Date();
@@ -65,14 +65,15 @@ public class UserManager {
         });
     }
 
-    public static void registerUser(User user, OnUserRegister onRegister){
-        ValidationStatus validationStatus = UserRegistrationValidator.validate(user);
+    public static void saveUser(User user, OnUserSave onUserSave){
+        ValidationStatus validationStatus = UserValidator.validate(user);
         Task<Void> task = null;
 
         if (validationStatus.isValid()) {
             task = getCollectionReference().document(user.getId()).set(user);
         }
 
-        onRegister.onUserRegister(user, validationStatus, task);
+        onUserSave.onUserSave(user, validationStatus, task);
     }
+
 }

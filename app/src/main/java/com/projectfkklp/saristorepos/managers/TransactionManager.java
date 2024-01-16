@@ -14,7 +14,7 @@ public class TransactionManager extends  BaseManager{
     public static CollectionReference getCollectionReference() {
         return  FirebaseFirestore.getInstance()
             .collection("users")
-            .document(AuthenticationRepository.getCurrentUserUid())
+            .document(AuthenticationRepository.getCurrentAuthenticationUid())
             .collection("transactions");
     }
 
