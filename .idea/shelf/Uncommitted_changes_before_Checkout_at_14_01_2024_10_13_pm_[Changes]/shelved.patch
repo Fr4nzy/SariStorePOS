@@ -1,0 +1,485 @@
+Index: app/src/main/res/layout/dashboard_page.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<layout xmlns:tools=\"http://schemas.android.com/tools\"\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\">\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        tools:context=\".activities.dashboard.DashboardPage\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <androidx.cardview.widget.CardView\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginHorizontal=\"8dp\"\r\n            android:layout_marginTop=\"8dp\"\r\n            app:cardCornerRadius=\"10dp\"\r\n            app:cardElevation=\"20dp\">\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:gravity=\"center\"\r\n                android:padding=\"8dp\"\r\n                android:onClick=\"gotoStoreSelector\">\r\n                <ImageView\r\n                    android:layout_width=\"32dp\"\r\n                    android:layout_height=\"32dp\"\r\n                    android:src=\"@drawable/store_colored\"\r\n                    android:layout_gravity=\"center\" />\r\n                <LinearLayout\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:orientation=\"vertical\"\r\n                    android:layout_marginLeft=\"5dp\">\r\n                    <TextView\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:maxLines=\"1\"\r\n                        android:ellipsize=\"end\"\r\n                        android:text=\"ALING NENA'S SARI SARI STORE\"\r\n                        android:textSize=\"12dp\"\r\n                        android:textStyle=\"bold\"\r\n                        />\r\n                    <TextView\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:maxLines=\"1\"\r\n                        android:ellipsize=\"end\"\r\n                        android:text=\"SITIO TUROD, BRGY CASILAGAN, MANGATAREM, PANGASINAN\"\r\n                        android:textSize=\"9dp\"\r\n                        />\r\n                </LinearLayout>\r\n                <com.google.android.material.button.MaterialButton\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:textSize=\"9sp\"\r\n                    android:layout_marginStart=\"10dp\"\r\n                    android:text=\"+ Transact\"\r\n                    android:backgroundTint=\"@color/black\"\r\n                    android:textStyle=\"bold\"\r\n                    app:cornerRadius=\"25dp\"\r\n                    />\r\n            </LinearLayout>\r\n        </androidx.cardview.widget.CardView>\r\n\r\n        <GridLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\"\r\n            android:columnCount=\"2\"\r\n            android:rowCount=\"3\"\r\n            android:alignmentMode=\"alignMargins\"\r\n            android:columnOrderPreserved=\"false\"\r\n            android:background=\"#00000000\">\r\n\r\n            <!-- First CardView in the first row -->\r\n            <androidx.cardview.widget.CardView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_columnWeight=\"1\"\r\n                android:layout_rowWeight=\"1\"\r\n                app:cardCornerRadius=\"5dp\"\r\n                app:cardElevation=\"15dp\"\r\n                android:layout_column=\"0\"\r\n                android:layout_row=\"0\"\r\n                android:layout_columnSpan=\"2\"\r\n                android:layout_margin=\"8dp\"\r\n                android:layout_marginBottom=\"4dp\">\r\n                <com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesLineChart\r\n                    android:id=\"@+id/dashboard_analytics_chart\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"/>\r\n            </androidx.cardview.widget.CardView>\r\n\r\n            <!-- Second CardView in the first row -->\r\n            <androidx.cardview.widget.CardView\r\n                android:id=\"@+id/chart1\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"20dp\"\r\n                android:layout_columnWeight=\"1\"\r\n                android:layout_rowWeight=\"1\"\r\n                app:cardCornerRadius=\"5dp\"\r\n                app:cardElevation=\"15dp\"\r\n                android:layout_margin=\"4dp\"\r\n                android:layout_marginLeft=\"8dp\">\r\n\r\n                <!-- Your content for the second CardView (e.g., icon, title, etc.) -->\r\n\r\n            </androidx.cardview.widget.CardView>\r\n\r\n            <!-- Third CardView in the second row -->\r\n            <androidx.cardview.widget.CardView\r\n                android:id=\"@+id/chart2\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"20dp\"\r\n                android:layout_columnWeight=\"1\"\r\n                android:layout_rowWeight=\"1\"\r\n                app:cardCornerRadius=\"5dp\"\r\n                app:cardElevation=\"15dp\"\r\n                android:layout_margin=\"4dp\"\r\n                android:layout_marginRight=\"8dp\">\r\n\r\n                <TextView\r\n                    android:id=\"@+id/tv1\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:padding=\"5dp\"\r\n                    android:text=\"Sales and Sold Items\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"15sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <!-- Second TextView -->\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_gravity=\"center_horizontal\"\r\n                    android:layout_marginTop=\"25dp\">\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/tv2\"\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:text=\"*Current vs Previous\"\r\n                        android:textSize=\"12sp\"/>\r\n                </LinearLayout>\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:orientation=\"horizontal\"\r\n                    android:weightSum=\"2\">\r\n\r\n                <!--Pie chart to display the data-->\r\n\r\n                <!--Creating another linear layout -->\r\n                <!-- to display pie chart details -->\r\n                <LinearLayout\r\n                    android:id=\"@+id/ll1\"\r\n                    android:layout_width=\"30dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"10dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:gravity=\"center_vertical\"\r\n                    android:orientation=\"vertical\">\r\n\r\n                    <LinearLayout\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"15dp\"\r\n                        android:layout_gravity=\"center_vertical\"\r\n                        android:layout_marginTop=\"22dp\">\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"Week\"\r\n                            android:textStyle=\"bold\" />\r\n\r\n                    </LinearLayout>\r\n\r\n                    <!--Linear layout to display Python-->\r\n                    <LinearLayout\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"15dp\"\r\n                        android:layout_gravity=\"center_vertical\"\r\n                        android:layout_marginTop=\"22dp\">\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"Month\"\r\n                            android:textStyle=\"bold\" />\r\n\r\n                    </LinearLayout>\r\n\r\n                    <!--Linear layout to display C++-->\r\n                    <LinearLayout\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"15dp\"\r\n                        android:layout_gravity=\"center_vertical\"\r\n                        android:layout_marginTop=\"22dp\">\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"Year\"\r\n                            android:textStyle=\"bold\" />\r\n\r\n                    </LinearLayout>\r\n\r\n                </LinearLayout>\r\n                    <LinearLayout\r\n                        android:id=\"@+id/ll2\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_toRightOf=\"@id/ll1\"\r\n                        android:layout_marginStart=\"20dp\"\r\n                        android:layout_marginTop=\"50dp\"\r\n                        android:orientation=\"vertical\">\r\n\r\n                        <!-- Add your 6 TextViews here -->\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 1\"\r\n                            android:textStyle=\"bold\"/>\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 2\" />\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 3\"\r\n                            android:textStyle=\"bold\"/>\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 4\" />\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 5\"\r\n                            android:textStyle=\"bold\"/>\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 6\" />\r\n                    </LinearLayout>\r\n                    <LinearLayout\r\n                        android:id=\"@+id/ll3\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_toRightOf=\"@id/ll2\"\r\n                        android:layout_marginStart=\"30dp\"\r\n                        android:layout_marginTop=\"50dp\"\r\n                        android:orientation=\"vertical\">\r\n\r\n                        <!-- Add your 6 TextViews here -->\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 1\"\r\n                            android:textStyle=\"bold\"/>\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 2\" />\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 3\"\r\n                            android:textStyle=\"bold\"/>\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 4\" />\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 5\"\r\n                            android:textStyle=\"bold\"/>\r\n\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_weight=\"1\"\r\n                            android:text=\"Text 6\" />\r\n                    </LinearLayout>\r\n\r\n\r\n\r\n\r\n                </LinearLayout>\r\n\r\n            </androidx.cardview.widget.CardView>\r\n\r\n            <!-- Fourth CardView in the second row -->\r\n            <androidx.cardview.widget.CardView\r\n               android:id=\"@+id/chart3\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"20dp\"\r\n                android:layout_columnWeight=\"1\"\r\n                android:layout_rowWeight=\"1\"\r\n                app:cardCornerRadius=\"5dp\"\r\n                app:cardElevation=\"15dp\"\r\n                android:layout_margin=\"4dp\"\r\n                android:layout_marginLeft=\"8dp\"\r\n                android:layout_marginBottom=\"8dp\">\r\n\r\n\r\n\r\n                <TextView\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:gravity=\"center\"\r\n                android:padding=\"3dp\"\r\n                android:text=\"Top Selling Products\"\r\n                android:textColor=\"@color/black\"\r\n                android:textSize=\"15sp\"\r\n                android:textStyle=\"bold\" />\r\n\r\n                <RelativeLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:orientation=\"horizontal\">\r\n\r\n\r\n                <org.eazegraph.lib.charts.PieChart\r\n                    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n                    android:id=\"@+id/piechart2\"\r\n                    android:layout_width=\"90dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginLeft=\"0dp\"\r\n                    android:layout_marginTop=\"30dp\"\r\n                    android:layout_marginBottom=\"20dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:padding=\"6dp\" />\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"100dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_alignParentEnd=\"true\"\r\n                    android:layout_alignParentTop=\"true\"\r\n                    android:gravity=\"center_vertical\"\r\n                    android:orientation=\"vertical\">\r\n\r\n                    <LinearLayout\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"15dp\"\r\n                        android:layout_gravity=\"center_vertical\">\r\n\r\n                        <!--View to display the yellow color icon-->\r\n                        <View\r\n                            android:layout_width=\"15dp\"\r\n                            android:layout_height=\"match_parent\"\r\n                            android:background=\"@color/one\"/>\r\n\r\n                        <!--Text view to display R -->\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"match_parent\"\r\n                            android:paddingLeft=\"10dp\"\r\n                            android:text=\"Product 1\" />\r\n\r\n                    </LinearLayout>\r\n                    <LinearLayout\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"15dp\"\r\n                        android:layout_gravity=\"center_vertical\"\r\n                        android:layout_marginTop=\"5dp\">\r\n\r\n                        <!--View to display the green color icon-->\r\n                        <View\r\n                            android:layout_width=\"15dp\"\r\n                            android:layout_height=\"match_parent\"\r\n                            android:background=\"@color/two\"/>\r\n\r\n                        <!--Text view to display python text -->\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"Product 2\"\r\n                            android:paddingLeft=\"10dp\"/>\r\n\r\n                    </LinearLayout>\r\n\r\n                    <!--Linear layout to display C++-->\r\n                    <LinearLayout\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"15dp\"\r\n                        android:layout_gravity=\"center_vertical\"\r\n                        android:layout_marginTop=\"5dp\">\r\n\r\n                        <!--View to display the red color icon-->\r\n                        <View\r\n                            android:layout_width=\"15dp\"\r\n                            android:layout_height=\"match_parent\"\r\n                            android:background=\"@color/three\"/>\r\n\r\n                        <!--Text view to display C++ text -->\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"Product 3\"\r\n                            android:paddingLeft=\"10dp\"/>\r\n\r\n                    </LinearLayout>\r\n\r\n                    <!--Linear layout to display Java-->\r\n                    <LinearLayout\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"15dp\"\r\n                        android:layout_gravity=\"center_vertical\"\r\n                        android:layout_marginTop=\"5dp\">\r\n\r\n                        <!--View to display the blue color icon-->\r\n                        <View\r\n                            android:layout_width=\"15dp\"\r\n                            android:layout_height=\"match_parent\"\r\n                            android:background=\"@color/four\"/>\r\n\r\n                        <!--Text view to display Java text -->\r\n                        <TextView\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:text=\"Product 4\"\r\n                            android:paddingLeft=\"10dp\"/>\r\n\r\n                    </LinearLayout>\r\n\r\n                </LinearLayout>\r\n\r\n                </RelativeLayout>\r\n\r\n\r\n            </androidx.cardview.widget.CardView>\r\n\r\n            <androidx.cardview.widget.CardView\r\n                android:id=\"@+id/chart4\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"20dp\"\r\n                android:layout_columnWeight=\"1\"\r\n                android:layout_rowWeight=\"1\"\r\n                app:cardCornerRadius=\"5dp\"\r\n                app:cardElevation=\"15dp\"\r\n                android:layout_margin=\"4dp\"\r\n                android:layout_marginRight=\"8dp\"\r\n                android:layout_marginBottom=\"8dp\">\r\n\r\n                <!-- Your content for the fourth CardView (e.g., icon, title, etc.) -->\r\n\r\n            </androidx.cardview.widget.CardView>\r\n\r\n        </GridLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:background=\"#F5F5F5\"\r\n            android:gravity=\"center\">\r\n\r\n            <include\r\n                layout=\"@layout/dashboard_nav_item\"\r\n                app:icon=\"@{@drawable/transactions_icon}\"\r\n                app:label='@{\"Transactions\"}' />\r\n\r\n            <include\r\n                layout=\"@layout/dashboard_nav_item\"\r\n                app:label='@{\"Inventory\"}'\r\n                app:icon=\"@{@drawable/inventory_icon}\"/>\r\n            <include\r\n                layout=\"@layout/dashboard_nav_item\"\r\n                app:label='@{\"Analytics\"}'\r\n                app:icon=\"@{@drawable/analytics_icon}\"/>\r\n            <include\r\n                layout=\"@layout/dashboard_nav_item\"\r\n                app:label='@{\"Store\"}'\r\n                app:icon=\"@{@drawable/store_icon}\"/>\r\n            <include\r\n                layout=\"@layout/dashboard_nav_item\"\r\n                app:label='@{\"Profile\"}'\r\n                app:icon=\"@{@drawable/profile_icon}\"/>\r\n        </LinearLayout>\r\n\r\n    </LinearLayout>\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/dashboard_page.xml b/app/src/main/res/layout/dashboard_page.xml
+--- a/app/src/main/res/layout/dashboard_page.xml	(revision d74520c3d880cadf8e3dce2baaa9ef00ec6c1025)
++++ b/app/src/main/res/layout/dashboard_page.xml	(date 1705241563092)
+@@ -396,7 +396,7 @@
+                             android:layout_height="match_parent"
+                             android:background="@color/two"/>
+ 
+-                        <!--Text view to display python text -->
++
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+@@ -405,20 +405,20 @@
+ 
+                     </LinearLayout>
+ 
+-                    <!--Linear layout to display C++-->
++
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="15dp"
+                         android:layout_gravity="center_vertical"
+                         android:layout_marginTop="5dp">
+ 
+-                        <!--View to display the red color icon-->
++
+                         <View
+                             android:layout_width="15dp"
+                             android:layout_height="match_parent"
+                             android:background="@color/three"/>
+ 
+-                        <!--Text view to display C++ text -->
++
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+@@ -427,20 +427,20 @@
+ 
+                     </LinearLayout>
+ 
+-                    <!--Linear layout to display Java-->
++
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="15dp"
+                         android:layout_gravity="center_vertical"
+                         android:layout_marginTop="5dp">
+ 
+-                        <!--View to display the blue color icon-->
++
+                         <View
+                             android:layout_width="15dp"
+                             android:layout_height="match_parent"
+                             android:background="@color/four"/>
+ 
+-                        <!--Text view to display Java text -->
++
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+@@ -474,17 +474,17 @@
+ 
+         </GridLayout>
+ 
++        <include
++            layout="@layout/dashboard_nav_item"
++            app:icon="@{@drawable/transactions_icon}"
++            app:label='@{"Transactions"}' />
++
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="#F5F5F5"
+             android:gravity="center">
+ 
+-            <include
+-                layout="@layout/dashboard_nav_item"
+-                app:icon="@{@drawable/transactions_icon}"
+-                app:label='@{"Transactions"}' />
+-
+             <include
+                 layout="@layout/dashboard_nav_item"
+                 app:label='@{"Inventory"}'
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"purple_200\">#FFBB86FC</color>\r\n    <color name=\"purple_500\">#FF6200EE</color>\r\n    <color name=\"purple_700\">#FF3700B3</color>\r\n    <color name=\"teal_200\">#FF03DAC5</color>\r\n    <color name=\"teal_700\">#FF018786</color>\r\n    <color name=\"black\">#FF000000</color>\r\n    <color name=\"white\">#FFFFFFFF</color>\r\n    <color name=\"lavender\">#8692f7</color>\r\n    <color name=\"red\">#c70000</color>\r\n    <color name=\"green\">#00ff00</color>\r\n    <color name=\"gray\">#808080</color>\r\n    <color name=\"outOfStockColor\">#D3D3D3</color>\r\n    <color name=\"defaultCardColor\">#FFFFFF</color>\r\n    <color name=\"lightGray\">#B0B0B0</color>\r\n    <color name=\"colorPrimary\">#4CAF50</color>\r\n    <color name=\"colorAccent\">#FF4081</color>\r\n    <color name=\"positiveButtonColor\">#4CAF50</color>\r\n    <color name=\"negativeButtonColor\">#FF4081</color>\r\n\r\n    <color name=\"colorPrimary\">#024265</color>\r\n    <color name=\"colorPrimaryDark\">#024265</color>\r\n    <color name=\"colorAccent\">#05af9b</color>\r\n\r\n    <color name=\"color_one\">#fb7268</color>\r\n    <color name=\"color_white\">#ededf2</color>\r\n    <color name=\"color_two\">#E3E0E0</color>\r\n\r\n    <color name=\"one\">#FFA726</color>\r\n    <color name=\"two\">#66BB6A</color>\r\n    <color name=\"three\">#EF5350</color>\r\n    <color name=\"four\">#29B6F6</color>\r\n\r\n\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
+--- a/app/src/main/res/values/colors.xml	(revision d74520c3d880cadf8e3dce2baaa9ef00ec6c1025)
++++ b/app/src/main/res/values/colors.xml	(date 1705241576794)
+@@ -14,8 +14,8 @@
+     <color name="outOfStockColor">#D3D3D3</color>
+     <color name="defaultCardColor">#FFFFFF</color>
+     <color name="lightGray">#B0B0B0</color>
+-    <color name="colorPrimary">#4CAF50</color>
+-    <color name="colorAccent">#FF4081</color>
++    <color name="colorPrimary2">#4CAF50</color>
++    <color name="colorAccent2">#FF4081</color>
+     <color name="positiveButtonColor">#4CAF50</color>
+     <color name="negativeButtonColor">#FF4081</color>
+ 
+Index: app/src/main/res/layout/dashboard_chart.xml
+===================================================================
+diff --git a/app/src/main/res/layout/dashboard_chart.xml b/app/src/main/res/layout/dashboard_chart.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/dashboard_chart.xml	(revision d74520c3d880cadf8e3dce2baaa9ef00ec6c1025)
++++ /dev/null	(revision d74520c3d880cadf8e3dce2baaa9ef00ec6c1025)
+@@ -1,366 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<RelativeLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@color/color_white"
+-    tools:context=".MainActivity">
+-
+-    <!-- First Card view for displaying the -->
+-    <!-- Pie chart and details of pie chart -->
+-    <androidx.cardview.widget.CardView
+-        android:id="@+id/cardViewGraph"
+-        android:layout_width="match_parent"
+-        android:layout_height="200dp"
+-        android:layout_marginLeft="20dp"
+-        android:layout_marginTop="15dp"
+-        android:layout_marginEnd="20dp"
+-        android:layout_marginRight="20dp"
+-        android:layout_marginStart="170dp"
+-        android:elevation="10dp"
+-        app:cardCornerRadius="20dp">
+-
+-        <!-- TextView for displaying "Top Selling Products" -->
+-        <TextView
+-            android:id="@+id/tv1"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:padding="5dp"
+-            android:text="Sales and Sold Items"
+-            android:textColor="@color/black"
+-            android:textSize="15sp"
+-            android:textStyle="bold" />
+-
+-        <!-- Second TextView -->
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center_horizontal"
+-            android:layout_marginTop="25dp">
+-
+-        <TextView
+-            android:id="@+id/tv2"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:text="*Current vs Previous"
+-            android:textSize="12sp"/>
+-        </LinearLayout>
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="match_parent"
+-            android:orientation="horizontal"
+-            android:weightSum="2">
+-
+-            <!--Pie chart to display the data-->
+-
+-            <!--Creating another linear layout -->
+-            <!-- to display pie chart details -->
+-            <LinearLayout
+-                android:id="@+id/ll1"
+-                android:layout_width="wrap_content"
+-                android:layout_height="match_parent"
+-                android:layout_marginLeft="20dp"
+-                android:layout_weight="1"
+-                android:gravity="center_vertical"
+-                android:orientation="vertical">
+-
+-                <LinearLayout
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="15dp"
+-                    android:layout_gravity="center_vertical"
+-                    android:layout_marginTop="8dp">
+-
+-                    <TextView
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:text="Week"
+-                        android:textStyle="bold" />
+-
+-                </LinearLayout>
+-
+-                <!--Linear layout to display Python-->
+-                <LinearLayout
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="15dp"
+-                    android:layout_gravity="center_vertical"
+-                    android:layout_marginTop="22dp">
+-
+-                    <TextView
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:text="Month"
+-                        android:textStyle="bold" />
+-
+-                </LinearLayout>
+-
+-                <!--Linear layout to display C++-->
+-                <LinearLayout
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="15dp"
+-                    android:layout_gravity="center_vertical"
+-                    android:layout_marginTop="22dp">
+-
+-                    <TextView
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:text="Year"
+-                        android:textStyle="bold" />
+-
+-                </LinearLayout>
+-            </LinearLayout>
+-
+-                <LinearLayout
+-                    android:id="@+id/ll2"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_toRightOf="@id/ll1"
+-                    android:layout_marginStart="20dp"
+-                    android:layout_marginTop="50dp"
+-                    android:orientation="vertical">
+-
+-                    <!-- Add your 6 TextViews here -->
+-                    <TextView
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="1"
+-                        android:text="Text 1"
+-                        android:textStyle="bold"/>
+-
+-                    <TextView
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="1"
+-                        android:text="Text 2" />
+-
+-                    <TextView
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="1"
+-                        android:text="Text 3"
+-                        android:textStyle="bold"/>
+-
+-                    <TextView
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="1"
+-                        android:text="Text 4" />
+-
+-                    <TextView
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="1"
+-                        android:text="Text 5"
+-                        android:textStyle="bold"/>
+-
+-                    <TextView
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="1"
+-                        android:text="Text 6" />
+-                </LinearLayout>
+-            <LinearLayout
+-                android:id="@+id/ll3"
+-                android:layout_width="wrap_content"
+-                android:layout_height="wrap_content"
+-                android:layout_toRightOf="@id/ll2"
+-                android:layout_marginStart="30dp"
+-                android:layout_marginTop="50dp"
+-                android:orientation="vertical">
+-
+-                <!-- Add your 6 TextViews here -->
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Text 1"
+-                    android:textStyle="bold"/>
+-
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Text 2" />
+-
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Text 3"
+-                    android:textStyle="bold"/>
+-
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Text 4" />
+-
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Text 5"
+-                    android:textStyle="bold"/>
+-
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Text 6" />
+-            </LinearLayout>
+-
+-
+-
+-
+-        </LinearLayout>
+-    </androidx.cardview.widget.CardView>
+-
+-    <!-- Second Card view for displaying -->
+-    <!-- another set of pie chart and details -->
+-    <androidx.cardview.widget.CardView
+-        android:id="@+id/cardViewGraph2"
+-        android:layout_width="match_parent"
+-        android:layout_height="200dp"
+-        android:layout_below="@+id/cardViewGraph"
+-    android:layout_marginLeft="20dp"
+-    android:layout_marginTop="15dp"
+-    android:layout_marginEnd="170dp"
+-    android:layout_marginRight="20dp"
+-    android:layout_marginStart="20dp"
+-    android:elevation="10dp"
+-    app:cardCornerRadius="20dp">
+-
+-    <!-- TextView for displaying "Top Selling Products" -->
+-    <TextView
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:gravity="center"
+-        android:padding="5dp"
+-        android:text="Top Selling Products"
+-        android:textColor="@color/black"
+-        android:textSize="15sp"
+-        android:textStyle="bold" />
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:orientation="horizontal"
+-        android:weightSum="2">
+-
+-        <!--Pie chart to display the data-->
+-        <org.eazegraph.lib.charts.PieChart
+-            xmlns:app="http://schemas.android.com/apk/res-auto"
+-            android:id="@+id/piechart2"
+-            android:layout_width="0dp"
+-            android:layout_height="match_parent"
+-            android:layout_marginLeft="15dp"
+-            android:layout_marginTop="45dp"
+-            android:layout_marginBottom="20dp"
+-            android:layout_weight="1"
+-            android:padding="6dp" />
+-
+-        <!--Creating another linear layout -->
+-        <!-- to display pie chart details -->
+-        <LinearLayout
+-            android:layout_width="0dp"
+-            android:layout_height="match_parent"
+-            android:layout_marginLeft="20dp"
+-            android:layout_weight="1"
+-            android:gravity="center_vertical"
+-            android:orientation="vertical">
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="15dp"
+-                android:layout_gravity="center_vertical">
+-
+-                <!--View to display the yellow color icon-->
+-                <View
+-                    android:layout_width="15dp"
+-                    android:layout_height="match_parent"
+-                    android:background="@color/one"/>
+-
+-                <!--Text view to display R -->
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="Product 1"
+-                    android:paddingLeft="10dp"/>
+-
+-            </LinearLayout>
+-
+-            <!--Linear layout to display Python-->
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="15dp"
+-                android:layout_gravity="center_vertical"
+-                android:layout_marginTop="5dp">
+-
+-                <!--View to display the green color icon-->
+-                <View
+-                    android:layout_width="15dp"
+-                    android:layout_height="match_parent"
+-                    android:background="@color/two"/>
+-
+-                <!--Text view to display python text -->
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="Product 2"
+-                    android:paddingLeft="10dp"/>
+-
+-            </LinearLayout>
+-
+-            <!--Linear layout to display C++-->
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="15dp"
+-                android:layout_gravity="center_vertical"
+-                android:layout_marginTop="5dp">
+-
+-                <!--View to display the red color icon-->
+-                <View
+-                    android:layout_width="15dp"
+-                    android:layout_height="match_parent"
+-                    android:background="@color/three"/>
+-
+-                <!--Text view to display C++ text -->
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="Product 3"
+-                    android:paddingLeft="10dp"/>
+-
+-            </LinearLayout>
+-
+-            <!--Linear layout to display Java-->
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="15dp"
+-                android:layout_gravity="center_vertical"
+-                android:layout_marginTop="5dp">
+-
+-                <!--View to display the blue color icon-->
+-                <View
+-                    android:layout_width="15dp"
+-                    android:layout_height="match_parent"
+-                    android:background="@color/four"/>
+-
+-                <!--Text view to display Java text -->
+-                <TextView
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="Product 4"
+-                    android:paddingLeft="10dp"/>
+-
+-            </LinearLayout>
+-
+-        </LinearLayout>
+-    </LinearLayout>
+-
+-
+-</androidx.cardview.widget.CardView>
+-    </RelativeLayout>
+-mk
+\ No newline at end of file

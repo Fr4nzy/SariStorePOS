@@ -1,0 +1,763 @@
+Index: app/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id(\"com.android.application\")\r\n    id(\"com.google.gms.google-services\")\r\n}\r\n\r\nandroid {\r\n    namespace = \"com.projectfkklp.saristorepos\"\r\n    compileSdk = 34\r\n\r\n    defaultConfig {\r\n        applicationId = \"com.projectfkklp.saristorepos\"\r\n        minSdk = 26\r\n        targetSdk = 34\r\n        versionCode = 1\r\n        versionName = \"1.0\"\r\n\r\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            isMinifyEnabled = false\r\n            proguardFiles(\r\n                getDefaultProguardFile(\"proguard-android-optimize.txt\"),\r\n                \"proguard-rules.pro\"\r\n            )\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_1_8\r\n        targetCompatibility = JavaVersion.VERSION_1_8\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n\r\n    implementation(\"com.firebaseui:firebase-ui-auth:8.0.2\")\r\n    implementation(\"com.google.firebase:firebase-firestore:24.10.0\")\r\n    implementation(\"com.google.firebase:firebase-storage:20.3.0\")\r\n    implementation(\"com.google.firebase:firebase-auth:22.3.0\")\r\n\r\n    implementation(\"androidx.appcompat:appcompat:1.6.1\")\r\n    implementation(\"com.google.android.material:material:1.10.0\")\r\n    implementation(\"androidx.constraintlayout:constraintlayout:2.1.4\")\r\n    implementation(\"com.google.firebase:firebase-database:20.3.0\")\r\n\r\n    testImplementation(\"junit:junit:4.13.2\")\r\n    androidTestImplementation(\"androidx.test.ext:junit:1.1.5\")\r\n    androidTestImplementation(\"androidx.test.espresso:espresso-core:3.5.1\")\r\n\r\n    implementation(\"com.journeyapps:zxing-android-embedded:4.3.0\")\r\n\r\n    annotationProcessor (\"com.github.bumptech.glide:compiler:4.14.2\")\r\n    implementation (\"com.github.clans:fab:1.6.4\")\r\n    implementation (\"com.github.bumptech.glide:glide:4.12.0\")\r\n    annotationProcessor (\"com.github.bumptech.glide:compiler:4.12.0\")\r\n    implementation (\"com.google.android.material:material:x.y.z\")\r\n    implementation(\"com.github.clans:fab:1.6.4\")\r\n    implementation(\"com.github.PhilJay:MPAndroidChart:v3.1.0\")\r\n\r\n    implementation(\"com.google.code.gson:gson:2.8.8\")\r\n    implementation(\"com.github.PhilJay:MPAndroidChart:v3.1.0\")\r\n    implementation(\"com.google.android.material:material:<version>\")\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts	(revision cb4d98847695d45663d022739a250593a5e4d1cc)
++++ b/app/build.gradle.kts	(date 1705219737363)
+@@ -62,4 +62,8 @@
+     implementation("com.google.code.gson:gson:2.8.8")
+     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+     implementation("com.google.android.material:material:<version>")
++
++    // Chart and graph library
++    implementation ("com.github.blackfizz:eazegraph:1.2.5l@aar")
++    implementation ("com.nineoldandroids:library:2.4.0")
+ }
+\ No newline at end of file
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"purple_200\">#FFBB86FC</color>\r\n    <color name=\"purple_500\">#FF6200EE</color>\r\n    <color name=\"purple_700\">#FF3700B3</color>\r\n    <color name=\"teal_200\">#FF03DAC5</color>\r\n    <color name=\"teal_700\">#FF018786</color>\r\n    <color name=\"black\">#FF000000</color>\r\n    <color name=\"white\">#FFFFFFFF</color>\r\n    <color name=\"lavender\">#8692f7</color>\r\n    <color name=\"red\">#c70000</color>\r\n    <color name=\"green\">#00ff00</color>\r\n    <color name=\"gray\">#3A3E3A</color>\r\n    <color name=\"outOfStockColor\">#D3D3D3</color>\r\n    <color name=\"defaultCardColor\">#FFFFFF</color>\r\n    <color name=\"lightGray\">#B0B0B0</color>\r\n    <color name=\"colorPrimary\">#4CAF50</color>\r\n    <color name=\"colorAccent\">#FF4081</color>\r\n    <color name=\"positiveButtonColor\">#4CAF50</color>\r\n    <color name=\"negativeButtonColor\">#FF4081</color>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
+--- a/app/src/main/res/values/colors.xml	(revision cb4d98847695d45663d022739a250593a5e4d1cc)
++++ b/app/src/main/res/values/colors.xml	(date 1705221062196)
+@@ -18,4 +18,19 @@
+     <color name="colorAccent">#FF4081</color>
+     <color name="positiveButtonColor">#4CAF50</color>
+     <color name="negativeButtonColor">#FF4081</color>
++
++    <color name="colorPrimary">#024265</color>
++    <color name="colorPrimaryDark">#024265</color>
++    <color name="colorAccent">#05af9b</color>
++
++    <color name="color_one">#fb7268</color>
++    <color name="color_white">#ededf2</color>
++    <color name="color_two">#E3E0E0</color>
++
++    <color name="one">#FFA726</color>
++    <color name="two">#66BB6A</color>
++    <color name="three">#EF5350</color>
++    <color name="four">#29B6F6</color>
++
++
+ </resources>
+\ No newline at end of file
+Index: build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>buildscript {\r\n    repositories {\r\n        google()\r\n        mavenCentral()\r\n        jcenter()\r\n    }\r\n    dependencies {\r\n        classpath(\"com.google.gms:google-services:4.4.0\")\r\n\r\n    }\r\n}\r\n// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nplugins {\r\n    id(\"com.android.application\") version \"8.2.0\" apply false\r\n    id(\"com.google.gms.google-services\") version \"4.4.0\" apply false\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle.kts b/build.gradle.kts
+--- a/build.gradle.kts	(revision cb4d98847695d45663d022739a250593a5e4d1cc)
++++ b/build.gradle.kts	(date 1705025310637)
+@@ -11,7 +11,7 @@
+ }
+ // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ plugins {
+-    id("com.android.application") version "8.2.0" apply false
++    id("com.android.application") version "8.2.1" apply false
+     id("com.google.gms.google-services") version "4.4.0" apply false
+ }
+ 
+Index: app/src/main/java/com/projectfkklp/saristorepos/models/Store.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.projectfkklp.saristorepos.models;\r\n\r\nimport com.projectfkklp.saristorepos.utils.ModelUtils;\r\n\r\npublic class Store {\r\n    private String id;\r\n    private String name;\r\n\r\n    public Store(){\r\n        id = ModelUtils.createShortId();\r\n    }\r\n\r\n    public Store(String id, String name){\r\n        this.id = id;\r\n        this.name = name;\r\n    }\r\n\r\n    // Getter and Setter methods for 'id'\r\n    public String getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setId(String id) {\r\n        this.id = id;\r\n    }\r\n\r\n    // Getter and Setter methods for 'name'\r\n    public String getName() {\r\n        return name;\r\n    }\r\n\r\n    public void setName(String name) {\r\n        this.name = name;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/projectfkklp/saristorepos/models/Store.java b/app/src/main/java/com/projectfkklp/saristorepos/models/Store.java
+--- a/app/src/main/java/com/projectfkklp/saristorepos/models/Store.java	(revision cb4d98847695d45663d022739a250593a5e4d1cc)
++++ b/app/src/main/java/com/projectfkklp/saristorepos/models/Store.java	(date 1704713217677)
+@@ -6,7 +6,7 @@
+     private String id;
+     private String name;
+ 
+-    public Store(){
++    public Store(String store_name){
+         id = ModelUtils.createShortId();
+     }
+ 
+Index: app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/UserStoreRelationManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/UserStoreRelationManager.java b/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/UserStoreRelationManager.java
+new file mode 100644
+--- /dev/null	(date 1705155455086)
++++ b/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/UserStoreRelationManager.java	(date 1705155455086)
+@@ -0,0 +1,13 @@
++package com.projectfkklp.saristorepos.activities.store_registration;
++
++import com.google.firebase.database.DatabaseReference;
++import com.google.firebase.database.FirebaseDatabase;
++import com.projectfkklp.saristorepos.models.UserStoreRelation;
++
++public class UserStoreRelationManager {
++
++    public static void save(UserStoreRelation userStoreRelation) {
++        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
++        databaseReference.child("user_store_relations").child(userStoreRelation.getUserId()).setValue(userStoreRelation);
++    }
++}
+Index: app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/UserStoreRelation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/UserStoreRelation.java b/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/UserStoreRelation.java
+new file mode 100644
+--- /dev/null	(date 1704713217694)
++++ b/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/UserStoreRelation.java	(date 1704713217694)
+@@ -0,0 +1,32 @@
++package com.projectfkklp.saristorepos.activities.store_registration;
++
++public class UserStoreRelation {
++
++        private String userId;
++        private String storeId;
++
++        public UserStoreRelation(String userId, String storeId) {
++            this.userId = userId;
++            this.storeId = storeId;
++        }
++
++        // Getters and setters (You may generate them using your IDE)
++
++    public void setUserId(String userId) {
++        this.userId = userId;
++    }
++
++    public void setStoreId(String storeId) {
++        this.storeId = storeId;
++    }
++
++    public String getUserId() {
++        return userId;
++    }
++
++    public String getStoreId() {
++        return storeId;
++    }
++}
++
++
+Index: app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/SessionManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/SessionManager.java b/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/SessionManager.java
+new file mode 100644
+--- /dev/null	(date 1705155463444)
++++ b/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/SessionManager.java	(date 1705155463444)
+@@ -0,0 +1,14 @@
++package com.projectfkklp.saristorepos.activities.store_registration;
++
++public class SessionManager {
++
++    private static String currentStore;
++
++    public static void setCurrentStore(String storeId) {
++        currentStore = storeId;
++    }
++
++    public static String getCurrentStore() {
++        return currentStore;
++    }
++}
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.SariStorePOS\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".activities.store_finder.StoreFinderPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.store_registration.StoreRegistrationPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.user_profile.UserProfilePage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.store_selector.StoreSelectorPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.entry.EntryPage\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".activities.transaction.transaction_daily_summary.TransactionDailySummaryPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.analytics.AnalyticsDailySalesPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.transaction.transaction_history.TransactionHistoryPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.analytics.AnalyticsForecastEntryPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.pos.PosCheckoutPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.inventory.InventoryEditProductPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.inventory.InventoryProductDetailPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.inventory.InventoryCreateProductPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.analytics.AnalyticsForecastPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.pos.PosPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.inventory.InventoryProductListPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.user_login.UserLoginPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.user_registration.UserRegistrationPage\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".activities.dashboard.DashboardPage\"\r\n            android:exported=\"false\" />\r\n\r\n        <meta-data\r\n            android:name=\"preloaded_fonts\"\r\n            android:resource=\"@array/preloaded_fonts\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision cb4d98847695d45663d022739a250593a5e4d1cc)
++++ b/app/src/main/AndroidManifest.xml	(date 1705219493059)
+@@ -13,6 +13,9 @@
+         android:theme="@style/Theme.SariStorePOS"
+         tools:targetApi="31">
+         <activity
++            android:name=".DashboardActivity"
++            android:exported="false" />
++        <activity
+             android:name=".activities.store_finder.StoreFinderPage"
+             android:exported="false" />
+         <activity
+Index: app/src/main/java/com/projectfkklp/saristorepos/activities/store_selector/StoreSelectorPage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.projectfkklp.saristorepos.activities.store_selector;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\n\r\nimport com.projectfkklp.saristorepos.R;\r\nimport com.projectfkklp.saristorepos.activities.store_finder.StoreFinderPage;\r\nimport com.projectfkklp.saristorepos.activities.store_registration.StoreRegistrationPage;\r\nimport com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;\r\nimport com.projectfkklp.saristorepos.adapters.CheckoutPageAdapter;\r\nimport com.projectfkklp.saristorepos.adapters.StoreSelectorPageAdapter;\r\nimport com.projectfkklp.saristorepos.enums.UserRole;\r\nimport com.projectfkklp.saristorepos.enums.UserStatus;\r\nimport com.projectfkklp.saristorepos.models.UserStoreRelation;\r\nimport com.projectfkklp.saristorepos.models.Store;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Collections;\r\nimport java.util.Comparator;\r\n\r\npublic class StoreSelectorPage extends AppCompatActivity {\r\n    StoreSelectorPageAdapter storeSelectorPageAdapter;\r\n\r\n    private ArrayList<UserStoreRelation> userStoreRelations;\r\n    private ArrayList<Store> stores;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.store_selector_page);\r\n\r\n        initializeDummyItems();\r\n        sortUserStoreRelations();\r\n        initializeRecyclerView();\r\n    }\r\n\r\n    private void initializeDummyItems(){\r\n        String[] storeIds = new String[]{\r\n            \"17f1e065a4f001\",\r\n            \"17f1e065a4f002\",\r\n            \"17f1e065a4f003\",\r\n            \"17f1e065a4f004\",\r\n            \"17f1e065a4f005\",\r\n            \"17f1e065a4f006\",\r\n            \"17f1e065a4f007\"\r\n        };\r\n        userStoreRelations = new ArrayList<>();\r\n        stores = new ArrayList<>();\r\n\r\n        userStoreRelations.add(new UserStoreRelation(\"\", storeIds[0], UserRole.ASSISTANT, UserStatus.ACTIVE));\r\n        stores.add(new Store(storeIds[0], \"Store A\"));\r\n\r\n        userStoreRelations.add(new UserStoreRelation(\"\", storeIds[1], UserRole.ASSISTANT, UserStatus.INVITED));\r\n        stores.add(new Store(storeIds[1], \"Store B\"));\r\n\r\n        userStoreRelations.add(new UserStoreRelation(\"\", storeIds[2], UserRole.ASSISTANT, UserStatus.REQUESTED));\r\n        stores.add(new Store(storeIds[2], \"Store C\"));\r\n\r\n        userStoreRelations.add(new UserStoreRelation(\"\", storeIds[3], UserRole.OWNER, UserStatus.ACTIVE));\r\n        stores.add(new Store(storeIds[3], \"Store D\"));\r\n\r\n        userStoreRelations.add(new UserStoreRelation(\"\", storeIds[4], UserRole.OWNER, UserStatus.INVITED));\r\n        stores.add(new Store(storeIds[4], \"Store E\"));\r\n\r\n        userStoreRelations.add(new UserStoreRelation(\"\", storeIds[5], UserRole.OWNER, UserStatus.REQUESTED));\r\n        stores.add(new Store(storeIds[5], \"Store F\"));\r\n\r\n        userStoreRelations.add(new UserStoreRelation(\"\", storeIds[6], UserRole.OWNER, UserStatus.ACTIVE));\r\n        stores.add(new Store(storeIds[6], \"Store G\"));\r\n    }\r\n\r\n    private void sortUserStoreRelations(){\r\n        userStoreRelations.sort(Comparator.comparing(UserStoreRelation::getStatus));\r\n    }\r\n\r\n    private void initializeRecyclerView(){\r\n        // Initialize views and set up RecyclerView\r\n        RecyclerView storeSelectoreRecycler = findViewById(R.id.store_selector_recycler);\r\n        LinearLayoutManager layoutManager = new LinearLayoutManager(this);\r\n        storeSelectoreRecycler.setLayoutManager(layoutManager);\r\n\r\n        // Set up adapter\r\n        storeSelectorPageAdapter = new StoreSelectorPageAdapter(this, userStoreRelations, stores);\r\n        storeSelectoreRecycler.setAdapter(storeSelectorPageAdapter);\r\n    }\r\n\r\n    public void gotoUserProfilePage(View view){\r\n        startActivity(new Intent(this, UserProfilePage.class));\r\n    }\r\n\r\n    public void gotoStoreFinderPage(View view){\r\n        startActivity(new Intent(this, StoreFinderPage.class));\r\n    }\r\n\r\n    public void gotoStoreRegistrationPage(View view){\r\n        startActivity(new Intent(this, StoreRegistrationPage.class));\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/projectfkklp/saristorepos/activities/store_selector/StoreSelectorPage.java b/app/src/main/java/com/projectfkklp/saristorepos/activities/store_selector/StoreSelectorPage.java
+--- a/app/src/main/java/com/projectfkklp/saristorepos/activities/store_selector/StoreSelectorPage.java	(revision cb4d98847695d45663d022739a250593a5e4d1cc)
++++ b/app/src/main/java/com/projectfkklp/saristorepos/activities/store_selector/StoreSelectorPage.java	(date 1705125424604)
+@@ -98,7 +98,8 @@
+     }
+ 
+     public void gotoStoreRegistrationPage(View view){
+-        startActivity(new Intent(this, StoreRegistrationPage.class));
++            Intent intent = new Intent(this, StoreRegistrationPage.class);
++            startActivity(intent);
++        }
+     }
+ 
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/projectfkklp/saristorepos/DashboardActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/projectfkklp/saristorepos/DashboardActivity.java b/app/src/main/java/com/projectfkklp/saristorepos/DashboardActivity.java
+new file mode 100644
+--- /dev/null	(date 1705219493192)
++++ b/app/src/main/java/com/projectfkklp/saristorepos/DashboardActivity.java	(date 1705219493192)
+@@ -0,0 +1,14 @@
++package com.projectfkklp.saristorepos;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++import android.os.Bundle;
++
++public class DashboardActivity extends AppCompatActivity {
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.dashboard);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/dashboard_chart.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/dashboard_chart.xml b/app/src/main/res/layout/dashboard_chart.xml
+new file mode 100644
+--- /dev/null	(date 1705226793295)
++++ b/app/src/main/res/layout/dashboard_chart.xml	(date 1705226793295)
+@@ -0,0 +1,360 @@
++<?xml version="1.0" encoding="utf-8"?>
++<RelativeLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:background="@color/color_white"
++    tools:context=".MainActivity">
++
++    <!-- First Card view for displaying the -->
++    <!-- Pie chart and details of pie chart -->
++    <androidx.cardview.widget.CardView
++        android:id="@+id/cardViewGraph"
++        android:layout_width="match_parent"
++        android:layout_height="200dp"
++        android:layout_marginLeft="20dp"
++        android:layout_marginTop="15dp"
++        android:layout_marginEnd="20dp"
++        android:layout_marginRight="20dp"
++        android:layout_marginStart="170dp"
++        android:elevation="10dp"
++        app:cardCornerRadius="20dp">
++
++        <!-- TextView for displaying "Top Selling Products" -->
++        <TextView
++            android:id="@+id/tv1"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:padding="5dp"
++            android:text="Sales and Sold Items"
++            android:textColor="@color/black"
++            android:textSize="15sp"
++            android:textStyle="bold" />
++
++        <!-- Second TextView -->
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_gravity="center_horizontal"
++            android:layout_marginTop="25dp">
++
++        <TextView
++            android:id="@+id/tv2"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="*Current vs Previous"
++            android:textSize="12sp"/>
++        </LinearLayout>
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:orientation="horizontal"
++            android:weightSum="2">
++
++            <!--Pie chart to display the data-->
++
++            <!--Creating another linear layout -->
++            <!-- to display pie chart details -->
++            <LinearLayout
++                android:id="@+id/ll1"
++                android:layout_width="0dp"
++                android:layout_height="match_parent"
++                android:layout_marginLeft="20dp"
++                android:layout_weight="1"
++                android:gravity="center_vertical"
++                android:orientation="vertical">
++
++                <LinearLayout
++                    android:layout_width="wrap_content"
++                    android:layout_height="15dp"
++                    android:layout_gravity="center_vertical"
++                    android:layout_marginTop="8dp">
++
++                    <TextView
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:text="Week"
++                        android:textStyle="bold"/>
++
++                </LinearLayout>
++
++                <!--Linear layout to display Python-->
++                <LinearLayout
++                    android:layout_width="wrap_content"
++                    android:layout_height="15dp"
++                    android:layout_gravity="center_vertical"
++                    android:layout_marginTop="22dp">
++
++                    <TextView
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:text="Month"
++                        android:textStyle="bold"/>
++
++                </LinearLayout>
++
++                <!--Linear layout to display C++-->
++                <LinearLayout
++                    android:layout_width="wrap_content"
++                    android:layout_height="15dp"
++                    android:layout_gravity="center_vertical"
++                    android:layout_marginTop="22dp">
++
++                    <TextView
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:text="Year"
++                        android:textStyle="bold"/>
++
++                </LinearLayout>
++            </LinearLayout>
++
++                <LinearLayout
++                    android:id="@+id/ll2"
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:layout_toRightOf="@id/ll1"
++                    android:layout_marginLeft="0dp"
++                    android:layout_marginTop="50dp"
++                    android:orientation="vertical">
++
++                    <!-- Add your 6 TextViews here -->
++                    <TextView
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:layout_weight="1"
++                        android:text="Text 1" />
++
++                    <TextView
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:layout_weight="1"
++                        android:text="Text 2" />
++
++                    <TextView
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:layout_weight="1"
++                        android:text="Text 3" />
++
++                    <TextView
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:layout_weight="1"
++                        android:text="Text 4" />
++
++                    <TextView
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:layout_weight="1"
++                        android:text="Text 5" />
++
++                    <TextView
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:layout_weight="1"
++                        android:text="Text 6" />
++                </LinearLayout>
++            <LinearLayout
++                android:id="@+id/ll3"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_toRightOf="@id/ll2"
++                android:layout_marginLeft="0dp"
++                android:layout_marginTop="50dp"
++                android:orientation="vertical">
++
++                <!-- Add your 6 TextViews here -->
++                <TextView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:layout_weight="1"
++                    android:text="Text 1" />
++
++                <TextView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:layout_weight="1"
++                    android:text="Text 2" />
++
++                <TextView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:layout_weight="1"
++                    android:text="Text 3" />
++
++                <TextView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:layout_weight="1"
++                    android:text="Text 4" />
++
++                <TextView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:layout_weight="1"
++                    android:text="Text 5" />
++
++                <TextView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:layout_weight="1"
++                    android:text="Text 6" />
++            </LinearLayout>
++
++
++
++
++                <!--Linear layout to display Java-->
++
++
++        </LinearLayout>
++    </androidx.cardview.widget.CardView>
++
++    <!-- Second Card view for displaying -->
++    <!-- another set of pie chart and details -->
++    <androidx.cardview.widget.CardView
++        android:id="@+id/cardViewGraph2"
++        android:layout_width="match_parent"
++        android:layout_height="200dp"
++        android:layout_below="@+id/cardViewGraph"
++    android:layout_marginLeft="20dp"
++    android:layout_marginTop="15dp"
++    android:layout_marginEnd="170dp"
++    android:layout_marginRight="20dp"
++    android:layout_marginStart="20dp"
++    android:elevation="10dp"
++    app:cardCornerRadius="20dp">
++
++    <!-- TextView for displaying "Top Selling Products" -->
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:gravity="center"
++        android:padding="5dp"
++        android:text="Top Selling Products"
++        android:textColor="@color/black"
++        android:textSize="15sp"
++        android:textStyle="bold" />
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:orientation="horizontal"
++        android:weightSum="2">
++
++        <!--Pie chart to display the data-->
++        <org.eazegraph.lib.charts.PieChart xmlns:app="http://schemas.android.com/apk/res-auto"
++            android:id="@+id/piechart2"
++            android:layout_width="0dp"
++            android:layout_height="match_parent"
++            android:layout_marginLeft="15dp"
++            android:layout_marginTop="45dp"
++            android:layout_marginBottom="20dp"
++            android:layout_weight="1"
++            android:padding="6dp" />
++
++        <!--Creating another linear layout -->
++        <!-- to display pie chart details -->
++        <LinearLayout
++            android:layout_width="0dp"
++            android:layout_height="match_parent"
++            android:layout_marginLeft="20dp"
++            android:layout_weight="1"
++            android:gravity="center_vertical"
++            android:orientation="vertical">
++
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="15dp"
++                android:layout_gravity="center_vertical">
++
++                <!--View to display the yellow color icon-->
++                <View
++                    android:layout_width="15dp"
++                    android:layout_height="match_parent"
++                    android:background="@color/one"/>
++
++                <!--Text view to display R -->
++                <TextView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="Product 1"
++                    android:paddingLeft="10dp"/>
++
++            </LinearLayout>
++
++            <!--Linear layout to display Python-->
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="15dp"
++                android:layout_gravity="center_vertical"
++                android:layout_marginTop="5dp">
++
++                <!--View to display the green color icon-->
++                <View
++                    android:layout_width="15dp"
++                    android:layout_height="match_parent"
++                    android:background="@color/two"/>
++
++                <!--Text view to display python text -->
++                <TextView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="Product 2"
++                    android:paddingLeft="10dp"/>
++
++            </LinearLayout>
++
++            <!--Linear layout to display C++-->
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="15dp"
++                android:layout_gravity="center_vertical"
++                android:layout_marginTop="5dp">
++
++                <!--View to display the red color icon-->
++                <View
++                    android:layout_width="15dp"
++                    android:layout_height="match_parent"
++                    android:background="@color/three"/>
++
++                <!--Text view to display C++ text -->
++                <TextView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="Product 3"
++                    android:paddingLeft="10dp"/>
++
++            </LinearLayout>
++
++            <!--Linear layout to display Java-->
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="15dp"
++                android:layout_gravity="center_vertical"
++                android:layout_marginTop="5dp">
++
++                <!--View to display the blue color icon-->
++                <View
++                    android:layout_width="15dp"
++                    android:layout_height="match_parent"
++                    android:background="@color/four"/>
++
++                <!--Text view to display Java text -->
++                <TextView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="Product 4"
++                    android:paddingLeft="10dp"/>
++
++            </LinearLayout>
++
++        </LinearLayout>
++    </LinearLayout>
++</androidx.cardview.widget.CardView>
++    </RelativeLayout>
++mk
+\ No newline at end of file
+Index: app/src/main/res/layout/store_registration_page.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\"\r\n    android:paddingTop=\"80dp\"\r\n    android:background=\"@drawable/loginbg\"\r\n    tools:context=\"com.projectfkklp.saristorepos.activities.user_login.UserLoginPage\">\r\n\r\n    <ImageView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"100dp\"\r\n        android:layout_gravity=\"center\"\r\n        android:layout_marginTop=\"1dp\"\r\n        android:layout_marginBottom=\"0dp\"\r\n        android:foregroundGravity=\"center\"\r\n        android:paddingBottom=\"0dp\"\r\n        android:src=\"@drawable/store1\" />\r\n\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_alignParentStart=\"true\"\r\n        android:layout_alignParentTop=\"true\"\r\n        android:layout_alignParentBottom=\"true\"\r\n        android:layout_marginTop=\"1px\"\r\n        android:layout_marginStart=\"20dp\"\r\n        android:layout_marginEnd=\"20dp\"\r\n        android:layout_marginBottom=\"0dp\"\r\n        android:fontFamily=\"@font/amaranth_bold\"\r\n        android:gravity=\"center\"\r\n        android:text=\"Store Registration\"\r\n        android:textColor=\"#FCFFFF\"\r\n        android:textSize=\"40sp\"\r\n        android:textStyle=\"bold\" />\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_margin=\"30dp\"\r\n        app:cardCornerRadius=\"30dp\"\r\n        app:cardElevation=\"20dp\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"vertical\"\r\n            android:layout_gravity=\"center_horizontal\"\r\n            android:padding=\"24dp\"\r\n            android:background=\"@drawable/lavender_border\">\r\n\r\n            <TextView\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Please enter your store details\"\r\n                android:textAlignment=\"center\"\r\n                android:textColor=\"#0A20DF\"\r\n                android:textSize=\"20sp\"\r\n                 />\r\n\r\n            <EditText\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"50dp\"\r\n                android:id=\"@+id/store_registration_name\"\r\n                android:background=\"@drawable/lavender_border\"\r\n                android:layout_marginTop=\"20dp\"\r\n                android:padding=\"8dp\"\r\n                android:hint=\"Store Name\"\r\n                android:drawableLeft=\"@drawable/store\"\r\n                android:drawablePadding=\"8dp\"\r\n                android:textColor=\"@color/gray\"\r\n                android:inputType=\"textPersonName\"/>\r\n\r\n            <EditText\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"50dp\"\r\n                android:id=\"@+id/store_registration_address\"\r\n                android:background=\"@drawable/lavender_border\"\r\n                android:layout_marginTop=\"20dp\"\r\n                android:padding=\"8dp\"\r\n                android:hint=\"Store Address\"\r\n                android:drawableLeft=\"@drawable/baseline_location_pin_24\"\r\n                android:drawablePadding=\"8dp\"\r\n                android:textColor=\"@color/gray\"\r\n                android:inputType=\"textPersonName\"/>\r\n\r\n\r\n\r\n            <Button\r\n                android:id=\"@+id/storeRegister\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"60dp\"\r\n                android:layout_marginTop=\"30dp\"\r\n                android:background=\"@drawable/roundback\"\r\n                android:text=\"Register\"\r\n                android:textColor=\"@color/white\"\r\n                android:textSize=\"14sp\"\r\n                app:cornerRadius=\"20dp\"\r\n                />\r\n\r\n        </LinearLayout>\r\n\r\n    </androidx.cardview.widget.CardView>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/store_registration_page.xml b/app/src/main/res/layout/store_registration_page.xml
+--- a/app/src/main/res/layout/store_registration_page.xml	(revision cb4d98847695d45663d022739a250593a5e4d1cc)
++++ b/app/src/main/res/layout/store_registration_page.xml	(date 1705026685821)
+@@ -8,7 +8,7 @@
+     android:orientation="vertical"
+     android:paddingTop="80dp"
+     android:background="@drawable/loginbg"
+-    tools:context="com.projectfkklp.saristorepos.activities.user_login.UserLoginPage">
++    tools:context=".activities.store_registration.StoreRegistrationPage">
+ 
+     <ImageView
+         android:layout_width="wrap_content"
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" default=\"true\" project-jdk-name=\"jbr-17\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision cb4d98847695d45663d022739a250593a5e4d1cc)
++++ b/.idea/misc.xml	(date 1705225016462)
+@@ -1,4 +1,3 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+Index: app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/StoreRegistrationPage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.projectfkklp.saristorepos.activities.store_registration;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport com.projectfkklp.saristorepos.R;\r\nimport com.google.firebase.database.DatabaseReference;\r\nimport com.google.firebase.database.FirebaseDatabase;\r\n\r\n\r\npublic class StoreRegistrationPage extends AppCompatActivity {\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.store_registration_page);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/StoreRegistrationPage.java b/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/StoreRegistrationPage.java
+--- a/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/StoreRegistrationPage.java	(revision cb4d98847695d45663d022739a250593a5e4d1cc)
++++ b/app/src/main/java/com/projectfkklp/saristorepos/activities/store_registration/StoreRegistrationPage.java	(date 1705155442479)
+@@ -1,19 +1,78 @@
+ package com.projectfkklp.saristorepos.activities.store_registration;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
+-
++import android.content.Intent;
+ import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.Toast;
+ 
+-import com.projectfkklp.saristorepos.R;
+ import com.google.firebase.database.DatabaseReference;
+ import com.google.firebase.database.FirebaseDatabase;
+-
++import com.projectfkklp.saristorepos.R;
++import com.projectfkklp.saristorepos.activities.dashboard.DashboardPage;
++import com.projectfkklp.saristorepos.models.Store;
++import com.projectfkklp.saristorepos.models.UserStoreRelation;
+ 
+ public class StoreRegistrationPage extends AppCompatActivity {
+ 
++    private EditText storeNameEditText;
++    private EditText storeAddressEditText;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.store_registration_page);
++
++        // Initialize UI elements
++        storeNameEditText = findViewById(R.id.store_registration_name);
++        storeAddressEditText = findViewById(R.id.store_registration_address);
++
++        // Set up OnClickListener for the storeRegister Button
++        Button storeRegisterButton = findViewById(R.id.storeRegister);
++        storeRegisterButton.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                // Handle the button click
++                registerStore();
++            }
++        });
+     }
+-}
+\ No newline at end of file
++
++    private void registerStore() {
++        // Get the values from the EditText fields
++        String storeName = storeNameEditText.getText().toString().trim();
++        String storeAddress = storeAddressEditText.getText().toString().trim();
++
++        if (storeName.isEmpty() || storeAddress.isEmpty()) {
++            // Check if any field is empty, display a message if true
++            Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show();
++        } else {
++            // Register the store
++            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
++
++            // Create a new store object
++            Store newStore = new Store(storeName, storeAddress);
++
++            // Save the store to Firebase
++            String storeId = databaseReference.child("stores").push().getKey();
++            databaseReference.child("stores").child(storeId).setValue(newStore);
++
++            // Create a UserStoreRelation and save it
++            String currentUserId = "YourCurrentUserId"; // Replace with actual user ID
++            UserStoreRelation userStoreRelation = new UserStoreRelation(currentUserId, storeId);
++            UserStoreRelationManager.save(userStoreRelation);
++
++            // Save the store ID in the session
++            SessionManager.setCurrentStore(storeId);
++
++            // Notify the user that the store has been registered
++            Toast.makeText(this, "Store registered successfully!", Toast.LENGTH_SHORT).show();
++
++            // Navigate to the DashboardPage
++            Intent intent = new Intent(StoreRegistrationPage.this, DashboardPage.class);
++            startActivity(intent);
++        }
++    }
++}
+Index: app/src/main/java/com/projectfkklp/saristorepos/models/UserStoreRelation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.projectfkklp.saristorepos.models;\r\n\r\nimport com.projectfkklp.saristorepos.enums.UserRole;\r\nimport com.projectfkklp.saristorepos.enums.UserStatus;\r\n\r\npublic class UserStoreRelation {\r\n    private String userId;\r\n    private String storeId;\r\n    private UserRole role;\r\n    private UserStatus status;\r\n\r\n    // Empty constructor\r\n    public UserStoreRelation() {\r\n        // Default constructor with no parameters\r\n    }\r\n\r\n    // Constructor to initialize all fields\r\n    public UserStoreRelation(String userId, String storeId, UserRole role, UserStatus status) {\r\n        this.userId = userId;\r\n        this.storeId = storeId;\r\n        this.role = role;\r\n        this.status = status;\r\n    }\r\n\r\n    // Getter and Setter methods for 'userId'\r\n    public String getUserId() {\r\n        return userId;\r\n    }\r\n\r\n    public void setUserId(String userId) {\r\n        this.userId = userId;\r\n    }\r\n\r\n    // Getter and Setter methods for 'storeId'\r\n    public String getStoreId() {\r\n        return storeId;\r\n    }\r\n\r\n    public void setStoreId(String storeId) {\r\n        this.storeId = storeId;\r\n    }\r\n\r\n    // Getter and Setter methods for 'role'\r\n    public UserRole getRole() {\r\n        return role;\r\n    }\r\n\r\n    public void setRole(UserRole role) {\r\n        this.role = role;\r\n    }\r\n\r\n    // Getter and Setter methods for 'status'\r\n    public UserStatus getStatus() {\r\n        return status;\r\n    }\r\n\r\n    public void setStatus(UserStatus status) {\r\n        this.status = status;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/projectfkklp/saristorepos/models/UserStoreRelation.java b/app/src/main/java/com/projectfkklp/saristorepos/models/UserStoreRelation.java
+--- a/app/src/main/java/com/projectfkklp/saristorepos/models/UserStoreRelation.java	(revision cb4d98847695d45663d022739a250593a5e4d1cc)
++++ b/app/src/main/java/com/projectfkklp/saristorepos/models/UserStoreRelation.java	(date 1704713217725)
+@@ -10,7 +10,7 @@
+     private UserStatus status;
+ 
+     // Empty constructor
+-    public UserStoreRelation() {
++    public UserStoreRelation(String currentUserId, String storeId) {
+         // Default constructor with no parameters
+     }
+ 
