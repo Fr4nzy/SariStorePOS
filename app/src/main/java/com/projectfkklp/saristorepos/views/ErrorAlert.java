@@ -12,27 +12,27 @@ import com.projectfkklp.saristorepos.R;
 
 import java.util.List;
 
-public class ErrorCard extends CardView {
+public class ErrorAlert extends CardView {
     private TextView contentTextView;
     private TextView closeButton;
 
-    public ErrorCard(Context context) {
+    public ErrorAlert(Context context) {
         super(context);
         init();
     }
 
-    public ErrorCard(Context context, AttributeSet attrs) {
+    public ErrorAlert(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public ErrorCard(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ErrorAlert(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
     private void init() {
-        LayoutInflater.from(getContext()).inflate(R.layout.views_error_card, this, true);
+        LayoutInflater.from(getContext()).inflate(R.layout.views_error_alert, this, true);
         setVisibility(View.GONE);
 
         contentTextView = findViewById(R.id.custom_error_content);

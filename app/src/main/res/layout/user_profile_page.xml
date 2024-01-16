@@ -50,6 +50,13 @@
 
             </LinearLayout>
 
+            <!-- Error Alert -->
+            <com.projectfkklp.saristorepos.views.ErrorAlert
+                android:layout_below="@id/user_profile_gmail"
+                android:id="@+id/user_profile_errors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <!-- Name -->
             <EditText
                 android:id="@+id/user_profile_name"
@@ -125,13 +132,6 @@
                 android:padding="8dp"
                 android:visibility="gone"
                 android:onClick="showUnlinkGmailConfirmationDialog"/>
-
-            <com.projectfkklp.saristorepos.views.ErrorCard
-                android:layout_below="@id/user_profile_gmail"
-                android:id="@+id/user_profile_errors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
 
         </RelativeLayout>
 

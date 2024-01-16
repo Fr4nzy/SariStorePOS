@@ -32,14 +32,14 @@ import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
-import com.projectfkklp.saristorepos.views.ErrorCard;
+import com.projectfkklp.saristorepos.views.ErrorAlert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
 public class UserProfilePage extends AppCompatActivity {
-    ErrorCard formErrors;
+    ErrorAlert formErrors;
     ImageView iconButtonToggleMode;
     EditText profileNameText;
     TextView phoneText;
@@ -113,13 +113,11 @@ public class UserProfilePage extends AppCompatActivity {
     public void changeProfilePhoneNumber(View view){
         profileLauncher.launch(AuthenticationUtils.PHONE_SIGN_IN_INTENT);
         authenticationProvider = AuthenticationProvider.PHONE;
-        unlinkPhoneButton.setVisibility(!currentUser.getPhoneNumber().isEmpty() ? View.VISIBLE : View.GONE);
     }
 
     public void changeProfileGmail(View view){
         profileLauncher.launch(AuthenticationUtils.GMAIL_SIGN_IN_INTENT);
         authenticationProvider = AuthenticationProvider.GMAIL;
-        unlinkGmailButton.setVisibility(!currentUser.getGmail().isEmpty() ? View.VISIBLE : View.GONE);
     }
 
     private void initializeDialogs(){
@@ -164,6 +162,7 @@ public class UserProfilePage extends AppCompatActivity {
     }
 
     private void enableEditing(){
+        editUser = currentUser.clone();
         isEditing=true;
         iconButtonToggleMode.setImageResource(R.drawable.baseline_cancel_24);
         profileNameText.setEnabled(true);
@@ -179,8 +178,6 @@ public class UserProfilePage extends AppCompatActivity {
 
     private void disableEditing(){
         isEditing=false;
-        editUser = new User(currentUser.getName(), currentUser.getPhoneUid(), currentUser.getGmailUid());
-
         iconButtonToggleMode.setImageResource(R.drawable.edit);
         profileNameText.setEnabled(false);
         phoneText.setEnabled(false);
@@ -210,6 +207,7 @@ public class UserProfilePage extends AppCompatActivity {
         editUser.setPhoneNumber("");
         phoneText.setText("");
         unlinkPhoneButton.setVisibility(View.GONE);
+        updateButton.setEnabled(true);
     }
 
     private void unlinkGmail(){
@@ -217,6 +215,7 @@ public class UserProfilePage extends AppCompatActivity {
         editUser.setGmail("");
         gmailText.setText("");
         unlinkGmailButton.setVisibility(View.GONE);
+        updateButton.setEnabled(true);
     }
 
     public void updateUser(View view){
@@ -266,18 +265,20 @@ public class UserProfilePage extends AppCompatActivity {
                     if (signedInUser == null || Objects.equals(uid, currentUserProviderUid)) {
                         if (authenticationProvider.value == AuthenticationProvider.PHONE.value) {
                             String identifier = firebaseUser.getPhoneNumber();
-                            currentUser.setPhoneUid(uid);
-                            currentUser.setPhoneNumber(identifier);
+                            editUser.setPhoneUid(uid);
+                            editUser.setPhoneNumber(identifier);
                             phoneText.setText(identifier);
-                            unlinkPhoneButton.setVisibility(!currentUser.getPhoneNumber().isEmpty() ? View.VISIBLE : View.GONE);
+                            unlinkPhoneButton.setVisibility( View.VISIBLE );
                         }
                         else {
                             String identifier = firebaseUser.getProviderData().get(1).getEmail();
-                            currentUser.setGmailUid(uid);
-                            currentUser.setGmail(identifier);
+                            editUser.setGmailUid(uid);
+                            editUser.setGmail(identifier);
                             gmailText.setText(identifier);
-                            unlinkGmailButton.setVisibility(!currentUser.getGmail().isEmpty() ? View.VISIBLE : View.GONE);
+                            unlinkGmailButton.setVisibility( View.VISIBLE);
                         }
+
+                        updateButton.setEnabled(hasEdits());
                     }
                     else {
                         ToastUtils.show(this, "Already in Use");
@@ -299,6 +300,5 @@ public class UserProfilePage extends AppCompatActivity {
             }
         }
     }
-
 
 }
