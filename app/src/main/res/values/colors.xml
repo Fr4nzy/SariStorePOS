@@ -16,6 +16,6 @@
     <color name="lightGray">#B0B0B0</color>
     <color name="colorPrimary">#4CAF50</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="positiveButtonColor">#4CAF50</color>
-    <color name="negativeButtonColor">#FF4081</color>
+    <color name="positiveButtonColor">#77dd77</color>
+    <color name="negativeButtonColor">#ff6961</color>
 </resources>
