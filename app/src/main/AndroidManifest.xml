@@ -76,6 +76,9 @@
             android:name=".activities.user_registration.UserRegistrationPage"
             android:exported="false" />
         <activity
+            android:name=".activities.store_profile.StoreProfilePage"
+            android:exported="false" />
+        <activity
             android:name=".activities.dashboard._DashboardPage"
             android:exported="false" />
 

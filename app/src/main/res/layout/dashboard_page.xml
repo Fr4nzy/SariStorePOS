@@ -209,26 +209,103 @@
             android:layout_height="wrap_content"
             android:background="#F5F5F5"
             android:gravity="center">
-            <include
-                layout="@layout/dashboard_nav_item"
-                app:label='@{"Transactions"}'
-                app:icon="@{@drawable/transactions_icon}"/>
-            <include
-                layout="@layout/dashboard_nav_item"
-                app:label='@{"Inventory"}'
-                app:icon="@{@drawable/inventory_icon}"/>
-            <include
-                layout="@layout/dashboard_nav_item"
-                app:label='@{"Analytics"}'
-                app:icon="@{@drawable/analytics_icon}"/>
-            <include
-                layout="@layout/dashboard_nav_item"
-                app:label='@{"Store"}'
-                app:icon="@{@drawable/store_icon}"/>
-            <include
-                layout="@layout/dashboard_nav_item"
-                app:label='@{"Profile"}'
-                app:icon="@{@drawable/profile_icon}"/>
+            <LinearLayout android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/transactions_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transactions"
+                    android:textSize="9sp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/inventory_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Inventory}"
+                    android:textSize="9sp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/analytics_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Analytics}"
+                    android:textSize="9sp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:onClick="gotoStoreProfile">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/store_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Store"
+                    android:textSize="9sp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:onClick="gotoProfile">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/profile_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile"
+                    android:textSize="9sp"/>
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

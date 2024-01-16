@@ -9,7 +9,9 @@ import android.view.View;
 
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.store_profile.StoreProfilePage;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
+import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.text.DecimalFormat;
@@ -118,5 +120,13 @@ public class DashboardPage extends AppCompatActivity {
 
     public void gotoStoreSelector(View view){
         startActivity(new Intent(this, StoreSelectorPage.class));
+    }
+
+    public void gotoStoreProfile(View view){
+        startActivity(new Intent(this, StoreProfilePage.class));
+    }
+
+    public void gotoProfile(View view){
+        startActivity(new Intent(this, UserProfilePage.class));
     }
 }
