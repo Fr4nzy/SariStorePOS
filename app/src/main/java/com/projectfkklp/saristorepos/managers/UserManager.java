@@ -5,7 +5,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.projectfkklp.saristorepos.classes.ValidationStatus;
-import com.projectfkklp.saristorepos.interfaces.OnUserRegister;
+import com.projectfkklp.saristorepos.interfaces.OnUserSave;
 import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
@@ -65,7 +65,7 @@ public class UserManager {
         });
     }
 
-    public static void registerUser(User user, OnUserRegister onRegister){
+    public static void saveUser(User user, OnUserSave onUserSave){
         ValidationStatus validationStatus = UserValidator.validate(user);
         Task<Void> task = null;
 
@@ -73,18 +73,7 @@ public class UserManager {
             task = getCollectionReference().document(user.getId()).set(user);
         }
 
-        onRegister.onUserRegister(user, validationStatus, task);
-    }
-
-    public static void updateUser(User user, OnUserRegister onUpdateUser) {
-        ValidationStatus validationStatus = UserValidator.validate(user);
-        Task<Void> task = null;
-
-        if (validationStatus.isValid()) {
-            task = getCollectionReference().document(user.getId()).set(user);
-        }
-
-        onUpdateUser.onUserRegister(user, validationStatus, task);
+        onUserSave.onUserSave(user, validationStatus, task);
     }
 
 }

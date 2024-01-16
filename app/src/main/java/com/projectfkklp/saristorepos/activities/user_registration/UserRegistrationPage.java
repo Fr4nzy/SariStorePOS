@@ -101,34 +101,38 @@ public class UserRegistrationPage  extends AppCompatActivity {
     private void signIn(@NonNull ActivityResult result) {
         if (result.getResultCode() == RESULT_OK) {
             FirebaseUser firebaseUser = AuthenticationRepository.getCurrentAuthentication();
-            UserRepository.getUserByAuthentication(authenticationProvider, signedInUser -> {
-                if (signedInUser == null) {
-                    String name = firebaseUser.getDisplayName();
+            UserRepository.getUserByAuthentication(
+                authenticationProvider,
+                firebaseUser.getUid(),
+                signedInUser -> {
+                    if (signedInUser == null) {
+                        String name = firebaseUser.getDisplayName();
 
-                    if (name != null) {
-                        user.setName(name);
-                        nameText.setText(name);
-                    }
+                        if (name != null) {
+                            user.setName(name);
+                            nameText.setText(name);
+                        }
 
-                    String uid = firebaseUser.getUid();
+                        String uid = firebaseUser.getUid();
 
-                    if (authenticationProvider.value == AuthenticationProvider.PHONE.value) {
-                        String identifier = firebaseUser.getPhoneNumber();
-                        user.setPhoneUid(uid);
-                        user.setPhoneNumber(identifier);
-                        phoneText.setText(identifier);
+                        if (authenticationProvider.value == AuthenticationProvider.PHONE.value) {
+                            String identifier = firebaseUser.getPhoneNumber();
+                            user.setPhoneUid(uid);
+                            user.setPhoneNumber(identifier);
+                            phoneText.setText(identifier);
+                        }
+                        else {
+                            String identifier = firebaseUser.getProviderData().get(1).getEmail();
+                            user.setGmailUid(uid);
+                            user.setGmail(identifier);
+                            gmailText.setText(identifier);
+                        }
                     }
                     else {
-                        String identifier = firebaseUser.getProviderData().get(1).getEmail();
-                        user.setGmailUid(uid);
-                        user.setGmail(identifier);
-                        gmailText.setText(identifier);
+                        ToastUtils.show(this, "Already in Use");
                     }
                 }
-                else {
-                    ToastUtils.show(this, "Already in Use");
-                }
-            }, AuthenticationRepository.getCurrentAuthenticationUid());
+            );
         }
         else {
             // Sign in failed
@@ -156,7 +160,7 @@ public class UserRegistrationPage  extends AppCompatActivity {
 
     public void register(View view){
         ProgressUtils.showDialog(this, "Registering...");
-        UserManager.registerUser(user, (registrationUser, validationStatus, task)->{
+        UserManager.saveUser(user, (registrationUser, validationStatus, task)->{
             if (!validationStatus.isValid()) {
                 HashMap<String, String> errors = validationStatus.getErrors();
                 if (errors.get("name") != null) {

@@ -69,7 +69,6 @@ public class UserProfilePage extends AppCompatActivity {
         initializeDialogs();
 
         profileLauncher = AuthenticationUtils.createSignInLauncher(this, this::profileSignIn);
-
     }
 
     private void initializeData(){
@@ -222,7 +221,7 @@ public class UserProfilePage extends AppCompatActivity {
 
     public void updateUser(View view){
         ProgressUtils.showDialog(this, "Updating...");
-        UserManager.updateUser(editUser, (updateUser, validationStatus, task)->{
+        UserManager.saveUser(editUser, (updateUser, validationStatus, task)->{
             if (!validationStatus.isValid()) {
                 ArrayList<String> errorsArray = new ArrayList<>();
                 HashMap<String, String> errors = validationStatus.getErrors();
@@ -255,32 +254,36 @@ public class UserProfilePage extends AppCompatActivity {
         if (result.getResultCode() == RESULT_OK) {
             FirebaseUser firebaseUser = AuthenticationRepository.getCurrentAuthentication();
 
-            UserRepository.getUserByAuthentication(authenticationProvider, signedInUser -> {
-                String uid = firebaseUser.getUid();
-                String currentUserProviderUid = authenticationProvider.value == AuthenticationProvider.PHONE.value
-                        ? currentUser.getPhoneUid()
-                        : currentUser.getGmailUid();
+            UserRepository.getUserByAuthentication(
+                authenticationProvider,
+                firebaseUser.getUid(),
+                signedInUser -> {
+                    String uid = firebaseUser.getUid();
+                    String currentUserProviderUid = authenticationProvider.value == AuthenticationProvider.PHONE.value
+                            ? currentUser.getPhoneUid()
+                            : currentUser.getGmailUid();
 
-                if (signedInUser == null || Objects.equals(uid, currentUserProviderUid)) {
-                    if (authenticationProvider.value == AuthenticationProvider.PHONE.value) {
-                        String identifier = firebaseUser.getPhoneNumber();
-                        currentUser.setPhoneUid(uid);
-                        currentUser.setPhoneNumber(identifier);
-                        phoneText.setText(identifier);
-                        unlinkPhoneButton.setVisibility(!currentUser.getPhoneNumber().isEmpty() ? View.VISIBLE : View.GONE);
+                    if (signedInUser == null || Objects.equals(uid, currentUserProviderUid)) {
+                        if (authenticationProvider.value == AuthenticationProvider.PHONE.value) {
+                            String identifier = firebaseUser.getPhoneNumber();
+                            currentUser.setPhoneUid(uid);
+                            currentUser.setPhoneNumber(identifier);
+                            phoneText.setText(identifier);
+                            unlinkPhoneButton.setVisibility(!currentUser.getPhoneNumber().isEmpty() ? View.VISIBLE : View.GONE);
+                        }
+                        else {
+                            String identifier = firebaseUser.getProviderData().get(1).getEmail();
+                            currentUser.setGmailUid(uid);
+                            currentUser.setGmail(identifier);
+                            gmailText.setText(identifier);
+                            unlinkGmailButton.setVisibility(!currentUser.getGmail().isEmpty() ? View.VISIBLE : View.GONE);
+                        }
                     }
                     else {
-                        String identifier = firebaseUser.getProviderData().get(1).getEmail();
-                        currentUser.setGmailUid(uid);
-                        currentUser.setGmail(identifier);
-                        gmailText.setText(identifier);
-                        unlinkGmailButton.setVisibility(!currentUser.getGmail().isEmpty() ? View.VISIBLE : View.GONE);
+                        ToastUtils.show(this, "Already in Use");
                     }
                 }
-                else {
-                    ToastUtils.show(this, "Already in Use");
-                }
-            }, AuthenticationRepository.getCurrentAuthenticationUid());
+            );
         }
         else {
             // Sign in failed

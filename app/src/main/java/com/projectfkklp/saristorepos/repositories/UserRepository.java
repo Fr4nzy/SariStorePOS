@@ -15,7 +15,7 @@ public class UserRepository {
             .collection("users");
     }
 
-    public static void getUserByAuthentication(AuthenticationProvider authenticationProvider, OnUserRetrieve callback, String authenticationUid){
+    public static void getUserByAuthentication(AuthenticationProvider authenticationProvider,String authenticationUid, OnUserRetrieve callback){
         getCollectionReference()
             .limit(1)
             .whereEqualTo(authenticationProvider.key, authenticationUid)

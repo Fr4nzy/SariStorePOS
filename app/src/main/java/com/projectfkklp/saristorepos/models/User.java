@@ -1,5 +1,7 @@
 package com.projectfkklp.saristorepos.models;
 
+import androidx.annotation.NonNull;
+
 import com.projectfkklp.saristorepos.utils.ModelUtils;
 
 import java.util.ArrayList;
@@ -54,6 +56,7 @@ public class User {
     public String getGmailUid() {
         return gmailUid;
     }
+    @NonNull
     public User clone() {
         return new User(getId(),getName(),getPhoneUid(),getPhoneNumber(),getGmailUid(),getGmail());
     }
