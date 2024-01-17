@@ -1,99 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".activities.store_profile.StoreProfilePage">
-
-    <!-- Title Section -->
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="8dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="20dp">
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Title Section -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="8dp">
-            <!-- Icon/Image for the Store -->
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/store_colored"
-                android:layout_gravity="center" />
-            <!-- Store Name -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:text="STORE PROFILE"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-            <!-- Dismiss Button -->
-            <Button
-                android:id="@+id/outlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dismiss"
-                android:layout_marginRight="10dp"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                style="?attr/materialButtonOutlinedStyle"
-                android:onClick="dismiss"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- Store Information Section -->
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="8dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="20dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="8dp">
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            app:cardElevation="30dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center"
-                android:padding="8dp">
+                android:paddingStart="24dp">
                 <!-- Icon/Image for the Store -->
                 <ImageView
-                    android:id="@+id/iconStoreInformation"
-                    android:layout_width="27dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/edit" />
-                <!-- Store Information TextView -->
-                <TextView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/store_colored"
+                    android:layout_gravity="center" />
+                <!-- Store Name -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="STORE PROFILE"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <!-- Dismiss Button -->
+                <Button
+                    android:id="@+id/outlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dismiss"
+                    android:layout_marginRight="10dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:textSize="11sp"
+                    android:onClick="dismiss"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Store Information Section -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="4dp"
+            app:cardElevation="30dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:padding="24dp">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="STORE INFORMATION"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="8dp" />
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+                    <ImageView
+                        android:id="@+id/store_profile_toggle_mode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:onClick="toggleMode"
+                        android:src="@drawable/edit"
+                        app:tint="@color/gray" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="STORE INFORMATION"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginRight="50dp"/>
+                    <ImageView
+                        android:id="@+id/store_profile_save_button"
+                        android:layout_width="24dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:onClick="toggleMode"
+                        android:src="@drawable/save_icon"
+                        app:tint="@color/gray"
+                        android:visibility="gone"/>
 
-</LinearLayout>
+                </LinearLayout>
+                <!-- Error Alert -->
+                <com.projectfkklp.saristorepos.views.ErrorAlert
+                    android:layout_below="@id/store_profile_name"
+                    android:id="@+id/user_profile_errors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/store_profile_name"
+                    android:autofillHints="name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/store"
+                    android:drawablePadding="8dp"
+                    android:enabled="false"
+                    android:hint="Store Name"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/store_profile_address"
+                        android:autofillHints="phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:drawablePadding="8dp"
+                        android:hint="Store Address"
+                        android:enabled="false"
+                        android:textColor="@color/black"
+                        android:onClick="changeProfileAddress"
+                        tools:ignore="RtlSymmetry"
+                        app:drawableStartCompat="@drawable/baseline_location_pin_24" />
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Store Users Section -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            app:cardElevation="30dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:text="STORE USERS"
+                        android:textSize="15dp"
+                        android:textStyle="bold"/>
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:chipIcon="@drawable/search_user"
+                        app:chipIconSize="12sp"
+                        app:chipStartPadding="12dp"
+                        android:text="Recruit"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/store_profile_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:nestedScrollingEnabled="false"/>
+                    <FrameLayout
+                        android:id="@+id/store_profile_empty_frame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone">
+                        <fragment
+                            android:name="com.projectfkklp.saristorepos.fragments.EmptyFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </FrameLayout>
+                    <ProgressBar
+                        android:id="@+id/store_profile_page_progress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="80dp"
+                        android:visibility="gone"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

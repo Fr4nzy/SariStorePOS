@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="12dp"
-    android:layout_marginEnd="12dp"
-    android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="10dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="8dp">
+    android:layout_marginVertical="4dp"
+    android:layout_marginHorizontal="8dp"
+    app:cardElevation="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_marginHorizontal="12dp"
+        android:layout_margin="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,9 +20,8 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/store_selector_store_name"
-                android:text="ALING NENA'S SARI SARI STORE"
-                android:textColor="@color/lavender"
+                android:id="@+id/store_profile_user_name"
+                android:text="Juan Dela Cruz"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,25 +29,31 @@
                 />
 
             <TextView
-                android:id="@+id/store_selector_store_role"
+                android:id="@+id/store_profile_user_role"
                 android:text="ASSISTANT"
-                android:textColor="@color/lavender"
                 android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
 
             <TextView
-                android:id="@+id/store_selector_store_address"
-                android:text="CASILAGAN MANGATAREM PANGASINAN"
-                android:textColor="@color/lavender"
+                android:id="@+id/store_profile_user_gmail"
+                android:text="jdelacruz@gmail.com"
                 android:textSize="9sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
 
             <TextView
-                android:id="@+id/store_selector_store_id"
+                android:id="@+id/store_profile_user_phone"
+                android:text="+639672410294"
+                android:textSize="9sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/store_profile_user_id"
                 android:text="\@RANDOMID1234"
                 android:textColor="@color/lightGray"
                 android:textSize="9sp"
@@ -64,33 +66,40 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 >
-                <Button
-                    android:id="@+id/store_selector_store_positive_action"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/store_profile_positive_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Positive"
-                    android:textSize="10dp"
-                    android:textColor="@color/black"
-                    android:backgroundTint="@color/positiveButtonColor"
                     android:layout_marginRight="5dp"
+                    android:padding="10dp"
+                    android:minHeight="40dp"
+                    android:minWidth="-0dp"
+                    android:backgroundTint="@color/positiveButtonColor"
+                    android:textColor="@color/black"
+                    android:textSize="8dp"
+                    android:text="Positive"
                     />
-                <Button
-                    android:id="@+id/store_selector_store_negative_action"
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/store_profile_negative_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Negative"
-                    android:textSize="10dp"
-                    android:textColor="@color/black"
+                    android:padding="10dp"
+                    android:layout_marginRight="5dp"
+                    android:minHeight="40dp"
+                    android:minWidth="-0dp"
                     android:backgroundTint="@color/negativeButtonColor"
+                    android:textColor="@color/black"
+                    android:textSize="8dp"
+                    android:text="Negative"
                     />
             </LinearLayout>
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/store_selector_store_status"
+            android:id="@+id/store_profile_user_status"
             android:text="Status"
-            android:textColor="@color/lavender"
             android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,4 +108,4 @@
 
     </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

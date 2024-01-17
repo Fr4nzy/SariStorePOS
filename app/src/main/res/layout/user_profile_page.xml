@@ -35,9 +35,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="10dp"
+                    android:onClick="toggleMode"
                     android:src="@drawable/edit"
-                    app:tint="@color/gray"
-                    android:onClick="toggleMode"/>
+                    app:tint="@color/gray" />
 
                 <TextView
                     android:layout_width="match_parent"
