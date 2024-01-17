@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 public class DashboardTopPieChart extends PieChart {
     private String title;
+    private final int TOP_COUNT = 5;
     private ArrayList<PieEntry> pieEntries;
     public DashboardTopPieChart(Context context) {
         super(context);
@@ -75,20 +76,11 @@ public class DashboardTopPieChart extends PieChart {
         // Sort by descending order to get the highest selling products
         entryPairs.sort(Comparator.comparing(pair -> -pair.second));
 
-        // Add top three first
-        for (int i=0; i<3; i++){
+        // Add top items
+        int topCount = Math.min(TOP_COUNT, entryPairs.size());
+        for (int i=0; i<topCount; i++){
             Pair<String, Integer> entryPair = entryPairs.get(i);
             pieEntries.add(new PieEntry(entryPair.second, entryPair.first));
-        }
-
-        // Compute others
-        int others = 0;
-        for (int i=3; i<entryPairs.size(); i++){
-            Pair<String, Integer> entryPair = entryPairs.get(i);
-            others += entryPair.second;
-        }
-        if (others>0){
-            pieEntries.add(new PieEntry(others, "Others"));
         }
     }
 
