@@ -10,9 +10,9 @@ public enum UserStatus {
         "Are you sure you want to leave this store?",
         1,
         "Change Role",
-        "Kick",
-        "Kicking %s",
-        "Are you sure you want to kick %s?"
+        "Remove",
+        "Remove %s",
+        "Are you sure you want to remove %s?"
     ),
     INVITED(
         2,

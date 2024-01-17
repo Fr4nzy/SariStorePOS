@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    android:layout_marginHorizontal="8dp"
+    app:cardElevation="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="8dp">
+        android:layout_marginHorizontal="12dp"
+        android:layout_margin="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,24 +66,32 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 >
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/store_profile_positive_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Positive"
-                    android:textColor="@color/black"
-                    android:textSize="10dp"
-                    android:backgroundTint="@color/positiveButtonColor"
                     android:layout_marginRight="5dp"
+                    android:padding="10dp"
+                    android:minHeight="40dp"
+                    android:minWidth="-0dp"
+                    android:backgroundTint="@color/positiveButtonColor"
+                    android:textColor="@color/black"
+                    android:textSize="8dp"
+                    android:text="Positive"
                     />
-                <Button
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/store_profile_negative_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Negative"
-                    android:textColor="@color/black"
-                    android:textSize="10dp"
+                    android:padding="10dp"
+                    android:layout_marginRight="5dp"
+                    android:minHeight="40dp"
+                    android:minWidth="-0dp"
                     android:backgroundTint="@color/negativeButtonColor"
+                    android:textColor="@color/black"
+                    android:textSize="8dp"
+                    android:text="Negative"
                     />
             </LinearLayout>
 
@@ -96,4 +108,4 @@
 
     </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
