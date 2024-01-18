@@ -2,6 +2,7 @@ package com.projectfkklp.saristorepos.activities.dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 
 public class DashboardPage extends AppCompatActivity {
+    SwipeRefreshLayout swipeRefresh;
     DashboardSalesLineChart analyticsChart;
     DashboardTopPieChart topSellingChart;
     DashboardTopPieChart topSoldChart;
@@ -40,9 +42,14 @@ public class DashboardPage extends AppCompatActivity {
     }
 
     private void initializeViews(){
+        swipeRefresh = findViewById(R.id.dashboard_swipe_refresh);
         analyticsChart = findViewById(R.id.dashboard_analytics_chart);
         topSellingChart = findViewById(R.id.dashboard_top_selling_chart);
         topSoldChart = findViewById(R.id.dashboard_top_sold_chart);
+
+        swipeRefresh.setOnRefreshListener(()->{
+            swipeRefresh.setRefreshing(false);
+        });
 
         topSellingChart.initializePieChart("Top Selling Product");
         topSoldChart.initializePieChart("Top Sold Products");

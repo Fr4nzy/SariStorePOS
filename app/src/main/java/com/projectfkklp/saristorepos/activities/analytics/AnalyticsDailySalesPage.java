@@ -20,12 +20,12 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary.TransactionDailySummaryPage;
-import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.models.DailySalesSummary;
 import com.projectfkklp.saristorepos.repositories.TransactionRepository;
 
 public class AnalyticsDailySalesPage extends AppCompatActivity {
-    public List<Transaction> transactionList;
+    public List<_Transaction> transactionList;
     public List<DailySalesSummary> summaryList;
     SimpleDateFormat mFormat = new SimpleDateFormat("MMM dd");
 

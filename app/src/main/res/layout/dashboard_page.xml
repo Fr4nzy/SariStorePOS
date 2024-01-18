@@ -63,146 +63,151 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <GridLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/dashboard_swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:columnCount="2"
-            android:rowCount="3"
-            android:alignmentMode="alignMargins"
-            android:columnOrderPreserved="false"
-            android:background="#00000000">
+            android:layout_weight="1">
+            <GridLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="2"
+                android:rowCount="3"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"
+                android:background="#00000000">
 
-            <!-- First CardView in the first row -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="15dp"
-                android:layout_column="0"
-                android:layout_row="0"
-                android:layout_columnSpan="2"
-                android:layout_margin="8dp"
-                android:layout_marginBottom="4dp">
-                <com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesLineChart
-                    android:id="@+id/dashboard_analytics_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Second CardView in the first row -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="15dp"
-                android:layout_margin="4dp"
-                android:layout_marginLeft="8dp">
-
-                <!-- Your content for the second CardView (e.g., icon, title, etc.) -->
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Third CardView in the second row -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="15dp"
-                android:layout_margin="4dp"
-                android:layout_marginRight="8dp">
-
-                <!-- Your content for the third CardView (e.g., icon, title, etc.) -->
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Fourth CardView in the second row -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="15dp"
-                android:layout_margin="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Top Selling Products"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="*For past 30days"
-                        android:textSize="7sp"
-                        />
-                    <com.projectfkklp.saristorepos.activities.dashboard.DashboardTopPieChart
-                        android:id="@+id/dashboard_top_selling_chart"
+                <!-- First CardView in the first row -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="15dp"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_columnSpan="2"
+                    android:layout_margin="8dp"
+                    android:layout_marginBottom="4dp">
+                    <com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesLineChart
+                        android:id="@+id/dashboard_analytics_chart"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        />
-                </LinearLayout>
+                        android:layout_height="match_parent"/>
+                </androidx.cardview.widget.CardView>
 
-            </androidx.cardview.widget.CardView>
+                <!-- Second CardView in the first row -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="15dp"
+                    android:layout_margin="4dp"
+                    android:layout_marginLeft="8dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="15dp"
-                android:layout_margin="4dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp">
+                    <!-- Your content for the second CardView (e.g., icon, title, etc.) -->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Top Sold Products"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="*For past 30days"
-                        android:textSize="7sp"
-                        />
-                    <com.projectfkklp.saristorepos.activities.dashboard.DashboardTopPieChart
-                        android:id="@+id/dashboard_top_sold_chart"
+                </androidx.cardview.widget.CardView>
+
+                <!-- Third CardView in the second row -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="15dp"
+                    android:layout_margin="4dp"
+                    android:layout_marginRight="8dp">
+
+                    <!-- Your content for the third CardView (e.g., icon, title, etc.) -->
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Fourth CardView in the second row -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="15dp"
+                    android:layout_margin="4dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="8dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        />
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Top Selling Products"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*For past 30days"
+                            android:textSize="7sp"
+                            />
+                        <com.projectfkklp.saristorepos.activities.dashboard.DashboardTopPieChart
+                            android:id="@+id/dashboard_top_selling_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            />
+                    </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-        </GridLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="15dp"
+                    android:layout_margin="4dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Top Sold Products"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*For past 30days"
+                            android:textSize="7sp"
+                            />
+                        <com.projectfkklp.saristorepos.activities.dashboard.DashboardTopPieChart
+                            android:id="@+id/dashboard_top_sold_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </GridLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

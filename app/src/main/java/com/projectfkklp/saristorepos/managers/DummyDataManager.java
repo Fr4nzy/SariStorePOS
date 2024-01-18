@@ -6,7 +6,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.projectfkklp.saristorepos.models.Product;
-import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.repositories.DatasetRepository;
 import com.projectfkklp.saristorepos.repositories.ProductRepository;
@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -48,7 +46,7 @@ public class DummyDataManager {
                 .toArray(Integer[]::new);
 
         for (double sale: sales) {
-            Transaction transaction = new Transaction(
+            _Transaction transaction = new _Transaction(
                     ModelUtils.createUUID(),
                     DateUtils.formatTimestamp(date),
                     sale

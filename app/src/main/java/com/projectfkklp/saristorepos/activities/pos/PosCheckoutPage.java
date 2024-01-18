@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.projectfkklp.saristorepos.managers.TransactionManager;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.utils.ModelUtils;
 
 import java.util.ArrayList;
@@ -120,7 +120,7 @@ public class PosCheckoutPage extends AppCompatActivity {
 
     // Modify the showReceipt method in PosCheckoutPage activity
     private void showReceipt(double totalAmount) {
-        Transaction transaction = new Transaction(
+        _Transaction transaction = new _Transaction(
                 ModelUtils.createUUID(),
                 new Date(),
                 totalAmount,
@@ -130,7 +130,7 @@ public class PosCheckoutPage extends AppCompatActivity {
         // Create a StringBuilder to build the receipt message
         StringBuilder receiptMessage = new StringBuilder();
         receiptMessage.append("Date/Time - ").append(transaction.getDate()).append("\n");
-        receiptMessage.append("Transaction ID: ").append(transaction.getId()).append("\n\n");
+        receiptMessage.append("_Transaction ID: ").append(transaction.getId()).append("\n\n");
 
         // Add details for each item in the cart
         for (Product item : cartItemList) {
@@ -158,7 +158,7 @@ public class PosCheckoutPage extends AppCompatActivity {
                     posCheckoutPageAdapter.notifyDataSetChanged();
 
                     // Handle confirmation (transaction completed)
-                    Toast.makeText(this, "Transaction Complete", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "_Transaction Complete", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(PosCheckoutPage.this, PosPage.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent); // Start PosPage and clear its previous instances
@@ -166,7 +166,7 @@ public class PosCheckoutPage extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", (dialogInterface, i) -> {
                     // Handle cancellation (transaction canceled)
-                    Toast.makeText(this, "Transaction Canceled", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "_Transaction Canceled", Toast.LENGTH_SHORT).show();
                     // You can add any additional actions or leave it empty
                 })
                 .setCancelable(false) // Prevent canceling by tapping outside the dialog

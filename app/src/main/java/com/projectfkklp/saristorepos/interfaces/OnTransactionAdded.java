@@ -1,7 +1,7 @@
 package com.projectfkklp.saristorepos.interfaces;
 
-import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.models._Transaction;
 
 public interface OnTransactionAdded {
-    void onTransactionAdded(Transaction transaction);
+    void onTransactionAdded(_Transaction transaction);
 }

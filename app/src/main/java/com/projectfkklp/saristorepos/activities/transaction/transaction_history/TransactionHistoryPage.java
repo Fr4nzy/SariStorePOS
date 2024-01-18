@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary.TransactionDailySummaryPage;
-import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.repositories.TransactionRepository;
 import com.projectfkklp.saristorepos.utils.DateUtils;
 
@@ -23,7 +23,7 @@ import java.util.List;
 public class TransactionHistoryPage extends AppCompatActivity {
 
     private TransactionHistoryAdapter adapter;
-    private List<Transaction> transactionList;
+    private List<_Transaction> transactionList;
     private Date lowerDate;
     private Date upperDate;
     private Date firstTransactionDate;

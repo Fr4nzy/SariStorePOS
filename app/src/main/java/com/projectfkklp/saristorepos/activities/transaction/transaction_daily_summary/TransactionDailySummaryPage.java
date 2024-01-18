@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_history.TransactionHistoryPage;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.models.DailySalesSummaryBreakdown;
 import com.projectfkklp.saristorepos.models.DailySalesSummary;
 import com.projectfkklp.saristorepos.repositories.TransactionRepository;
@@ -35,7 +35,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TransactionDailySummaryPage extends AppCompatActivity {
-    public List<Transaction> transactionList;
+    public List<_Transaction> transactionList;
     public List<DailySalesSummary> summaryList;
     private TransactionDailySummaryAdapter adapter;
     private Date lowerDate;
@@ -158,7 +158,7 @@ public class TransactionDailySummaryPage extends AppCompatActivity {
         return overallPrice;
     }
 
-    public static void setSummaryList(List<Transaction> transactionList, List<DailySalesSummary> summaryList) throws ParseException {
+    public static void setSummaryList(List<_Transaction> transactionList, List<DailySalesSummary> summaryList) throws ParseException {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date endDate = dateFormat.parse(transactionList.get(0).getDate());
         Date startDate = dateFormat.parse(transactionList.get(transactionList.size()-1).getDate());
@@ -172,7 +172,7 @@ public class TransactionDailySummaryPage extends AppCompatActivity {
         while (!calendar.getTime().after(endDate)) {
             Date currentDate = calendar.getTime();
 
-            List<Transaction> transactions = transactionList
+            List<_Transaction> transactions = transactionList
                     .stream()
                     .filter(t -> {
                         try {
@@ -186,7 +186,7 @@ public class TransactionDailySummaryPage extends AppCompatActivity {
 
             // Get summary of sales
             Map<String, DailySalesSummaryBreakdown> breakDowns = new HashMap<>();
-            for (Transaction transaction :transactions){
+            for (_Transaction transaction :transactions){
                 for (Product item:transaction.getItems()) {
                     if (breakDowns.containsKey(item.getProduct())) {
                         DailySalesSummaryBreakdown breakDown = breakDowns.get(item.getProduct());
