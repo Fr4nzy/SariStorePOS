@@ -21,6 +21,7 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseUser;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
 import com.projectfkklp.saristorepos.enums.AuthenticationProvider;
 import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.managers.UserManager;
@@ -70,6 +71,12 @@ public class UserProfilePage extends AppCompatActivity {
         initializeDialogs();
 
         profileLauncher = AuthenticationUtils.createSignInLauncher(this, this::profileSignIn);
+        signOut.setOnClickListener(view -> {
+            // Clear sessions and navigate to login page
+            SessionManager.reset(UserProfilePage.this);
+            ActivityUtils.navigateToWithFlags(UserProfilePage.this, UserLoginPage.class);
+            finish();
+        });
     }
 
     private void initializeData(){
