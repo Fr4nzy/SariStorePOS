@@ -120,18 +120,21 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp">
 
+                <!-- Existing LinearLayout inside the CardView -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="8dp">
 
+                    <!-- Your existing TextViews in the first LinearLayout -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sales and Sold Items"
                         android:textSize="11sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -139,60 +142,178 @@
                         android:text="*Current vs Previous"
                         android:textSize="7sp" />
 
-                    <!-- Adding the new LinearLayout inside the existing one -->
+                    <!-- Nested LinearLayout for ll1 and the 9 TextViews on the right side -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
+                        <!-- ll1 -->
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="15dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="2dp">
+                            android:id="@+id/ll1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginTop="7dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="2dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Week"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/black"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="22dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Month"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/black"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="22dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Year"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/black"/>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- 9 TextViews on the right side -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Week"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="15dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="22dp">
+                                android:text="₱12.3k"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Month"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="15dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="22dp">
+                                android:text="+0.06%"
+                                android:textSize="12sp"
+                                android:textColor="#4CAF50" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Year"
-                                android:textStyle="bold" />
+                                android:text="₱42.3k"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="+0.06%"
+                                android:textSize="12sp"
+                                android:textColor="#4CAF50"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₱0.52M"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="+0.06k"
+                                android:textSize="12sp"
+                                android:textColor="#4CAF50"/>
+
 
                         </LinearLayout>
+
+                        <!-- Additional 3 TextViews beside the existing ones -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0.98k"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="+0.07%"
+                                android:textSize="12sp"
+                                android:textColor="#4CAF50"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="6.54k"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="+0.07%"
+                                android:textSize="12sp"
+                                android:textColor="#4CAF50"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="70.98k"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="+0.07%"
+                                android:textSize="12sp"
+                                android:textColor="#4CAF50"/>
+
+
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+
 
             <!-- Fourth CardView in the second row -->
             <androidx.cardview.widget.CardView
