@@ -4,23 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.EditText;
+import androidx.appcompat.widget.SearchView;
+
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorAdapter;
 import com.projectfkklp.saristorepos.models.Product;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
+import java.util.List;
+import java.util.stream.Collectors;
+;
 public class InventoryProductListPage extends AppCompatActivity {
-
-    EditText searchEditText;
+    SearchView searchText;
     RecyclerView productListRecycler;
     InventoryProductListAdapter inventoryProductListAdapter;
 
-    private ArrayList<Product> products;
+    private List<Product> products;
+    private List<Product> searchedProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,76 +35,37 @@ public class InventoryProductListPage extends AppCompatActivity {
     }
 
     private void initializeData(){
-        products = new ArrayList<>(Arrays.asList(
-            new Product(
+        products = new ArrayList<>();
+        searchedProducts = new ArrayList<>();
+
+        for (int i=0;i<100;i++){
+            products.add(new Product(
                 "",
-                "Product 1",
-                100,
-                12,
-                "",
-                ""
-            ),
-            new Product(
-                "",
-                "Product 2",
-                50,
-                100,
+                (i < 50? "Sample Product ": "Test Product")+i,
+                i%20,
+                (i+1)*10,
                 "",
                 ""
-            ),
-            new Product(
-                "",
-                "Product 3",
-                20,
-                30,
-                "",
-                ""
-            ),
-            new Product(
-                "",
-                "Product 4",
-                70,
-                123,
-                "",
-                ""
-            ),
-            new Product(
-                "",
-                "Product 5",
-                80,
-                40,
-                "",
-                ""
-            ),
-            new Product(
-                "",
-                "Product 6",
-                12,
-                10,
-                "",
-                ""
-            ),
-            new Product(
-                "",
-                "Product 7",
-                90,
-                99,
-                "",
-                ""
-            ),
-            new Product(
-                "",
-                "Product 8",
-                45,
-                54,
-                "",
-                ""
-            )
-        ));
+            ));
+        }
     }
 
     private void initializeViews(){
+        searchText = findViewById(R.id.inventory_product_list_search);
         productListRecycler = findViewById(R.id.inventory_product_list_recycler);
+
+        searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                search(newText);
+                return false;
+            }
+        });
     }
 
     private void initializedRecyclerView(){
@@ -110,12 +73,21 @@ public class InventoryProductListPage extends AppCompatActivity {
         productListRecycler.setLayoutManager(layoutManager);
 
         // Set up adapter
-        inventoryProductListAdapter = new InventoryProductListAdapter(this, products);
+        inventoryProductListAdapter = new InventoryProductListAdapter(this, searchedProducts);
         productListRecycler.setAdapter(inventoryProductListAdapter);
+
+        search("");
     }
 
     public void navigateBack(android.view.View view){
         finish();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void search(String searchText){
+        searchedProducts.clear();
+        searchedProducts.addAll(products.stream().filter(product->product.getName().toLowerCase().contains(searchText.toLowerCase())).collect(Collectors.toList()));
+        inventoryProductListAdapter.notifyDataSetChanged();
     }
 
 }

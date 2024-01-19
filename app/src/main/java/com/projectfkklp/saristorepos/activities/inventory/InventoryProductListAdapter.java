@@ -1,7 +1,7 @@
 package com.projectfkklp.saristorepos.activities.inventory;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +9,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.utils.StringUtils;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryProductListRecycler>{
 
-    private Context context;
-    private List<Product> products;
+    private final Context context;
+    private final List<Product> products;
 
     public InventoryProductListAdapter(Context context, List<Product> products) {
         this.context = context;
@@ -31,10 +34,28 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
         return new InventoryProductListRecycler(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull InventoryProductListRecycler holder, int position) {
-        Product currentItem = products.get(position);
+        Product product = products.get(position);
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
+        // Use Glide to load the image
+        if (!StringUtils.isNullOrEmpty(product.getImgUrl())){
+            Glide.with(context).load(product.getImgUrl()).into(holder.productImg);
+        }
+
+        holder.productNameText.setText(product.getName());
+        holder.productStocksText.setText(String.format(
+            "Stocks: %d",
+            product.getStocks()
+        ));
+        holder.productUnitPriceText.setText(String.format(
+            "Unit Price: ₱%.2f",
+            product.getUnitPrice()
+        ));
+
+        holder.productOosIndicatorText.setVisibility(product.getStocks()==0 ? View.VISIBLE:View.GONE);
     }
 
     @Override
