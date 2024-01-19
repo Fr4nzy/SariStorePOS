@@ -17,7 +17,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.projectfkklp.saristorepos.R;
 
-public class InventoryProductDetailPage extends AppCompatActivity {
+public class _InventoryProductDetailPage extends AppCompatActivity {
 
     private TextView detailPrice;
     private TextView detailProduct;
@@ -30,7 +30,7 @@ public class InventoryProductDetailPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inventory_product_detail_page);
 
-       /* detailPrice = findViewById(R.id.detailPrice);
+        detailPrice = findViewById(R.id.detailPrice);
         ImageView detailImage = findViewById(R.id.detailImage);
         detailProduct = findViewById(R.id.detailProduct);
         FloatingActionButton deleteButton = findViewById(R.id.deleteButton);
@@ -48,13 +48,14 @@ public class InventoryProductDetailPage extends AppCompatActivity {
             key = bundle.getString("Key");
             imageUrl = bundle.getString("Image");
             Glide.with(this).load(imageUrl).into(detailImage);
-        }*/
+        }
 
-        /*deleteButton.setOnClickListener(v -> deleteProduct());
-        editButton.setOnClickListener(v -> editProduct());*/
+        deleteButton.setOnClickListener(v -> deleteProduct());
+
+        editButton.setOnClickListener(v -> editProduct());
     }
 
-    /*private void deleteProduct() {
+    private void deleteProduct() {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final FirebaseStorage storage = FirebaseStorage.getInstance();
         // Access FirebaseAuth to get the current user
@@ -73,26 +74,26 @@ public class InventoryProductDetailPage extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             // Delete successful, handle UI updates
-                            Toast.makeText(InventoryProductDetailPage.this, "Deleted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(_InventoryProductDetailPage.this, "Deleted", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             // Handle errors
-                            Toast.makeText(InventoryProductDetailPage.this, "Error deleting product", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(_InventoryProductDetailPage.this, "Error deleting product", Toast.LENGTH_SHORT).show();
                         }
                     });
         }).addOnFailureListener(e -> {
             // Handle failure to delete image
-            Toast.makeText(InventoryProductDetailPage.this, "Error deleting image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(_InventoryProductDetailPage.this, "Error deleting image", Toast.LENGTH_SHORT).show();
         });
     }
 
     private void editProduct() {
-        Intent intent = new Intent(InventoryProductDetailPage.this, _InventoryEditProductPage.class);
+        Intent intent = new Intent(_InventoryProductDetailPage.this, _InventoryEditProductPage.class);
         intent.putExtra("Product", detailProduct.getText().toString());
         intent.putExtra("Price", detailPrice.getText().toString());
         intent.putExtra("Stock", String.valueOf(stock));
         intent.putExtra("Image", imageUrl);
         intent.putExtra("Key", key);
         startActivity(intent);
-    }*/
+    }
 }

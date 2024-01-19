@@ -21,7 +21,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.projectfkklp.saristorepos.managers.TransactionManager;
-import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.models._Product;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.utils.ModelUtils;
@@ -32,7 +32,7 @@ import java.util.Date;
 
 public class PosCheckoutPage extends AppCompatActivity {
 
-    private ArrayList<Product> cartItemList;
+    private ArrayList<_Product> cartItemList;
     private PosCheckoutPageAdapter posCheckoutPageAdapter;
     private CollectionReference usersCollection;
     private FirebaseAuth mAuth;
@@ -53,7 +53,7 @@ public class PosCheckoutPage extends AppCompatActivity {
         if (cartItemList == null) {
             cartItemList = getIntent().getParcelableArrayListExtra("cartItemList");
             assert cartItemList != null;
-            for (Product cartItem : cartItemList) {
+            for (_Product cartItem : cartItemList) {
                 cartItem.setQuantity(1);
             }
         }
@@ -98,8 +98,8 @@ public class PosCheckoutPage extends AppCompatActivity {
 
 
     // Helper method to check if the quantity of any product exceeds the available stock
-    private boolean isQuantityValid(ArrayList<Product> cartItemList) {
-        for (Product cartItem : cartItemList) {
+    private boolean isQuantityValid(ArrayList<_Product> cartItemList) {
+        for (_Product cartItem : cartItemList) {
             int stock = cartItem.getStock();
             int quantity = cartItem.getQuantity();
             if (quantity > stock) {
@@ -133,7 +133,7 @@ public class PosCheckoutPage extends AppCompatActivity {
         receiptMessage.append("_Transaction ID: ").append(transaction.getId()).append("\n\n");
 
         // Add details for each item in the cart
-        for (Product item : cartItemList) {
+        for (_Product item : cartItemList) {
             receiptMessage.append(item.getProduct())
                     .append("\n")
                     .append("Quantity: ").append(item.getQuantity()).append("\n")
@@ -174,21 +174,21 @@ public class PosCheckoutPage extends AppCompatActivity {
     }
 
     // Helper method to check if any product has a stock less than or equal to 0
-    private boolean isStockAvailable(ArrayList<Product> cartItemList) {
-        for (Product cartItem : cartItemList) {
+    private boolean isStockAvailable(ArrayList<_Product> cartItemList) {
+        for (_Product cartItem : cartItemList) {
             int stock = cartItem.getStock();
             if (stock <= 0) {
-                return false; // _Product is out of stock
+                return false; // Product is out of stock
             }
         }
         return true; // All products have stock greater than 0
     }
 
     // Helper method to deduct the purchased quantity from the stock in Firestore
-    private void deductStockFromDatabase(ArrayList<Product> cartItemList) {
+    private void deductStockFromDatabase(ArrayList<_Product> cartItemList) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        for (Product cartItem : cartItemList) {
+        for (_Product cartItem : cartItemList) {
             // Get the user's UID
             FirebaseUser currentUser = mAuth.getCurrentUser();
             String userUid = currentUser.getUid();
@@ -234,7 +234,7 @@ public class PosCheckoutPage extends AppCompatActivity {
     // Helper method to calculate the total amount
     private double calculateTotalAmount() {
         double totalAmount = 0.0;
-        for (Product item : cartItemList) {
+        for (_Product item : cartItemList) {
             totalAmount += item.getTotalPrice();
         }
         return totalAmount;

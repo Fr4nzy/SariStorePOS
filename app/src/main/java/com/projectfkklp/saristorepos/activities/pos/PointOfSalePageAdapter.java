@@ -16,17 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.models._Product;
 
 import java.util.List;
 
 public class PointOfSalePageAdapter extends RecyclerView.Adapter<PointOfSalePageAdapter.MyViewHolder> {
 
     private Context context;
-    private List<Product> dataList;
+    private List<_Product> dataList;
     private OnItemClickListener onItemClickListener; // Declare the listener
 
-    public PointOfSalePageAdapter(Context context, List<Product> dataList) {
+    public PointOfSalePageAdapter(Context context, List<_Product> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
@@ -40,10 +40,10 @@ public class PointOfSalePageAdapter extends RecyclerView.Adapter<PointOfSalePage
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Product currentItem = dataList.get(position);
+        _Product currentItem = dataList.get(position);
 
         // Log data properties
-        Log.d("DataProperties", "_Product: " + currentItem.getProduct());
+        Log.d("DataProperties", "Product: " + currentItem.getProduct());
         Log.d("DataProperties", "Price: " + currentItem.getPrice());
         Log.d("DataProperties", "Stock: " + currentItem.getStock());
 
@@ -72,7 +72,7 @@ public class PointOfSalePageAdapter extends RecyclerView.Adapter<PointOfSalePage
 
     // Interface for click events
     public interface OnItemClickListener {
-        void onItemClick(Product data);
+        void onItemClick(_Product data);
     }
 
     // Setter for click listener
@@ -86,7 +86,7 @@ public class PointOfSalePageAdapter extends RecyclerView.Adapter<PointOfSalePage
         ImageView productImage;
         TextView productLabel, priceLabel, stockLabel;
 
-        public MyViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, List<Product> dataList) {
+        public MyViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener, List<_Product> dataList) {
             super(itemView);
 
             // Initialize views
@@ -103,14 +103,14 @@ public class PointOfSalePageAdapter extends RecyclerView.Adapter<PointOfSalePage
                 if (onItemClickListener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        Product clickedItem = dataList.get(position);
+                        _Product clickedItem = dataList.get(position);
 
                         // Check if the product is in stock
                         if (clickedItem.getStock() > 0) {
-                            // _Product is in stock, proceed with adding to cart
+                            // Product is in stock, proceed with adding to cart
                             onItemClickListener.onItemClick(clickedItem);
                         } else {
-                            // _Product is out of stock, show an alert dialog
+                            // Product is out of stock, show an alert dialog
                             showOutOfStockDialog();
                         }
                     }
@@ -130,7 +130,7 @@ public class PointOfSalePageAdapter extends RecyclerView.Adapter<PointOfSalePage
 
 
 
-    public void updateProductList(List<Product> newList) {
+    public void updateProductList(List<_Product> newList) {
         dataList.clear();
         dataList.addAll(newList);
         notifyDataSetChanged();

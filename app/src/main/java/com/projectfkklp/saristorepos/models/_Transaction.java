@@ -14,14 +14,14 @@ public class _Transaction {
     private double amount;
     private String id;
 
-    private List<Product> items;
+    private List<_Product> items;
 
     // Empty constructor needed for Firestore
     public _Transaction() {
         items = new ArrayList<>();
     }
 
-    public _Transaction(String uid, Date date, double amount, List<Product> items) {
+    public _Transaction(String uid, Date date, double amount, List<_Product> items) {
         this.id = uid;
         this.date = DateUtils.formatTimestamp(date);
         this.amount = amount;
@@ -35,7 +35,7 @@ public class _Transaction {
         this.items = new ArrayList<>();
     }
 
-    public List<Product> getItems() {
+    public List<_Product> getItems() {
         return items;
     }
 
@@ -54,7 +54,7 @@ public class _Transaction {
     public int getTotalQuantity(){
         int totalQuantity=0;
 
-        for (Product item: items){
+        for (_Product item: items){
             totalQuantity+=item.getQuantity();
         }
 
@@ -66,7 +66,7 @@ public class _Transaction {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
         String itemsSummary = "";
 
-        for (Product item: items){
+        for (_Product item: items){
             itemsSummary+=
                     "\n"+item.getQuantity()+"x "+item.getProduct()
                     +"\n\t\tUnit Price: ₱"+ decimalFormat.format(item.getPrice())

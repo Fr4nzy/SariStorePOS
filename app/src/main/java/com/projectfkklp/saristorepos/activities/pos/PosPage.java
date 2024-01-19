@@ -36,7 +36,7 @@ import java.util.Objects;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
-import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.models._Product;
 import com.projectfkklp.saristorepos.R;
 
 public class PosPage extends AppCompatActivity {
@@ -49,9 +49,9 @@ public class PosPage extends AppCompatActivity {
     CollectionReference productsCollection;
     private TextView cartCountTextView;
     private PointOfSalePageAdapter adapter;
-    private List<Product> cartItemList = new ArrayList<>();
-    final List<Product> productList = new ArrayList<>();
-    private final List<Product> filteredProductList = new ArrayList<>();
+    private List<_Product> cartItemList = new ArrayList<>();
+    final List<_Product> productList = new ArrayList<>();
+    private final List<_Product> filteredProductList = new ArrayList<>();
 
 
     @Override
@@ -104,7 +104,7 @@ public class PosPage extends AppCompatActivity {
 
             productList.clear();
             for (DocumentSnapshot document : Objects.requireNonNull(value).getDocuments()) {
-                Product product = document.toObject(Product.class);
+                _Product product = document.toObject(_Product.class);
                 if (product != null) {
                     product.setKey(document.getId());
                     productList.add(product);
@@ -119,7 +119,7 @@ public class PosPage extends AppCompatActivity {
             if (task.isSuccessful()) {
                 productList.clear();
                 for (DocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                    Product product = document.toObject(Product.class);
+                    _Product product = document.toObject(_Product.class);
                     if (product != null) {
                         product.setKey(document.getId());
                         productList.add(product);
@@ -127,9 +127,9 @@ public class PosPage extends AppCompatActivity {
                     }
                 }
                 // Sort the productList alphabetically based on the product names
-                Collections.sort(productList, new Comparator<Product>() {
+                Collections.sort(productList, new Comparator<_Product>() {
                     @Override
-                    public int compare(Product product1, Product product2) {
+                    public int compare(_Product product1, _Product product2) {
                         return product1.getProduct().compareToIgnoreCase(product2.getProduct());
                     }
                 });
@@ -195,11 +195,11 @@ public class PosPage extends AppCompatActivity {
 
     private void filter(String searchText) {
         // Save the original productList before applying the filter
-        List<Product> originalList = new ArrayList<>(productList);
+        List<_Product> originalList = new ArrayList<>(productList);
 
-        List<Product> filteredList = new ArrayList<>();
+        List<_Product> filteredList = new ArrayList<>();
 
-        for (Product product : originalList) {
+        for (_Product product : originalList) {
             if (product.getProduct().toLowerCase().contains(searchText.toLowerCase())) {
                 filteredList.add(product);
             }
@@ -248,9 +248,9 @@ public class PosPage extends AppCompatActivity {
     private void handleModifiedDocument(DocumentSnapshot document) {
         // Update the corresponding item in productList when a document is modified
         String modifiedKey = document.getId();
-        for (Product product : productList) {
+        for (_Product product : productList) {
             if (product.getKey().equals(modifiedKey)) {
-                Product updatedProduct = document.toObject(Product.class);
+                _Product updatedProduct = document.toObject(_Product.class);
                 if (updatedProduct != null) {
                     updatedProduct.setKey(modifiedKey);
                     int index = productList.indexOf(product);
@@ -263,7 +263,7 @@ public class PosPage extends AppCompatActivity {
         }
     }
 
-    private void addToCart(Product product) {
+    private void addToCart(_Product product) {
         // Toggle the selection state of the item in cartItemList
         if (cartItemList.contains(product)) {
             cartItemList.remove(product); // Remove the item if it's already in the cart
@@ -299,16 +299,16 @@ public class PosPage extends AppCompatActivity {
 
     // Method to search for a product in Firestore based on the barcode
     private void searchProductByBarcode(String barcode) {
-        List<Product> filteredList = new ArrayList<>();
+        List<_Product> filteredList = new ArrayList<>();
 
-        for (Product product : productList) {
+        for (_Product product : productList) {
             if (product.getBarcode() != null && product.getBarcode().equals(barcode)) {
                 filteredList.add(product);
             }
         }
 
         if (filteredList.isEmpty()) {
-            Toast.makeText(this, "_Product not found for Barcode: " + barcode, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Product not found for Barcode: " + barcode, Toast.LENGTH_SHORT).show();
         } else {
             // Update the RecyclerView with the filtered list
             adapter.updateProductList(filteredList);
@@ -326,8 +326,8 @@ public class PosPage extends AppCompatActivity {
         if (cartItemList != null && !cartItemList.isEmpty()) {
             Intent intent = new Intent(PosPage.this, PosCheckoutPage.class);
 
-            // Convert the List<Product> to ArrayList<Product>
-            ArrayList<Product> cartArrayList = new ArrayList<>(cartItemList);
+            // Convert the List<_Product> to ArrayList<_Product>
+            ArrayList<_Product> cartArrayList = new ArrayList<>(cartItemList);
 
             intent.putParcelableArrayListExtra("cartItemList", cartArrayList);
             startActivity(intent);
@@ -349,7 +349,7 @@ public class PosPage extends AppCompatActivity {
 
     private void updateQuantityInViewPOS(String cartItemKey, int newQuantity) {
         // Find the item in your productList and update its quantity
-        for (Product product : productList) {
+        for (_Product product : productList) {
             if (product.getKey().equals(cartItemKey)) {
                 product.setQuantity(newQuantity);
                 adapter.notifyDataSetChanged(); // Notify the RecyclerView adapter about the change

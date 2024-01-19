@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="8"
+            android:rowCount="2"
+            android:padding="10dp"
+            >
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/inventory_product_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:srcCompat="@drawable/upload"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_rowSpan="2"
+                android:layout_columnSpan="2"
+                android:layout_marginRight="15dp"
+                />
+
+            <TextView
+                android:id="@+id/inventory_product_label"
+                android:text="Product"
+                android:textColor="@color/lavender"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:layout_columnSpan="6"
+                android:layout_gravity="fill"
+                android:layout_marginBottom="10dp"
+                />
+
+            <TextView
+                android:id="@+id/inventory_stock_label"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_columnWeight="3"
+                android:layout_gravity="fill"
+                android:text="Stock"
+                android:textColor="@color/lavender"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/inventory_price_label"
+                android:text="Price"
+                android:textColor="@color/lavender"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="5"
+                android:layout_columnWeight="3"
+                android:layout_gravity="fill"
+                />
+        </GridLayout>
+
+        <LinearLayout
+            android:id="@+id/inventory_out_of_stock_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="#cfeb34"
+            android:layout_alignParentEnd="true"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/baseline_crisis_alert_24"
+                android:layout_marginRight="3dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Out of stock"
+                android:textColor="@color/red"
+                android:textSize="10dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
