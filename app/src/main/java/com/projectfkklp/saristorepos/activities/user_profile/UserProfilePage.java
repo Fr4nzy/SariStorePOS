@@ -21,6 +21,7 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseUser;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
 import com.projectfkklp.saristorepos.enums.AuthenticationProvider;
 import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.managers.UserManager;
@@ -44,6 +45,7 @@ public class UserProfilePage extends AppCompatActivity {
     EditText profileNameText;
     TextView phoneText;
     TextView gmailText;
+    TextView signOut;
     Button updateButton;
     ImageView unlinkPhoneButton;
     ImageView unlinkGmailButton;
@@ -69,6 +71,12 @@ public class UserProfilePage extends AppCompatActivity {
         initializeDialogs();
 
         profileLauncher = AuthenticationUtils.createSignInLauncher(this, this::profileSignIn);
+        signOut.setOnClickListener(view -> {
+            // Clear sessions and navigate to login page
+            SessionManager.reset(UserProfilePage.this);
+            ActivityUtils.navigateToWithFlags(UserProfilePage.this, UserLoginPage.class);
+            finish();
+        });
     }
 
     private void initializeData(){
@@ -85,6 +93,7 @@ public class UserProfilePage extends AppCompatActivity {
         unlinkPhoneButton = findViewById(R.id.user_profile_unlink_phone);
         unlinkGmailButton = findViewById(R.id.user_profile_unlink_gmail);
         updateButton = findViewById(R.id.user_profile_update_button);
+        signOut = findViewById(R.id.user_profile_signout);
 
         phoneText.setText(currentUser.getPhoneNumber());
         gmailText.setText(currentUser.getGmail());
@@ -107,7 +116,6 @@ public class UserProfilePage extends AppCompatActivity {
                 updateButton.setEnabled(hasEdits());
             }
         });
-
     }
 
     public void changeProfilePhoneNumber(View view){
@@ -122,16 +130,16 @@ public class UserProfilePage extends AppCompatActivity {
 
     private void initializeDialogs(){
         cancelConfirmationDialog = new AlertDialog.Builder(this)
-            .setTitle("Cancel Edit ?")
-            .setMessage("You have unsaved changes, do you want to cancel edit?")
-            .setPositiveButton("Yes", (dialog, which) -> disableEditing())
-            .setNegativeButton("No", (dialog, which) -> dialog.dismiss());
+                .setTitle("Cancel Edit ?")
+                .setMessage("You have unsaved changes, do you want to cancel edit?")
+                .setPositiveButton("Yes", (dialog, which) -> disableEditing())
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss());
 
         unlinkPhoneConfirmationDialog = new AlertDialog.Builder(this)
-            .setTitle("Unlink Phone ?")
-            .setMessage("Are you sure you want to unlink your phone?")
-            .setPositiveButton("Yes", (dialog, which) -> unlinkPhone())
-            .setNegativeButton("No", (dialog, which) -> dialog.dismiss());
+                .setTitle("Unlink Phone ?")
+                .setMessage("Are you sure you want to unlink your phone?")
+                .setPositiveButton("Yes", (dialog, which) -> unlinkPhone())
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss());
 
         unlinkGmailConfirmationDialog = new AlertDialog.Builder(this)
                 .setTitle("Unlink Gmail ?")
@@ -237,15 +245,15 @@ public class UserProfilePage extends AppCompatActivity {
             }
 
             task
-                .addOnSuccessListener(successTask->{
-                    SessionManager.setUser(this, editUser);
-                    Toast.makeText(this, "Updating success", Toast.LENGTH_SHORT).show();
-                    ActivityUtils.navigateTo(this, UserProfilePage.class);
-                })
-                .addOnFailureListener(failedTask->
-                        Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show()
-                )
-                .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog());
+                    .addOnSuccessListener(successTask->{
+                        SessionManager.setUser(this, editUser);
+                        Toast.makeText(this, "Updating success", Toast.LENGTH_SHORT).show();
+                        ActivityUtils.navigateTo(this, UserProfilePage.class);
+                    })
+                    .addOnFailureListener(failedTask->
+                            Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show()
+                    )
+                    .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog());
         });
     }
 
@@ -254,36 +262,36 @@ public class UserProfilePage extends AppCompatActivity {
             FirebaseUser firebaseUser = AuthenticationRepository.getCurrentAuthentication();
 
             UserRepository.getUserByAuthentication(
-                authenticationProvider,
-                firebaseUser.getUid(),
-                signedInUser -> {
-                    String uid = firebaseUser.getUid();
-                    String currentUserProviderUid = authenticationProvider.value == AuthenticationProvider.PHONE.value
-                            ? currentUser.getPhoneUid()
-                            : currentUser.getGmailUid();
+                    authenticationProvider,
+                    firebaseUser.getUid(),
+                    signedInUser -> {
+                        String uid = firebaseUser.getUid();
+                        String currentUserProviderUid = authenticationProvider.value == AuthenticationProvider.PHONE.value
+                                ? currentUser.getPhoneUid()
+                                : currentUser.getGmailUid();
 
-                    if (signedInUser == null || Objects.equals(uid, currentUserProviderUid)) {
-                        if (authenticationProvider.value == AuthenticationProvider.PHONE.value) {
-                            String identifier = firebaseUser.getPhoneNumber();
-                            editUser.setPhoneUid(uid);
-                            editUser.setPhoneNumber(identifier);
-                            phoneText.setText(identifier);
-                            unlinkPhoneButton.setVisibility( View.VISIBLE );
+                        if (signedInUser == null || Objects.equals(uid, currentUserProviderUid)) {
+                            if (authenticationProvider.value == AuthenticationProvider.PHONE.value) {
+                                String identifier = firebaseUser.getPhoneNumber();
+                                editUser.setPhoneUid(uid);
+                                editUser.setPhoneNumber(identifier);
+                                phoneText.setText(identifier);
+                                unlinkPhoneButton.setVisibility( View.VISIBLE );
+                            }
+                            else {
+                                String identifier = firebaseUser.getProviderData().get(1).getEmail();
+                                editUser.setGmailUid(uid);
+                                editUser.setGmail(identifier);
+                                gmailText.setText(identifier);
+                                unlinkGmailButton.setVisibility( View.VISIBLE);
+                            }
+
+                            updateButton.setEnabled(hasEdits());
                         }
                         else {
-                            String identifier = firebaseUser.getProviderData().get(1).getEmail();
-                            editUser.setGmailUid(uid);
-                            editUser.setGmail(identifier);
-                            gmailText.setText(identifier);
-                            unlinkGmailButton.setVisibility( View.VISIBLE);
+                            ToastUtils.show(this, "Already in Use");
                         }
-
-                        updateButton.setEnabled(hasEdits());
                     }
-                    else {
-                        ToastUtils.show(this, "Already in Use");
-                    }
-                }
             );
         }
         else {
