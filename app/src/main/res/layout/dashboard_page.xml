@@ -148,7 +148,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Top Selling Products"
+                        android:text="Top Earning Products"
                         android:textSize="11sp"
                         android:textStyle="bold"
                         />
@@ -249,7 +249,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Inventory}"
+                    android:text="Inventory"
                     android:textSize="9sp"/>
             </LinearLayout>
             <LinearLayout android:layout_weight="1"
@@ -268,7 +268,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Analytics}"
+                    android:text="Analytics"
                     android:textSize="9sp"/>
             </LinearLayout>
             <LinearLayout android:layout_weight="1"
