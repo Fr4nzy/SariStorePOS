@@ -111,6 +111,27 @@
 
                 <!-- Your content for the second CardView (e.g., icon, title, etc.) -->
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Today Sales"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        />
+                    <com.projectfkklp.saristorepos.activities.dashboard.DashboardTodaySalesChart
+                        android:id="@+id/dashboard_today_sales_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+
+
             </androidx.cardview.widget.CardView>
 
             <!-- Third CardView in the second row -->

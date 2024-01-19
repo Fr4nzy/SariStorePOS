@@ -38,7 +38,6 @@ public class DashboardTopPieChart extends PieChart {
 
         setDrawHoleEnabled(false);
         getLegend().setEnabled(false);
-
         getDescription().setEnabled(false);
 
         setEntryLabelColor(Color.BLACK);

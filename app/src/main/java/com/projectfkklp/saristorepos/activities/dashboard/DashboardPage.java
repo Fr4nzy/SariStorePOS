@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.inventory.InventoryProductListPage;
@@ -25,6 +28,7 @@ public class DashboardPage extends AppCompatActivity {
     DashboardSalesLineChart analyticsChart;
     DashboardTopPieChart topSellingChart;
     DashboardTopPieChart topSoldChart;
+    DashboardTodaySalesChart todaySalesChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,7 @@ public class DashboardPage extends AppCompatActivity {
 
         // Dashboard Cards
         generateAnalyticsChart();
+        generateTodaySalesChart();
         generateTopSellingChart();
         generateTopSoldChart();
     }
@@ -46,6 +51,8 @@ public class DashboardPage extends AppCompatActivity {
     private void initializeViews(){
         swipeRefresh = findViewById(R.id.dashboard_swipe_refresh);
         analyticsChart = findViewById(R.id.dashboard_analytics_chart);
+
+        todaySalesChart = findViewById(R.id.dashboard_today_sales_chart);
         topSellingChart = findViewById(R.id.dashboard_top_selling_chart);
         topSoldChart = findViewById(R.id.dashboard_top_sold_chart);
 
@@ -53,6 +60,8 @@ public class DashboardPage extends AppCompatActivity {
             swipeRefresh.setRefreshing(false);
         });
 
+        todaySalesChart.initializeTodaySalesChart("Today Sales");
+        topSellingChart.initializePieChart("Top Selling Product");
         topSellingChart.initializePieChart("Top Selling _Product");
         topSoldChart.initializePieChart("Top Sold Products");
     }
@@ -62,6 +71,8 @@ public class DashboardPage extends AppCompatActivity {
         float[] forecastSales = generateRandomDoubleArray(10);
         analyticsChart.setData(actualSales, forecastSales);
     }
+
+    private void generateTodaySalesChart() {todaySalesChart.generateTodaySalesData();}
 
     private void generateTopSellingChart() {
         HashMap<String, Integer> soldEntries = new HashMap<>();
