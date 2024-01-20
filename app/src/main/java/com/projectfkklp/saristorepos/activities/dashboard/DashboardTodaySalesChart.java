@@ -83,47 +83,45 @@ public class DashboardTodaySalesChart extends PieChart {
     }
 
     // Method to generate customizable center text
-    private SpannableString generateCenterText(float todayActualSales, float todayTargetSales, float overallSalesPercentage, float salesGrowthPercentage) {
+    private SpannableString generateCenterText(float todayActualSales, float todayTargetSales, float salesPerformancePercentage, float salesGrowthPercentage) {
+        DecimalFormat decimalFormat = new DecimalFormat("+#,##0.00;-#");
+        String salesGrowthPercentageText = decimalFormat.format(salesGrowthPercentage);
+
         @SuppressLint("DefaultLocale") String centerText = String.format(
-                "Summary\n"
-                        +"%.0f%% " + "to Goal\n"
-                        +"Actual Sales: %s\n"
-                        +"Target Sales: %s\n"
-                        +"%.0f%% vs Yesterday",
-                overallSalesPercentage,
-                StringUtils.formatPesoPrefix(todayActualSales),
-                StringUtils.formatPesoPrefix(todayTargetSales),
-                salesGrowthPercentage
+            "Summary\n"
+                +"%.0f%% to Goal\n"
+                +"Actual Sales: %s\n"
+                +"Target Sales: %s\n"
+                +"%s%% vs Yesterday",
+            salesPerformancePercentage,
+            StringUtils.formatPesoPrefix(todayActualSales),
+            StringUtils.formatPesoPrefix(todayTargetSales),
+            salesGrowthPercentageText
         );
 
         SpannableString spannableString = new SpannableString(centerText);
 
         // Change the color and style of "Summary" to blue and bold
         int blueColor = Color.parseColor("#0000FF");
-        spannableString.setSpan(new ForegroundColorSpan(blueColor), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        int titleStartIndex = 0;
+        int titleEndIndex = 7;
+        spannableString.setSpan(new ForegroundColorSpan(blueColor), titleStartIndex, titleEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new StyleSpan(Typeface.BOLD), titleStartIndex, titleEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         // Change the color of "%.0f%% to Goal" to green
         int greenColor = Color.parseColor("#40C94F");
-        int greenStartIndex = centerText.indexOf(String.format("%.0f%%", overallSalesPercentage));
-        int greenEndIndex = greenStartIndex + 4;
-        spannableString.setSpan(new ForegroundColorSpan(greenColor), greenStartIndex, greenEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        int salesPerformancePercentageStartIndex = titleEndIndex;
+        int salesPerformancePercentageEndIndex = centerText.indexOf(" to Goal");
+        spannableString.setSpan(new ForegroundColorSpan(greenColor), salesPerformancePercentageStartIndex, salesPerformancePercentageEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         // Determine the color for "%.0f%% vs Yesterday" based on growth
-        int startIndex = centerText.indexOf(String.format("%.0f%%", salesGrowthPercentage));
-        int endIndex = startIndex + String.format("%.0f%%", salesGrowthPercentage).length();
-
+        int salesGrowthPercentageStartIndex = centerText.indexOf(salesGrowthPercentageText);
+        int salesGrowthPercentageEndIndex = centerText.indexOf(" vs Yesterday");
         // Change the color to green if there is growth, otherwise crimson
         int growthColor = (salesGrowthPercentage >= 0) ? Color.parseColor("#40C94F") : Color.parseColor("#DC143C");
-        spannableString.setSpan(new ForegroundColorSpan(growthColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        // Add a "+" sign if salesGrowthPercentage is positive
-        if (salesGrowthPercentage >= 0) {
-            spannableString.setSpan(new ForegroundColorSpan(growthColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
+        spannableString.setSpan(new ForegroundColorSpan(growthColor), salesGrowthPercentageStartIndex, salesGrowthPercentageEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return spannableString;
     }
-
 
 }
