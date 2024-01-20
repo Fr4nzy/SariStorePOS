@@ -72,7 +72,11 @@ public class DashboardPage extends AppCompatActivity {
     }
 
     private void generateTodaySalesChart() {
-        todaySalesChart.setData(1838.7f, 2043, 3783.33f);
+        float ySales = 4_545_454_545.454545F;
+        float taSales = 5_000_000_000F;
+        float ttSales = 100_000_000_00f;
+
+        todaySalesChart.setData(ySales, taSales, ttSales);
     }
 
     private void generateTopSellingChart() {

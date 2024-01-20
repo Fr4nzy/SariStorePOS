@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -88,7 +89,7 @@ public class DashboardTodaySalesChart extends PieChart {
                         +"%.0f%% " + "to Goal\n"
                         +"Actual Sales: %s\n"
                         +"Target Sales: %s\n"
-                        +"+%.2f%% vs Yesterday",
+                        +"%.0f%% vs Yesterday",
                 overallSalesPercentage,
                 StringUtils.formatPesoPrefix(todayActualSales),
                 StringUtils.formatPesoPrefix(todayTargetSales),
@@ -108,13 +109,21 @@ public class DashboardTodaySalesChart extends PieChart {
         int greenEndIndex = greenStartIndex + 4;
         spannableString.setSpan(new ForegroundColorSpan(greenColor), greenStartIndex, greenEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        // Change the color of "+%.2f%% vs Yesterday" to crimson
-        int crimsonColor = Color.parseColor("#DC143C");
-        int crimsonStartIndex = centerText.indexOf(String.format("+%.2f%%", salesGrowthPercentage));
-        int crimsonEndIndex = crimsonStartIndex + 8;
-        spannableString.setSpan(new ForegroundColorSpan(crimsonColor), crimsonStartIndex, crimsonEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        // Determine the color for "%.0f%% vs Yesterday" based on growth
+        int startIndex = centerText.indexOf(String.format("%.0f%%", salesGrowthPercentage));
+        int endIndex = startIndex + String.format("%.0f%%", salesGrowthPercentage).length();
+
+        // Change the color to green if there is growth, otherwise crimson
+        int growthColor = (salesGrowthPercentage >= 0) ? Color.parseColor("#40C94F") : Color.parseColor("#DC143C");
+        spannableString.setSpan(new ForegroundColorSpan(growthColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Add a "+" sign if salesGrowthPercentage is positive
+        if (salesGrowthPercentage >= 0) {
+            spannableString.setSpan(new ForegroundColorSpan(growthColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
 
         return spannableString;
     }
+
 
 }
