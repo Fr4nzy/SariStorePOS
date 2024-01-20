@@ -1,6 +1,7 @@
 package com.projectfkklp.saristorepos.activities.inventory;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 import com.projectfkklp.saristorepos.R;
 
 public class InventoryProductListRecycler extends RecyclerView.ViewHolder {
-
+    CardView container;
     ImageView productImg;
     TextView productNameText, productStocksText, productUnitPriceText, productOosIndicatorText;
 
@@ -18,6 +19,7 @@ public class InventoryProductListRecycler extends RecyclerView.ViewHolder {
         super(itemView);
 
         // Initialize views
+        container = itemView.findViewById(R.id.inventory_product_list_container);
         productImg = itemView.findViewById(R.id.inventory_product_list_image);
         productNameText = itemView.findViewById(R.id.inventory_product_list_name);
         productStocksText = itemView.findViewById(R.id.inventory_product_list_stocks);

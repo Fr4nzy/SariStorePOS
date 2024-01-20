@@ -14,7 +14,6 @@ import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryProductListRecycler>{
@@ -38,7 +37,6 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
     @Override
     public void onBindViewHolder(@NonNull InventoryProductListRecycler holder, int position) {
         Product product = products.get(position);
-        DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
         // Use Glide to load the image
         if (!StringUtils.isNullOrEmpty(product.getImgUrl())){
@@ -56,6 +54,19 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
         ));
 
         holder.productOosIndicatorText.setVisibility(product.getStocks()==0 ? View.VISIBLE:View.GONE);
+
+        if (position==products.size()-1){
+            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.container.getLayoutParams();
+            // Set the margin bottom
+            layoutParams.setMargins(
+                layoutParams.leftMargin,
+                layoutParams.topMargin,
+                layoutParams.rightMargin,
+                20
+            );
+            // Apply the updated layout parameters to the CardView
+            holder.container.setLayoutParams(layoutParams);
+        }
     }
 
     @Override

@@ -41,7 +41,7 @@ public class InventoryProductListPage extends AppCompatActivity {
         for (int i=0;i<100;i++){
             products.add(new Product(
                 "",
-                (i < 50? "Sample Product ": "Test Product")+i,
+                (i < 50? "Test Product ": "Sample Product ")+i,
                 i%20,
                 (i+1)*10,
                 "",
@@ -87,6 +87,7 @@ public class InventoryProductListPage extends AppCompatActivity {
     private void search(String searchText){
         searchedProducts.clear();
         searchedProducts.addAll(products.stream().filter(product->product.getName().toLowerCase().contains(searchText.toLowerCase())).collect(Collectors.toList()));
+        searchedProducts.sort((product1, product2)->product1.getName().compareToIgnoreCase(product2.getName()));
         inventoryProductListAdapter.notifyDataSetChanged();
     }
 
