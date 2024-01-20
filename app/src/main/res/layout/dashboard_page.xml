@@ -64,6 +64,7 @@
         </androidx.cardview.widget.CardView>
 
         <GridLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -121,8 +122,16 @@
                 app:cardCornerRadius="5dp"
                 app:cardElevation="15dp"
                 android:layout_margin="4dp"
-                android:layout_marginRight="8dp">
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <!-- Your existing TextViews in the first LinearLayout -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -301,9 +310,6 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-
-
-
 
             <!-- Fourth CardView in the second row -->
             <androidx.cardview.widget.CardView
