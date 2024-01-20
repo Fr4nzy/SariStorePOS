@@ -25,9 +25,9 @@ import java.util.HashMap;
 
 public class DashboardPage extends AppCompatActivity {
     SwipeRefreshLayout swipeRefresh;
-    DashboardSalesLineChart analyticsChart;
-    DashboardTopPieChart topSellingChart;
-    DashboardTopPieChart topSoldChart;
+    DashboardSalesForecastChart analyticsChart;
+    DashboardTopChart topSellingChart;
+    DashboardTopChart topSoldChart;
     DashboardTodaySalesChart todaySalesChart;
 
     @Override
@@ -62,7 +62,6 @@ public class DashboardPage extends AppCompatActivity {
 
         todaySalesChart.initializeTodaySalesChart("Today Sales");
         topSellingChart.initializePieChart("Top Selling Product");
-        topSellingChart.initializePieChart("Top Selling _Product");
         topSoldChart.initializePieChart("Top Sold Products");
     }
 
@@ -72,7 +71,9 @@ public class DashboardPage extends AppCompatActivity {
         analyticsChart.setData(actualSales, forecastSales);
     }
 
-    private void generateTodaySalesChart() {todaySalesChart.generateTodaySalesData();}
+    private void generateTodaySalesChart() {
+        todaySalesChart.setData(1838.7f, 2043, 3783.33f);
+    }
 
     private void generateTopSellingChart() {
         HashMap<String, Integer> soldEntries = new HashMap<>();
@@ -115,6 +116,7 @@ public class DashboardPage extends AppCompatActivity {
         topSoldChart.setData(soldEntries, new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
+
                 if (total == 0) {
                     return "N/A"; // Avoid division by zero
                 }

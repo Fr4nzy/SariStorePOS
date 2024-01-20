@@ -1,5 +1,6 @@
 package com.projectfkklp.saristorepos.activities.dashboard;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -14,24 +15,22 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 
 public class DashboardTodaySalesChart extends PieChart {
-    private String salesTitle;
-    private ArrayList<PieEntry> salesPieEntries;
+    private String title;
+    private ArrayList<PieEntry> pieEntries;
 
     public DashboardTodaySalesChart(Context context) {  super(context); }
 
     public DashboardTodaySalesChart(Context context, AttributeSet attrs) {  super(context, attrs);  }
 
     public DashboardTodaySalesChart(Context context, AttributeSet attrs, int defStyle) {    super(context, attrs, defStyle);    }
-    public void initializeTodaySalesChart(String salesTitle) {
-
-        this.salesTitle = salesTitle;
+    public void initializeTodaySalesChart(String title) {
+        this.title = title;
 
         setDrawCenterText(true);
         setDrawHoleEnabled(true);
@@ -48,44 +47,66 @@ public class DashboardTodaySalesChart extends PieChart {
         setCenterTextOffset(0f, 0f);
         setDragDecelerationFrictionCoef(0.95f);
     }
-    public void generateTodaySalesData() {
-        int yesterdaySales = 10;
-        int todayTargetSales = 5000;
-        int todayActualSales = 3200;
 
-        float overallSalesPercentage = (float) todayActualSales / todayTargetSales * 100;
+    public void setData(float yesterdaySales, float todayActualSales, float todayTargetSales) {
 
-        HashMap<String, Double> todaySalesEntries = new HashMap<>();
-        todaySalesEntries.put("Actual Sales", (double) todayActualSales);
-        todaySalesEntries.put("Target Sales", (double) todayTargetSales - todayActualSales);
-        todaySalesEntries.put("Income from Yesterday", (double) yesterdaySales);
-        salesSetData(todaySalesEntries, new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return "";
+        float salesPerformancePercentage = todayActualSales / todayTargetSales * 100;
+        float salesGrowthPercentage = (todayActualSales - yesterdaySales)/yesterdaySales * 100;
+        float remainingTargetSales = Math.max(0, todayTargetSales-todayActualSales);
+
+        // Pie Chart Entries
+        {
+            pieEntries = new ArrayList<>(Arrays.asList(
+                new PieEntry(todayActualSales),
+                new PieEntry(remainingTargetSales)
+            ));
+            PieDataSet dataSet = new PieDataSet(pieEntries, title);
+            dataSet.setDrawValues(false);
+            dataSet.setColors(
+                Color.parseColor("#0096FF"),
+                Color.parseColor("#A9A9A9")
+            );
+            PieData data = new PieData(dataSet);
+            {
+                data.setValueTextSize(7f);
+                data.setValueTextColor(Color.BLACK);
             }
-        });
+            setData(data);
+        }
 
-        String centerText = generateCenterText(overallSalesPercentage, todayActualSales, todayTargetSales, yesterdaySales);
-        setCenterText(getSpannableString(centerText));
+        SpannableString spannableString = generateCenterText(todayActualSales, todayTargetSales,salesPerformancePercentage, salesGrowthPercentage);
+        setCenterText(spannableString);
+
         animateY(1400, Easing.EaseInOutQuad);
         invalidate();
-
     }
 
     // Method to generate customizable center text
-    private String generateCenterText(float overallSalesPercentage, int todayActualSales, int todayTargetSales, int yesterdaySales) {
-        // Change the color of specific text to green
-        String centerText = String.format("Today Sales\n%.0f%% to Goal\nActual Sales: %s\nTarget Sales: %s\n\uD83D\uDCC8%d%% vs Yesterday",
-                overallSalesPercentage,
-                StringUtils.formatToPeso((float) todayActualSales),
-                StringUtils.formatToPeso((float) (todayTargetSales - todayActualSales)),
-                yesterdaySales);
+    private SpannableString generateCenterText(float todayActualSales, float todayTargetSales, float overallSalesPercentage, float salesGrowthPercentage) {
 
-        // Modify the color of "Today Sales" and "10%"
-        centerText = centerText.replace("Today Sales", "Today Sales ")
-                .replace("10%", "10%").replace("64%", "64%");
-        return centerText;
+        @SuppressLint("DefaultLocale") String centerText = String.format(
+            "Summary\n"
+                +"%.0f%% to Goal\n"
+                +"Actual Sales: %s\n"
+                +"Target Sales: %s\n"
+                +"+%.2f%% vs Yesterday",
+            overallSalesPercentage,
+            StringUtils.formatPesoPrefix(todayActualSales),
+            StringUtils.formatPesoPrefix(todayTargetSales),
+            salesGrowthPercentage
+        );
+
+        SpannableString spannableString = new SpannableString(centerText);
+        {// Change the color of "Today Sales" and "10%" to green
+            int blueColor = Color.parseColor("#0000FF");
+            int greenColor = Color.parseColor("#40C94F");
+            int crimsonColor = Color.parseColor("#DC143C");
+
+            spannableString.setSpan(new ForegroundColorSpan(blueColor), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        return spannableString;
     }
 
     // Method to apply SpannableString for text styling
@@ -112,38 +133,6 @@ public class DashboardTodaySalesChart extends PieChart {
         spannableString.setSpan(new ForegroundColorSpan(crimsonColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return spannableString;
-    }
-
-    private void setSalesPieEntries(HashMap<String, Double> salesEntriesHash){
-        salesPieEntries = new ArrayList<>();
-
-        for (String key : salesEntriesHash.keySet()) {
-            double value = salesEntriesHash.get(key);
-            salesPieEntries.add(new PieEntry((float) value, key));
-        }
-    }
-
-    public void salesSetData(HashMap<String, Double> salesEntriesHash, ValueFormatter valueFormatter){
-        setSalesPieEntries(salesEntriesHash);
-
-        // Set colors to gray and blue
-        int grayColor = Color.parseColor("#A9A9A9");
-        int blueColor = Color.parseColor("#0096FF");
-
-        PieDataSet dataSet = new PieDataSet(salesPieEntries, salesTitle);
-        dataSet.setColors(new int[]{grayColor, blueColor}); // Set colors to gray and blue
-
-        PieData data = new PieData(dataSet);
-        {
-            data.setValueTextSize(7f);
-            data.setValueTextColor(Color.BLACK);
-            data.setValueFormatter(valueFormatter);
-        }
-
-        setData(data);
-        highlightValues(null);
-        animateY(1400, Easing.EaseInOutQuad);
-        invalidate();
     }
 
 }
