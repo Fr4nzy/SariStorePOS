@@ -1,10 +1,9 @@
 package com.projectfkklp.saristorepos.interfaces;
 
-import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.models._Transaction;
 
 import java.text.ParseException;
-import java.util.List;
 
 public interface OnTransactionRetrieve {
-    void onTransactionRetrieved(Transaction transaction) throws ParseException;
+    void onTransactionRetrieved(_Transaction transaction) throws ParseException;
 }

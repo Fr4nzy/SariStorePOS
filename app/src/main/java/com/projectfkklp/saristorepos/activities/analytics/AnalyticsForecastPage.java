@@ -13,7 +13,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.repositories.TransactionRepository;
 import com.projectfkklp.saristorepos.Arima;
 import com.github.mikephil.charting.charts.LineChart;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnalyticsForecastPage extends AppCompatActivity {
-    public List<Transaction> transactionList;
+    public List<_Transaction> transactionList;
 
     @SuppressLint("ResourceType")
     @Override

@@ -2,24 +2,32 @@ package com.projectfkklp.saristorepos.models;
 
 import com.projectfkklp.saristorepos.utils.ModelUtils;
 
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
+
 public class Store {
     private String id;
     private String name;
     private String address;
+    private ArrayList<Product> products;
 
     public Store(){
         id = ModelUtils.createShortId();
+        products = new ArrayList<>();
     }
 
     public Store(String id, String name){
         this.id = id;
         this.name = name;
+        products = new ArrayList<>();
     }
 
     public Store(String id, String name, String address){
         this.id = id;
         this.name = name;
         this.address = address;
+        products = new ArrayList<>();
     }
 
     // Getter and Setter methods for 'id'
@@ -47,5 +55,9 @@ public class Store {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public ArrayList<Product> getProducts(){
+        return products;
     }
 }

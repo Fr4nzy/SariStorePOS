@@ -11,7 +11,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.projectfkklp.saristorepos.interfaces.OnTransactionsRetrieve;
 import com.projectfkklp.saristorepos.interfaces.OnTransactionRetrieve;
-import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.utils.DateUtils;
 
 import java.text.ParseException;
@@ -23,7 +23,7 @@ public class TransactionRepository {
     public static CollectionReference getCollectionReference() {
         return FirebaseFirestore.getInstance()
                 .collection("users")
-                .document(AuthenticationRepository.getCurrentUserUid())
+                .document(AuthenticationRepository.getCurrentAuthenticationUid())
                 .collection("transactions");
     }
 
@@ -38,7 +38,7 @@ public class TransactionRepository {
         Context context,
         int page
     ) {
-        List<Transaction> transactionList = new ArrayList<>();
+        List<_Transaction> transactionList = new ArrayList<>();
 
         CollectionReference transactionCollection = getCollectionReference();
 
@@ -56,7 +56,7 @@ public class TransactionRepository {
 
                         // Else, proceed in retrieving from Firebase
                         for (DocumentSnapshot document : querySnapshot) {
-                            Transaction transaction = document.toObject(Transaction.class);
+                            _Transaction transaction = document.toObject(_Transaction.class);
                             if (transaction != null) {
                                 transactionCollection.document(document.getId())
                                         .collection("items")
@@ -86,7 +86,7 @@ public class TransactionRepository {
         .orderBy("date", Query.Direction.ASCENDING)
         .limit(1)
         .get().addOnSuccessListener(task->{
-            List<Transaction> transactions= task.toObjects(Transaction.class);
+            List<_Transaction> transactions= task.toObjects(_Transaction.class);
                     try {
                         callback.onTransactionRetrieved(transactions.get(0));
                     } catch (ParseException e) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SariStorePOS"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".activities.inventory.InventoryProductListRecycler"
+            android:exported="false" />
+        <activity
+            android:name=".activities.inventory.InventoryProductListPage"
+            android:exported="false" />
         <activity
             android:name=".activities.dashboard.DashboardPage"
             android:exported="false" />
@@ -29,7 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.entry.EntryPage"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,13 +58,13 @@
             android:name=".activities.pos.PosCheckoutPage"
             android:exported="false" />
         <activity
-            android:name=".activities.inventory.InventoryEditProductPage"
+            android:name=".activities.inventory._InventoryEditProductPage"
             android:exported="false" />
         <activity
-            android:name=".activities.inventory.InventoryProductDetailPage"
+            android:name=".activities.inventory._InventoryProductDetailPage"
             android:exported="false" />
         <activity
-            android:name=".activities.inventory.InventoryCreateProductPage"
+            android:name=".activities.inventory._InventoryCreateProductPage"
             android:exported="false" />
         <activity
             android:name=".activities.analytics.AnalyticsForecastPage"
@@ -67,13 +73,16 @@
             android:name=".activities.pos.PosPage"
             android:exported="false" />
         <activity
-            android:name=".activities.inventory.InventoryProductListPage"
+            android:name=".activities.inventory._InventoryProductListPage"
             android:exported="false" />
         <activity
             android:name=".activities.user_login.UserLoginPage"
             android:exported="false" />
         <activity
             android:name=".activities.user_registration.UserRegistrationPage"
+            android:exported="false" />
+        <activity
+            android:name=".activities.store_profile.StoreProfilePage"
             android:exported="false" />
         <activity
             android:name=".activities.dashboard._DashboardPage"

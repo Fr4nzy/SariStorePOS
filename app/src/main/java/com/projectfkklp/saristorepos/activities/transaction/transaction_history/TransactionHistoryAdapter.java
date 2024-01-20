@@ -10,17 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.util.List;
 
 public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionHistoryAdapter.TransactionViewHolder> {
 
-    private final List<Transaction> transactionList;
+    private final List<_Transaction> transactionList;
 
     // Constructor to initialize the adapter with a list of transactions
-    public TransactionHistoryAdapter(List<Transaction> transactionList) {
+    public TransactionHistoryAdapter(List<_Transaction> transactionList) {
         this.transactionList = transactionList;
     }
 
@@ -45,7 +45,7 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionH
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
         // Bind data to each item
-        Transaction transaction = transactionList.get(position);
+        _Transaction transaction = transactionList.get(position);
 
         String transactionSummary = transaction.toString();
         holder.transactionIdTextView.setText(transactionSummary);

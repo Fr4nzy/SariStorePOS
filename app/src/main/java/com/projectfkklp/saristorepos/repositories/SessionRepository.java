@@ -10,6 +10,7 @@ public class SessionRepository {
     public static User getCurrentUser(Context context) {
         return CacheUtils.getObject(context, "current_user", User.class);
     }
+
     public static Store getCurrentStore(Context context) {
         return CacheUtils.getObject(context, "current_store", Store.class);
     }

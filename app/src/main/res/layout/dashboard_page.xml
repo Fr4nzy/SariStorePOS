@@ -86,10 +86,15 @@
                 android:layout_columnSpan="2"
                 android:layout_margin="8dp"
                 android:layout_marginBottom="4dp">
-                <com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesLineChart
-                    android:id="@+id/dashboard_analytics_chart"
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/dashboard_swipe_refresh"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent">
+                    <com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesLineChart
+                        android:id="@+id/dashboard_analytics_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Second CardView in the first row -->
@@ -116,16 +121,8 @@
                 app:cardCornerRadius="5dp"
                 app:cardElevation="15dp"
                 android:layout_margin="4dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp">
+                android:layout_marginRight="8dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <!-- Your existing TextViews in the first LinearLayout -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -303,7 +300,6 @@
                     </GridLayout>
                 </LinearLayout>
 
-
             </androidx.cardview.widget.CardView>
 
 
@@ -329,7 +325,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Top Selling Products"
+                        android:text="Top Earning Products"
                         android:textSize="11sp"
                         android:textStyle="bold"
                         />
@@ -395,26 +391,104 @@
             android:layout_height="wrap_content"
             android:background="#F5F5F5"
             android:gravity="center">
-            <include
-                layout="@layout/dashboard_nav_item"
-                app:label='@{"Transactions"}'
-                app:icon="@{@drawable/transactions_icon}"/>
-            <include
-                layout="@layout/dashboard_nav_item"
-                app:label='@{"Inventory"}'
-                app:icon="@{@drawable/inventory_icon}"/>
-            <include
-                layout="@layout/dashboard_nav_item"
-                app:label='@{"Analytics"}'
-                app:icon="@{@drawable/analytics_icon}"/>
-            <include
-                layout="@layout/dashboard_nav_item"
-                app:label='@{"Store"}'
-                app:icon="@{@drawable/store_icon}"/>
-            <include
-                layout="@layout/dashboard_nav_item"
-                app:label='@{"Profile"}'
-                app:icon="@{@drawable/profile_icon}"/>
+            <LinearLayout android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/transactions_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transactions"
+                    android:textSize="9sp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:onClick="gotoInventory">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/inventory_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Inventory"
+                    android:textSize="9sp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/analytics_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Analytics"
+                    android:textSize="9sp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:onClick="gotoStoreProfile">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/store_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Store"
+                    android:textSize="9sp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingVertical="10dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:onClick="gotoProfile">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/profile_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile"
+                    android:textSize="9sp"/>
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -14,7 +14,7 @@ import androidx.cardview.widget.CardView;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.inventory.InventoryProductListPage;
+import com.projectfkklp.saristorepos.activities.inventory._InventoryProductListPage;
 import com.projectfkklp.saristorepos.activities.pos.PosPage;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary.TransactionDailySummaryPage;
 import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
@@ -52,7 +52,7 @@ public class _DashboardPage extends AppCompatActivity implements View.OnClickLis
         Intent i;
 
         if (view.getId() == R.id.viewInventory) {
-            i = new Intent(this, InventoryProductListPage.class);
+            i = new Intent(this, _InventoryProductListPage.class);
         } else if (view.getId() == R.id.viewPOS) {
             i = new Intent(this, PosPage.class);
         } else if (view.getId() == R.id.salesReport) {

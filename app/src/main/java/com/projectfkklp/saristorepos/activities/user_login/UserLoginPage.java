@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
 import com.projectfkklp.saristorepos.activities.user_registration.UserRegistrationPage;
-import com.projectfkklp.saristorepos.enums.SignInMethod;
+import com.projectfkklp.saristorepos.enums.AuthenticationProvider;
 import com.projectfkklp.saristorepos.managers.AuthenticationManager;
 import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.managers.UserManager;
@@ -28,7 +28,7 @@ import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
 import java.util.Objects;
 
 public class UserLoginPage extends AppCompatActivity {
-    private SignInMethod signInMethod;
+    private AuthenticationProvider authenticationProvider;
     private ActivityResultLauncher<Intent> signInLauncher;
 
     @Override
@@ -44,45 +44,49 @@ public class UserLoginPage extends AppCompatActivity {
 
     public void loginViaPhone(View view){
         signInLauncher.launch(AuthenticationUtils.PHONE_SIGN_IN_INTENT);
-        signInMethod = SignInMethod.PHONE;
+        authenticationProvider = AuthenticationProvider.PHONE;
     }
 
     public void loginViaGmail(View view){
         signInLauncher.launch(AuthenticationUtils.GMAIL_SIGN_IN_INTENT);
-        signInMethod = SignInMethod.GMAIL;
+        authenticationProvider = AuthenticationProvider.GMAIL;
     }
 
     private void onSignInResult(@NonNull ActivityResult result) {
         if (result.getResultCode() == RESULT_OK) {
-            FirebaseUser firebaseUser = AuthenticationRepository.getCurrentUser();
-            UserRepository.getSignedInUser(signInMethod, user -> {
-                if (user == null) {
-                    Intent intent = new Intent(this, UserRegistrationPage.class);
-                    intent.putExtra("uid", firebaseUser.getUid());
-                    intent.putExtra("name", firebaseUser.getDisplayName());
-                    intent.putExtra("signInMethod", signInMethod.value);
-                    intent.putExtra("identifier",
-                        signInMethod.value == SignInMethod.PHONE.value
-                            ? firebaseUser.getPhoneNumber()
-                            : firebaseUser.getProviderData().get(1).getEmail()
-                        );
+            FirebaseUser firebaseUser = AuthenticationRepository.getCurrentAuthentication();
+            UserRepository.getUserByAuthentication(
+                authenticationProvider,
+                firebaseUser.getUid(),
+                user -> {
+                    if (user == null) {
+                        Intent intent = new Intent(this, UserRegistrationPage.class);
+                        intent.putExtra("uid", firebaseUser.getUid());
+                        intent.putExtra("name", firebaseUser.getDisplayName());
+                        intent.putExtra("authenticationProvider", authenticationProvider.value);
+                        intent.putExtra("identifier",
+                            authenticationProvider.value == AuthenticationProvider.PHONE.value
+                                ? firebaseUser.getPhoneNumber()
+                                : firebaseUser.getProviderData().get(1).getEmail()
+                            );
 
-                    startActivity(intent);
-                }
-                else {
-                    // Since we login via gmail via provider
-                    // And sometimes gmail can be changed
-                    // This extra steps, update the user gmail in firebase database
-                    if (signInMethod.value == SignInMethod.GMAIL.value) {
-                        user.setGmail(firebaseUser.getProviderData().get(1).getEmail());
-                        UserManager.saveUser(user);
+                        startActivity(intent);
                     }
+                    else {
+                        // Since we login via gmail via provider
+                        // And sometimes gmail can be changed
+                        // This extra steps, update the user gmail in firebase database
+                        if (authenticationProvider.value == AuthenticationProvider.GMAIL.value) {
+                            user.setGmail(firebaseUser.getProviderData().get(1).getEmail());
+                            UserManager.saveUser(user);
+                        }
 
-                    // Start session and next activity
-                    SessionManager.setUser(this, user);
-                    startActivity(new Intent(this, StoreSelectorPage.class));
+                        // Start session and next activity
+                        SessionManager.setUser(this, user);
+                        startActivity(new Intent(this, StoreSelectorPage.class));
+                    }
                 }
-            });
+            );
         } else {
             // Sign in failed
             IdpResponse response = IdpResponse.fromResultIntent(result.getData());

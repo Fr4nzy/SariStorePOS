@@ -1,6 +1,6 @@
 package com.projectfkklp.saristorepos.repositories;
 
-import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.models._Product;
 
 import java.util.HashMap;
 
@@ -9,10 +9,10 @@ public class ProductRepository {
     public ProductRepository() {
     }
 
-    public static HashMap<Integer, Product> getDummyProductHashMap(){
-        HashMap<Integer, Product> dummyProductsHashmap = new HashMap<>();
+    public static HashMap<Integer, _Product> getDummyProductHashMap(){
+        HashMap<Integer, _Product> dummyProductsHashmap = new HashMap<>();
 
-        dummyProductsHashmap.put(1,new Product(
+        dummyProductsHashmap.put(1,new _Product(
             "2VRgnU2kZ53a2gzmYPJI",
             1,
             "sky flakes",
@@ -20,7 +20,7 @@ public class ProductRepository {
             1000
         ));
 
-        dummyProductsHashmap.put(5,new Product(
+        dummyProductsHashmap.put(5,new _Product(
                 "rSYFiGWe0H3uKz9O5qaz",
                 5,
                 "Minute Maid",
@@ -28,7 +28,7 @@ public class ProductRepository {
                 1000
         ));
 
-        dummyProductsHashmap.put(10,new Product(
+        dummyProductsHashmap.put(10,new _Product(
                 "1W5qiEZ7JUAZXgBT2OpE",
                 10,
                 "Great Taste White",
@@ -36,7 +36,7 @@ public class ProductRepository {
                 1000
         ));
 
-        dummyProductsHashmap.put(20,new Product(
+        dummyProductsHashmap.put(20,new _Product(
                 "9xXxr8Px7RIXm4kIQdHa",
                 20,
                 "555 Tuna Caldereta 155g",
@@ -44,7 +44,7 @@ public class ProductRepository {
                 1000
         ));
 
-        dummyProductsHashmap.put(1000,new Product(
+        dummyProductsHashmap.put(1000,new _Product(
                 "9xXxr8Px7RIXm4kIQdHc",
                 1000,
                 "Kitkat",
@@ -52,7 +52,7 @@ public class ProductRepository {
                 1000
         ));
 
-        dummyProductsHashmap.put(100,new Product(
+        dummyProductsHashmap.put(100,new _Product(
                 "9xXxr8Px7RIXm4kIQdHd",
                 100,
                 "Eden Cheese",

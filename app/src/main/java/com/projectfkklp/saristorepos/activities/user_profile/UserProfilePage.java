@@ -1,8 +1,12 @@
 package com.projectfkklp.saristorepos.activities.user_profile;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,17 +14,38 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firebase.ui.auth.ErrorCodes;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseUser;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
+import com.projectfkklp.saristorepos.enums.AuthenticationProvider;
+import com.projectfkklp.saristorepos.managers.SessionManager;
+import com.projectfkklp.saristorepos.managers.UserManager;
 import com.projectfkklp.saristorepos.models.User;
+import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
+import com.projectfkklp.saristorepos.repositories.SessionRepository;
+import com.projectfkklp.saristorepos.repositories.UserRepository;
+import com.projectfkklp.saristorepos.utils.ActivityUtils;
+import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
-import com.projectfkklp.saristorepos.utils.TestingUtils;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
+import com.projectfkklp.saristorepos.views.ErrorAlert;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class UserProfilePage extends AppCompatActivity {
+    ErrorAlert formErrors;
     ImageView iconButtonToggleMode;
     EditText profileNameText;
-    EditText phoneText;
-    EditText gmailText;
+    TextView phoneText;
+    TextView gmailText;
+    TextView signOut;
     Button updateButton;
     ImageView unlinkPhoneButton;
     ImageView unlinkGmailButton;
@@ -30,29 +55,48 @@ public class UserProfilePage extends AppCompatActivity {
     private boolean isEditing;
     private User currentUser;
     private User editUser;
+
+    private ActivityResultLauncher<Intent> profileLauncher;
+    private AuthenticationProvider authenticationProvider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile_page);
 
-        initializeData();
+        currentUser = SessionRepository.getCurrentUser(this);
+
         initializeViews();
+        initializeData();
         initializeDialogs();
+
+        profileLauncher = AuthenticationUtils.createSignInLauncher(this, this::profileSignIn);
+        signOut.setOnClickListener(view -> {
+            // Clear sessions and navigate to login page
+            SessionManager.reset(UserProfilePage.this);
+            ActivityUtils.navigateToWithFlags(UserProfilePage.this, UserLoginPage.class);
+            finish();
+        });
     }
 
     private void initializeData(){
         isEditing=false;
-        // dummy currentUser
-        currentUser = new User("Juan Dela Cruz", "", "");
-        editUser = new User(currentUser.getName(), currentUser.getPhoneUid(), currentUser.getGmailUid());
+        editUser = currentUser.clone();
     }
 
     private void initializeViews(){
         iconButtonToggleMode = findViewById(R.id.user_profile_toggle_mode);
+        formErrors = findViewById(R.id.user_profile_errors);
         profileNameText = findViewById(R.id.user_profile_name);
+        phoneText = findViewById(R.id.user_profile_phone);
+        gmailText = findViewById(R.id.user_profile_gmail);
         unlinkPhoneButton = findViewById(R.id.user_profile_unlink_phone);
         unlinkGmailButton = findViewById(R.id.user_profile_unlink_gmail);
         updateButton = findViewById(R.id.user_profile_update_button);
+        signOut = findViewById(R.id.user_profile_signout);
+
+        phoneText.setText(currentUser.getPhoneNumber());
+        gmailText.setText(currentUser.getGmail());
 
         profileNameText.setText(currentUser.getName());
         profileNameText.addTextChangedListener(new TextWatcher() {
@@ -72,27 +116,34 @@ public class UserProfilePage extends AppCompatActivity {
                 updateButton.setEnabled(hasEdits());
             }
         });
+    }
 
-        phoneText = findViewById(R.id.user_profile_phone);
-        gmailText = findViewById(R.id.user_profile_gmail);
+    public void changeProfilePhoneNumber(View view){
+        profileLauncher.launch(AuthenticationUtils.PHONE_SIGN_IN_INTENT);
+        authenticationProvider = AuthenticationProvider.PHONE;
+    }
+
+    public void changeProfileGmail(View view){
+        profileLauncher.launch(AuthenticationUtils.GMAIL_SIGN_IN_INTENT);
+        authenticationProvider = AuthenticationProvider.GMAIL;
     }
 
     private void initializeDialogs(){
         cancelConfirmationDialog = new AlertDialog.Builder(this)
-            .setTitle("Cancel Edit ?")
-            .setMessage("You have unsaved changes, do you want to cancel edit?")
-            .setPositiveButton("Yes", (dialog, which) -> disableEditing())
-            .setNegativeButton("No", (dialog, which) -> dialog.dismiss());
+                .setTitle("Cancel Edit ?")
+                .setMessage("You have unsaved changes, do you want to cancel edit?")
+                .setPositiveButton("Yes", (dialog, which) -> disableEditing())
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss());
 
         unlinkPhoneConfirmationDialog = new AlertDialog.Builder(this)
-            .setTitle("Unlink Phone ?")
-            .setMessage("Are you sure you want to unlink your phone?")
-            .setPositiveButton("Yes", (dialog, which) -> unlinkPhone())
-            .setNegativeButton("No", (dialog, which) -> dialog.dismiss());
-
-        unlinkGmailConfirmationDialog = new AlertDialog.Builder(this)
                 .setTitle("Unlink Phone ?")
                 .setMessage("Are you sure you want to unlink your phone?")
+                .setPositiveButton("Yes", (dialog, which) -> unlinkPhone())
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss());
+
+        unlinkGmailConfirmationDialog = new AlertDialog.Builder(this)
+                .setTitle("Unlink Gmail ?")
+                .setMessage("Are you sure you want to unlink your gmail?")
                 .setPositiveButton("Yes", (dialog, which) -> unlinkGmail())
                 .setNegativeButton("No", (dialog, which) -> dialog.dismiss());
     }
@@ -103,7 +154,6 @@ public class UserProfilePage extends AppCompatActivity {
             enableEditing();
             return;
         }
-
         // Else, check if there are any changes
         if (hasEdits()) {
             showCancelConfirmationDialog();
@@ -114,32 +164,35 @@ public class UserProfilePage extends AppCompatActivity {
     }
 
     private boolean hasEdits() {
-        return
-            !editUser.getName().equals(currentUser.getName())
-            || !editUser.getGmailUid().equals(currentUser.getGmailUid())
-            || !editUser.getPhoneUid().equals(currentUser.getPhoneUid())
-        ;
+        return !Objects.equals(editUser.getName(), currentUser.getName())
+                || !Objects.equals(editUser.getGmailUid(), currentUser.getGmailUid())
+                || !Objects.equals(editUser.getPhoneUid(), currentUser.getPhoneUid());
     }
 
     private void enableEditing(){
+        editUser = currentUser.clone();
         isEditing=true;
         iconButtonToggleMode.setImageResource(R.drawable.baseline_cancel_24);
         profileNameText.setEnabled(true);
+        phoneText.setEnabled(true);
+        gmailText.setEnabled(true);
 
-        unlinkPhoneButton.setVisibility(View.VISIBLE);
-        unlinkGmailButton.setVisibility(View.VISIBLE);
+        unlinkPhoneButton.setVisibility(!currentUser.getPhoneNumber().isEmpty() ? View.VISIBLE : View.GONE);
+        unlinkGmailButton.setVisibility(!currentUser.getGmail().isEmpty() ? View.VISIBLE : View.GONE);
+
         updateButton.setVisibility(View.VISIBLE);
         updateButton.setEnabled(false);
     }
 
     private void disableEditing(){
         isEditing=false;
-        editUser = new User(currentUser.getName(), currentUser.getPhoneUid(), currentUser.getGmailUid());
-
         iconButtonToggleMode.setImageResource(R.drawable.edit);
         profileNameText.setEnabled(false);
+        phoneText.setEnabled(false);
+        gmailText.setEnabled(false);
         profileNameText.setText(currentUser.getName());
-
+        phoneText.setText(currentUser.getPhoneNumber());
+        gmailText.setText(currentUser.getGmail());
         unlinkPhoneButton.setVisibility(View.GONE);
         unlinkGmailButton.setVisibility(View.GONE);
         updateButton.setVisibility(View.GONE);
@@ -159,19 +212,101 @@ public class UserProfilePage extends AppCompatActivity {
 
     private void unlinkPhone(){
         editUser.setPhoneUid("");
+        editUser.setPhoneNumber("");
         phoneText.setText("");
+        unlinkPhoneButton.setVisibility(View.GONE);
+        updateButton.setEnabled(true);
     }
 
     private void unlinkGmail(){
         editUser.setGmailUid("");
+        editUser.setGmail("");
         gmailText.setText("");
+        unlinkGmailButton.setVisibility(View.GONE);
+        updateButton.setEnabled(true);
     }
 
     public void updateUser(View view){
-        ProgressUtils.showDialog(this, "Updating User");
-        TestingUtils.delay(1000, ()->{
-            disableEditing();
-            ProgressUtils.dismissDialog();
+        ProgressUtils.showDialog(this, "Updating...");
+        UserManager.saveUser(editUser, (updateUser, validationStatus, task)->{
+            if (!validationStatus.isValid()) {
+                ArrayList<String> errorsArray = new ArrayList<>();
+                HashMap<String, String> errors = validationStatus.getErrors();
+                if (errors.get("name") != null) {
+                    profileNameText.setError(errors.get("name"));
+                } else if (errors.get("identifier") != null) {
+                    errorsArray.add(errors.get("identifier"));
+                }
+                if (!errorsArray.isEmpty()) {
+                    formErrors.setErrors(errorsArray);
+                }
+                ProgressUtils.dismissDialog();
+                return;
+            }
+
+            task
+                    .addOnSuccessListener(successTask->{
+                        SessionManager.setUser(this, editUser);
+                        Toast.makeText(this, "Updating success", Toast.LENGTH_SHORT).show();
+                        ActivityUtils.navigateTo(this, UserProfilePage.class);
+                    })
+                    .addOnFailureListener(failedTask->
+                            Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show()
+                    )
+                    .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog());
         });
     }
+
+    private void profileSignIn(@NonNull ActivityResult result) {
+        if (result.getResultCode() == RESULT_OK) {
+            FirebaseUser firebaseUser = AuthenticationRepository.getCurrentAuthentication();
+
+            UserRepository.getUserByAuthentication(
+                    authenticationProvider,
+                    firebaseUser.getUid(),
+                    signedInUser -> {
+                        String uid = firebaseUser.getUid();
+                        String currentUserProviderUid = authenticationProvider.value == AuthenticationProvider.PHONE.value
+                                ? currentUser.getPhoneUid()
+                                : currentUser.getGmailUid();
+
+                        if (signedInUser == null || Objects.equals(uid, currentUserProviderUid)) {
+                            if (authenticationProvider.value == AuthenticationProvider.PHONE.value) {
+                                String identifier = firebaseUser.getPhoneNumber();
+                                editUser.setPhoneUid(uid);
+                                editUser.setPhoneNumber(identifier);
+                                phoneText.setText(identifier);
+                                unlinkPhoneButton.setVisibility( View.VISIBLE );
+                            }
+                            else {
+                                String identifier = firebaseUser.getProviderData().get(1).getEmail();
+                                editUser.setGmailUid(uid);
+                                editUser.setGmail(identifier);
+                                gmailText.setText(identifier);
+                                unlinkGmailButton.setVisibility( View.VISIBLE);
+                            }
+
+                            updateButton.setEnabled(hasEdits());
+                        }
+                        else {
+                            ToastUtils.show(this, "Already in Use");
+                        }
+                    }
+            );
+        }
+        else {
+            // Sign in failed
+            IdpResponse response = IdpResponse.fromResultIntent(result.getData());
+            if (response == null) {
+
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+            }
+            else if (Objects.requireNonNull(response.getError()).getErrorCode() == ErrorCodes.NO_NETWORK) {
+                Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Unknown error occurred", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }

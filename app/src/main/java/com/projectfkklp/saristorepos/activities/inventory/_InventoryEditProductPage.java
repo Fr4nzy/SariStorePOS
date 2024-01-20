@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class InventoryEditProductPage extends AppCompatActivity {
+public class _InventoryEditProductPage extends AppCompatActivity {
 
     ImageView updateImage;
     Button updateButton;
@@ -62,7 +62,7 @@ public class InventoryEditProductPage extends AppCompatActivity {
                         uri = result.getData().getData();
                         updateImage.setImageURI(uri);
                     } else {
-                        Toast.makeText(InventoryEditProductPage.this, "No Image Selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(_InventoryEditProductPage.this, "No Image Selected", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -70,7 +70,7 @@ public class InventoryEditProductPage extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             Glide.with(this).load(bundle.getString("Image")).into(updateImage);
-            updateProduct.setText(bundle.getString("_Product"));
+            updateProduct.setText(bundle.getString("Product"));
             updatePrice.setText(bundle.getString("Price"));
             updateStock.setText(bundle.getString("Stock"));
             key = bundle.getString("Key");
@@ -138,11 +138,11 @@ public class InventoryEditProductPage extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Update successful, handle UI updates
-                        Toast.makeText(InventoryEditProductPage.this, "Updated", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(_InventoryEditProductPage.this, "Updated", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
                         // Handle errors
-                        Toast.makeText(InventoryEditProductPage.this, "Update failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(_InventoryEditProductPage.this, "Update failed", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

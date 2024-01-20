@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context=".activities.inventory.InventoryCreateProductPage"
+    tools:context=".activities.inventory._InventoryCreateProductPage"
     tools:visibility="visible">
 
     <androidx.cardview.widget.CardView

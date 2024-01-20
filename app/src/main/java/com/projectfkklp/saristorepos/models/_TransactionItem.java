@@ -3,7 +3,7 @@ package com.projectfkklp.saristorepos.models;
 public class _TransactionItem {
     // region Fields
 
-    private _Product product;
+    private Product product;
     private String productId;
     private int quantity;
 
@@ -11,7 +11,7 @@ public class _TransactionItem {
 
     // region Getters
 
-    public _Product getProduct() {
+    public Product getProduct() {
         return product;
     }
 
@@ -23,7 +23,7 @@ public class _TransactionItem {
 
     // region Setters
 
-    public void setProduct(_Product product) {
+    public void setProduct(Product product) {
         this.product = product;
         this.productId = product.getId();
     }
