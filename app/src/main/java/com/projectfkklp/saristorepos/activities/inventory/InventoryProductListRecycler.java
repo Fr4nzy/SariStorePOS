@@ -1,30 +1,29 @@
 package com.projectfkklp.saristorepos.activities.inventory;
 
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.projectfkklp.saristorepos.R;
 
-class InventoryProductListRecycler extends RecyclerView.ViewHolder {
-
-    ImageView recImage;
-    TextView recProduct, recPrice, recStock, outOfStockWarning;
-    CardView recCard;
+public class InventoryProductListRecycler extends RecyclerView.ViewHolder {
+    CardView container;
+    ImageView productImg;
+    TextView productNameText, productStocksText, productUnitPriceText, productOosIndicatorText;
 
     public InventoryProductListRecycler(@NonNull View itemView) {
         super(itemView);
 
         // Initialize views
-        recImage = itemView.findViewById(R.id.recImage);
-        recCard = itemView.findViewById(R.id.recCard);
-        recPrice = itemView.findViewById(R.id.recPrice);
-        recStock = itemView.findViewById(R.id.recStock);
-        recProduct = itemView.findViewById(R.id.recProduct);
-        outOfStockWarning = itemView.findViewById(R.id.outOfStockWarning);
+        container = itemView.findViewById(R.id.inventory_product_list_container);
+        productImg = itemView.findViewById(R.id.inventory_product_list_image);
+        productNameText = itemView.findViewById(R.id.inventory_product_list_name);
+        productStocksText = itemView.findViewById(R.id.inventory_product_list_stocks);
+        productUnitPriceText = itemView.findViewById(R.id.inventory_product_list_unit_price);
+        productOosIndicatorText = itemView.findViewById(R.id.inventory_product_list_out_of_stock);
     }
 }

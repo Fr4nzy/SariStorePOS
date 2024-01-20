@@ -30,7 +30,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.projectfkklp.saristorepos.R;
 
-public class InventoryCreateProductPage extends AppCompatActivity {
+public class _InventoryCreateProductPage extends AppCompatActivity {
 
     ImageView uploadImage;
     Button saveButton, barcodeInsert;
@@ -59,14 +59,14 @@ public class InventoryCreateProductPage extends AppCompatActivity {
                         uri = Objects.requireNonNull(data).getData();
                         uploadImage.setImageURI(uri);
                     } else {
-                        Toast.makeText(InventoryCreateProductPage.this, "No Image Selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(_InventoryCreateProductPage.this, "No Image Selected", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
 
         barcodeInsert.setOnClickListener(view -> {
             // Launch ZXing barcode scanner
-            new IntentIntegrator(InventoryCreateProductPage.this).initiateScan();
+            new IntentIntegrator(_InventoryCreateProductPage.this).initiateScan();
         });
 
         uploadImage.setOnClickListener(view -> {
@@ -98,7 +98,7 @@ public class InventoryCreateProductPage extends AppCompatActivity {
         if (uri != null) {
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
                     .child(Objects.requireNonNull(uri.getLastPathSegment()));
-            AlertDialog.Builder builder = new AlertDialog.Builder(InventoryCreateProductPage.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(_InventoryCreateProductPage.this);
             builder.setCancelable(false);
             builder.setView(R.layout.progress_layout);
             AlertDialog dialog = builder.create();
@@ -118,10 +118,10 @@ public class InventoryCreateProductPage extends AppCompatActivity {
                 });
             }).addOnFailureListener(e -> {
                 dialog.dismiss();
-                Toast.makeText(InventoryCreateProductPage.this, "InventoryCreateProductPage failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(_InventoryCreateProductPage.this, "_InventoryCreateProductPage failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             });
         } else {
-            Toast.makeText(InventoryCreateProductPage.this, "Please select an image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(_InventoryCreateProductPage.this, "Please select an image", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -150,7 +150,7 @@ public class InventoryCreateProductPage extends AppCompatActivity {
                         }
                     } else {
                         // Handle error if needed
-                        Toast.makeText(InventoryCreateProductPage.this, "Error checking duplicate barcode: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(_InventoryCreateProductPage.this, "Error checking duplicate barcode: " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
 
                     // Reset tempBarcode after checking for duplicates
@@ -195,13 +195,13 @@ public class InventoryCreateProductPage extends AppCompatActivity {
                     .collection("products") // Use the specific subcollection for products
                     .add(dataMap)
                     .addOnSuccessListener(documentReference -> {
-                        Toast.makeText(InventoryCreateProductPage.this, "Data Uploaded to Firestore", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(_InventoryCreateProductPage.this, "Data Uploaded to Firestore", Toast.LENGTH_SHORT).show();
                         finish();
                     })
-                    .addOnFailureListener(e -> Toast.makeText(InventoryCreateProductPage.this, "Firestore InventoryCreateProductPage failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    .addOnFailureListener(e -> Toast.makeText(_InventoryCreateProductPage.this, "Firestore _InventoryCreateProductPage failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         } else {
             // Handle the case where the user is not signed in
-            Toast.makeText(InventoryCreateProductPage.this, "_User not signed in", Toast.LENGTH_SHORT).show();
+            Toast.makeText(_InventoryCreateProductPage.this, "_User not signed in", Toast.LENGTH_SHORT).show();
         }
     }
 

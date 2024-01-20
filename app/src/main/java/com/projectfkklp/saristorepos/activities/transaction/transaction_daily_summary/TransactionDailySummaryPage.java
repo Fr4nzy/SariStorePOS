@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.projectfkklp.saristorepos.activities.transaction.transaction_history.TransactionHistoryPage;
-import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.models._Product;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.models.DailySalesSummaryBreakdown;
@@ -187,7 +187,7 @@ public class TransactionDailySummaryPage extends AppCompatActivity {
             // Get summary of sales
             Map<String, DailySalesSummaryBreakdown> breakDowns = new HashMap<>();
             for (_Transaction transaction :transactions){
-                for (Product item:transaction.getItems()) {
+                for (_Product item:transaction.getItems()) {
                     if (breakDowns.containsKey(item.getProduct())) {
                         DailySalesSummaryBreakdown breakDown = breakDowns.get(item.getProduct());
                         assert breakDown != null;

@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
-import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.models._Product;
 import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.repositories.DatasetRepository;
@@ -40,7 +40,7 @@ public class DummyDataManager {
 
         // Set start date
         Date date = DateUtils.addDays(new Date(), -sales.length);
-        HashMap<Integer, Product> dummyProductsHashmap = ProductRepository.getDummyProductHashMap();
+        HashMap<Integer, _Product> dummyProductsHashmap = ProductRepository.getDummyProductHashMap();
         Integer[] keys = dummyProductsHashmap.keySet().stream()
                 .sorted((a, b) -> Integer.compare(b, a)) // Sorting in descending order
                 .toArray(Integer[]::new);
@@ -60,8 +60,8 @@ public class DummyDataManager {
                     continue;
                 }
 
-                Product product = dummyProductsHashmap.get(key);
-                transaction.getItems().add(new Product(
+                _Product product = dummyProductsHashmap.get(key);
+                transaction.getItems().add(new _Product(
                         product.getKey(),
                         product.getPrice(),
                         product.getProduct(),
@@ -93,8 +93,8 @@ public class DummyDataManager {
     public static ArrayList<CompletableFuture<Void>> uploadDummyProducts() {
         ArrayList<CompletableFuture<Void>> tasks = new ArrayList<>();
 
-        HashMap<Integer, Product> dummyProductsHashmap = ProductRepository.getDummyProductHashMap();
-        for (Product product : dummyProductsHashmap.values()) {
+        HashMap<Integer, _Product> dummyProductsHashmap = ProductRepository.getDummyProductHashMap();
+        for (_Product product : dummyProductsHashmap.values()) {
             CompletableFuture<Void> task = ProductManager.saveProduct(product);
             tasks.add(task);
         }

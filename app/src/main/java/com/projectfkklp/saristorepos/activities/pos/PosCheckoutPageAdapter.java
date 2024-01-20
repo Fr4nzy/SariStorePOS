@@ -12,15 +12,15 @@ import java.util.List;
 import android.widget.Toast;
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.models._Product;
 
 public class PosCheckoutPageAdapter extends RecyclerView.Adapter<PosCheckoutPageRecycler> {
 
     private final Context context;
-    private final List<Product> dataList;
+    private final List<_Product> dataList;
     private OnQuantityChangeListener quantityChangeListener;
 
-    public PosCheckoutPageAdapter(Context context, List<Product> dataList) {
+    public PosCheckoutPageAdapter(Context context, List<_Product> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
@@ -42,7 +42,7 @@ public class PosCheckoutPageAdapter extends RecyclerView.Adapter<PosCheckoutPage
 
     @Override
     public void onBindViewHolder(@NonNull PosCheckoutPageRecycler holder, int position) {
-        Product cartItem = dataList.get(position);
+        _Product cartItem = dataList.get(position);
 
         holder.cartProduct.setText(cartItem.getProduct());
         holder.quantityTextView.setText(String.valueOf(cartItem.getQuantity()));
@@ -88,12 +88,12 @@ public class PosCheckoutPageAdapter extends RecyclerView.Adapter<PosCheckoutPage
     }
 
     // Add this method to update button visibility based on stock
-    private void updateButtonVisibility(PosCheckoutPageRecycler holder, Product cartItem) {
+    private void updateButtonVisibility(PosCheckoutPageRecycler holder, _Product cartItem) {
         holder.btnMinus.setEnabled(cartItem.getQuantity() > 1);
         holder.btnPlus.setEnabled(cartItem.getQuantity() < cartItem.getStock());
     }
 
-    private void updatePrice(PosCheckoutPageRecycler holder, Product cartItem) {
+    private void updatePrice(PosCheckoutPageRecycler holder, _Product cartItem) {
         double totalPrice = cartItem.getTotalPrice();
         String formattedTotalPrice = String.format("%.2f", totalPrice);
         holder.cartPrice.setText(formattedTotalPrice);
