@@ -8,13 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.inventory.InventoryProductListPage;
-import com.projectfkklp.saristorepos.activities.inventory._InventoryProductListPage;
 import com.projectfkklp.saristorepos.activities.store_profile.StoreProfilePage;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
 import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
