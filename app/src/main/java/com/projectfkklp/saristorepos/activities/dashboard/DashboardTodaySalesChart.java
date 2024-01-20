@@ -83,54 +83,36 @@ public class DashboardTodaySalesChart extends PieChart {
 
     // Method to generate customizable center text
     private SpannableString generateCenterText(float todayActualSales, float todayTargetSales, float overallSalesPercentage, float salesGrowthPercentage) {
-
         @SuppressLint("DefaultLocale") String centerText = String.format(
-            "Summary\n"
-                +"%.0f%% to Goal\n"
-                +"Actual Sales: %s\n"
-                +"Target Sales: %s\n"
-                +"+%.2f%% vs Yesterday",
-            overallSalesPercentage,
-            StringUtils.formatPesoPrefix(todayActualSales),
-            StringUtils.formatPesoPrefix(todayTargetSales),
-            salesGrowthPercentage
+                "Summary\n"
+                        +"%.0f%% " + "to Goal\n"
+                        +"Actual Sales: %s\n"
+                        +"Target Sales: %s\n"
+                        +"+%.2f%% vs Yesterday",
+                overallSalesPercentage,
+                StringUtils.formatPesoPrefix(todayActualSales),
+                StringUtils.formatPesoPrefix(todayTargetSales),
+                salesGrowthPercentage
         );
 
         SpannableString spannableString = new SpannableString(centerText);
-        {// Change the color of "Today Sales" and "10%" to green
-            int blueColor = Color.parseColor("#0000FF");
-            int greenColor = Color.parseColor("#40C94F");
-            int crimsonColor = Color.parseColor("#DC143C");
 
-            spannableString.setSpan(new ForegroundColorSpan(blueColor), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-
-        return spannableString;
-    }
-
-    // Method to apply SpannableString for text styling
-    private SpannableString getSpannableString(String text) {
-        SpannableString spannableString = new SpannableString(text);
-
-        // Change the color of "Today Sales" and "10%" to green
+        // Change the color and style of "Summary" to blue and bold
         int blueColor = Color.parseColor("#0000FF");
+        spannableString.setSpan(new ForegroundColorSpan(blueColor), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Change the color of "%.0f%% to Goal" to green
         int greenColor = Color.parseColor("#40C94F");
+        int greenStartIndex = centerText.indexOf(String.format("%.0f%%", overallSalesPercentage));
+        int greenEndIndex = greenStartIndex + 4;
+        spannableString.setSpan(new ForegroundColorSpan(greenColor), greenStartIndex, greenEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Change the color of "+%.2f%% vs Yesterday" to crimson
         int crimsonColor = Color.parseColor("#DC143C");
-
-
-        int startIndex = text.indexOf("Today Sales");
-        int endIndex = startIndex + 11; // Length of "Today Sales"
-        spannableString.setSpan(new ForegroundColorSpan(blueColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new StyleSpan(Typeface.BOLD), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        startIndex = text.indexOf("10%");
-        endIndex = startIndex + 3; // Length of "10%"
-        spannableString.setSpan(new ForegroundColorSpan(greenColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        startIndex = text.indexOf("64%");
-        endIndex = startIndex + 3; // Length of "64%"
-        spannableString.setSpan(new ForegroundColorSpan(crimsonColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        int crimsonStartIndex = centerText.indexOf(String.format("+%.2f%%", salesGrowthPercentage));
+        int crimsonEndIndex = crimsonStartIndex + 8;
+        spannableString.setSpan(new ForegroundColorSpan(crimsonColor), crimsonStartIndex, crimsonEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return spannableString;
     }
