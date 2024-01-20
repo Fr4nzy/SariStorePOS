@@ -11,7 +11,6 @@ import android.view.View;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.inventory.InventoryProductListPage;
-import com.projectfkklp.saristorepos.activities.inventory._InventoryProductListPage;
 import com.projectfkklp.saristorepos.activities.store_profile.StoreProfilePage;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
 import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
@@ -22,9 +21,10 @@ import java.util.HashMap;
 
 public class DashboardPage extends AppCompatActivity {
     SwipeRefreshLayout swipeRefresh;
-    DashboardSalesLineChart analyticsChart;
-    DashboardTopPieChart topSellingChart;
-    DashboardTopPieChart topSoldChart;
+    DashboardSalesForecastChart analyticsChart;
+    DashboardTopChart topSellingChart;
+    DashboardTopChart topSoldChart;
+    DashboardTodaySalesChart todaySalesChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class DashboardPage extends AppCompatActivity {
 
         // Dashboard Cards
         generateAnalyticsChart();
+        generateTodaySalesChart();
         generateTopSellingChart();
         generateTopSoldChart();
     }
@@ -46,6 +47,8 @@ public class DashboardPage extends AppCompatActivity {
     private void initializeViews(){
         swipeRefresh = findViewById(R.id.dashboard_swipe_refresh);
         analyticsChart = findViewById(R.id.dashboard_analytics_chart);
+
+        todaySalesChart = findViewById(R.id.dashboard_today_sales_chart);
         topSellingChart = findViewById(R.id.dashboard_top_selling_chart);
         topSoldChart = findViewById(R.id.dashboard_top_sold_chart);
 
@@ -53,7 +56,8 @@ public class DashboardPage extends AppCompatActivity {
             swipeRefresh.setRefreshing(false);
         });
 
-        topSellingChart.initializePieChart("Top Selling _Product");
+        todaySalesChart.initializeTodaySalesChart("Today Sales");
+        topSellingChart.initializePieChart("Top Selling Product");
         topSoldChart.initializePieChart("Top Sold Products");
     }
 
@@ -61,6 +65,14 @@ public class DashboardPage extends AppCompatActivity {
         float[] actualSales = generateRandomDoubleArray(7);
         float[] forecastSales = generateRandomDoubleArray(10);
         analyticsChart.setData(actualSales, forecastSales);
+    }
+
+    private void generateTodaySalesChart() {
+        float ySales = 4_545_454_545.454545F;
+        float taSales = 5_000_000_000F;
+        float ttSales = 100_000_000_00f;
+
+        todaySalesChart.setData(ySales, taSales, ttSales);
     }
 
     private void generateTopSellingChart() {
@@ -104,6 +116,7 @@ public class DashboardPage extends AppCompatActivity {
         topSoldChart.setData(soldEntries, new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
+
                 if (total == 0) {
                     return "N/A"; // Avoid division by zero
                 }

@@ -1,5 +1,6 @@
 package com.projectfkklp.saristorepos.utils;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
@@ -10,6 +11,11 @@ public class StringUtils {
     }
     public static String formatToPeso(float number){
         return "₱"+formatWithMetricPrefix((long)number);
+    }
+
+    public static String formatPesoPrefix(float number){
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+        return "₱"+decimalFormat.format(number);
     }
 
     private static final NavigableMap<Long, String> suffixes = new TreeMap<>();

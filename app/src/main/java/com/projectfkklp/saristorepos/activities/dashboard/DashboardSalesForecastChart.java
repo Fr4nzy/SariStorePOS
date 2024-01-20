@@ -18,20 +18,20 @@ import com.projectfkklp.saristorepos.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DashboardSalesLineChart extends LineChart {
+public class DashboardSalesForecastChart extends LineChart {
     private int actualSalesSize;
     private int forecastSalesSize;
     private final Date currentData = new Date();
 
-    public DashboardSalesLineChart(Context context) {
+    public DashboardSalesForecastChart(Context context) {
         super(context);
     }
 
-    public DashboardSalesLineChart(Context context, AttributeSet attrs) {
+    public DashboardSalesForecastChart(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public DashboardSalesLineChart(Context context, AttributeSet attrs, int defStyle) {
+    public DashboardSalesForecastChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

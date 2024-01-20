@@ -17,19 +17,19 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class DashboardTopPieChart extends PieChart {
+public class DashboardTopChart extends PieChart {
     private String title;
     private final int TOP_COUNT = 5;
     private ArrayList<PieEntry> pieEntries;
-    public DashboardTopPieChart(Context context) {
+    public DashboardTopChart(Context context) {
         super(context);
     }
 
-    public DashboardTopPieChart(Context context, AttributeSet attrs) {
+    public DashboardTopChart(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public DashboardTopPieChart(Context context, AttributeSet attrs, int defStyle) {
+    public DashboardTopChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -38,7 +38,6 @@ public class DashboardTopPieChart extends PieChart {
 
         setDrawHoleEnabled(false);
         getLegend().setEnabled(false);
-
         getDescription().setEnabled(false);
 
         setEntryLabelColor(Color.BLACK);
