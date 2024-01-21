@@ -19,7 +19,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary.TransactionDailySummaryPage;
+import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary._TransactionDailySummaryPage;
 import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.models.DailySalesSummary;
 import com.projectfkklp.saristorepos.repositories.TransactionRepository;
@@ -47,7 +47,7 @@ public class AnalyticsDailySalesPage extends AppCompatActivity {
     }
 
     private void showSalesReport() throws ParseException {
-        TransactionDailySummaryPage.setSummaryList(transactionList, summaryList);
+        _TransactionDailySummaryPage.setSummaryList(transactionList, summaryList);
 
         // Line Chart Start
         LineChart lineChart = findViewById(R.id.linechart);

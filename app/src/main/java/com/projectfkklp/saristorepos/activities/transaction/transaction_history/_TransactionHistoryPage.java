@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary.TransactionDailySummaryPage;
+import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary._TransactionDailySummaryPage;
 import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.repositories.TransactionRepository;
 import com.projectfkklp.saristorepos.utils.DateUtils;
@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TransactionHistoryPage extends AppCompatActivity {
+public class _TransactionHistoryPage extends AppCompatActivity {
 
-    private TransactionHistoryAdapter adapter;
+    private _TransactionHistoryAdapter adapter;
     private List<_Transaction> transactionList;
     private Date lowerDate;
     private Date upperDate;
@@ -32,11 +32,11 @@ public class TransactionHistoryPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.transaction_history_page);
+        setContentView(R.layout._transaction_history_page);
 
         RecyclerView recyclerView = findViewById(R.id.transactionHistoryRV);
         transactionList = new ArrayList<>();
-        adapter = new TransactionHistoryAdapter(transactionList);
+        adapter = new _TransactionHistoryAdapter(transactionList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -57,7 +57,7 @@ public class TransactionHistoryPage extends AppCompatActivity {
     }
 
     public void onSwitchClick(View view){
-        Intent i = new Intent(this, TransactionDailySummaryPage.class);
+        Intent i = new Intent(this, _TransactionDailySummaryPage.class);
         startActivity(i);
         finish();
     }

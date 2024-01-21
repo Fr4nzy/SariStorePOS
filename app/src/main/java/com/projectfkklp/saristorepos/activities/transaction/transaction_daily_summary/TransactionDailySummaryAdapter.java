@@ -1,63 +1,55 @@
 package com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.models.DailySalesSummary;
-import com.projectfkklp.saristorepos.utils.StringUtils;
+import com.projectfkklp.saristorepos.models.DailyTransactions;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class TransactionDailySummaryAdapter extends RecyclerView.Adapter<TransactionDailySummaryAdapter.BreakDownViewHolder> {
-    private final List<DailySalesSummary> summaryList;
 
-    public TransactionDailySummaryAdapter(List<DailySalesSummary> summaryList) {
-        this.summaryList = summaryList;
-    }
-
-    public static class BreakDownViewHolder extends RecyclerView.ViewHolder {
-        public BreakDownViewHolder(@NonNull View itemView) {
-            super(itemView);
-        }
+public class TransactionDailySummaryAdapter extends RecyclerView.Adapter<TransactionDailySummaryViewHolder>{
+    private final Context context;
+    private final List<DailyTransactions> dailyTransactionsList;
+    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+    public TransactionDailySummaryAdapter(Context context, List<DailyTransactions> dailyTransactions) {
+        this.context = context;
+        this.dailyTransactionsList = dailyTransactions;
     }
 
     @NonNull
     @Override
-    public TransactionDailySummaryAdapter.BreakDownViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the layout for each item
+    public TransactionDailySummaryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_daily_summary_recycler_view, parent, false);
-        return new TransactionDailySummaryAdapter.BreakDownViewHolder(view);
+        return new TransactionDailySummaryViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
-    public void onBindViewHolder(@NonNull TransactionDailySummaryAdapter.BreakDownViewHolder holder, int position) {
-        // Bind data to each item
-        DailySalesSummary summary = summaryList.get(position);
+    public void onBindViewHolder(@NonNull TransactionDailySummaryViewHolder holder, int position) {
+        DailyTransactions dailyTransactions = dailyTransactionsList.get(position);
 
-        TextView summaryTextView = holder.itemView.findViewById(R.id.totalsummary);
-
-        String summaryContent = summary.getContent();
-
-        // Set the dynamic text to the TextView
-        summaryTextView.setText(summaryContent);
-
-        // Calculate the number of lines in the dynamic text
-        int numberOfLines = StringUtils.getLinesCount(summaryContent);
-
-        // Set the number of lines programmatically
-        summaryTextView.setLines(numberOfLines);
+        holder.summaryDateText.setText(dailyTransactions.getDate().format(dateFormat));
+        holder.totalSoldItemsText.setText(String.format(
+            "Total Sold Items: %,d",
+            dailyTransactions.getTotalSoldItems()
+        ));
+        holder.totalSalesText.setText(String.format(
+                "Total Sales: ₱%,.2f",
+                dailyTransactions.getTotalSales()
+        ));
     }
 
     @Override
     public int getItemCount() {
-        // Return the size of the list
-        return summaryList.size();
+        return dailyTransactionsList.size();
     }
-
 }

@@ -1,62 +1,54 @@
 package com.projectfkklp.saristorepos.activities.transaction.transaction_history;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.models._Transaction;
-import com.projectfkklp.saristorepos.utils.StringUtils;
+import com.projectfkklp.saristorepos.models.Transaction;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionHistoryAdapter.TransactionViewHolder> {
-
-    private final List<_Transaction> transactionList;
-
-    // Constructor to initialize the adapter with a list of transactions
-    public TransactionHistoryAdapter(List<_Transaction> transactionList) {
-        this.transactionList = transactionList;
-    }
-
-    // Inner ViewHolder class to represent each item in the RecyclerView
-    public static class TransactionViewHolder extends RecyclerView.ViewHolder {
-        TextView transactionIdTextView;
-
-        public TransactionViewHolder(@NonNull View itemView) {
-            super(itemView);
-            transactionIdTextView = itemView.findViewById(R.id.transaction_summary);
-        }
+public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionHistoryViewHolder>{
+    private final Context context;
+    private final List<Transaction> transactions;
+    private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm a");
+    public TransactionHistoryAdapter(Context context, List<Transaction> transactions) {
+        this.context = context;
+        this.transactions = transactions;
     }
 
     @NonNull
     @Override
-    public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the layout for each item
+    public TransactionHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_history_recycler_view, parent, false);
-        return new TransactionViewHolder(view);
+        return new TransactionHistoryViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
-    public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
-        // Bind data to each item
-        _Transaction transaction = transactionList.get(position);
+    public void onBindViewHolder(@NonNull TransactionHistoryViewHolder holder, int position) {
+        Transaction transaction = transactions.get(position);
 
-        String transactionSummary = transaction.toString();
-        holder.transactionIdTextView.setText(transactionSummary);
-        holder.transactionIdTextView.setLines(StringUtils.getLinesCount(transactionSummary));
+        holder.dateTimeText.setText(dateTimeFormat.format(transaction.getDateTime()));
+        holder.totalSoldItemsText.setText(String.format(
+                "Total Quantity: %,d",
+                transaction.getTotalQuantity()
+        ));
+        holder.totalSalesText.setText(String.format(
+                "Total Sales: ₱%,.2f",
+                transaction.getTotalSales()
+        ));
     }
-
-
 
     @Override
     public int getItemCount() {
-        // Return the size of the list
-        return transactionList.size();
+        return transactions.size();
     }
 }

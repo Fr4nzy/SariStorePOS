@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.projectfkklp.saristorepos.activities.transaction.transaction_history.TransactionHistoryPage;
+import com.projectfkklp.saristorepos.activities.transaction.transaction_history._TransactionHistoryPage;
 import com.projectfkklp.saristorepos.models._Product;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models._Transaction;
@@ -34,10 +34,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class TransactionDailySummaryPage extends AppCompatActivity {
+public class _TransactionDailySummaryPage extends AppCompatActivity {
     public List<_Transaction> transactionList;
     public List<DailySalesSummary> summaryList;
-    private TransactionDailySummaryAdapter adapter;
+    private _TransactionDailySummaryAdapter adapter;
     private Date lowerDate;
     private Date upperDate;
     private Date firstTransactionDate;
@@ -48,12 +48,12 @@ public class TransactionDailySummaryPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.transaction_daily_summary_page);
+        setContentView(R.layout._transaction_daily_summary_page);
 
         overallSummaryTextview = findViewById(R.id.summary_overall);
         RecyclerView recyclerView = findViewById(R.id.summary_content);
         summaryList = new ArrayList<>();
-        adapter = new TransactionDailySummaryAdapter(summaryList);
+        adapter = new _TransactionDailySummaryAdapter(summaryList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -74,7 +74,7 @@ public class TransactionDailySummaryPage extends AppCompatActivity {
     }
 
     public void onSwitchClick(View view){
-        Intent i = new Intent(this, TransactionHistoryPage.class);
+        Intent i = new Intent(this, _TransactionHistoryPage.class);
         startActivity(i);
         finish();
     }
