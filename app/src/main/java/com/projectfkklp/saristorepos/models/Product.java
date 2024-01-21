@@ -5,7 +5,7 @@ public class Product {
     private String id;
     private String name;
     private int stocks;
-    private double unitPrice;
+    private float unitPrice;
     private String imgUrl;
     private String barcode;
     // endregion
@@ -13,7 +13,7 @@ public class Product {
     public Product(){
     }
 
-    public Product(String id, String name, int stocks, double unitPrice, String imgUrl, String barcode){
+    public Product(String id, String name, int stocks, float unitPrice, String imgUrl, String barcode){
         this.id = id;
         this.name = name;
         this.stocks = stocks;
@@ -36,7 +36,7 @@ public class Product {
         return stocks;
     }
 
-    public double getUnitPrice() {
+    public float getUnitPrice() {
         return unitPrice;
     }
 
@@ -64,7 +64,7 @@ public class Product {
         this.stocks = stocks;
     }
 
-    public void setUnitPrice(double unitPrice) {
+    public void setUnitPrice(float unitPrice) {
         this.unitPrice = unitPrice;
     }
 

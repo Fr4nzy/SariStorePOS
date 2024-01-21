@@ -60,14 +60,14 @@
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             app:icon="@drawable/navigate_left_enabled_icon"
-            android:text="BACK"/>
+            android:text="PREV"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="2023 Jan 1-Jan 31"/>
+            android:text="2024 Jan 1-Jan 30"/>
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
