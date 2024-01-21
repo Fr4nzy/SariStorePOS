@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.inventory._InventoryProductListPage;
 import com.projectfkklp.saristorepos.activities.pos.PosPage;
-import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary.TransactionDailySummaryPage;
+import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary._TransactionDailySummaryPage;
 import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
 import com.projectfkklp.saristorepos.activities.analytics.AnalyticsDailySalesPage;
 import com.projectfkklp.saristorepos.activities.analytics.AnalyticsForecastEntryPage;
@@ -63,7 +63,7 @@ public class _DashboardPage extends AppCompatActivity implements View.OnClickLis
             showLogoutConfirmationDialog();
             return;
         } else {
-            i = new Intent(this, TransactionDailySummaryPage.class);
+            i = new Intent(this, _TransactionDailySummaryPage.class);
         }
         startActivity(i);
     }

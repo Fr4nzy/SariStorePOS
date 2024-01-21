@@ -14,10 +14,10 @@ import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.util.List;
 
-public class TransactionDailySummaryAdapter extends RecyclerView.Adapter<TransactionDailySummaryAdapter.BreakDownViewHolder> {
+public class _TransactionDailySummaryAdapter extends RecyclerView.Adapter<_TransactionDailySummaryAdapter.BreakDownViewHolder> {
     private final List<DailySalesSummary> summaryList;
 
-    public TransactionDailySummaryAdapter(List<DailySalesSummary> summaryList) {
+    public _TransactionDailySummaryAdapter(List<DailySalesSummary> summaryList) {
         this.summaryList = summaryList;
     }
 
@@ -29,14 +29,14 @@ public class TransactionDailySummaryAdapter extends RecyclerView.Adapter<Transac
 
     @NonNull
     @Override
-    public TransactionDailySummaryAdapter.BreakDownViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public _TransactionDailySummaryAdapter.BreakDownViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate the layout for each item
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_daily_summary_recycler_view, parent, false);
-        return new TransactionDailySummaryAdapter.BreakDownViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout._transaction_daily_summary_recycler_view, parent, false);
+        return new _TransactionDailySummaryAdapter.BreakDownViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TransactionDailySummaryAdapter.BreakDownViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull _TransactionDailySummaryAdapter.BreakDownViewHolder holder, int position) {
         // Bind data to each item
         DailySalesSummary summary = summaryList.get(position);
 

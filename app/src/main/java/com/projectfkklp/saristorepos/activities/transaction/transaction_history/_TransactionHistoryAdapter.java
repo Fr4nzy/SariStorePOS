@@ -15,12 +15,12 @@ import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.util.List;
 
-public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionHistoryAdapter.TransactionViewHolder> {
+public class _TransactionHistoryAdapter extends RecyclerView.Adapter<_TransactionHistoryAdapter.TransactionViewHolder> {
 
     private final List<_Transaction> transactionList;
 
     // Constructor to initialize the adapter with a list of transactions
-    public TransactionHistoryAdapter(List<_Transaction> transactionList) {
+    public _TransactionHistoryAdapter(List<_Transaction> transactionList) {
         this.transactionList = transactionList;
     }
 
@@ -38,7 +38,7 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionH
     @Override
     public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Inflate the layout for each item
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_history_recycler_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout._transaction_history_recycler_view, parent, false);
         return new TransactionViewHolder(view);
     }
 
