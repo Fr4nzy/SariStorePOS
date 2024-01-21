@@ -1,4 +1,4 @@
-package com.projectfkklp.saristorepos.activities.transaction;
+package com.projectfkklp.saristorepos.activities.transaction.transaction_history;
 
 import android.view.View;
 import android.widget.TextView;

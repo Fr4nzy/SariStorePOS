@@ -1,4 +1,4 @@
-package com.projectfkklp.saristorepos.activities.transaction;
+package com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

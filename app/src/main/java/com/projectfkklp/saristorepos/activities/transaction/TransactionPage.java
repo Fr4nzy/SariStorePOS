@@ -11,20 +11,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary.TransactionDailySummaryAdapter;
+import com.projectfkklp.saristorepos.activities.transaction.transaction_history.TransactionHistoryAdapter;
 import com.projectfkklp.saristorepos.models.DailyTransactions;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
-import com.projectfkklp.saristorepos.utils.ModelUtils;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class TransactionPage extends AppCompatActivity {
@@ -43,8 +40,14 @@ public class TransactionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.transaction_page);
 
-        loadDailyTransactions();
-        loadTransactions();
+        // Load & Sort Data
+        {
+            loadDailyTransactions();
+            sortDailyTransactions();
+            loadTransactions();
+            sortTransactions();
+        }
+
         initializeViews();
         initializeRecyclerView();
         initializeDropdown();
@@ -102,12 +105,20 @@ public class TransactionPage extends AppCompatActivity {
         }
     }
 
+    private void sortDailyTransactions() {
+        dailyTransactions.sort((dt1, dt2) -> dt2.getDate().compareTo(dt1.getDate()));
+    }
+
     public void loadTransactions(){
         transactions = new ArrayList<>();
 
         for (DailyTransactions dailyTransactions : this.dailyTransactions){
             transactions.addAll(dailyTransactions.getTransactions());
         }
+    }
+
+    private void sortTransactions() {
+        transactions.sort((t1, t2) -> t2.getDateTime().compareTo(t1.getDateTime()));
     }
 
     private void initializeViews(){
