@@ -17,10 +17,14 @@ import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.utils.ModelUtils;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class TransactionPage extends AppCompatActivity {
@@ -28,9 +32,11 @@ public class TransactionPage extends AppCompatActivity {
     RecyclerView transactionRecycler;
 
     TransactionDailySummaryAdapter dailySummaryAdapter;
+    TransactionHistoryAdapter historyAdapter;
 
     private List<Product> products;
     private List<DailyTransactions> dailyTransactions;
+    private List<Transaction> transactions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,58 +44,69 @@ public class TransactionPage extends AppCompatActivity {
         setContentView(R.layout.transaction_page);
 
         loadDailyTransactions();
+        loadTransactions();
         initializeViews();
         initializeRecyclerView();
         initializeDropdown();
     }
 
     private void loadDailyTransactions(){
-        products = new ArrayList<>();
+        products = new ArrayList<>(Arrays.asList(
+            new Product("productabc001", "Product A", 5, 1, "", ""),
+            new Product("productabc002", "Product B", 10, 5, "", ""),
+            new Product("productabc003", "Product C", 15, 10, "", ""),
+            new Product("productabc004", "Product D", 20, 20, "", ""),
+            new Product("productabc005", "Product E", 25, 50, "", "")
+        ));
         dailyTransactions = new ArrayList<>();
-        ArrayList<Transaction> transactions = new ArrayList<>();
-        ArrayList<TransactionItem> transactionItems = new ArrayList<>();
 
-        // Set Products
-        for (int i=0; i<5;i++){
-            products.add(new Product(
-                ModelUtils.createUUID(),
-                "Product "+i,
-                12,
-                25,
-                "",
-                ""
-            ));
-        }
-
-        // Set Transaction Items
-        for (int i=0;i<5;i++){
-            Product product = products.get(i);
-            transactionItems.add(new TransactionItem(
-                product.getId(),
-                i+1,
-                product.getUnitPrice()
-            ));
-        }
-
-        // Set Transactions
-        LocalTime time = LocalTime.of(8, 0, 0);
-        for (int i=0;i<5;i++){
-            transactions.add(new Transaction(
-                time,
-                transactionItems
-            ));
-            time = time.plusHours(1);
-        }
-
-        // Set Daily Transactions
         LocalDate date = LocalDate.of(2024, 1, 1);
-        for (int i=0;i<30;i++) {
+        for (int i=0; i < 30;i++){
             dailyTransactions.add(new DailyTransactions(
                 date,
-                    transactions
+                new ArrayList<>(Arrays.asList(
+                    new Transaction(
+                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 10, 0, 0),
+                        new ArrayList<>(Arrays.asList(
+                            new TransactionItem("productabc001",1,1),
+                            new TransactionItem("productabc002",1,5),
+                            new TransactionItem("productabc003",1,10),
+                            new TransactionItem("productabc004",1,20),
+                            new TransactionItem("productabc005",1,50)
+                        ))
+                    ),
+                    new Transaction(
+                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 11, 0, 0),
+                        new ArrayList<>(Arrays.asList(
+                            new TransactionItem("productabc001",2,1),
+                            new TransactionItem("productabc002",2,5),
+                            new TransactionItem("productabc003",2,10),
+                            new TransactionItem("productabc004",2,20),
+                            new TransactionItem("productabc005",2,50)
+                        ))
+                    ),
+                    new Transaction(
+                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 12, 0, 0),
+                        new ArrayList<>(Arrays.asList(
+                            new TransactionItem("productabc001",3,1),
+                            new TransactionItem("productabc002",3,5),
+                            new TransactionItem("productabc003",3,10),
+                            new TransactionItem("productabc004",3,20),
+                            new TransactionItem("productabc005",3,50)
+                        ))
+                    )
+                ))
             ));
 
             date = date.plusDays(1);
+        }
+    }
+
+    public void loadTransactions(){
+        transactions = new ArrayList<>();
+
+        for (DailyTransactions dailyTransactions : this.dailyTransactions){
+            transactions.addAll(dailyTransactions.getTransactions());
         }
     }
 
@@ -104,13 +121,14 @@ public class TransactionPage extends AppCompatActivity {
 
         // Set up adapter
         dailySummaryAdapter = new TransactionDailySummaryAdapter(this, dailyTransactions);
+        historyAdapter = new TransactionHistoryAdapter(this, transactions);
 
         transactionRecycler.setAdapter(dailySummaryAdapter);
     }
 
     private void initializeDropdown(){
         List<String> items = Arrays.asList("Daily Summarized", "Not Summarized");
-        List<RecyclerView.Adapter> transactionAdapters = Arrays.asList(dailySummaryAdapter, dailySummaryAdapter);
+        List<RecyclerView.Adapter> transactionAdapters = Arrays.asList(dailySummaryAdapter, historyAdapter);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         modeDropdown.setAdapter(adapter);

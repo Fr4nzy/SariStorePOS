@@ -1,29 +1,29 @@
 package com.projectfkklp.saristorepos.models;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Transaction {
-    private LocalTime time;
+    private LocalDateTime dateTime;
     private ArrayList<TransactionItem> items;
 
     public Transaction() {
 
     }
 
-    public Transaction(LocalTime time, ArrayList<TransactionItem> items) {
-        this.time = time;
+    public Transaction(LocalDateTime time, ArrayList<TransactionItem> items) {
+        this.dateTime = time;
         this.items = items;
     }
 
     // Getter for 'time'
-    public LocalTime getTime() {
-        return time;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     // Setter for 'time'
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     // Getter for 'items'

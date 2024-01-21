@@ -28,7 +28,7 @@ public class TransactionDailySummaryAdapter extends RecyclerView.Adapter<Transac
     @NonNull
     @Override
     public TransactionDailySummaryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_daily_summary_recycler, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_daily_summary_recycler_view, parent, false);
         return new TransactionDailySummaryViewHolder(view);
     }
 

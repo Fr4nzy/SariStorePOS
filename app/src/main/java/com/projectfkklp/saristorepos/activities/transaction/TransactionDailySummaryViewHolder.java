@@ -18,6 +18,6 @@ public class TransactionDailySummaryViewHolder extends RecyclerView.ViewHolder {
 
         summaryDateText = itemView.findViewById(R.id.transaction_daily_summary_date);
         totalSoldItemsText = itemView.findViewById(R.id.transaction_daily_summary_sold_items);
-        totalSalesText = itemView.findViewById(R.id.transaction_daily_summary_total_sales);;
+        totalSalesText = itemView.findViewById(R.id.transaction_daily_summary_total_sales);
     }
 }
