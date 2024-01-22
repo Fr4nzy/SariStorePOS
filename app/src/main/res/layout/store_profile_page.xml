@@ -98,7 +98,7 @@
                         android:textSize="15dp"
                         android:textStyle="bold"
                         android:layout_marginRight="50dp"/>
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/store_profile_save_button"
                         android:layout_width="24dp"
                         android:layout_height="match_parent"
@@ -107,18 +107,12 @@
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
-                        android:onClick="toggleMode"
+                        android:onClick="saveChanges"
                         android:src="@drawable/save_icon"
                         app:tint="@color/gray"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </LinearLayout>
-                <!-- Error Alert -->
-                <com.projectfkklp.saristorepos.views.ErrorAlert
-                    android:layout_below="@id/store_profile_name"
-                    android:id="@+id/user_profile_errors"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/store_profile_name"
                     android:autofillHints="name"
@@ -147,7 +141,7 @@
                         android:textColor="@color/black"
                         android:onClick="changeProfileAddress"
                         tools:ignore="RtlSymmetry"
-                        app:drawableStartCompat="@drawable/baseline_location_pin_24" />
+                        app:drawableStartCompat="@drawable/baseline_location_pin_24"/>
                 </RelativeLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

@@ -3,6 +3,7 @@ package com.projectfkklp.saristorepos.repositories;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -48,6 +49,10 @@ public class StoreRepository {
             : getCollectionReference()
                 .whereIn("id", storeIds)
                 .get();
+    }
+
+    public static Task<DocumentSnapshot> getStoreById(String id) {
+        return getCollectionReference().document(id).get();
     }
 
 }
