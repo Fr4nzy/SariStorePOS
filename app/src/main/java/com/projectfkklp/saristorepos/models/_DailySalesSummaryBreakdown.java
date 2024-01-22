@@ -1,11 +1,11 @@
 package com.projectfkklp.saristorepos.models;
 
-public class DailySalesSummaryBreakdown {
+public class _DailySalesSummaryBreakdown {
     private String product;
     private int quantity;
     private double unitPrice;
 
-    public DailySalesSummaryBreakdown() {
+    public _DailySalesSummaryBreakdown() {
         this.product = "";
         this.quantity = 0;
         this.unitPrice = 0.0;

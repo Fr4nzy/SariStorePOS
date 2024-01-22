@@ -12,11 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.projectfkklp.saristorepos.activities.transaction.transaction_history._TransactionHistoryPage;
+import com.projectfkklp.saristorepos.models._DailySalesSummaryBreakdown;
 import com.projectfkklp.saristorepos.models._Product;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models._Transaction;
-import com.projectfkklp.saristorepos.models.DailySalesSummaryBreakdown;
-import com.projectfkklp.saristorepos.models.DailySalesSummary;
+import com.projectfkklp.saristorepos.models._DailySalesSummary;
 import com.projectfkklp.saristorepos.repositories.TransactionRepository;
 import com.projectfkklp.saristorepos.utils.DateUtils;
 
@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 
 public class _TransactionDailySummaryPage extends AppCompatActivity {
     public List<_Transaction> transactionList;
-    public List<DailySalesSummary> summaryList;
+    public List<_DailySalesSummary> summaryList;
     private _TransactionDailySummaryAdapter adapter;
     private Date lowerDate;
     private Date upperDate;
@@ -142,7 +142,7 @@ public class _TransactionDailySummaryPage extends AppCompatActivity {
 
     int getOverallQuantity() {
         int overallQuantity = 0;
-        for (DailySalesSummary summary:summaryList) {
+        for (_DailySalesSummary summary:summaryList) {
             overallQuantity+=summary.getTotalQuantity();
         }
 
@@ -151,14 +151,14 @@ public class _TransactionDailySummaryPage extends AppCompatActivity {
 
     double getOverallPrice() {
         double overallPrice = 0;
-        for (DailySalesSummary summary:summaryList) {
+        for (_DailySalesSummary summary:summaryList) {
             overallPrice+=summary.getTotalPrice();
         }
 
         return overallPrice;
     }
 
-    public static void setSummaryList(List<_Transaction> transactionList, List<DailySalesSummary> summaryList) throws ParseException {
+    public static void setSummaryList(List<_Transaction> transactionList, List<_DailySalesSummary> summaryList) throws ParseException {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date endDate = dateFormat.parse(transactionList.get(0).getDate());
         Date startDate = dateFormat.parse(transactionList.get(transactionList.size()-1).getDate());
@@ -185,16 +185,16 @@ public class _TransactionDailySummaryPage extends AppCompatActivity {
 
 
             // Get summary of sales
-            Map<String, DailySalesSummaryBreakdown> breakDowns = new HashMap<>();
+            Map<String, _DailySalesSummaryBreakdown> breakDowns = new HashMap<>();
             for (_Transaction transaction :transactions){
                 for (_Product item:transaction.getItems()) {
                     if (breakDowns.containsKey(item.getProduct())) {
-                        DailySalesSummaryBreakdown breakDown = breakDowns.get(item.getProduct());
+                        _DailySalesSummaryBreakdown breakDown = breakDowns.get(item.getProduct());
                         assert breakDown != null;
                         breakDown.setQuantity(breakDown.getQuantity()+item.getQuantity());
                     }
                     else{
-                        DailySalesSummaryBreakdown breakDown = new DailySalesSummaryBreakdown();
+                        _DailySalesSummaryBreakdown breakDown = new _DailySalesSummaryBreakdown();
                         breakDown.setProduct(item.getProduct());
                         breakDown.setQuantity(breakDown.getQuantity()+item.getQuantity());
                         breakDown.setUnitPrice(breakDown.getUnitPrice()+item.getPrice());
@@ -203,7 +203,7 @@ public class _TransactionDailySummaryPage extends AppCompatActivity {
                 }
             }
 
-            summaryList.add(new DailySalesSummary(
+            summaryList.add(new _DailySalesSummary(
                     currentDate,
                     new ArrayList<>(breakDowns.values())
             ));

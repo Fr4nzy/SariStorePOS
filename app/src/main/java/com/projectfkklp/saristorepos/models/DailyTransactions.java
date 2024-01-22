@@ -1,9 +1,10 @@
 package com.projectfkklp.saristorepos.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class DailyTransactions {
+public class DailyTransactions implements Serializable {
     private LocalDate date;
     private ArrayList<Transaction> transactions;
 

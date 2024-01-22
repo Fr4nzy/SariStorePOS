@@ -154,7 +154,7 @@ public class DashboardSalesForecastChart extends LineChart {
                 @Override
                 public String getFormattedValue(float value) {
                     // Displaying sales with a currency symbol
-                    return StringUtils.formatToPeso(value);
+                    return StringUtils.formatToPesoWithMetricPrefix(value);
                 }
             });
             lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);

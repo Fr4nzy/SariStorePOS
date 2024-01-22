@@ -9,15 +9,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.models.DailySalesSummary;
+import com.projectfkklp.saristorepos.models._DailySalesSummary;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.util.List;
 
 public class _TransactionDailySummaryAdapter extends RecyclerView.Adapter<_TransactionDailySummaryAdapter.BreakDownViewHolder> {
-    private final List<DailySalesSummary> summaryList;
+    private final List<_DailySalesSummary> summaryList;
 
-    public _TransactionDailySummaryAdapter(List<DailySalesSummary> summaryList) {
+    public _TransactionDailySummaryAdapter(List<_DailySalesSummary> summaryList) {
         this.summaryList = summaryList;
     }
 
@@ -38,7 +38,7 @@ public class _TransactionDailySummaryAdapter extends RecyclerView.Adapter<_Trans
     @Override
     public void onBindViewHolder(@NonNull _TransactionDailySummaryAdapter.BreakDownViewHolder holder, int position) {
         // Bind data to each item
-        DailySalesSummary summary = summaryList.get(position);
+        _DailySalesSummary summary = summaryList.get(position);
 
         TextView summaryTextView = holder.itemView.findViewById(R.id.totalsummary);
 

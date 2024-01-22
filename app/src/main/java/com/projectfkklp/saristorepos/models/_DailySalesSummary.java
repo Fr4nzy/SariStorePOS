@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class DailySalesSummary {
-    private ArrayList<DailySalesSummaryBreakdown> breakdownList = new ArrayList<>();
+public class _DailySalesSummary {
+    private ArrayList<_DailySalesSummaryBreakdown> breakdownList = new ArrayList<>();
     private Date date;
 
-    public DailySalesSummary(Date date, ArrayList<DailySalesSummaryBreakdown> breakdownList) {
+    public _DailySalesSummary(Date date, ArrayList<_DailySalesSummaryBreakdown> breakdownList) {
         this.date = date;
         this.breakdownList = breakdownList;
     }
@@ -20,7 +20,7 @@ public class DailySalesSummary {
         this.date = date;
     }
 
-    public void setSummaryList(ArrayList<DailySalesSummaryBreakdown> breakdownList) {
+    public void setSummaryList(ArrayList<_DailySalesSummaryBreakdown> breakdownList) {
         this.breakdownList = breakdownList;
     }
 
@@ -29,15 +29,15 @@ public class DailySalesSummary {
         return this.date;
     }
 
-    public void getBreakdownList(ArrayList<DailySalesSummaryBreakdown> breakdownList) {
+    public void getBreakdownList(ArrayList<_DailySalesSummaryBreakdown> breakdownList) {
         this.breakdownList = breakdownList;
     }
 
     public int getTotalOverallItems() {
         int totalItems = 0;
 
-        for (DailySalesSummaryBreakdown breakdown : breakdownList) {
-            totalItems += breakdown.getQuantity(); // Assuming there is a getQuantity() method in DailySalesSummaryBreakdown
+        for (_DailySalesSummaryBreakdown breakdown : breakdownList) {
+            totalItems += breakdown.getQuantity(); // Assuming there is a getQuantity() method in _DailySalesSummaryBreakdown
         }
 
         return totalItems;
@@ -46,7 +46,7 @@ public class DailySalesSummary {
     public int getTotalQuantity() {
         int totalQuantity = 0;
 
-        for (DailySalesSummaryBreakdown breakdown : breakdownList) {
+        for (_DailySalesSummaryBreakdown breakdown : breakdownList) {
             totalQuantity += breakdown.getQuantity();
         }
 
@@ -56,7 +56,7 @@ public class DailySalesSummary {
     public double getTotalPrice() {
         double totalPrice = 0.0;
 
-        for (DailySalesSummaryBreakdown breakdown : breakdownList) {
+        for (_DailySalesSummaryBreakdown breakdown : breakdownList) {
             totalPrice += breakdown.getTotalPrice();
         }
 
@@ -69,7 +69,7 @@ public class DailySalesSummary {
         String summaryContent = dateFormat.format(date) + "\n\n";
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
 
-        for (DailySalesSummaryBreakdown breakdown : breakdownList) {
+        for (_DailySalesSummaryBreakdown breakdown : breakdownList) {
             summaryContent +=
                     breakdown.getProduct() + "\n"
                             + "Quantity: " + breakdown.getQuantity() + "\n"
