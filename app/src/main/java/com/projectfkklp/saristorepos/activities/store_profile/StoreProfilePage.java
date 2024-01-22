@@ -6,34 +6,47 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.enums.UserRole;
 import com.projectfkklp.saristorepos.enums.UserStatus;
+import com.projectfkklp.saristorepos.managers.SessionManager;
+import com.projectfkklp.saristorepos.managers.StoreManager;
+import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.models.UserStoreRelation;
+import com.projectfkklp.saristorepos.repositories.SessionRepository;
+import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.utils.ActivityUtils;
+import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.TestingUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 public class StoreProfilePage extends AppCompatActivity {
     AlertDialog.Builder cancelConfirmationDialog;
-    private boolean isEditing = false;
     private EditText storeNameEditText;
-    private TextView storeAddressTextView;
+    private EditText storeAddressEditText;
     private ImageView toggleModeImageView;
-    private ImageView saveButton;
+    private ImageButton saveButton;
     RecyclerView storeProfileRecycler;
     ProgressBar progressBar;
     StoreProfileAdapter storeProfilePageAdapter;
+
+    private boolean isEditing = false;
+    private Store store;
     private List<UserStoreRelation> userStoreRelations;
     private List<User> users;
 
@@ -42,6 +55,7 @@ public class StoreProfilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.store_profile_page);
 
+        loadStoreFromSession();
         initializeViews();
         initializeDialogs();
     }
@@ -58,19 +72,23 @@ public class StoreProfilePage extends AppCompatActivity {
         loadAssociatedUsers();
     }
 
+    private void loadStoreFromSession(){
+        store = SessionRepository.getCurrentStore(this);
+    }
+
     private void loadAssociatedUsers(){
         // Fetch Associated Stores from Firebase
         // Then, update recycler view
         progressBar.setVisibility(View.VISIBLE);
         TestingUtils.delay(1000, ()->{
-            setDummyData();
+            loadUserStoreRelations();
             sortUserStoreRelations();
             initializeRecyclerView();
             progressBar.setVisibility(View.GONE);
         });
     }
 
-    private void setDummyData(){
+    private void loadUserStoreRelations(){
         userStoreRelations = new ArrayList<>(Arrays.asList(
             new UserStoreRelation(
                 "001",
@@ -169,14 +187,33 @@ public class StoreProfilePage extends AppCompatActivity {
 
     private void initializeViews(){
         // Initialize your views
-        storeNameEditText = findViewById(R.id.store_profile_name);
-        storeAddressTextView = findViewById(R.id.store_profile_address);
-        toggleModeImageView = findViewById(R.id.store_profile_toggle_mode);
-        saveButton = findViewById(R.id.store_profile_save_button);
-        storeProfileRecycler = findViewById(R.id.store_profile_recycler);
-        progressBar = findViewById(R.id.store_profile_page_progress);
+        {
+            toggleModeImageView = findViewById(R.id.store_profile_toggle_mode);
+            storeNameEditText = findViewById(R.id.store_profile_name);
+            storeAddressEditText = findViewById(R.id.store_profile_address);
+            saveButton = findViewById(R.id.store_profile_save_button);
+            storeProfileRecycler = findViewById(R.id.store_profile_recycler);
+            progressBar = findViewById(R.id.store_profile_page_progress);
+        }
 
-        // Set OnClickListener for the toggle mode ImageView
+        TextWatcher textWatcher  =new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                saveButton.setVisibility(hasEdits() ? View.VISIBLE: View.GONE);
+            }
+        };
+
+        // Toggle Mode Button
         toggleModeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,13 +221,24 @@ public class StoreProfilePage extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for the save button
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveChanges();
-            }
-        });
+        // Store Name Edit Text
+        {
+            storeNameEditText.setText(store.getName());
+            storeNameEditText.addTextChangedListener(textWatcher);
+        }
+
+        // Store Address Edit Text
+        {
+            storeAddressEditText.setText(store.getAddress());
+            storeAddressEditText.addTextChangedListener(textWatcher);
+        }
+    }
+
+    private boolean hasEdits(){
+        return (
+            !storeNameEditText.getText().toString().equals(store.getName())
+            || !storeAddressEditText.getText().toString().equals(store.getAddress())
+        );
     }
 
     private void sortUserStoreRelations(){
@@ -225,18 +273,19 @@ public class StoreProfilePage extends AppCompatActivity {
             return;
         }
 
-        // TODO for backend: put condition here to check if hasEdits before showing cancel dialog
-        {
+        if (hasEdits()){
             showCancelConfirmationDialog();
+            return;
         }
+
+        disableEditing();
     }
 
     private void enableEditing(){
         isEditing = true;
         toggleModeImageView.setImageResource(R.drawable.baseline_cancel_24);
-        saveButton.setVisibility(View.VISIBLE);
         storeNameEditText.setEnabled(true);
-        storeAddressTextView.setEnabled(true);
+        storeAddressEditText.setEnabled(true);
     }
 
     private void disableEditing(){
@@ -244,23 +293,58 @@ public class StoreProfilePage extends AppCompatActivity {
         toggleModeImageView.setImageResource(R.drawable.edit);
         saveButton.setVisibility(View.GONE);
         storeNameEditText.setEnabled(false);
-        storeAddressTextView.setEnabled(true);
+        storeAddressEditText.setEnabled(true);
+
+        // Reset Fields
+        storeNameEditText.setText(store.getName());
+        storeAddressEditText.setText(store.getAddress());
     }
 
     private void showCancelConfirmationDialog(){
         cancelConfirmationDialog.show();
     }
 
-    private void saveChanges() {
-        // Implement the logic to save the changes here
+    public void saveChanges(View view) {
+        ProgressUtils.showDialog(this, "Updating...");
+        StoreRepository
+            .getStoreById(store.getId())
+            .addOnSuccessListener(repositoryTask->{
+                Store updatedStore = repositoryTask.toObject(Store.class);
+                assert updatedStore != null;
+                updatedStore.setName(storeNameEditText.getText().toString());
+                updatedStore.setAddress(storeAddressEditText.getText().toString());
 
-        // After saving, disable editing and hide the save button
-        storeNameEditText.setEnabled(false);
-        storeAddressTextView.setEnabled(false);
-        toggleModeImageView.setImageResource(R.drawable.edit);
-        saveButton.setVisibility(View.GONE);
+                StoreManager.saveStore(updatedStore, (updateStore, validationStatus, task)->{
+                    if (!validationStatus.isValid()) {
+                        HashMap<String, String> errors = validationStatus.getErrors();
 
-        isEditing = false;
+                        if (errors.get("name") != null) {
+                            storeNameEditText.setError(errors.get("name"));
+                        }
+
+                        if (errors.get("address") != null) {
+                            storeNameEditText.setError(errors.get("address"));
+                        }
+
+                        ProgressUtils.dismissDialog();
+                        return;
+                    }
+
+                    task
+                        .addOnSuccessListener(successTask->{
+                            SessionManager.setStore(this, updatedStore);
+                            Toast.makeText(this, "Updating success", Toast.LENGTH_SHORT).show();
+                            ActivityUtils.navigateTo(this, StoreProfilePage.class);
+                        })
+                        .addOnFailureListener(failedTask->
+                            Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show()
+                        );
+                });
+            })
+            .addOnFailureListener(failedTask->
+                Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show()
+            )
+            .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog());
     }
 
     public void dismiss(View view) {

@@ -1,5 +1,7 @@
 package com.projectfkklp.saristorepos.models;
 
+import androidx.annotation.NonNull;
+
 import com.projectfkklp.saristorepos.utils.ModelUtils;
 
 import org.checkerframework.checker.units.qual.A;
@@ -59,5 +61,14 @@ public class Store {
 
     public ArrayList<Product> getProducts(){
         return products;
+    }
+
+    @NonNull
+    public Store clone(){
+        return new Store(
+            getId(),
+            getName(),
+            getAddress()
+        );
     }
 }
