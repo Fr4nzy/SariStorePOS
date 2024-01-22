@@ -32,6 +32,7 @@ import com.projectfkklp.saristorepos.repositories.UserRepository;
 import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
+import com.projectfkklp.saristorepos.utils.StringUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 import com.projectfkklp.saristorepos.views.ErrorAlert;
 
@@ -177,8 +178,8 @@ public class UserProfilePage extends AppCompatActivity {
         phoneText.setEnabled(true);
         gmailText.setEnabled(true);
 
-        unlinkPhoneButton.setVisibility(!currentUser.getPhoneNumber().isEmpty() ? View.VISIBLE : View.GONE);
-        unlinkGmailButton.setVisibility(!currentUser.getGmail().isEmpty() ? View.VISIBLE : View.GONE);
+        unlinkPhoneButton.setVisibility(!StringUtils.isNullOrEmpty(currentUser.getPhoneNumber()) ? View.VISIBLE : View.GONE);
+        unlinkGmailButton.setVisibility(!StringUtils.isNullOrEmpty(currentUser.getGmail()) ? View.VISIBLE : View.GONE);
 
         updateButton.setVisibility(View.VISIBLE);
         updateButton.setEnabled(false);
