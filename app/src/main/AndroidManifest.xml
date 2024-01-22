@@ -16,12 +16,6 @@
             android:name=".activities.transaction.transaction_invoice.TransactionInvoicePage"
             android:exported="false" />
         <activity
-            android:name=".activities.transaction.transaction_history.TransactionHistoryPage"
-            android:exported="false" />
-        <activity
-            android:name=".activities.transaction.transaction_daily_summary.TransactionDailySummaryPage"
-            android:exported="false" />
-        <activity
             android:name=".activities.transaction.TransactionPage"
             android:exported="false" />
         <activity
