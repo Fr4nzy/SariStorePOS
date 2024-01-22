@@ -19,4 +19,10 @@ public class UserStoreRelationRepository {
             .get();
     }
 
+    public static Task<QuerySnapshot> getRelationsByStoreId(String storeId) {
+        return getCollectionReference()
+            .whereEqualTo("storeId", storeId)
+            .get();
+    }
+
 }
