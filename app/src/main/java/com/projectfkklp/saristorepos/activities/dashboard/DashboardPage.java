@@ -94,7 +94,7 @@ public class DashboardPage extends AppCompatActivity {
                 }
 
                 float percentValue = (value / total) * 100;
-                String formattedValue = StringUtils.formatToPeso(value);
+                String formattedValue = StringUtils.formatToPesoWithMetricPrefix(value);
 
                 DecimalFormat decimalFormat = new DecimalFormat("#.##");
                 String formattedPercent = decimalFormat.format(percentValue);

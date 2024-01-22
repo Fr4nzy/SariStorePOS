@@ -2,6 +2,7 @@ package com.projectfkklp.saristorepos.activities.transaction.transaction_history
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.transaction.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.models.Transaction;
 
 import java.time.format.DateTimeFormatter;
@@ -41,10 +43,17 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionH
                 "Total Quantity: %,d",
                 transaction.getTotalQuantity()
         ));
-        holder.totalSalesText.setText(String.format(
+        holder.totalSalesText.setText(String.format( 
                 "Total Sales: ₱%,.2f",
                 transaction.getTotalSales()
         ));
+
+        holder.container.setOnClickListener(view -> {
+            Intent intent = new Intent(context, TransactionInvoicePage.class);
+            intent.putExtra("src", "transaction");
+            intent.putExtra("transaction", transaction);
+            context.startActivity(intent);
+        });
     }
 
     @Override

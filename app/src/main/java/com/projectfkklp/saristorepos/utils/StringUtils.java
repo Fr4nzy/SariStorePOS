@@ -9,12 +9,12 @@ public class StringUtils {
     public static int getLinesCount(String str){
         return str.split("\n").length;
     }
-    public static String formatToPeso(float number){
+    public static String formatToPesoWithMetricPrefix(float number){
         return "₱"+formatWithMetricPrefix((long)number);
     }
 
-    public static String formatPesoPrefix(float number){
-        DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+    public static String formatToPeso(float number){
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
         return "₱"+decimalFormat.format(number);
     }
 

@@ -94,8 +94,8 @@ public class DashboardTodaySalesChart extends PieChart {
                 +"Target Sales: %s\n"
                 +"%s%% vs Yesterday",
             salesPerformancePercentage,
-            StringUtils.formatPesoPrefix(todayActualSales),
-            StringUtils.formatPesoPrefix(todayTargetSales),
+            StringUtils.formatToPeso(todayActualSales),
+            StringUtils.formatToPeso(todayTargetSales),
             salesGrowthPercentageText
         );
 

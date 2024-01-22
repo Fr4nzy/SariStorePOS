@@ -14,7 +14,6 @@ import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary.TransactionDailySummaryAdapter;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_history.TransactionHistoryAdapter;
 import com.projectfkklp.saristorepos.models.DailyTransactions;
-import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
 
@@ -31,7 +30,6 @@ public class TransactionPage extends AppCompatActivity {
     TransactionDailySummaryAdapter dailySummaryAdapter;
     TransactionHistoryAdapter historyAdapter;
 
-    private List<Product> products;
     private List<DailyTransactions> dailyTransactions;
     private List<Transaction> transactions;
 
@@ -54,13 +52,6 @@ public class TransactionPage extends AppCompatActivity {
     }
 
     private void loadDailyTransactions(){
-        products = new ArrayList<>(Arrays.asList(
-            new Product("productabc001", "Product A", 5, 1, "", ""),
-            new Product("productabc002", "Product B", 10, 5, "", ""),
-            new Product("productabc003", "Product C", 15, 10, "", ""),
-            new Product("productabc004", "Product D", 20, 20, "", ""),
-            new Product("productabc005", "Product E", 25, 50, "", "")
-        ));
         dailyTransactions = new ArrayList<>();
 
         LocalDate date = LocalDate.of(2024, 1, 1);

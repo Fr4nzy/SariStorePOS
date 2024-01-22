@@ -2,6 +2,7 @@ package com.projectfkklp.saristorepos.activities.transaction.transaction_daily_s
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.transaction.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.models.DailyTransactions;
 
 import java.time.format.DateTimeFormatter;
@@ -46,6 +48,13 @@ public class TransactionDailySummaryAdapter extends RecyclerView.Adapter<Transac
                 "Total Sales: ₱%,.2f",
                 dailyTransactions.getTotalSales()
         ));
+
+        holder.container.setOnClickListener(view -> {
+            Intent intent = new Intent(context, TransactionInvoicePage.class);
+            intent.putExtra("src", "dailyTransactions");
+            intent.putExtra("dailyTransactions", dailyTransactions);
+            context.startActivity(intent);
+        });
     }
 
     @Override
