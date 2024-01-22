@@ -105,6 +105,10 @@ public class TransactionInvoicePage extends AppCompatActivity {
         invoiceRecycler.setAdapter(invoiceAdapter);
     }
 
+    public void createPdf(View view){
+
+    }
+
     public void navigateBack(View view){
         finish();
     }
