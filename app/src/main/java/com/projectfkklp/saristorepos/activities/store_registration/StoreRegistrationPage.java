@@ -62,7 +62,7 @@ public class StoreRegistrationPage extends AppCompatActivity {
                 return;
             }
             task
-                .continueWith(successTask->{
+                .addOnSuccessListener(successTask->{
                     UserStoreRelation relation = new UserStoreRelation(
                         ModelUtils.createUUID(),
                         SessionRepository.getCurrentUser(this).getId(),
@@ -70,16 +70,23 @@ public class StoreRegistrationPage extends AppCompatActivity {
                         UserRole.OWNER,
                         UserStatus.ACTIVE
                     );
-                    return UserStoreRelationManager.save(relation);
+                    UserStoreRelationManager
+                        .save(relation)
+                        .addOnSuccessListener(relationTask->{
+                            Toast.makeText(this, "Registration success", Toast.LENGTH_SHORT).show();
+                            ActivityUtils.navigateTo(this, StoreSelectorPage.class);
+                        })
+                        .addOnFailureListener(failedTask->
+                                Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
+                        )
+                        .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog())
+                    ;
                 })
-                .addOnSuccessListener(successTask ->{
-                    Toast.makeText(this, "Registration success", Toast.LENGTH_SHORT).show();
-                    ActivityUtils.navigateTo(this, StoreSelectorPage.class);
+                .addOnFailureListener(failedTask->{
+                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
+                    ProgressUtils.dismissDialog();
                 })
-                .addOnFailureListener(failedTask->
-                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
-                )
-                .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog());
+            ;
         });
     }
 
