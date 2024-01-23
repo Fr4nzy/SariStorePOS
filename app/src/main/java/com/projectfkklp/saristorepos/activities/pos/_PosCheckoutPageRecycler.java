@@ -19,7 +19,7 @@ class _PosCheckoutPageRecycler extends RecyclerView.ViewHolder {
         cartProduct = itemView.findViewById(R.id.rec2Product);
         cartPrice = itemView.findViewById(R.id.recPrice);
         quantityTextView = itemView.findViewById(R.id.quantityTextView);
-        btnMinus = itemView.findViewById(R.id.btnMinus);
-        btnPlus = itemView.findViewById(R.id.btnPlus);
+        btnMinus = itemView.findViewById(R.id.pos_btn_minus);
+        btnPlus = itemView.findViewById(R.id.pos_btn_plus);
     }
 }

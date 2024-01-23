@@ -34,7 +34,7 @@ public class _PointOfSalePageAdapter extends RecyclerView.Adapter<_PointOfSalePa
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pos_recycler_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout._pos_recycler_view, parent, false);
         return new MyViewHolder(view, onItemClickListener, dataList);
     }
 

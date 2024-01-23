@@ -40,7 +40,7 @@ public class _PosCheckoutPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pos_checkout_page);
+        setContentView(R.layout._pos_checkout_page);
 
         FirebaseApp.initializeApp(this);
 

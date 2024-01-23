@@ -46,7 +46,7 @@
         android:padding="5dp">
 
         <Button
-            android:id="@+id/btnMinus"
+            android:id="@+id/pos_btn_minus"
             android:layout_width="32dp"
             android:layout_height="38dp"
             android:layout_marginStart="10dp"
@@ -67,13 +67,13 @@
             android:layout_marginBottom="10dp"
             android:text="0"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnPlus"
-            app:layout_constraintStart_toEndOf="@+id/btnMinus"
+            app:layout_constraintEnd_toStartOf="@+id/pos_btn_plus"
+            app:layout_constraintStart_toEndOf="@+id/pos_btn_minus"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
         <Button
-            android:id="@+id/btnPlus"
+            android:id="@+id/pos_btn_plus"
             android:layout_width="32dp"
             android:layout_height="38dp"
             android:layout_marginTop="10dp"

@@ -36,7 +36,7 @@ public class _PosCheckoutPageAdapter extends RecyclerView.Adapter<_PosCheckoutPa
     @NonNull
     @Override
     public _PosCheckoutPageRecycler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pos_checkout_recycler_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout._pos_checkout_recycler_view, parent, false);
         return new _PosCheckoutPageRecycler(view);
     }
 

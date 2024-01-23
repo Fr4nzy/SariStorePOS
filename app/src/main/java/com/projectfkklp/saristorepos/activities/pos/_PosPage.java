@@ -57,13 +57,13 @@ public class _PosPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pos_page);
+        setContentView(R.layout._pos_page);
 
         mAuth = FirebaseAuth.getInstance();
 
         // Initialize views, lists, and set up SearchView
         searchView = findViewById(R.id.searchViewPos);
-        posRecyclerView = findViewById(R.id.pos_recycler_view);
+        posRecyclerView = findViewById(R.id._pos_recycler_view);
         cartCountTextView = findViewById(R.id.cartTextView);
         cartItemList = new ArrayList<>();
 
