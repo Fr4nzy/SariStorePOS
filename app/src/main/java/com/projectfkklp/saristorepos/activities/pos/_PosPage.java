@@ -39,7 +39,7 @@ import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
 import com.projectfkklp.saristorepos.models._Product;
 import com.projectfkklp.saristorepos.R;
 
-public class PosPage extends AppCompatActivity {
+public class _PosPage extends AppCompatActivity {
 
     // Add the following member variable
     private String userUid;
@@ -48,7 +48,7 @@ public class PosPage extends AppCompatActivity {
     SearchView searchView;
     CollectionReference productsCollection;
     private TextView cartCountTextView;
-    private PointOfSalePageAdapter adapter;
+    private _PointOfSalePageAdapter adapter;
     private List<_Product> cartItemList = new ArrayList<>();
     final List<_Product> productList = new ArrayList<>();
     private final List<_Product> filteredProductList = new ArrayList<>();
@@ -86,7 +86,7 @@ public class PosPage extends AppCompatActivity {
         posRecyclerView.setLayoutManager(gridLayoutManager);
 
         // Set up adapter
-        adapter = new PointOfSalePageAdapter(this, filteredProductList);
+        adapter = new _PointOfSalePageAdapter(this, filteredProductList);
         posRecyclerView.setAdapter(adapter);
 
         // Firestore initialization
@@ -145,7 +145,7 @@ public class PosPage extends AppCompatActivity {
             }
         });
 
-        // Register a BroadcastReceiver to receive quantity updates from PosCheckoutPage activity
+        // Register a BroadcastReceiver to receive quantity updates from _PosCheckoutPage activity
         BroadcastReceiver quantityUpdateReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -153,7 +153,7 @@ public class PosPage extends AppCompatActivity {
                     String cartItemKey = intent.getStringExtra("cart_item_key");
                     int newQuantity = intent.getIntExtra("cart_item_quantity", 0);
 
-                    // Update the quantity in the PosPage activity
+                    // Update the quantity in the _PosPage activity
                     updateQuantityInViewPOS(cartItemKey, newQuantity);
                 }
             }
@@ -168,7 +168,7 @@ public class PosPage extends AppCompatActivity {
 
         barcodeSearch.setOnClickListener(view -> {
             // Launch ZXing barcode scanner
-            new IntentIntegrator(PosPage.this).initiateScan();
+            new IntentIntegrator(_PosPage.this).initiateScan();
         });
 
         // Set up SearchView listener
@@ -324,7 +324,7 @@ public class PosPage extends AppCompatActivity {
     public void newAddToCartClick(View view) {
         // Ensure cartItemList is not null before passing it to the intent
         if (cartItemList != null && !cartItemList.isEmpty()) {
-            Intent intent = new Intent(PosPage.this, PosCheckoutPage.class);
+            Intent intent = new Intent(_PosPage.this, _PosCheckoutPage.class);
 
             // Convert the List<_Product> to ArrayList<_Product>
             ArrayList<_Product> cartArrayList = new ArrayList<>(cartItemList);

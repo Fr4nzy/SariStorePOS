@@ -61,7 +61,7 @@
             android:name=".activities.analytics.AnalyticsForecastEntryPage"
             android:exported="false" />
         <activity
-            android:name=".activities.pos.PosCheckoutPage"
+            android:name=".activities.pos._PosCheckoutPage"
             android:exported="false" />
         <activity
             android:name=".activities.inventory._InventoryEditProductPage"
@@ -76,7 +76,7 @@
             android:name=".activities.analytics.AnalyticsForecastPage"
             android:exported="false" />
         <activity
-            android:name=".activities.pos.PosPage"
+            android:name=".activities.pos._PosPage"
             android:exported="false" />
         <activity
             android:name=".activities.inventory._InventoryProductListPage"

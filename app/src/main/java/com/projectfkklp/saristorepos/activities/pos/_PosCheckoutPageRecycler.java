@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.projectfkklp.saristorepos.R;
 
-class PosCheckoutPageRecycler extends RecyclerView.ViewHolder {
+class _PosCheckoutPageRecycler extends RecyclerView.ViewHolder {
     TextView cartProduct, cartPrice, quantityTextView;
     Button btnMinus, btnPlus;
 
-    public PosCheckoutPageRecycler(@NonNull View itemView) {
+    public _PosCheckoutPageRecycler(@NonNull View itemView) {
         super(itemView);
 
         cartProduct = itemView.findViewById(R.id.rec2Product);

@@ -20,13 +20,13 @@ import com.projectfkklp.saristorepos.models._Product;
 
 import java.util.List;
 
-public class PointOfSalePageAdapter extends RecyclerView.Adapter<PointOfSalePageAdapter.MyViewHolder> {
+public class _PointOfSalePageAdapter extends RecyclerView.Adapter<_PointOfSalePageAdapter.MyViewHolder> {
 
     private Context context;
     private List<_Product> dataList;
     private OnItemClickListener onItemClickListener; // Declare the listener
 
-    public PointOfSalePageAdapter(Context context, List<_Product> dataList) {
+    public _PointOfSalePageAdapter(Context context, List<_Product> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
