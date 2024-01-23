@@ -30,7 +30,7 @@ public class InventoryProductDetailPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inventory_product_detail_page);
 
-       /* detailPrice = findViewById(R.id.detailPrice);
+        detailPrice = findViewById(R.id.detailPrice);
         ImageView detailImage = findViewById(R.id.detailImage);
         detailProduct = findViewById(R.id.detailProduct);
         FloatingActionButton deleteButton = findViewById(R.id.deleteButton);
@@ -48,13 +48,13 @@ public class InventoryProductDetailPage extends AppCompatActivity {
             key = bundle.getString("Key");
             imageUrl = bundle.getString("Image");
             Glide.with(this).load(imageUrl).into(detailImage);
-        }*/
+        }
 
-        /*deleteButton.setOnClickListener(v -> deleteProduct());
-        editButton.setOnClickListener(v -> editProduct());*/
+        deleteButton.setOnClickListener(v -> deleteProduct());
+        editButton.setOnClickListener(v -> editProduct());
     }
 
-    /*private void deleteProduct() {
+    private void deleteProduct() {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final FirebaseStorage storage = FirebaseStorage.getInstance();
         // Access FirebaseAuth to get the current user
@@ -94,5 +94,5 @@ public class InventoryProductDetailPage extends AppCompatActivity {
         intent.putExtra("Image", imageUrl);
         intent.putExtra("Key", key);
         startActivity(intent);
-    }*/
+    }
 }
