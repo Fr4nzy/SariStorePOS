@@ -17,5 +17,4 @@ public class SessionManager {
     public static  void setStore(Context context, Store store){
         CacheUtils.saveObject(context, "current_store", store);
     }
-
 }

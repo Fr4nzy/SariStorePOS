@@ -20,7 +20,6 @@ public class StoreManager {
 
         if (validationStatus.isValid()) {
             task = getCollectionReference().document(store.getId()).set(store);
-
         }
 
         onStoreSave.onStoreSave(store, validationStatus, task);

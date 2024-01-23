@@ -11,7 +11,7 @@ public class UserStoreRelation {
     private UserStatus status;
 
     // Empty constructor
-    public UserStoreRelation(String uuid, String id) {
+    public UserStoreRelation() {
         // Default constructor with no parameters
     }
 
