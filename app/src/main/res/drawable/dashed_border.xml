@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background with a transparent color -->
+    <item android:drawable="@android:color/transparent" />
+
+    <!-- Foreground with a dashed line -->
+    <item>
+        <shape
+            android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <stroke
+                android:color="#777"
+                android:width="2dp"
+                android:dashWidth="10dp"
+                android:dashGap="5dp"/>
+        </shape>
+    </item>
+
+</layer-list>

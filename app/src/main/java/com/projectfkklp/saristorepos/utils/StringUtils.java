@@ -14,7 +14,7 @@ public class StringUtils {
     }
 
     public static String formatToPeso(float number){
-        DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
         return "₱"+decimalFormat.format(number);
     }
 

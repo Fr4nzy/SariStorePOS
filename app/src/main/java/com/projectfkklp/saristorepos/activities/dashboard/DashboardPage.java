@@ -11,6 +11,7 @@ import android.view.View;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.inventory.InventoryProductListPage;
+import com.projectfkklp.saristorepos.activities.pos.PosPage;
 import com.projectfkklp.saristorepos.activities.store_profile.StoreProfilePage;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
 import com.projectfkklp.saristorepos.activities.transaction.TransactionPage;
@@ -143,6 +144,10 @@ public class DashboardPage extends AppCompatActivity {
 
     public void gotoStoreSelector(View view){
         startActivity(new Intent(this, StoreSelectorPage.class));
+    }
+
+    public void gotoPos(View view){
+        startActivity(new Intent(this, PosPage.class));
     }
 
     public void gotoTransaction(View view){

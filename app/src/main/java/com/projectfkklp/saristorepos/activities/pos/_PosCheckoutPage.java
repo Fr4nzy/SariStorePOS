@@ -30,17 +30,17 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-public class PosCheckoutPage extends AppCompatActivity {
+public class _PosCheckoutPage extends AppCompatActivity {
 
     private ArrayList<_Product> cartItemList;
-    private PosCheckoutPageAdapter posCheckoutPageAdapter;
+    private _PosCheckoutPageAdapter posCheckoutPageAdapter;
     private CollectionReference usersCollection;
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pos_checkout_page);
+        setContentView(R.layout._pos_checkout_page);
 
         FirebaseApp.initializeApp(this);
 
@@ -69,7 +69,7 @@ public class PosCheckoutPage extends AppCompatActivity {
         cartRecyclerView.setLayoutManager(layoutManager);
 
         // Set up adapter
-        posCheckoutPageAdapter = new PosCheckoutPageAdapter(this, cartItemList);
+        posCheckoutPageAdapter = new _PosCheckoutPageAdapter(this, cartItemList);
         cartRecyclerView.setAdapter(posCheckoutPageAdapter);
 
     }
@@ -118,7 +118,7 @@ public class PosCheckoutPage extends AppCompatActivity {
                 .show();
     }
 
-    // Modify the showReceipt method in PosCheckoutPage activity
+    // Modify the showReceipt method in _PosCheckoutPage activity
     private void showReceipt(double totalAmount) {
         _Transaction transaction = new _Transaction(
                 ModelUtils.createUUID(),
@@ -159,10 +159,10 @@ public class PosCheckoutPage extends AppCompatActivity {
 
                     // Handle confirmation (transaction completed)
                     Toast.makeText(this, "_Transaction Complete", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(PosCheckoutPage.this, PosPage.class);
+                    Intent intent = new Intent(_PosCheckoutPage.this, _PosPage.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent); // Start PosPage and clear its previous instances
-                    finish(); // Finish the current activity (PosCheckoutPage)
+                    startActivity(intent); // Start _PosPage and clear its previous instances
+                    finish(); // Finish the current activity (_PosCheckoutPage)
                 })
                 .setNegativeButton("Cancel", (dialogInterface, i) -> {
                     // Handle cancellation (transaction canceled)

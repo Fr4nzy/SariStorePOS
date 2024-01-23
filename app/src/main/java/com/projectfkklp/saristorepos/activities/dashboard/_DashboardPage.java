@@ -15,7 +15,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.inventory._InventoryProductListPage;
-import com.projectfkklp.saristorepos.activities.pos.PosPage;
+import com.projectfkklp.saristorepos.activities.pos._PosPage;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary._TransactionDailySummaryPage;
 import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
 import com.projectfkklp.saristorepos.activities.analytics.AnalyticsDailySalesPage;
@@ -54,7 +54,7 @@ public class _DashboardPage extends AppCompatActivity implements View.OnClickLis
         if (view.getId() == R.id.viewInventory) {
             i = new Intent(this, _InventoryProductListPage.class);
         } else if (view.getId() == R.id.viewPOS) {
-            i = new Intent(this, PosPage.class);
+            i = new Intent(this, _PosPage.class);
         } else if (view.getId() == R.id.salesReport) {
             i = new Intent(this, AnalyticsForecastEntryPage.class);
         } else if (view.getId() == R.id.barchart) {
