@@ -141,12 +141,5 @@ public class PosPage extends AppCompatActivity {
                 dialog.dismiss();
             })
             .show();
-
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void notifyDataSetChanged(){
-        // To prevent Illegal State Exception
-        posRecycler.post(() -> posAdapter.notifyDataSetChanged());
     }
 }

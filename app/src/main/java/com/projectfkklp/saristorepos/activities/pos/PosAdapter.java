@@ -72,12 +72,12 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder>{
                 return;
             }
 
-            changeTransactionItemQuantity(transactionItem, transactionItem.getQuantity()-1);
+            changeTransactionItemQuantity(holder, transactionItem, transactionItem.getQuantity()-1, product.getStocks());
         });
 
         holder.plusButton.setEnabled(transactionItem.getQuantity()<product.getStocks());
         holder.plusButton.setOnClickListener(view -> {
-            changeTransactionItemQuantity(transactionItem, transactionItem.getQuantity()+1);
+            changeTransactionItemQuantity(holder, transactionItem, transactionItem.getQuantity()+1,  product.getStocks());
         });
         holder.quantityEdit.setFilters(new InputFilter[]{new InputFilterMinMax(0, product.getStocks())});
         holder.quantityEdit.setOnFocusChangeListener((view, hasFocus) -> {
@@ -87,8 +87,8 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder>{
 
             String newQuantityText = holder.quantityEdit.getText().toString();
             if(StringUtils.isNullOrEmpty(newQuantityText)){
-                // Reset
-                notifyDataSetChanged();
+                // Reset Quantity Edit Text
+                holder.quantityEdit.setText(String.valueOf(transactionItem.getQuantity()));
                 return;
             }
 
@@ -99,7 +99,8 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder>{
             }
 
             transactionItem.setQuantity(newQuantity);
-            getParent().notifyDataSetChanged();
+            holder.plusButton.setEnabled(newQuantity<product.getStocks());
+            getParent().reloadViews();
         });
     }
 
@@ -123,10 +124,10 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder>{
             .show();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private void changeTransactionItemQuantity(TransactionItem transactionItem, int newQuantity){
+    private void changeTransactionItemQuantity(PosViewHolder holder, TransactionItem transactionItem, int newQuantity, int stocks){
         transactionItem.setQuantity(newQuantity);
-        notifyDataSetChanged();
+        holder.quantityEdit.setText(String.valueOf(newQuantity));
+        holder.plusButton.setEnabled(newQuantity<stocks);
         getParent().reloadViews();
     }
 
