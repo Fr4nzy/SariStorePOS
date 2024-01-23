@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".activities.inventory._InventoryProductDetailPage">
+    tools:context=".activities.inventory._InventoryCreateProductPage">
 
     <!-- Title and Image Layout -->
 
     <LinearLayout
-        android:id="@+id/updateProductTitleRL"
+        android:id="@+id/createProductTitleRL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@string/update_product"
+            android:text="@string/create_product"
             android:textColor="@color/lavender"
             android:textSize="34sp"
             android:textStyle="bold" />
@@ -47,20 +47,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updateProductTitleRL">
+        app:layout_constraintTop_toBottomOf="@id/createProductTitleRL">
 
-        <TextView
-            android:id="@+id/detailProduct"
-            android:layout_width="match_parent"
+        <EditText
+            android:autofillHints="name"
+            android:id="@+id/uploadProduct"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/product_name"
-            android:textAlignment="center"
             android:textColor="@color/lavender"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            tools:ignore="LabelFor,TextFields" />
 
         <ImageView
-            android:id="@+id/detailImage"
+            android:id="@+id/uploadImage"
             android:layout_width="241dp"
             android:layout_height="249dp"
             android:layout_gravity="center"
@@ -89,9 +91,10 @@
     <!-- Stock and Price Layout -->
 
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +117,7 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/detailStock"
+                android:id="@+id/uploadStock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/stock_placeholder"
@@ -129,56 +132,33 @@
                 android:id="@+id/stockTextView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
                 android:text="@string/price_label"
                 android:textColor="@color/lavender"
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/detailPrice"
+                android:id="@+id/uploadPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/price_placeholder"
                 android:textColor="@color/lavender"
                 android:textSize="24sp" />
         </TableRow>
-
-
     </TableLayout>
 
-    <com.github.clans.fab.FloatingActionMenu
+    <Button
+        android:id="@+id/updateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="160dp"
+        android:text="@string/update_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:menu_colorNormal="@color/lavender"
-        app:menu_colorPressed="@color/lavender"
-        app:menu_fab_size="normal"
-        app:menu_icon="@drawable/list"
-        app:menu_openDirection="up"
-        app:menu_showShadow="true">
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/editButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/edit"
-            app:fab_colorNormal="@color/green"
-            app:fab_showShadow="true"
-            app:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/delete"
-            app:fabSize="mini"
-            app:fab_colorNormal="@color/red"
-            app:fab_showShadow="true" />
-    </com.github.clans.fab.FloatingActionMenu>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout">
+    </Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
