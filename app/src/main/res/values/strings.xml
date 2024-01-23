@@ -19,4 +19,13 @@
     <string name="string_sign_out">Sign Out</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="update_product">Update Product</string>
+    <string name="product_name">Product</string>
+    <string name="stock_label">Stock:</string>
+    <string name="price_label">Price:</string>
+    <string name="scan_barcode">Scan Barcode</string>
+    <string name="price_placeholder">Price</string>
+    <string name="stock_placeholder">Stock</string>
+    <string name="create_product">Create Product</string>
+    <string name="update_button">Save</string>
 </resources>
