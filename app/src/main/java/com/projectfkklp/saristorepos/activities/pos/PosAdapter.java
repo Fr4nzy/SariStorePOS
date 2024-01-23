@@ -99,7 +99,7 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder>{
             }
 
             transactionItem.setQuantity(newQuantity);
-            notifyDataSetChanged();
+            getParent().notifyDataSetChanged();
         });
     }
 

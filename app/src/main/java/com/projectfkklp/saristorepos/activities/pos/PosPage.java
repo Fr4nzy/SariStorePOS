@@ -143,4 +143,10 @@ public class PosPage extends AppCompatActivity {
             .show();
 
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void notifyDataSetChanged(){
+        // To prevent Illegal State Exception
+        posRecycler.post(() -> posAdapter.notifyDataSetChanged());
+    }
 }
