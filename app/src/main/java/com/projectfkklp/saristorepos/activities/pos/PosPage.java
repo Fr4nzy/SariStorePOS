@@ -86,11 +86,11 @@ public class PosPage extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void loadTransactionItemsFromCache(){
-        for (int i=0; i<10;i++){
+        for (int i=1; i<=10;i++){
             Product product = products.get(i);
             transactionItems.add(new TransactionItem(
                 product.getId(),
-                i+1,
+                i,
                 product.getUnitPrice()
             ));
         }

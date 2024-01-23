@@ -11,10 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.projectfkklp.saristorepos.R;
 
 
 public class PosViewHolder extends RecyclerView.ViewHolder {
+    ShapeableImageView productImage;
     TextView productNameText;
     TextView unitPriceText;
     EditText quantityEdit;
@@ -27,6 +29,7 @@ public class PosViewHolder extends RecyclerView.ViewHolder {
     public PosViewHolder(@NonNull View itemView) {
         super(itemView);
 
+        productImage = itemView.findViewById(R.id.pos_product_image);
         productNameText = itemView.findViewById(R.id.pos_product_name);
         unitPriceText = itemView.findViewById(R.id.pos_unit_price);
         quantityEdit = itemView.findViewById(R.id.pos_quantity_edit);

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.TransactionItem;
@@ -46,6 +47,9 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder>{
             .orElse(null);
 
         assert product != null;
+        if (!StringUtils.isNullOrEmpty(product.getImgUrl())){
+            Glide.with(context).load(product.getImgUrl()).into(holder.productImage);
+        }
         holder.productNameText.setText(product.getName());
         holder.unitPriceText.setText(String.format(
             "Unit Price: %s",

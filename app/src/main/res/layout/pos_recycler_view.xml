@@ -20,6 +20,7 @@
             android:padding="5dp">
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/pos_product_image"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:scaleType="centerCrop"
