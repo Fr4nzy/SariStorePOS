@@ -54,4 +54,7 @@ public class UserStoreRelationManager {
         return getCollectionReference().document(userStoreRelation.getId()).set(userStoreRelation);
     }
 
+    public static Task<Void> save(UserStoreRelation userStoreRelation) {
+        return getCollectionReference().document(userStoreRelation.getId()).set(userStoreRelation);
+    }
 }

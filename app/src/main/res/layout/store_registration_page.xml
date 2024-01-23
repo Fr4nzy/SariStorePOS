@@ -99,6 +99,7 @@
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:cornerRadius="20dp"
+                android:onClick="registerStore"
                 />
 
         </LinearLayout>
