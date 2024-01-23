@@ -31,6 +31,7 @@
                 />
 
             <TextView
+                android:id="@+id/pos_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sample Product"
@@ -40,28 +41,16 @@
                 android:layout_row="0"
                 android:layout_column="1"
                 android:layout_columnSpan="2"
-                android:layout_gravity="fill"
                 />
 
             <TextView
+                android:id="@+id/pos_unit_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Unit Price: ₱100.00"
                 android:textSize="13sp"
                 android:layout_row="1"
-                android:layout_column="1"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="₱ 100.00"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="#090"
-                android:layout_row="1"
-                android:layout_column="2"
-                android:layout_gravity="end"/>
+                android:layout_column="1"/>
 
             <LinearLayout
                 android:layout_row="2"
@@ -72,7 +61,7 @@
                 android:gravity="center">
 
                 <ImageButton
-                    android:id="@+id/decrementButton"
+                    android:id="@+id/pos_btn_minus"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -95,7 +84,7 @@
                     style="@style/EditTextNoUnderline"/>
 
                 <ImageButton
-                    android:id="@+id/incrementButton"
+                    android:id="@+id/pos_btn_plus"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -103,21 +92,36 @@
                     app:tint="?attr/colorControlNormal"/>
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="2"
+                android:layout_row="1"
                 android:layout_column="2"
+                android:layout_rowSpan="2"
+                android:orientation="vertical"
                 android:layout_gravity="end|center_vertical"
-                android:text="1 Left item"
-                android:textColor="#DD4500"
-                android:textSize="13sp"/>
-
+                android:gravity="end">
+                <TextView
+                    android:id="@+id/pos_subtotal_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₱ 1.00"
+                    android:textColor="#090"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/pos_left_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 item left"
+                    android:textColor="#DD4500"
+                    android:textSize="13sp"/>
+            </LinearLayout>
 
         </GridLayout>
 
         <ImageButton
-            android:id="@+id/out_of_stock_indicator"
+            android:id="@+id/pos_btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

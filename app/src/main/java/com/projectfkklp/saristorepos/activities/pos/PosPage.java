@@ -6,27 +6,26 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
-import com.projectfkklp.saristorepos.managers.UserStoreRelationManager;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
-import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
+import com.projectfkklp.saristorepos.utils.StringUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PosPage extends AppCompatActivity {
+    TextView totalAmountText;
     RecyclerView posRecycler;
     CardView emptyCard;
     PosAdapter posAdapter;
@@ -52,6 +51,7 @@ public class PosPage extends AppCompatActivity {
     }
 
     private void initializeViews(){
+        totalAmountText = findViewById(R.id.pos_total_amount);
         posRecycler = findViewById(R.id.pos_recycler_view);
         emptyCard = findViewById(R.id.pos_empty_card);
     }
@@ -61,7 +61,7 @@ public class PosPage extends AppCompatActivity {
         posRecycler.setLayoutManager(layoutManager);
 
         // Set up adapter
-        posAdapter = new PosAdapter(this, transactionItems);
+        posAdapter = new PosAdapter(this, transactionItems, products);
         posRecycler.setAdapter(posAdapter);
     }
 
@@ -84,11 +84,21 @@ public class PosPage extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged")
     private void loadTransactionItemsFromCache(){
         for (int i=0; i<10;i++){
+            Product product = products.get(i);
             transactionItems.add(new TransactionItem(
-
+                product.getId(),
+                i+1,
+                product.getUnitPrice()
             ));
         }
         posAdapter.notifyDataSetChanged();
+
+        reloadViews();
+    }
+
+    public void reloadViews(){
+        float totalAmount = (float) transactionItems.stream().mapToDouble(TransactionItem::getAmount).sum();
+        totalAmountText.setText(StringUtils.formatToPeso(totalAmount));
     }
 
     @SuppressLint("NotifyDataSetChanged")

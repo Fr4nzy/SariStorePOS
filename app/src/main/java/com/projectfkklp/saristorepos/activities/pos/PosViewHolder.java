@@ -1,11 +1,11 @@
 package com.projectfkklp.saristorepos.activities.pos;
 
 import android.content.Context;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,11 +15,26 @@ import com.projectfkklp.saristorepos.R;
 
 
 public class PosViewHolder extends RecyclerView.ViewHolder {
+    TextView productNameText;
+    TextView unitPriceText;
     EditText quantityEdit;
+    TextView subtotalPriceText;
+    TextView leftItemText;
+    ImageButton deleteBtn;
+    ImageButton minusBtn;
+    ImageButton plusButton;
+
     public PosViewHolder(@NonNull View itemView) {
         super(itemView);
 
+        productNameText = itemView.findViewById(R.id.pos_product_name);
+        unitPriceText = itemView.findViewById(R.id.pos_unit_price);
         quantityEdit = itemView.findViewById(R.id.pos_quantity_edit);
+        subtotalPriceText = itemView.findViewById(R.id.pos_subtotal_price);
+        leftItemText = itemView.findViewById(R.id.pos_left_item);
+        deleteBtn = itemView.findViewById(R.id.pos_btn_delete);
+        minusBtn = itemView.findViewById(R.id.pos_btn_minus);
+        plusButton = itemView.findViewById(R.id.pos_btn_plus);
 
         quantityEdit.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -30,7 +45,6 @@ public class PosViewHolder extends RecyclerView.ViewHolder {
             }
             return false;
         });
-
     }
 
     private void hideKeyboard(View view) {
