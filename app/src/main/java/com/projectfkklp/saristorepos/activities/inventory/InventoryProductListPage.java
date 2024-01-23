@@ -6,11 +6,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+
 import androidx.appcompat.widget.SearchView;
 
 
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.models.Store;
+import com.projectfkklp.saristorepos.repositories.SessionRepository;
+import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +27,8 @@ import java.util.stream.Collectors;
 public class InventoryProductListPage extends AppCompatActivity {
     SearchView searchText;
     RecyclerView productListRecycler;
+    ProgressBar progressBar;
+    FrameLayout emptyFrame;
     InventoryProductListAdapter inventoryProductListAdapter;
 
     private List<Product> products;
@@ -32,27 +42,19 @@ public class InventoryProductListPage extends AppCompatActivity {
         initializeData();
         initializeViews();
         initializedRecyclerView();
+        loadProducts();
     }
 
     private void initializeData(){
         products = new ArrayList<>();
         searchedProducts = new ArrayList<>();
-
-        for (int i=0;i<100;i++){
-            products.add(new Product(
-                "",
-                (i < 50? "Test Product ": "Sample Product ")+i,
-                i%20,
-                (i+1)*10,
-                "",
-                ""
-            ));
-        }
     }
 
     private void initializeViews(){
         searchText = findViewById(R.id.inventory_product_list_search);
         productListRecycler = findViewById(R.id.inventory_product_list_recycler);
+        progressBar = findViewById(R.id.inventory_product_list_progress);
+        emptyFrame = findViewById(R.id.inventory_product_list_empty_frame);
 
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -75,8 +77,23 @@ public class InventoryProductListPage extends AppCompatActivity {
         // Set up adapter
         inventoryProductListAdapter = new InventoryProductListAdapter(this, searchedProducts);
         productListRecycler.setAdapter(inventoryProductListAdapter);
+    }
 
-        search("");
+    private void loadProducts(){
+        progressBar.setVisibility(View.VISIBLE);
+        StoreRepository
+            .getStoreById(SessionRepository.getCurrentStore(this).getId())
+            .addOnSuccessListener(successTask->{
+                Store store = successTask.toObject(Store.class);
+
+                assert store != null;
+                products.addAll(store.getProducts());
+                emptyFrame.setVisibility(products.isEmpty()? View.VISIBLE: View.GONE);
+                search("");
+            })
+            .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
+            .addOnCompleteListener(task-> progressBar.setVisibility(View.GONE))
+        ;
     }
 
     public void navigateBack(android.view.View view){
