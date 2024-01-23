@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
@@ -26,6 +27,7 @@ import java.util.List;
 
 public class PosPage extends AppCompatActivity {
     TextView totalAmountText;
+    MaterialButton submitBtn;
     RecyclerView posRecycler;
     CardView emptyCard;
     PosAdapter posAdapter;
@@ -54,6 +56,7 @@ public class PosPage extends AppCompatActivity {
         totalAmountText = findViewById(R.id.pos_total_amount);
         posRecycler = findViewById(R.id.pos_recycler_view);
         emptyCard = findViewById(R.id.pos_empty_card);
+        submitBtn = findViewById(R.id.pos_submit);
     }
 
     private void initializedRecyclerView(){
@@ -99,6 +102,8 @@ public class PosPage extends AppCompatActivity {
     public void reloadViews(){
         float totalAmount = (float) transactionItems.stream().mapToDouble(TransactionItem::getAmount).sum();
         totalAmountText.setText(StringUtils.formatToPeso(totalAmount));
+
+        submitBtn.setEnabled(transactionItems.size()>0);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -111,6 +116,8 @@ public class PosPage extends AppCompatActivity {
                 transactionItems.clear();
                 posAdapter.notifyDataSetChanged();
                 emptyCard.setVisibility(View.VISIBLE);
+
+                reloadViews();
             })
             .setNegativeButton("No", (dialog, which) -> {
                 dialog.dismiss();
