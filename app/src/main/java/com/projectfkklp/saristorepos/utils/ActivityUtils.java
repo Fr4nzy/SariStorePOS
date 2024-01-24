@@ -1,7 +1,10 @@
 package com.projectfkklp.saristorepos.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 public class ActivityUtils {
     public static void navigateTo(Activity activity, Class<?> destinationClass) {
@@ -13,5 +16,14 @@ public class ActivityUtils {
         Intent intent = new Intent(activity, destinationClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
+    }
+
+    public static void hideKeyboard(View view) {
+        Context context = view.getContext();
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null) {
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.utils.ActivityUtils;
 
 
 public class CheckoutViewHolder extends RecyclerView.ViewHolder {
@@ -43,20 +44,11 @@ public class CheckoutViewHolder extends RecyclerView.ViewHolder {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // Clear focus when the "Done" key is pressed
                 quantityEdit.clearFocus();
-                hideKeyboard(v);
+                ActivityUtils.hideKeyboard(v);
                 return true;
             }
             return false;
         });
-    }
-
-    private void hideKeyboard(View view) {
-        Context context = view.getContext();
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (inputMethodManager != null) {
-            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
 }

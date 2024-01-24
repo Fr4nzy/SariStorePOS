@@ -1,5 +1,7 @@
 package com.projectfkklp.saristorepos.models;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class TransactionItem implements Serializable {
@@ -49,5 +51,10 @@ public class TransactionItem implements Serializable {
 
     public float getAmount() {
         return quantity * unitPrice;
+    }
+
+    @NonNull
+    public TransactionItem clone(){
+        return new TransactionItem(getProductId(), getQuantity(), getUnitPrice());
     }
 }

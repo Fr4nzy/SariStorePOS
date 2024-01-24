@@ -50,6 +50,9 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutViewHolder>{
         if (!StringUtils.isNullOrEmpty(product.getImgUrl())){
             Glide.with(context).load(product.getImgUrl()).into(holder.productImage);
         }
+        else {
+            holder.productImage.setImageResource(R.drawable.placeholder);
+        }
         holder.productNameText.setText(product.getName());
         holder.unitPriceText.setText(String.format(
             "Unit Price: %s",

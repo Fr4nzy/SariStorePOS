@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -186,5 +185,14 @@ public class PosPage extends AppCompatActivity {
                 dialog.dismiss();
             })
             .show();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void notifyDataSetChanged(){
+        posAdapter.notifyDataSetChanged();
+    }
+
+    public List<TransactionItem> getTransactionItems() {
+        return transactionItems;
     }
 }

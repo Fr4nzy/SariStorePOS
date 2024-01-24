@@ -1,8 +1,10 @@
 package com.projectfkklp.saristorepos.activities.pos;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class PosAdapter extends RecyclerView.Adapter<PosViewHolder> {
@@ -48,6 +51,9 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder> {
         // Use Glide to load the image
         if (!StringUtils.isNullOrEmpty(product.getImgUrl())){
             Glide.with(context).load(product.getImgUrl()).into(holder.productImg);
+        }
+        else {
+            holder.productImg.setImageResource(R.drawable.placeholder);
         }
 
         holder.productNameText.setText(product.getName());
@@ -101,25 +107,13 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder> {
             .findFirst();
         boolean isListed = optionalTransactionItem.isPresent();
 
-        if (isListed){
-            transactionItems.remove(optionalTransactionItem.get());
+        TransactionItem transactionItem = isListed
+                ? optionalTransactionItem.get()
+                : new TransactionItem(product.getId(), 1, product.getUnitPrice());
 
-            holder.container.setBackgroundColor(Color.WHITE);
-            holder.cartFrame.setVisibility(View.INVISIBLE);
-        }
-        else {
-            transactionItems.add(new TransactionItem(
-                product.getId(),
-                1,
-                product.getUnitPrice()
-            ));
-
-            holder.container.setBackgroundColor(PALE_GREEN);
-            holder.cartFrame.setVisibility(View.VISIBLE);
-            holder.itemQuantityText.setText("1");
-        }
-
-        getParent().reloadViews();
+        PosItemDetailDialog cdd = new PosItemDetailDialog((Activity) context, holder, transactionItem, product, isListed);
+        Objects.requireNonNull(cdd.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        cdd.show();
     }
 
     @Override
