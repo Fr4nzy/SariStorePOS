@@ -66,6 +66,7 @@
                 tools:visibility="visible" />
 
             <EditText
+                android:autofillHints="name"
                 android:id="@+id/detailProductText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
