@@ -13,8 +13,6 @@ import com.projectfkklp.saristorepos.utils.StringUtils;
 
 public class InventoryProductDetailPage extends AppCompatActivity {
     private Product product;
-    private TextView titleText;
-    private EditText detailPriceText, detailProductText, detailStockText;
 
     @SuppressLint("NewApi")
     @Override
@@ -29,10 +27,10 @@ public class InventoryProductDetailPage extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        titleText = findViewById(R.id.product_detail_title);
-        detailPriceText = findViewById(R.id.detailPriceText);
-        detailStockText = findViewById(R.id.detailStockText);
-        detailProductText = findViewById(R.id.detailProductText);
+        TextView titleText = findViewById(R.id.product_detail_title);
+        EditText detailPriceText = findViewById(R.id.detailPriceText);
+        EditText detailStockText = findViewById(R.id.detailStockText);
+        EditText detailProductText = findViewById(R.id.detailProductText);
 
         titleText.setText(StringUtils.isNullOrEmpty(product.getId()) ? "Create Product" : "Edit Product");
         detailPriceText.setText(String.valueOf(product.getUnitPrice()));
