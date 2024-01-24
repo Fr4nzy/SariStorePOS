@@ -1,4 +1,4 @@
-package com.projectfkklp.saristorepos.activities.transaction.transaction_invoice;
+package com.projectfkklp.saristorepos.activities.transaction_invoice;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

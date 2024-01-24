@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.transaction.transaction_invoice.TransactionInvoicePage;
+import com.projectfkklp.saristorepos.activities.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.models.Transaction;
 
 import java.time.format.DateTimeFormatter;

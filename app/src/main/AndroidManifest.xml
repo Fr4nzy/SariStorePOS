@@ -19,7 +19,7 @@
             android:name=".activities.pos.checkout.CheckoutPage"
             android:exported="false" />
         <activity
-            android:name=".activities.transaction.transaction_invoice.TransactionInvoicePage"
+            android:name=".activities.transaction_invoice.TransactionInvoicePage"
             android:exported="false" />
         <activity
             android:name=".activities.transaction.TransactionPage"
