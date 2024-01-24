@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
@@ -28,32 +28,49 @@
             android:padding="20dp"
             tools:visibility="visible">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Upload Data"
-                android:textAlignment="center"
-                android:textColor="@color/lavender"
-                android:textSize="30sp"
-                tools:visibility="visible" />
+                android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:adjustViewBounds="true"
+                        android:onClick="navigateBack"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/baseline_arrow_back_24" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/create_product"
+                        android:layout_marginStart="-35dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/lavender"
+                        android:textSize="30sp"
+                        tools:visibility="visible" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/uploadImage"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/upload"
+                android:src="@drawable/placeholder"
                 tools:visibility="visible" />
 
             <EditText
                 android:id="@+id/uploadProduct"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/border"
                 android:gravity="start|center_vertical"
-                android:hint="Product name"
+                android:hint="@string/product_name_placeholder"
                 android:padding="16dp"
                 android:textColor="@color/lavender"
                 tools:visibility="visible" />
@@ -62,10 +79,10 @@
                 android:id="@+id/uploadPrice"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/border"
                 android:gravity="start|center_vertical"
-                android:hint="Price"
+                android:hint="@string/price_placeholder"
                 android:padding="16dp"
                 android:textColor="@color/lavender"
                 tools:visibility="visible" />
@@ -74,10 +91,10 @@
                 android:id="@+id/uploadStock"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/border"
                 android:gravity="start|center_vertical"
-                android:hint="Stock"
+                android:hint="@string/stock_placeholder"
                 android:padding="16dp"
                 android:textColor="@color/lavender"
                 tools:visibility="visible" />
@@ -86,7 +103,7 @@
                 android:id="@+id/barcodeInsert"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/roundback"
                 android:text="Barcode"
                 android:textColor="@color/white"
@@ -97,9 +114,9 @@
                 android:id="@+id/saveButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/roundback"
-                android:text="Save"
+                android:text="@string/save_product_button"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 tools:visibility="visible" />
@@ -108,4 +125,4 @@
 
     </androidx.cardview.widget.CardView>
 
-</ScrollView>
+</LinearLayout>

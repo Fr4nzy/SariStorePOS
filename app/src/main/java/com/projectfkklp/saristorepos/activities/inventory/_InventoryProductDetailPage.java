@@ -33,8 +33,8 @@ public class _InventoryProductDetailPage extends AppCompatActivity {
         detailPrice = findViewById(R.id.detailPrice);
         ImageView detailImage = findViewById(R.id.detailImage);
         detailProduct = findViewById(R.id.detailProduct);
-        FloatingActionButton deleteButton = findViewById(R.id.deleteButton);
-        FloatingActionButton editButton = findViewById(R.id.editButton);
+        /*FloatingActionButton deleteButton = findViewById(R.id.deleteButton);
+        FloatingActionButton editButton = findViewById(R.id.editButton);*/
         TextView detailStock = findViewById(R.id.detailStock);
 
         Bundle bundle = getIntent().getExtras();
@@ -50,9 +50,9 @@ public class _InventoryProductDetailPage extends AppCompatActivity {
             Glide.with(this).load(imageUrl).into(detailImage);
         }
 
-        deleteButton.setOnClickListener(v -> deleteProduct());
+        /*deleteButton.setOnClickListener(v -> deleteProduct());
 
-        editButton.setOnClickListener(v -> editProduct());
+        editButton.setOnClickListener(v -> editProduct());*/
     }
 
     private void deleteProduct() {

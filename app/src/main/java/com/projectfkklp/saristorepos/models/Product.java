@@ -1,6 +1,8 @@
 package com.projectfkklp.saristorepos.models;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     // region Fields
     private String id;
     private String name;

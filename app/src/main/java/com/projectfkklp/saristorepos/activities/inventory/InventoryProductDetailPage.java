@@ -16,11 +16,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.models.Product;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryProductDetailPage extends AppCompatActivity {
-
-    private TextView detailPrice;
-    private TextView detailProduct;
+    private TextView detailPrice, detailProduct;
     private String key = "";
     private String imageUrl = "";
     private int stock = 0; // Change to int
@@ -33,8 +35,8 @@ public class InventoryProductDetailPage extends AppCompatActivity {
         detailPrice = findViewById(R.id.detailPrice);
         ImageView detailImage = findViewById(R.id.detailImage);
         detailProduct = findViewById(R.id.detailProduct);
-        FloatingActionButton deleteButton = findViewById(R.id.deleteButton);
-        FloatingActionButton editButton = findViewById(R.id.editButton);
+        /*FloatingActionButton deleteButton = findViewById(R.id.deleteButton);*/
+        /*FloatingActionButton editButton = findViewById(R.id.editButton);*/
         TextView detailStock = findViewById(R.id.detailStock);
 
         Bundle bundle = getIntent().getExtras();
@@ -50,13 +52,14 @@ public class InventoryProductDetailPage extends AppCompatActivity {
             Glide.with(this).load(imageUrl).into(detailImage);
         }
 
-        deleteButton.setOnClickListener(v -> deleteProduct());
-        editButton.setOnClickListener(v -> editProduct());
+        /*deleteButton.setOnClickListener(v -> deleteProduct());
+        editButton.setOnClickListener(v -> editProduct());*/
     }
 
     private void deleteProduct() {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final FirebaseStorage storage = FirebaseStorage.getInstance();
+
         // Access FirebaseAuth to get the current user
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -95,4 +98,5 @@ public class InventoryProductDetailPage extends AppCompatActivity {
         intent.putExtra("Key", key);
         startActivity(intent);
     }
+
 }
