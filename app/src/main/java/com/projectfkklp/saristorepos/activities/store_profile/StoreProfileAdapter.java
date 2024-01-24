@@ -144,7 +144,7 @@ public class StoreProfileAdapter extends RecyclerView.Adapter<StoreProfileRecycl
                 ProgressUtils.showDialog(context,"Changing Role");
                 userStoreRelation.setRole(newRole);
                 UserStoreRelationManager
-                    .saveRelation(userStoreRelation)
+                    .save(userStoreRelation)
                     .addOnSuccessListener(t-> notifyDataSetChanged())
                     .addOnFailureListener(failedTask-> ToastUtils.show(context, failedTask.getMessage()))
                     .addOnCompleteListener(task->ProgressUtils.dismissDialog())
