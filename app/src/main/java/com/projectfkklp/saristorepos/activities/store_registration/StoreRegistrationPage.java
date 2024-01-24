@@ -62,7 +62,7 @@ public class StoreRegistrationPage extends AppCompatActivity {
                 return;
             }
             task
-                .addOnSuccessListener(successTask->{
+                .continueWithTask(successTask->{
                     UserStoreRelation relation = new UserStoreRelation(
                         ModelUtils.createUUID(),
                         SessionRepository.getCurrentUser(this).getId(),
@@ -70,22 +70,14 @@ public class StoreRegistrationPage extends AppCompatActivity {
                         UserRole.OWNER,
                         UserStatus.ACTIVE
                     );
-                    UserStoreRelationManager
-                        .save(relation)
-                        .addOnSuccessListener(relationTask->{
-                            Toast.makeText(this, "Registration success", Toast.LENGTH_SHORT).show();
-                            ActivityUtils.navigateTo(this, StoreSelectorPage.class);
-                        })
-                        .addOnFailureListener(failedTask->
-                                Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
-                        )
-                        .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog())
-                    ;
+                    return UserStoreRelationManager.save(relation);
                 })
-                .addOnFailureListener(failedTask->{
-                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
-                    ProgressUtils.dismissDialog();
+                .addOnSuccessListener(relationTask->{
+                    Toast.makeText(this, "Registration success", Toast.LENGTH_SHORT).show();
+                    ActivityUtils.navigateTo(this, StoreSelectorPage.class);
                 })
+                .addOnFailureListener(failedTask-> Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show())
+                .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog())
             ;
         });
     }
