@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import androidx.appcompat.widget.SearchView;
 
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.github.clans.fab.FloatingActionButton;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.models.Product;
