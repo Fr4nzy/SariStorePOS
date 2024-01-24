@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -13,7 +14,9 @@ import android.widget.ProgressBar;
 import androidx.appcompat.widget.SearchView;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.transaction.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
@@ -26,6 +29,7 @@ import java.util.stream.Collectors;
 ;
 public class InventoryProductListPage extends AppCompatActivity {
     SearchView searchText;
+    FloatingActionButton addFAB;
     RecyclerView productListRecycler;
     ProgressBar progressBar;
     FrameLayout emptyFrame;
@@ -55,6 +59,7 @@ public class InventoryProductListPage extends AppCompatActivity {
         productListRecycler = findViewById(R.id.inventory_product_list_recycler);
         progressBar = findViewById(R.id.inventory_product_list_progress);
         emptyFrame = findViewById(R.id.inventory_product_list_empty_frame);
+        addFAB = findViewById(R.id.inventory_product_list_add_fab);
 
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -67,6 +72,12 @@ public class InventoryProductListPage extends AppCompatActivity {
                 search(newText);
                 return false;
             }
+        });
+
+        addFAB.setOnClickListener(v -> {
+            Intent intent = new Intent(this, InventoryProductDetailPage.class);
+            intent.putExtra("Product", new Product());
+            startActivity(intent);
         });
     }
 

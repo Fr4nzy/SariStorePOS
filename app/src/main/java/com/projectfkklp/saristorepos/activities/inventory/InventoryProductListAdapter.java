@@ -1,7 +1,10 @@
 package com.projectfkklp.saristorepos.activities.inventory;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +56,7 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
             product.getUnitPrice()
         ));
 
-        holder.productOosIndicatorText.setVisibility(product.getStocks()==0 ? View.VISIBLE:View.GONE);
+        holder.productOosIndicatorText.setVisibility(product.getStocks()== 0 ? View.VISIBLE:View.GONE);
 
         if (position==products.size()-1){
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.container.getLayoutParams();
@@ -67,6 +70,12 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
             // Apply the updated layout parameters to the CardView
             holder.container.setLayoutParams(layoutParams);
         }
+
+        holder.container.setOnClickListener(v -> {
+            Intent intent = new Intent(context, InventoryProductDetailPage.class);
+            intent.putExtra("Product", new Product());
+            context.startActivity(intent);
+        });
     }
 
     @Override

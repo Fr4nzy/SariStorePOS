@@ -1,184 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="horizontal"
     tools:context=".activities.inventory._InventoryProductDetailPage">
 
-    <!-- Title and Image Layout -->
-
-    <LinearLayout
-        android:id="@+id/updateProductTitleRL"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:adjustViewBounds="true"
-            android:onClick="navigateBack"
-            android:scaleType="fitCenter"
-            android:src="@drawable/baseline_arrow_back_24" />
-        <TextView
-            android:id="@+id/createProductTitle"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        tools:visibility="visible">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/update_product"
-            android:textColor="@color/lavender"
-            android:textSize="34sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updateProductTitleRL">
-
-        <TextView
-            android:id="@+id/detailProduct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/product_name"
-            android:textAlignment="center"
-            android:textColor="@color/lavender"
-            android:textSize="24sp" />
-
-        <ImageView
-            android:id="@+id/detailImage"
-            android:layout_width="241dp"
-            android:layout_height="249dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="80dp"
-            android:padding="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/placeholder" />
-
-        <TextView
-            android:id="@+id/barcodeInsert"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:textColor="@color/lavender"
-            android:text="@string/scan_barcode">
-        </TextView>
+            android:background="@drawable/border"
+            android:orientation="vertical"
+            android:padding="20dp"
+            tools:visibility="visible">
 
-    </LinearLayout>
-
-    <!-- Stock and Price Layout -->
-
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
-
-        <!-- Row 1 -->
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/stockTextView"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="10dp"
-                android:text="@string/stock_label"
-                android:textColor="@color/lavender"
-                android:textSize="24sp" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:onClick="navigateBack"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/baseline_arrow_back_24" />
+
+                <TextView
+                    android:id="@+id/updateProductTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-35dp"
+                    android:text="@string/update_product"
+                    android:textAlignment="center"
+                    android:textColor="@color/lavender"
+                    android:textSize="30sp"
+                    tools:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/createProductTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-35dp"
+                    android:text="@string/create_product"
+                    android:textAlignment="center"
+                    android:textColor="@color/lavender"
+                    android:textSize="30sp"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/detailImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/placeholder"
+                tools:visibility="visible" />
 
             <EditText
-                android:id="@+id/detailStock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/stock_placeholder"
+                android:id="@+id/detailProduct"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/border"
+                android:gravity="start|center_vertical"
+                android:hint="@string/product_name_placeholder"
+                android:padding="16dp"
                 android:textColor="@color/lavender"
-                android:textSize="24sp" />
-        </TableRow>
-
-        <!-- Row 2 -->
-        <TableRow>
-
-            <TextView
-                android:id="@+id/stockTextView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="10dp"
-                android:text="@string/price_label"
-                android:textColor="@color/lavender"
-                android:textSize="24sp" />
+                tools:visibility="visible" />
 
             <EditText
                 android:id="@+id/detailPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/price_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border"
+                android:gravity="start|center_vertical"
+                android:hint="@string/price_placeholder"
+                android:padding="16dp"
                 android:textColor="@color/lavender"
-                android:textSize="24sp" />
-        </TableRow>
+                tools:visibility="visible" />
 
+            <EditText
+                android:id="@+id/detailStock"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border"
+                android:gravity="start|center_vertical"
+                android:hint="@string/stock_placeholder"
+                android:padding="16dp"
+                android:textColor="@color/lavender"
+                tools:visibility="visible" />
 
-    </TableLayout>
+            <Button
+                android:id="@+id/barcodeUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/roundback"
+                android:text="Barcode"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:visibility="visible" />
 
-    <com.github.clans.fab.FloatingActionMenu
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:menu_colorNormal="@color/lavender"
-        app:menu_colorPressed="@color/lavender"
-        app:menu_fab_size="normal"
-        app:menu_icon="@drawable/list"
-        app:menu_openDirection="up"
-        app:menu_showShadow="true">
+            <Button
+                android:id="@+id/updateButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/roundback"
+                android:text="@string/update_button"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:visibility="visible" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/editButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/edit"
-            app:fab_colorNormal="@color/green"
-            app:fab_showShadow="true"
-            app:fab_size="mini" />
+        </LinearLayout>
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/delete"
-            app:fabSize="mini"
-            app:fab_colorNormal="@color/red"
-            app:fab_showShadow="true" />
-    </com.github.clans.fab.FloatingActionMenu>
+    </androidx.cardview.widget.CardView>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

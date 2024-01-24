@@ -77,7 +77,7 @@
     </LinearLayout>
 
     <com.github.clans.fab.FloatingActionButton
-        android:id="@+id/FAB_icon"
+        android:id="@+id/inventory_product_list_add_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
