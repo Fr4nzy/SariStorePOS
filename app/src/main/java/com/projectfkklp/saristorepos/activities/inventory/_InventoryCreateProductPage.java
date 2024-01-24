@@ -42,14 +42,14 @@ public class _InventoryCreateProductPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.inventory_create_product_page);
+        /*setContentView(R.layout.inventory_create_product_page);*/
 
-        uploadImage = findViewById(R.id.uploadImage);
+        /*uploadImage = findViewById(R.id.uploadImage);
         uploadProduct = findViewById(R.id.uploadProduct);
         uploadPrice = findViewById(R.id.uploadPrice);
         uploadStock = findViewById(R.id.uploadStock);
         saveButton = findViewById(R.id.saveButton);
-        barcodeInsert = findViewById(R.id.barcodeInsert);
+        barcodeInsert = findViewById(R.id.barcodeInsert);*/
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
