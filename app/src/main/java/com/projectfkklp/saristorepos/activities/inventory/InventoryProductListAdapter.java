@@ -73,7 +73,7 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
 
         holder.container.setOnClickListener(v -> {
             Intent intent = new Intent(context, InventoryProductDetailPage.class);
-            intent.putExtra("Product", new Product());
+            intent.putExtra("Product", product);
             context.startActivity(intent);
         });
     }

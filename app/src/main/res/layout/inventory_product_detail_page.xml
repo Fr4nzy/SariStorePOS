@@ -44,18 +44,7 @@
                     android:src="@drawable/baseline_arrow_back_24" />
 
                 <TextView
-                    android:id="@+id/updateProductTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-35dp"
-                    android:text="@string/update_product"
-                    android:textAlignment="center"
-                    android:textColor="@color/lavender"
-                    android:textSize="30sp"
-                    tools:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/createProductTitle"
+                    android:id="@+id/product_detail_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="-35dp"
@@ -77,7 +66,7 @@
                 tools:visibility="visible" />
 
             <EditText
-                android:id="@+id/detailProduct"
+                android:id="@+id/detailProductText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
@@ -89,7 +78,7 @@
                 tools:visibility="visible" />
 
             <EditText
-                android:id="@+id/detailPrice"
+                android:id="@+id/detailPriceText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
@@ -101,7 +90,7 @@
                 tools:visibility="visible" />
 
             <EditText
-                android:id="@+id/detailStock"
+                android:id="@+id/detailStockText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
@@ -129,7 +118,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/roundback"
-                android:text="@string/update_button"
+                android:text="@string/save_product_button"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 tools:visibility="visible" />
