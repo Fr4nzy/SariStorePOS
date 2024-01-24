@@ -1,15 +1,16 @@
 package com.projectfkklp.saristorepos.activities.dashboard;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.analytics.AnalyticsPage;
 import com.projectfkklp.saristorepos.activities.inventory.InventoryProductListPage;
 import com.projectfkklp.saristorepos.activities.pos.PosPage;
 import com.projectfkklp.saristorepos.activities.store_profile.StoreProfilePage;
@@ -156,6 +157,10 @@ public class DashboardPage extends AppCompatActivity {
 
     public void gotoInventory(View view){
         startActivity(new Intent(this, InventoryProductListPage.class));
+    }
+
+    public void gotoAnalytics(View view){
+        startActivity(new Intent(this, AnalyticsPage.class));
     }
 
     public void gotoStoreProfile(View view){

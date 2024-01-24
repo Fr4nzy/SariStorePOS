@@ -463,11 +463,12 @@
                 android:gravity="center"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/selectableItemBackground">
+                android:background="?attr/selectableItemBackground"
+                android:onClick="gotoAnalytics">
                 <ImageView
                     android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/analytics_icon"/>
+                    android:layout_height="35dp"
+                    android:src="@drawable/analytics_icon" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

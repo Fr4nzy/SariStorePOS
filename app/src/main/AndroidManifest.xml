@@ -16,6 +16,9 @@
             android:name=".activities.pos.PosPage"
             android:exported="false" />
         <activity
+            android:name=".activities.analytics.AnalyticsPage"
+            android:exported="false" />
+        <activity
             android:name=".activities.transaction.transaction_invoice.TransactionInvoicePage"
             android:exported="false" />
         <activity
