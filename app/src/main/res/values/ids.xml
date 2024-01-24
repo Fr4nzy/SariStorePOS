@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="pos_recycler_view" type="id" />
+    <item name="pos_selected_counts" type="id" />
 </resources>

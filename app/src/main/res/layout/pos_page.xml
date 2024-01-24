@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.pos.PosPage"
-    android:orientation="vertical">
+    tools:context="com.projectfkklp.saristorepos.activities.pos.PosPage">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginBottom="44dp">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/product_picker_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -22,128 +23,71 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:gravity="center">
+                android:padding="10dp">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="35dp"
                     android:src="@drawable/baseline_arrow_back_24"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:layout_marginEnd="5dp"
                     android:onClick="navigateBack"/>
-                <TextView
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/pos_search"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35sp"
                     android:layout_weight="1"
-                    android:text="Create Transaction"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"/>
+                    android:paddingStart="-10dp"
+                    android:background="@drawable/border"
+                    app:closeIcon="@drawable/close"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="Search Products"
+                    app:searchHintIcon="@null"
+                    app:searchIcon="@drawable/search"/>
                 <ImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:src="@drawable/reset"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/scan"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:tint="?attr/colorControlNormal"
-                    android:onClick="reset"/>
+                    android:onClick="scan"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.core.widget.NestedScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/product_picker_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"
+                android:clipToPadding="false"
+                android:paddingBottom="5dp"/>
+            <FrameLayout
+                android:id="@+id/product_picker_product_list_empty_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone">
+                <fragment
+                    android:name="com.projectfkklp.saristorepos.fragments.EmptyFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </FrameLayout>
+            <ProgressBar
+                android:id="@+id/product_picker_product_list_progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/pos_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:nestedScrollingEnabled="false"
-                        android:paddingBottom="5dp"/>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/pos_empty_card"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="5dp"
-                        app:cardElevation="5dp"
-                        android:visibility="gone">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginVertical="50dp"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Empty POS"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Please add item!"
-                                android:textAlignment="center" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                </RelativeLayout>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="5dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="5dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:background="@drawable/dashed_border"
-                            android:paddingVertical="30dp"
-                            android:layout_margin="5dp">
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="28dp"
-                                android:src="@drawable/baseline_add_circle_24" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Add Item"
-                                android:textStyle="bold"
-                                android:textSize="24sp"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+                android:layout_centerInParent="true"
+                android:layout_marginTop="80dp"
+                android:visibility="gone"/>
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -160,25 +104,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total: "
+                android:text="Selected: "
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="18sp"/>
             <TextView
-                android:id="@+id/pos_total_amount"
+                android:id="@+id/pos_selected_counts"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="—"
+                android:text="12"
                 android:textColor="#008000"
                 android:textStyle="bold"
                 android:textSize="18sp"/>
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/pos_submit"
+                android:id="@+id/pos_checkout_btn"
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Submit"
+                android:text="Checkout"
                 app:icon="@drawable/baseline_check_24"
                 app:iconGravity="textStart"
                 android:backgroundTint="#DD4500"
@@ -188,7 +132,8 @@
                 android:insetBottom="0dp"
                 android:insetTop="0dp"
                 android:insetRight="0dp"
-                app:cornerRadius="0dp"/>
+                app:cornerRadius="0dp"
+                android:onClick="checkout"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

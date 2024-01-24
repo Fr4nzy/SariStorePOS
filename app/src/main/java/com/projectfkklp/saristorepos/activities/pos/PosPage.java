@@ -1,18 +1,22 @@
 package com.projectfkklp.saristorepos.activities.pos;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.pos.checkout.CheckoutPage;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models.TransactionItem;
@@ -24,17 +28,18 @@ import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PosPage extends AppCompatActivity {
-    TextView totalAmountText;
-    MaterialButton submitBtn;
+    TextView selectedText;
+    SearchView searchText;
+    MaterialButton checkboutBtn;
     RecyclerView posRecycler;
-    CardView emptyCard;
     PosAdapter posAdapter;
 
     private List<Product> products;
     private List<TransactionItem> transactionItems;
-
+    private List<Product> searchedProducts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,31 +48,59 @@ public class PosPage extends AppCompatActivity {
         initializeData();
         initializeViews();
         initializedRecyclerView();
+        initializeScanner();
 
         loadProducts();
     }
-
     private void initializeData(){
         products = new ArrayList<>();
+        searchedProducts = new ArrayList<>();
         transactionItems = new ArrayList<>();
     }
 
+    public void reloadViews(){
+        int totalAmount = transactionItems.size();
+        selectedText.setText(String.valueOf(totalAmount));
+
+        checkboutBtn.setEnabled(transactionItems.size()>0);
+    }
+
     private void initializeViews(){
-        totalAmountText = findViewById(R.id.pos_total_amount);
-        posRecycler = findViewById(R.id.pos_recycler_view);
-        emptyCard = findViewById(R.id.pos_empty_card);
-        submitBtn = findViewById(R.id.pos_submit);
+        selectedText = findViewById(R.id.pos_selected_counts);
+        searchText = findViewById(R.id.pos_search);
+        checkboutBtn = findViewById(R.id.pos_checkout_btn);
+        posRecycler = findViewById(R.id.product_picker_recycler_view);
+
+        searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                search(newText);
+                return false;
+            }
+        });
+        reloadViews();
     }
 
     private void initializedRecyclerView(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         posRecycler.setLayoutManager(layoutManager);
 
-        // Set up adapter
-        posAdapter = new PosAdapter(this, transactionItems, products);
+        posAdapter = new PosAdapter(this, searchedProducts, transactionItems);
         posRecycler.setAdapter(posAdapter);
     }
 
+    private void initializeScanner(){
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setOrientationLocked(false); // Allow both portrait and landscape scanning
+        integrator.setPrompt("Scan a barcode");
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     private void loadProducts(){
         ProgressUtils.showDialog(this, "Loading products...");
         StoreRepository
@@ -77,7 +110,7 @@ public class PosPage extends AppCompatActivity {
                 assert store != null;
                 products.addAll(store.getProducts());
 
-                loadTransactionItemsFromCache();
+                search("");
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
             .addOnCompleteListener(task-> ProgressUtils.dismissDialog())
@@ -85,44 +118,55 @@ public class PosPage extends AppCompatActivity {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void loadTransactionItemsFromCache(){
-        for (int i=1; i<=10;i++){
-            Product product = products.get(i);
-            transactionItems.add(new TransactionItem(
-                product.getId(),
-                i,
-                product.getUnitPrice()
-            ));
-        }
+    private void search(String searchText){
+        searchedProducts.clear();
+        searchedProducts.addAll(
+            products
+                .stream()
+                .filter(product->
+                    product.getName().toLowerCase().contains(searchText.toLowerCase())
+                    || (
+                        searchText.startsWith("::")
+                        && !StringUtils.isNullOrEmpty(product.getBarcode())
+                        && product.getBarcode().contains(searchText.substring(2))
+                    )
+                )
+                .collect(Collectors.toList()));
+        searchedProducts.sort((product1, product2)->product1.getName().compareToIgnoreCase(product2.getName()));
         posAdapter.notifyDataSetChanged();
-
-        reloadViews();
     }
 
-    public void reloadViews(){
-        float totalAmount = (float) transactionItems.stream().mapToDouble(TransactionItem::getAmount).sum();
-        totalAmountText.setText(StringUtils.formatToPeso(totalAmount));
+    public void scan(View view){
+        new IntentIntegrator(PosPage.this).initiateScan();
+    }
 
-        submitBtn.setEnabled(transactionItems.size()>0);
+    // Add the following method to handle the result of the barcode scanner
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() != null) {
+                String scannedBarcode = result.getContents();
+                // Use the scannedBarcode to search for the product in Firestore
+                searchProductByBarcode(scannedBarcode);
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void reset(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder
-            .setTitle("Reset Fields?")
-            .setMessage("Are you sure you want to clear all items?")
-            .setPositiveButton("Yes", (dialog, which) -> {
-                transactionItems.clear();
-                posAdapter.notifyDataSetChanged();
-                emptyCard.setVisibility(View.VISIBLE);
+    private void searchProductByBarcode(String barcode){
+        searchText.setQuery("::"+barcode, false);
 
-                reloadViews();
-            })
-            .setNegativeButton("No", (dialog, which) -> {
-                dialog.dismiss();
-            })
-            .show();
+        searchedProducts.clear();
+        searchedProducts.addAll(products.stream().filter(product->barcode.equals(product.getBarcode())).collect(Collectors.toList()));
+        searchedProducts.sort((product1, product2)->product1.getName().compareToIgnoreCase(product2.getName()));
+        posAdapter.notifyDataSetChanged();
+    }
+
+    public void checkout(View view){
+        startActivity(new Intent(this, CheckoutPage.class));
     }
 
     public void navigateBack(View view){
@@ -141,5 +185,14 @@ public class PosPage extends AppCompatActivity {
                 dialog.dismiss();
             })
             .show();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void notifyDataSetChanged(){
+        posAdapter.notifyDataSetChanged();
+    }
+
+    public List<TransactionItem> getTransactionItems() {
+        return transactionItems;
     }
 }

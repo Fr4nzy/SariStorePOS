@@ -1,4 +1,4 @@
-package com.projectfkklp.saristorepos.activities.pos;
+package com.projectfkklp.saristorepos.activities.pos.checkout;
 
 import android.text.InputFilter;
 import android.text.Spanned;

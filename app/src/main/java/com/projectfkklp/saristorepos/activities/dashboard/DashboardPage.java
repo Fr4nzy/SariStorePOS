@@ -12,6 +12,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.inventory.InventoryProductListPage;
 import com.projectfkklp.saristorepos.activities.pos.PosPage;
+import com.projectfkklp.saristorepos.activities.pos.checkout.CheckoutPage;
 import com.projectfkklp.saristorepos.activities.store_profile.StoreProfilePage;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
 import com.projectfkklp.saristorepos.activities.transaction.TransactionPage;
