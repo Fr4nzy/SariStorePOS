@@ -29,15 +29,15 @@ public class CheckoutViewHolder extends RecyclerView.ViewHolder {
     public CheckoutViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        productImage = itemView.findViewById(R.id.pos_product_image);
-        productNameText = itemView.findViewById(R.id.pos_product_name);
-        unitPriceText = itemView.findViewById(R.id.pos_unit_price);
-        quantityEdit = itemView.findViewById(R.id.pos_quantity_edit);
-        subtotalPriceText = itemView.findViewById(R.id.pos_subtotal_price);
-        leftItemText = itemView.findViewById(R.id.pos_left_item);
-        deleteBtn = itemView.findViewById(R.id.pos_btn_delete);
-        minusBtn = itemView.findViewById(R.id.pos_btn_minus);
-        plusButton = itemView.findViewById(R.id.pos_btn_plus);
+        productImage = itemView.findViewById(R.id.checkout_product_image);
+        productNameText = itemView.findViewById(R.id.checkout_product_name);
+        unitPriceText = itemView.findViewById(R.id.checkout_unit_price);
+        quantityEdit = itemView.findViewById(R.id.checkout_quantity_edit);
+        subtotalPriceText = itemView.findViewById(R.id.checkout_subtotal_price);
+        leftItemText = itemView.findViewById(R.id.checkout_left_item);
+        deleteBtn = itemView.findViewById(R.id.checkout_btn_delete);
+        minusBtn = itemView.findViewById(R.id.checkout_btn_minus);
+        plusButton = itemView.findViewById(R.id.checkout_btn_plus);
 
         quantityEdit.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {

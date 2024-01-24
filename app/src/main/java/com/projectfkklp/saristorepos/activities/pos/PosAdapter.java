@@ -68,18 +68,29 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder> {
             return;
         }
 
+        Optional<TransactionItem> optionalTransactionItem = getOptionalTransactionItem(product);
+        boolean isListed = optionalTransactionItem.isPresent();
+
         holder.productOosIndicatorText.setVisibility(View.GONE);
         holder.clickableContainer.setEnabled(true);
-        holder.container.setBackgroundColor(isListed(product)? PALE_GREEN: Color.WHITE);
-
-        // On Click
+        holder.container.setBackgroundColor(isListed? PALE_GREEN: Color.WHITE);
         holder.clickableContainer.setOnClickListener(view -> clickItem(holder, product));
+
+        if (isListed){
+            holder.cartFrame.setVisibility(View.VISIBLE);
+            holder.itemQuantityText.setText(String.valueOf(optionalTransactionItem.get().getQuantity()));
+        }
+        else {
+            holder.cartFrame.setVisibility(View.INVISIBLE);
+            holder.itemQuantityText.setText("");
+        }
     }
 
-    private boolean isListed(Product product){
+    private Optional<TransactionItem> getOptionalTransactionItem(Product product){
         return transactionItems
             .stream()
-            .anyMatch(ti->ti.getProductId().equals(product.getId()));
+            .filter(ti->ti.getProductId().equals(product.getId()))
+            .findFirst();
     }
 
     private void clickItem(PosViewHolder holder, Product product){
@@ -94,6 +105,7 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder> {
             transactionItems.remove(optionalTransactionItem.get());
 
             holder.container.setBackgroundColor(Color.WHITE);
+            holder.cartFrame.setVisibility(View.INVISIBLE);
         }
         else {
             transactionItems.add(new TransactionItem(
@@ -103,7 +115,11 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder> {
             ));
 
             holder.container.setBackgroundColor(PALE_GREEN);
+            holder.cartFrame.setVisibility(View.VISIBLE);
+            holder.itemQuantityText.setText("1");
         }
+
+        getParent().reloadViews();
     }
 
     @Override
@@ -111,5 +127,7 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder> {
         return products.size();
     }
 
-
+    private PosPage getParent(){
+        return (PosPage) context;
+    }
 }

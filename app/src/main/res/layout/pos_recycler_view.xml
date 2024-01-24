@@ -10,15 +10,15 @@
     app:cardElevation="8dp">
 
     <LinearLayout
-        android:id="@+id/product_picker_list_container"
+        android:id="@+id/pos_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
         <GridLayout
-            android:id="@+id/product_picker_list_container_clickable"
+            android:id="@+id/pos_container_clickable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="3"
+            android:columnCount="4"
             android:rowCount="3"
             android:padding="5dp"
             android:clickable="true"
@@ -26,7 +26,7 @@
             android:background="?attr/selectableItemBackground">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/product_picker_list_image"
+                android:id="@+id/pos_image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:scaleType="centerCrop"
@@ -38,7 +38,7 @@
                 />
 
             <TextView
-                android:id="@+id/product_picker_list_name"
+                android:id="@+id/pos_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sample Product"
@@ -52,7 +52,7 @@
                 />
 
             <TextView
-                android:id="@+id/product_picker_list_stocks"
+                android:id="@+id/pos_stocks"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_row="1"
@@ -63,7 +63,7 @@
                 android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/product_picker_list_unit_price"
+                android:id="@+id/pos_unit_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -74,7 +74,7 @@
                 android:layout_gravity="fill"/>
 
             <TextView
-                android:id="@+id/product_picker_list_out_of_stock"
+                android:id="@+id/pos_out_of_stock"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -85,6 +85,40 @@
                 android:layout_column="1"
                 android:layout_columnSpan="2"
                 android:layout_gravity="fill"/>
+
+            <FrameLayout
+                android:id="@+id/pos_cart_frame"
+                style="?attr/actionButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_column="3"
+                android:layout_row="0"
+                android:layout_rowSpan="3"
+                android:clipToPadding="false"
+                android:focusable="true"
+                android:visibility="invisible"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/cart_colored"/>
+
+                <TextView
+                    android:id="@+id/pos_quantity"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|top"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/badge_background"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:textColor="@android:color/white"
+                    android:text="0"
+                    android:textSize="10sp"/>
+            </FrameLayout>
 
         </GridLayout>
     </LinearLayout>
