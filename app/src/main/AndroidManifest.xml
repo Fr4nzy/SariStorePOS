@@ -34,6 +34,9 @@
             android:name=".activities.inventory.InventoryProductListPage"
             android:exported="false" />
         <activity
+            android:name=".activities.inventory.InventoryProductDetailPage"
+            android:exported="false" />
+        <activity
             android:name=".activities.dashboard.DashboardPage"
             android:exported="false" />
         <activity
