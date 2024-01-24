@@ -10,14 +10,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.enums.UserRole;
-import com.projectfkklp.saristorepos.enums.UserStatus;
 import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.managers.StoreManager;
 import com.projectfkklp.saristorepos.models.Store;
@@ -25,15 +24,17 @@ import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.models.UserStoreRelation;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.repositories.UserRepository;
+import com.projectfkklp.saristorepos.repositories.UserStoreRelationRepository;
 import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
-import com.projectfkklp.saristorepos.utils.TestingUtils;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StoreProfilePage extends AppCompatActivity {
     AlertDialog.Builder cancelConfirmationDialog;
@@ -43,6 +44,7 @@ public class StoreProfilePage extends AppCompatActivity {
     private ImageButton saveButton;
     RecyclerView storeProfileRecycler;
     ProgressBar progressBar;
+    FrameLayout emptyFrame;
     StoreProfileAdapter storeProfilePageAdapter;
 
     private boolean isEditing = false;
@@ -77,112 +79,34 @@ public class StoreProfilePage extends AppCompatActivity {
     }
 
     private void loadAssociatedUsers(){
-        // Fetch Associated Stores from Firebase
+        // Fetch Associated Users from Firebase
         // Then, update recycler view
         progressBar.setVisibility(View.VISIBLE);
-        TestingUtils.delay(1000, ()->{
-            loadUserStoreRelations();
-            sortUserStoreRelations();
-            initializeRecyclerView();
-            progressBar.setVisibility(View.GONE);
-        });
-    }
+        UserStoreRelationRepository
+            .getRelationsByStoreId(store.getId())
+            .continueWithTask(task->{
+                // Fetch userStoreRelations from the task
+                userStoreRelations = task.getResult().toObjects(UserStoreRelation.class);
+                sortUserStoreRelations();
 
-    private void loadUserStoreRelations(){
-        userStoreRelations = new ArrayList<>(Arrays.asList(
-            new UserStoreRelation(
-                "001",
-                "abcd001",
-                "",
-                UserRole.OWNER,
-                UserStatus.ACTIVE
-            ),
-            new UserStoreRelation(
-                "003",
-                "abcd003",
-                "",
-                UserRole.OWNER,
-                UserStatus.REQUESTED
-            ),
-            new UserStoreRelation(
-                "002",
-                "abcd002",
-                "",
-                UserRole.ASSISTANT,
-                UserStatus.ACTIVE
-            ),
-            new UserStoreRelation(
-                "004",
-                "abcd004",
-                "",
-                UserRole.ASSISTANT,
-                UserStatus.REQUESTED
-            ),
-            new UserStoreRelation(
-                "005",
-                "abcd005",
-                "",
-                UserRole.OWNER,
-                UserStatus.INVITED
-            ),
-            new UserStoreRelation(
-                "006",
-                "abcd006",
-                "",
-                UserRole.ASSISTANT,
-                UserStatus.INVITED
-            )
-        ));
-        users = new ArrayList<>(Arrays.asList(
-            new User(
-                "abcd001",
-                "User 1",
-                "phone001",
-                "09672410291",
-                "gmail01",
-                "user1@gmail.com"
-            ),
-            new User(
-                "abcd002",
-                "User 2",
-                "phone002",
-                "09672410292",
-                "gmail02",
-                "user2@gmail.com"
-            ),
-            new User(
-                "abcd003",
-                "User 3",
-                "phone003",
-                "09672410293",
-                "gmail03",
-                "user3@gmail.com"
-            ),
-            new User(
-                "abcd004",
-                "User 4",
-                "phone004",
-                "09672410291",
-                "gmail04",
-                "user4@gmail.com"
-            ),
-            new User(
-                "abcd005",
-                "User 5",
-                "phone005",
-                "09672410295",
-                "gmail05",
-                "user5@gmail.com"
-            ),
-            new User(
-                "abcd006",
-                "User 6",
-                "phone006",
-                "09672410296",
-                "gmail06",
-                "user6@gmail.com"
-            )
-        ));
+                // extract user ids
+                List<String> userIds = userStoreRelations.stream()
+                    .map(UserStoreRelation::getUserId)
+                    .collect(Collectors.toList());
+
+                // continue by fetching associated users using extracted store ids
+                return UserRepository.getUsersByIds(userIds);
+            })
+            .addOnSuccessListener(successTask->{
+                users = successTask != null
+                        ? successTask.toObjects(User.class)
+                        : new ArrayList<>();
+                initializeRecyclerView();
+                emptyFrame.setVisibility(users.isEmpty()? View.VISIBLE: View.GONE);
+            })
+            .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
+            .addOnCompleteListener(task-> progressBar.setVisibility(View.GONE))
+        ;
     }
 
     private void initializeViews(){
@@ -194,6 +118,7 @@ public class StoreProfilePage extends AppCompatActivity {
             saveButton = findViewById(R.id.store_profile_save_button);
             storeProfileRecycler = findViewById(R.id.store_profile_recycler);
             progressBar = findViewById(R.id.store_profile_page_progress);
+            emptyFrame = findViewById(R.id.store_profile_empty_frame);
         }
 
         TextWatcher textWatcher  =new TextWatcher() {

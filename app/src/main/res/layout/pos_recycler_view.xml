@@ -3,16 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="12dp"
-    android:layout_marginEnd="12dp"
-    android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="10dp"
-    app:cardCornerRadius="20dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginHorizontal="5dp"
     app:cardElevation="8dp">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -20,90 +15,120 @@
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="8"
-            android:rowCount="2"
-            android:padding="10dp"
-            >
+            android:columnCount="3"
+            android:rowCount="3"
+            android:padding="5dp">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/product_image"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:id="@+id/pos_product_image"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                app:srcCompat="@drawable/upload"
+                app:srcCompat="@drawable/placeholder"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:layout_rowSpan="2"
-                android:layout_columnSpan="2"
-                android:layout_marginRight="15dp"
+                android:layout_rowSpan="3"
+                android:layout_marginEnd="5dp"
                 />
 
             <TextView
-                android:id="@+id/product_label"
-                android:text="Product"
-                android:textColor="@color/lavender"
-                android:textSize="15sp"
+                android:id="@+id/pos_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Sample Product"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:layout_row="0"
-                android:layout_column="2"
-                android:layout_columnSpan="6"
-                android:layout_gravity="fill"
-                android:layout_marginBottom="10dp"
+                android:layout_column="1"
+                android:layout_columnSpan="2"
                 />
 
             <TextView
-                android:id="@+id/stock_label"
+                android:id="@+id/pos_unit_price"
                 android:layout_width="wrap_content"
-                android:layout_height="37dp"
+                android:layout_height="wrap_content"
+                android:text="Unit Price: ₱100.00"
+                android:textSize="13sp"
                 android:layout_row="1"
-                android:layout_column="2"
-                android:layout_columnWeight="3"
-                android:layout_gravity="fill"
-                android:text="Stock"
-                android:textColor="@color/lavender"
-                android:textSize="15sp" />
+                android:layout_column="1"/>
 
-            <TextView
-                android:id="@+id/price_label"
-                android:text="Price"
-                android:textColor="@color/lavender"
-                android:textSize="15sp"
+            <LinearLayout
+                android:layout_row="2"
+                android:layout_column="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/pos_btn_minus"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/minus"
+                    app:tint="?attr/colorControlNormal"/>
+
+                <EditText
+                    android:id="@+id/pos_quantity_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="70dp"
+                    android:text="1"
+                    android:textSize="18sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    style="@style/EditTextNoUnderline"/>
+
+                <ImageButton
+                    android:id="@+id/pos_btn_plus"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/add"
+                    app:tint="?attr/colorControlNormal"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="1"
-                android:layout_column="5"
-                android:layout_columnWeight="3"
-                android:layout_gravity="fill"
-                />
+                android:layout_column="2"
+                android:layout_rowSpan="2"
+                android:orientation="vertical"
+                android:layout_gravity="end|center_vertical"
+                android:gravity="end">
+                <TextView
+                    android:id="@+id/pos_subtotal_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₱ 1.00"
+                    android:textColor="#090"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/pos_left_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 item left"
+                    android:textColor="#DD4500"
+                    android:textSize="13sp"/>
+            </LinearLayout>
+
         </GridLayout>
 
-        <LinearLayout
-            android:id="@+id/out_of_stock_indicator"
+        <ImageButton
+            android:id="@+id/pos_btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:background="#cfeb34"
             android:layout_alignParentEnd="true"
-            android:visibility="invisible">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/baseline_crisis_alert_24"
-                android:layout_marginRight="3dp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Out of stock"
-                android:textColor="@color/red"
-                android:textSize="10dp"/>
-
-        </LinearLayout>
+            android:padding="5dp"
+            android:src="@drawable/delete"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
 
     </RelativeLayout>
-
 </androidx.cardview.widget.CardView>

@@ -59,7 +59,7 @@
                     android:backgroundTint="@color/black"
                     android:textStyle="bold"
                     app:cornerRadius="25dp"
-                    />
+                    android:onClick="gotoPos"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
