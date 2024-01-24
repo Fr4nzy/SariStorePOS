@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import com.projectfkklp.saristorepos.R;
 
-public class InventoryProductListRecycler extends RecyclerView.ViewHolder {
+public class InventoryProductListViewHolder extends RecyclerView.ViewHolder {
     CardView container;
     ImageView productImg;
     TextView productNameText, productStocksText, productUnitPriceText, productOosIndicatorText;
 
-    public InventoryProductListRecycler(@NonNull View itemView) {
+    public InventoryProductListViewHolder(@NonNull View itemView) {
         super(itemView);
 
         // Initialize views
