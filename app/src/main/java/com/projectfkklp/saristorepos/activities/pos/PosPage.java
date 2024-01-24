@@ -13,6 +13,7 @@ import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.pos.checkout.CheckoutPage;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
+import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
@@ -27,6 +28,7 @@ public class PosPage extends AppCompatActivity {
     PosAdapter productPickerAdapter;
 
     private List<Product> products;
+    private List<TransactionItem> transactionItems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class PosPage extends AppCompatActivity {
     }
     private void initializeData(){
         products = new ArrayList<>();
+        transactionItems = new ArrayList<>();
     }
 
     private void initializeViews(){
@@ -50,7 +53,7 @@ public class PosPage extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         productPickerRecycler.setLayoutManager(layoutManager);
 
-        productPickerAdapter = new PosAdapter(this, products);
+        productPickerAdapter = new PosAdapter(this, products, transactionItems);
         productPickerRecycler.setAdapter(productPickerAdapter);
     }
 
