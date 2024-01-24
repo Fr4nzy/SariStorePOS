@@ -28,7 +28,6 @@
     <string name="product_name_placeholder">Product Name</string>
     <string name="price_placeholder">Price</string>
     <string name="stock_placeholder">Stock</string>
-    <string name="update_button">Update</string>
     <string name="save_product_button">Save</string>
 
 </resources>
