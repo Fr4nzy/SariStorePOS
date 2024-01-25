@@ -35,6 +35,6 @@ public class SuperAdminPage extends AppCompatActivity {
     }
 
     private void generateDummyData(){
-
+        new GenerateDummyDataTask(this).execute();
     }
 }
