@@ -17,9 +17,11 @@ import com.projectfkklp.saristorepos.activities.store_profile.StoreProfilePage;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
 import com.projectfkklp.saristorepos.activities.transaction.TransactionPage;
 import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
+import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DashboardPage extends AppCompatActivity {
@@ -148,6 +150,7 @@ public class DashboardPage extends AppCompatActivity {
     }
 
     public void gotoPos(View view){
+        CacheUtils.saveObjectList(this, "transaction_items", new ArrayList<>());
         startActivity(new Intent(this, PosPage.class));
     }
 

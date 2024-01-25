@@ -59,7 +59,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutViewHolder>{
             StringUtils.formatToPeso(transactionItem.getUnitPrice())
         ));
         holder.quantityEdit.setText(String.valueOf(transactionItem.getQuantity()));
-        holder.subtotalPriceText.setText(StringUtils.formatToPeso(transactionItem.getAmount()));
+        holder.subtotalPriceText.setText(StringUtils.formatToPeso(transactionItem.calculateAmount()));
         holder.leftItemText.setText(String.format(
             "%d item left",
             product.getStocks()

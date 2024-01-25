@@ -10,13 +10,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.projectfkklp.saristorepos.interfaces.OnTransactionAdded;
 import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
-import com.projectfkklp.saristorepos.repositories.SessionRepository;
-import com.projectfkklp.saristorepos.utils.DateUtils;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-public class TransactionManager extends  BaseManager{
+public class _TransactionManager extends  BaseManager{
 
     public static CollectionReference _getCollectionReference() {
         return  FirebaseFirestore.getInstance()
@@ -26,10 +23,7 @@ public class TransactionManager extends  BaseManager{
     }
 
     public static CollectionReference getCollectionReference(Context context, LocalDate date) {
-        return  FirebaseFirestore.getInstance()
-            .collection("stores")
-            .document(SessionRepository.getCurrentStore(context).getId())
-            .collection("daily_transactions")
+        return  DailyTransactionsManager.getCollectionReference(context)
             .document(date.toString())
             .collection("transactions");
     }

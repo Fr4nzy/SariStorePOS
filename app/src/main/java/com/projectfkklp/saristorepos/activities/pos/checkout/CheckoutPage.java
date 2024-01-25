@@ -1,5 +1,6 @@
 package com.projectfkklp.saristorepos.activities.pos.checkout;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,16 +15,20 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.pos.PosPage;
+import com.projectfkklp.saristorepos.activities.transaction_invoice.TransactionInvoicePage;
+import com.projectfkklp.saristorepos.managers.DailyTransactionsManager;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
+import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +52,8 @@ public class CheckoutPage extends AppCompatActivity {
         initializedRecyclerView();
 
         loadProducts();
+
+        initializeOnBackPressed();
     }
 
     private void initializeData(){
@@ -88,21 +95,14 @@ public class CheckoutPage extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void loadTransactionItemsFromCache(){
-        for (int i=1; i<=10;i++){
-            Product product = products.get(i);
-            transactionItems.add(new TransactionItem(
-                product.getId(),
-                i,
-                product.getUnitPrice()
-            ));
-        }
+        transactionItems.addAll(CacheUtils.getObjectList(this, "transaction_items", TransactionItem.class));
         posAdapter.notifyDataSetChanged();
 
         reloadViews();
     }
 
     public void reloadViews(){
-        float totalAmount = (float) transactionItems.stream().mapToDouble(TransactionItem::getAmount).sum();
+        float totalAmount = (float) transactionItems.stream().mapToDouble(TransactionItem::calculateAmount).sum();
         totalAmountText.setText(StringUtils.formatToPeso(totalAmount));
 
         submitBtn.setEnabled(transactionItems.size()>0);
@@ -127,25 +127,44 @@ public class CheckoutPage extends AppCompatActivity {
             .show();
     }
 
-    public void navigateBack(View view){
-        if (transactionItems.size()==0){
-            finish();
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder
-            .setTitle("Cancel Transaction?")
-            .setMessage("Are you sure you want to cancel this transaction?")
-            .setPositiveButton("Yes", (dialog, which) -> {
-                finish();
-            })
-            .setNegativeButton("No", (dialog, which) -> {
-                dialog.dismiss();
-            })
-            .show();
+    public void addMoreItems(View view){
+        CacheUtils.saveObjectList(this, "transaction_items", transactionItems);
+        finish();
     }
 
-    public void gotoProductPickerPage(View view){
-        startActivity(new Intent(this, PosPage.class));
+    public void submit(View view){
+        String dateTime = LocalDateTime.now().toString();
+        Transaction transaction = new Transaction(
+            dateTime,
+            transactionItems
+        );
+
+        ProgressUtils.showDialog(this, "Submitting...");
+        DailyTransactionsManager
+            .addTransaction(this, transaction)
+            .addOnSuccessListener(task->{
+                // Clear cache
+                CacheUtils.saveObjectList(this, "transaction_items", new ArrayList<>());
+
+                // Goto Invoice Page
+                Intent intent = new Intent(this, TransactionInvoicePage.class);
+                intent.putExtra("src", "transaction");
+                intent.putExtra("transaction", transaction);
+
+                startActivity(intent);
+                finish();
+            })
+            .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
+            .addOnCompleteListener(task-> ProgressUtils.dismissDialog())
+        ;
+    }
+
+    private void initializeOnBackPressed(){
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                addMoreItems(null);
+            }
+        });
     }
 }

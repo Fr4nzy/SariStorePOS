@@ -11,7 +11,6 @@ import com.projectfkklp.saristorepos.utils.ModelUtils;
 import com.projectfkklp.saristorepos.validators.StoreValidator;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class StoreManager {
 
@@ -44,5 +43,9 @@ public class StoreManager {
             ));
         }
         getCollectionReference().document(store.getId()).set(store);
+    }
+
+    public static Task<Void> save(Store store){
+        return getCollectionReference().document(store.getId()).set(store);
     }
 }

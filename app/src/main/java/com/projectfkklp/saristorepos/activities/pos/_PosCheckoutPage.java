@@ -20,7 +20,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.projectfkklp.saristorepos.managers.TransactionManager;
+import com.projectfkklp.saristorepos.managers._TransactionManager;
 import com.projectfkklp.saristorepos.models._Product;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models._Transaction;
@@ -150,7 +150,7 @@ public class _PosCheckoutPage extends AppCompatActivity {
                 .setMessage(receiptMessage.toString())
                 .setPositiveButton("Confirm", (dialogInterface, i) -> {
                     // Store the transaction data in Firestore
-                    TransactionManager.addTransaction(
+                    _TransactionManager.addTransaction(
                         transaction,
                         task -> cartItemList.clear()
                     );
