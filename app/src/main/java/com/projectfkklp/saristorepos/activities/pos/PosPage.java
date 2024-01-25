@@ -1,5 +1,6 @@
 package com.projectfkklp.saristorepos.activities.pos;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
@@ -49,9 +51,16 @@ public class PosPage extends AppCompatActivity {
         initializeViews();
         initializedRecyclerView();
         initializeScanner();
+        initializeOnBackPressed();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         loadProducts();
     }
+
     private void initializeData(){
         products = new ArrayList<>();
         searchedProducts = new ArrayList<>();
@@ -108,13 +117,24 @@ public class PosPage extends AppCompatActivity {
             .addOnSuccessListener(successTask->{
                 Store store = successTask.toObject(Store.class);
                 assert store != null;
+                products.clear();
                 products.addAll(store.getProducts());
 
+                loadTransactionItemsFromCache();
                 search("");
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
             .addOnCompleteListener(task-> ProgressUtils.dismissDialog())
         ;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void loadTransactionItemsFromCache(){
+        transactionItems.clear();
+        transactionItems.addAll(CacheUtils.getObjectList(this, "transaction_items", TransactionItem.class));
+        posAdapter.notifyDataSetChanged();
+
+        reloadViews();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -166,6 +186,7 @@ public class PosPage extends AppCompatActivity {
     }
 
     public void checkout(View view){
+        CacheUtils.saveObjectList(this, "transaction_items", transactionItems);
         startActivity(new Intent(this, CheckoutPage.class));
     }
 
@@ -194,5 +215,14 @@ public class PosPage extends AppCompatActivity {
 
     public List<TransactionItem> getTransactionItems() {
         return transactionItems;
+    }
+
+    private void initializeOnBackPressed(){
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                navigateBack(null);
+            }
+        });
     }
 }

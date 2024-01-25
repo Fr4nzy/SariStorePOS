@@ -32,7 +32,7 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:layout_marginEnd="5dp"
-                    android:onClick="navigateBack"/>
+                    android:onClick="addMoreItems"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:background="?attr/selectableItemBackground"
-                        android:onClick="gotoProductPickerPage">
+                        android:onClick="addMoreItems">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -136,7 +136,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Add Item"
+                                android:text="Add More"
                                 android:textStyle="bold"
                                 android:textSize="24sp"/>
                         </LinearLayout>
@@ -192,7 +192,7 @@
                 android:insetTop="0dp"
                 android:insetRight="0dp"
                 app:cornerRadius="0dp"
-                />
+                android:onClick="submit"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

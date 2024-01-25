@@ -3,16 +3,17 @@ package com.projectfkklp.saristorepos.models;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Transaction implements Serializable {
     private LocalDateTime dateTime;
-    private ArrayList<TransactionItem> items;
+    private List<TransactionItem> items;
 
     public Transaction() {
 
     }
 
-    public Transaction(LocalDateTime time, ArrayList<TransactionItem> items) {
+    public Transaction(LocalDateTime time, List<TransactionItem> items) {
         this.dateTime = time;
         this.items = items;
     }
@@ -28,12 +29,12 @@ public class Transaction implements Serializable {
     }
 
     // Getter for 'items'
-    public ArrayList<TransactionItem> getItems() {
+    public List<TransactionItem> getItems() {
         return items;
     }
 
     // Setter for 'items'
-    public void setItems(ArrayList<TransactionItem> items) {
+    public void setItems(List<TransactionItem> items) {
         this.items = items;
     }
 

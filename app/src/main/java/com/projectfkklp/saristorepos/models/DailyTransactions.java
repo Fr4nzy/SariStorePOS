@@ -12,6 +12,11 @@ public class DailyTransactions implements Serializable {
 
     }
 
+    public DailyTransactions(LocalDate date) {
+        this.date = date;
+        this.transactions = new ArrayList<>();
+    }
+
     public DailyTransactions(LocalDate date, ArrayList<Transaction> transactions) {
         this.date = date;
         this.transactions = transactions;

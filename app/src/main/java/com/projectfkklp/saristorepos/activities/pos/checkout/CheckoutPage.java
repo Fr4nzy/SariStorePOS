@@ -1,25 +1,29 @@
 package com.projectfkklp.saristorepos.activities.pos.checkout;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.pos.PosPage;
+import com.projectfkklp.saristorepos.activities.transaction_invoice.TransactionInvoicePage;
+import com.projectfkklp.saristorepos.managers.DailyTransactionsManager;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.utils.ActivityUtils;
+import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
@@ -47,6 +51,8 @@ public class CheckoutPage extends AppCompatActivity {
         initializedRecyclerView();
 
         loadProducts();
+
+        initializeOnBackPressed();
     }
 
     private void initializeData(){
@@ -88,14 +94,7 @@ public class CheckoutPage extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void loadTransactionItemsFromCache(){
-        for (int i=1; i<=10;i++){
-            Product product = products.get(i);
-            transactionItems.add(new TransactionItem(
-                product.getId(),
-                i,
-                product.getUnitPrice()
-            ));
-        }
+        transactionItems.addAll(CacheUtils.getObjectList(this, "transaction_items", TransactionItem.class));
         posAdapter.notifyDataSetChanged();
 
         reloadViews();
@@ -127,25 +126,27 @@ public class CheckoutPage extends AppCompatActivity {
             .show();
     }
 
-    public void navigateBack(View view){
-        if (transactionItems.size()==0){
-            finish();
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder
-            .setTitle("Cancel Transaction?")
-            .setMessage("Are you sure you want to cancel this transaction?")
-            .setPositiveButton("Yes", (dialog, which) -> {
-                finish();
-            })
-            .setNegativeButton("No", (dialog, which) -> {
-                dialog.dismiss();
-            })
-            .show();
+    public void addMoreItems(View view){
+        CacheUtils.saveObjectList(this, "transaction_items", transactionItems);
+        finish();
     }
 
-    public void gotoProductPickerPage(View view){
-        startActivity(new Intent(this, PosPage.class));
+    public void submit(View view){
+        DailyTransactionsManager.addTransaction(this, transactionItems);
+        /*// Clear cache
+        transactionItems.clear();
+        CacheUtils.saveObjectList(this, "transaction_items", transactionItems);
+
+        // Goto Invoice Page
+        finish();*/
+    }
+
+    private void initializeOnBackPressed(){
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                addMoreItems(null);
+            }
+        });
     }
 }
