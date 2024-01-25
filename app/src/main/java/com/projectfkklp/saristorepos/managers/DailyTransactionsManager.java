@@ -5,7 +5,6 @@ import android.content.Context;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.projectfkklp.saristorepos.models.DailyTransactions;
 import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
@@ -14,6 +13,7 @@ import com.projectfkklp.saristorepos.repositories.SessionRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class DailyTransactionsManager {
@@ -24,13 +24,13 @@ public class DailyTransactionsManager {
     }
 
     public static Task<Task<Void>> addTransaction(Context context, List<TransactionItem> transactionItems){
-        LocalDateTime dateTime = LocalDateTime.now();
+        String dateTime = LocalDateTime.now().toString();
         Transaction transaction = new Transaction(
             dateTime,
             transactionItems
         );
 
-        LocalDate date = dateTime.toLocalDate();
+        String date = LocalDate.now().toString();
         DocumentReference dailyTransactionsDocument = DailyTransactionsRepository
             .getDocument(context, date);
 

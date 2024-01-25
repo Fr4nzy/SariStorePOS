@@ -1,34 +1,35 @@
 package com.projectfkklp.saristorepos.models;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DailyTransactions implements Serializable {
-    private LocalDate date;
+    private String date;
     private ArrayList<Transaction> transactions;
 
     public DailyTransactions() {
 
     }
 
-    public DailyTransactions(LocalDate date) {
+    public DailyTransactions(String date) {
         this.date = date;
         this.transactions = new ArrayList<>();
     }
 
-    public DailyTransactions(LocalDate date, ArrayList<Transaction> transactions) {
+    public DailyTransactions(String date, ArrayList<Transaction> transactions) {
         this.date = date;
         this.transactions = transactions;
     }
 
     // Getter method for 'date'
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
     // Setter method for 'date'
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -42,7 +43,8 @@ public class DailyTransactions implements Serializable {
         this.transactions = transactions;
     }
 
-    public int getTotalSoldItems(){
+    @Exclude
+    public int calculateTotalSoldItems(){
         if (transactions == null) {
             return 0;
         }
@@ -50,13 +52,14 @@ public class DailyTransactions implements Serializable {
         int totalSoldItems = 0;
 
         for (Transaction transaction : transactions) {
-            totalSoldItems += transaction.getTotalQuantity();
+            totalSoldItems += transaction.calculateTotalQuantity();
         }
 
         return totalSoldItems;
     }
 
-    public float getTotalSales(){
+    @Exclude
+    public float calculateTotalSales(){
         if (transactions == null) {
             return 0;
         }
@@ -64,7 +67,7 @@ public class DailyTransactions implements Serializable {
         float totalSales = 0;
 
         for (Transaction transaction : transactions) {
-            totalSales += transaction.getTotalSales();
+            totalSales += transaction.calculateTotalSales();
         }
 
         return totalSales;

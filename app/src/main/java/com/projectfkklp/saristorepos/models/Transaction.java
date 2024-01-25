@@ -1,30 +1,30 @@
 package com.projectfkklp.saristorepos.models;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Transaction implements Serializable {
-    private LocalDateTime dateTime;
+    private String dateTime;
     private List<TransactionItem> items;
 
     public Transaction() {
 
     }
 
-    public Transaction(LocalDateTime time, List<TransactionItem> items) {
+    public Transaction(String time, List<TransactionItem> items) {
         this.dateTime = time;
         this.items = items;
     }
 
     // Getter for 'time'
-    public LocalDateTime getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
     // Setter for 'time'
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -38,7 +38,8 @@ public class Transaction implements Serializable {
         this.items = items;
     }
 
-    public int getTotalQuantity(){
+    @Exclude
+    public int calculateTotalQuantity(){
         if (items == null) {
             return 0;
         }
@@ -52,7 +53,8 @@ public class Transaction implements Serializable {
         return totalQuantity;
     }
 
-    public float getTotalSales(){
+    @Exclude
+    public float calculateTotalSales(){
         if (items == null) {
             return 0;
         }
@@ -60,7 +62,7 @@ public class Transaction implements Serializable {
         int totalQuantity = 0;
 
         for (TransactionItem item: items){
-            totalQuantity+=item.getAmount();
+            totalQuantity+=item.calculateAmount();
         }
 
         return totalQuantity;

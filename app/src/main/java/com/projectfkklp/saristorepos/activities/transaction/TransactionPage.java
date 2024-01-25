@@ -16,6 +16,7 @@ import com.projectfkklp.saristorepos.activities.transaction.transaction_history.
 import com.projectfkklp.saristorepos.models.DailyTransactions;
 import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
+import com.projectfkklp.saristorepos.utils.DateUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -55,12 +56,13 @@ public class TransactionPage extends AppCompatActivity {
         dailyTransactions = new ArrayList<>();
 
         LocalDate date = LocalDate.of(2024, 1, 1);
+        String dateStr = date.toString();
         for (int i=0; i < 30;i++){
             dailyTransactions.add(new DailyTransactions(
-                date,
+                dateStr,
                 new ArrayList<>(Arrays.asList(
                     new Transaction(
-                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 10, 0, 0),
+                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 10, 0, 0).toString(),
                         new ArrayList<>(Arrays.asList(
                             new TransactionItem("productabc001",1,1),
                             new TransactionItem("productabc002",1,5),
@@ -70,7 +72,7 @@ public class TransactionPage extends AppCompatActivity {
                         ))
                     ),
                     new Transaction(
-                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 11, 0, 0),
+                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 11, 0, 0).toString(),
                         new ArrayList<>(Arrays.asList(
                             new TransactionItem("productabc001",2,1),
                             new TransactionItem("productabc002",2,5),
@@ -80,7 +82,7 @@ public class TransactionPage extends AppCompatActivity {
                         ))
                     ),
                     new Transaction(
-                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 12, 0, 0),
+                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 12, 0, 0).toString(),
                         new ArrayList<>(Arrays.asList(
                             new TransactionItem("productabc001",3,1),
                             new TransactionItem("productabc002",3,5),

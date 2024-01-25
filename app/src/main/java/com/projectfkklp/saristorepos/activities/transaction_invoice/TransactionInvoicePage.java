@@ -15,13 +15,23 @@ import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
 public class TransactionInvoicePage extends AppCompatActivity {
+    public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
+            "MMMM d, yyyy",
+            Locale.getDefault()
+    );
+    public static SimpleDateFormat DATETIME_FORMAT = new SimpleDateFormat(
+            "MMMM d, yyyy hh:mm a",
+            Locale.getDefault()
+    );
+
     RecyclerView invoiceRecycler;
     TextView titleText;
     TextView totalAmountText;
@@ -54,8 +64,8 @@ public class TransactionInvoicePage extends AppCompatActivity {
             DailyTransactions dailyTransactions = getIntent().getSerializableExtra("dailyTransactions", DailyTransactions.class);
             assert dailyTransactions != null;
             title = String.format(
-                    "Summary Invoice — %s",
-                    dailyTransactions.getDate().format(DateTimeFormatter.ofPattern("MMMM d, yyyy"))
+                "Summary Invoice — %s",
+                DATE_FORMAT.format(dailyTransactions.getDate())
             );
             transactions = dailyTransactions.getTransactions();
         }
@@ -63,14 +73,14 @@ public class TransactionInvoicePage extends AppCompatActivity {
             Transaction transaction = getIntent().getSerializableExtra("transaction", Transaction.class);
             assert transaction != null;
             title = String.format(
-                    "Invoice — %s",
-                    transaction.getDateTime().format(DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm a"))
+                "Invoice — %s",
+                DATETIME_FORMAT.format(transaction.getDateTime())
             );
             transactions = Collections.singletonList(transaction);
         }
 
         totalAmount = (float) transactions.stream()
-            .mapToDouble(Transaction::getTotalSales)
+            .mapToDouble(Transaction::calculateTotalSales)
             .sum();
     }
 

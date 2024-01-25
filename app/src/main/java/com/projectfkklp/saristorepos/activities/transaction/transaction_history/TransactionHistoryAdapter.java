@@ -14,13 +14,14 @@ import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.models.Transaction;
 
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionHistoryViewHolder>{
     private final Context context;
     private final List<Transaction> transactions;
-    private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm a");
+    @SuppressLint("SimpleDateFormat")
+    private final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("MMMM d, yyyy hh:mm a");
     public TransactionHistoryAdapter(Context context, List<Transaction> transactions) {
         this.context = context;
         this.transactions = transactions;
@@ -41,11 +42,11 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionH
         holder.dateTimeText.setText(dateTimeFormat.format(transaction.getDateTime()));
         holder.totalSoldItemsText.setText(String.format(
                 "Total Quantity: %,d",
-                transaction.getTotalQuantity()
+                transaction.calculateTotalQuantity()
         ));
         holder.totalSalesText.setText(String.format( 
                 "Total Sales: ₱%,.2f",
-                transaction.getTotalSales()
+                transaction.calculateTotalSales()
         ));
 
         holder.container.setOnClickListener(view -> {

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -15,14 +14,12 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.managers.DailyTransactionsManager;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
-import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
@@ -101,7 +98,7 @@ public class CheckoutPage extends AppCompatActivity {
     }
 
     public void reloadViews(){
-        float totalAmount = (float) transactionItems.stream().mapToDouble(TransactionItem::getAmount).sum();
+        float totalAmount = (float) transactionItems.stream().mapToDouble(TransactionItem::calculateAmount).sum();
         totalAmountText.setText(StringUtils.formatToPeso(totalAmount));
 
         submitBtn.setEnabled(transactionItems.size()>0);

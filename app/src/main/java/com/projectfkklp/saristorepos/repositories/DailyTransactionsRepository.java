@@ -9,6 +9,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.projectfkklp.saristorepos.managers.StoreManager;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class DailyTransactionsRepository {
     public static CollectionReference getCollectionReference(Context context) {
@@ -17,8 +18,8 @@ public class DailyTransactionsRepository {
             .collection("daily_transactions");
     }
 
-    public static DocumentReference getDocument(Context context, LocalDate date){
-        return getCollectionReference(context).document(date.toString());
+    public static DocumentReference getDocument(Context context, String date){
+        return getCollectionReference(context).document(date);
     }
 
     public static Task<DocumentSnapshot> getDailyTransactions(Context context, LocalDate date){

@@ -90,7 +90,7 @@ public class PosItemDetailDialog extends Dialog implements
                 StringUtils.formatToPeso(editTransactionItem.getUnitPrice())
         ));
         quantityEdit.setText(String.valueOf(editTransactionItem.getQuantity()));
-        subtotalPriceText.setText(StringUtils.formatToPeso(editTransactionItem.getAmount()));
+        subtotalPriceText.setText(StringUtils.formatToPeso(editTransactionItem.calculateAmount()));
         leftItemText.setText(String.format(
             "%d item left",
             product.getStocks()
@@ -187,7 +187,7 @@ public class PosItemDetailDialog extends Dialog implements
         quantityEdit.setText(String.valueOf(newQuantity));
         minusButton.setEnabled(newQuantity>1);
         plusButton.setEnabled(newQuantity<stocks);
-        subtotalPriceText.setText(StringUtils.formatToPeso(transactionItem.getAmount()));
+        subtotalPriceText.setText(StringUtils.formatToPeso(transactionItem.calculateAmount()));
     }
 
     PosPage getParent(){
