@@ -12,18 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
+import com.projectfkklp.saristorepos.repositories.SessionRepository;
+import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TransactionInvoiceAdapter extends RecyclerView.Adapter<TransactionInvoiceViewHolder>{
     private final Context context;
-    private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm a");
     private final List<String> transactedProductIds;
     private List<Product> products;
     private List<TransactionItem> transactionItems;
@@ -33,6 +35,7 @@ public class TransactionInvoiceAdapter extends RecyclerView.Adapter<TransactionI
         this.transactedProductIds = transactedProductIds;
 
         loadTransactionItems(transactions);
+        loadProducts();
     }
 
     private void loadTransactionItems(List<Transaction> transactions){
@@ -46,21 +49,24 @@ public class TransactionInvoiceAdapter extends RecyclerView.Adapter<TransactionI
     @NonNull
     @Override
     public TransactionInvoiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        loadProducts();
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_invoice_recycler_view, parent, false);
         return new TransactionInvoiceViewHolder(view);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void loadProducts(){
-        // Dummy Product, replace on backend implementation
-        products = new ArrayList<>(Arrays.asList(
-                new Product("productabc001", "Product A", 5, 1, "", ""),
-                new Product("productabc002", "Product B", 10, 5, "", ""),
-                new Product("productabc003", "Product C", 15, 10, "", ""),
-                new Product("productabc004", "Product D", 20, 20, "", ""),
-                new Product("productabc005", "Product E", 25, 50, "", "")
-        ));
+        ProgressUtils.showDialog(context, "Loading products...");
+        StoreRepository
+            .getStoreById(SessionRepository.getCurrentStore(context).getId())
+            .addOnSuccessListener(successTask->{
+                Store store = successTask.toObject(Store.class);
+                assert store != null;
+                products = store.getProducts();
+                notifyDataSetChanged();
+            })
+            .addOnFailureListener(failedTask-> ToastUtils.show(context, failedTask.getMessage()))
+            .addOnCompleteListener(task-> ProgressUtils.dismissDialog())
+        ;
     }
 
     @SuppressLint("DefaultLocale")
@@ -99,6 +105,10 @@ public class TransactionInvoiceAdapter extends RecyclerView.Adapter<TransactionI
 
     @Override
     public int getItemCount() {
+        if (products == null){
+            return 0;
+        }
+
         return transactedProductIds.size();
     }
 }

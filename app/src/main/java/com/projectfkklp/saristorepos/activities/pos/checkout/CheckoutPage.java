@@ -8,15 +8,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.managers.DailyTransactionsManager;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
+import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
@@ -25,6 +28,7 @@ import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,13 +133,30 @@ public class CheckoutPage extends AppCompatActivity {
     }
 
     public void submit(View view){
-        DailyTransactionsManager.addTransaction(this, transactionItems);
-        /*// Clear cache
-        transactionItems.clear();
-        CacheUtils.saveObjectList(this, "transaction_items", transactionItems);
+        String dateTime = LocalDateTime.now().toString();
+        Transaction transaction = new Transaction(
+            dateTime,
+            transactionItems
+        );
 
-        // Goto Invoice Page
-        finish();*/
+        ProgressUtils.showDialog(this, "Submitting...");
+        DailyTransactionsManager
+            .addTransaction(this, transaction)
+            .addOnSuccessListener(task->{
+                // Clear cache
+                CacheUtils.saveObjectList(this, "transaction_items", new ArrayList<>());
+
+                // Goto Invoice Page
+                Intent intent = new Intent(this, TransactionInvoicePage.class);
+                intent.putExtra("src", "transaction");
+                intent.putExtra("transaction", transaction);
+
+                startActivity(intent);
+                finish();
+            })
+            .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
+            .addOnCompleteListener(task-> ProgressUtils.dismissDialog())
+        ;
     }
 
     private void initializeOnBackPressed(){

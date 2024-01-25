@@ -23,13 +23,7 @@ public class DailyTransactionsManager {
             .collection("daily_transactions");
     }
 
-    public static Task<Task<Void>> addTransaction(Context context, List<TransactionItem> transactionItems){
-        String dateTime = LocalDateTime.now().toString();
-        Transaction transaction = new Transaction(
-            dateTime,
-            transactionItems
-        );
-
+    public static Task<Task<Void>> addTransaction(Context context, Transaction transaction){
         String date = LocalDate.now().toString();
         DocumentReference dailyTransactionsDocument = DailyTransactionsRepository
             .getDocument(context, date);
