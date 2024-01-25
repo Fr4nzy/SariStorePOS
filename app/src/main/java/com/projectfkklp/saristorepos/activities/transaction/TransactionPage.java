@@ -27,7 +27,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,11 +72,15 @@ public class TransactionPage extends AppCompatActivity {
             .addOnSuccessListener(task->{
                 List<DailyTransactions> dailyTransactions = task.toObjects(DailyTransactions.class);
                 Optional<DailyTransactions> optionalDailyTransaction = dailyTransactions.stream().findFirst();
-                optionalDailyTransaction.ifPresent(value ->
-                    firstTransactionDate = LocalDate.parse(value.getDate())
-                );
 
-                setPage(0);
+                if (optionalDailyTransaction.isPresent()){
+                    firstTransactionDate = LocalDate.parse(optionalDailyTransaction.get().getDate());
+                    setPage(0);
+                    return;
+                }
+
+                progressBar.setVisibility(View.GONE);
+                emptyFrame.setVisibility(View.VISIBLE);
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()) )
         ;
