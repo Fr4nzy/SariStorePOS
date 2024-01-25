@@ -14,15 +14,15 @@ import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.models.DailyTransactions;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
 public class TransactionDailySummaryAdapter extends RecyclerView.Adapter<TransactionDailySummaryViewHolder>{
     private final Context context;
     private final List<DailyTransactions> dailyTransactionsList;
-    @SuppressLint("SimpleDateFormat")
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy");
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
     public TransactionDailySummaryAdapter(Context context, List<DailyTransactions> dailyTransactions) {
         this.context = context;
         this.dailyTransactionsList = dailyTransactions;
@@ -40,7 +40,7 @@ public class TransactionDailySummaryAdapter extends RecyclerView.Adapter<Transac
     public void onBindViewHolder(@NonNull TransactionDailySummaryViewHolder holder, int position) {
         DailyTransactions dailyTransactions = dailyTransactionsList.get(position);
 
-        holder.summaryDateText.setText(dateFormat.format(dailyTransactions.getDate()));
+        holder.summaryDateText.setText(LocalDate.parse(dailyTransactions.getDate()).format(dateFormatter));
         holder.totalSoldItemsText.setText(String.format(
             "Total Sold Items: %,d",
             dailyTransactions.calculateTotalSoldItems()

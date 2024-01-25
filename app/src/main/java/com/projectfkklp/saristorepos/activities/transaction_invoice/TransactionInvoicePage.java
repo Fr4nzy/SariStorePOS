@@ -15,22 +15,17 @@ import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 
 public class TransactionInvoicePage extends AppCompatActivity {
-    public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
-            "MMMM d, yyyy",
-            Locale.getDefault()
-    );
-    public static SimpleDateFormat DATETIME_FORMAT = new SimpleDateFormat(
-            "MMMM d, yyyy hh:mm a",
-            Locale.getDefault()
-    );
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm a");
 
     RecyclerView invoiceRecycler;
     TextView titleText;
@@ -65,7 +60,7 @@ public class TransactionInvoicePage extends AppCompatActivity {
             assert dailyTransactions != null;
             title = String.format(
                 "Summary Invoice — %s",
-                DATE_FORMAT.format(dailyTransactions.getDate())
+                LocalDate.parse(dailyTransactions.getDate()).format(dateFormatter)
             );
             transactions = dailyTransactions.getTransactions();
         }
@@ -74,7 +69,7 @@ public class TransactionInvoicePage extends AppCompatActivity {
             assert transaction != null;
             title = String.format(
                 "Invoice — %s",
-                DATETIME_FORMAT.format(transaction.getDateTime())
+                LocalDateTime.parse(transaction.getDateTime()).format(dateTimeFormatter)
             );
             transactions = Collections.singletonList(transaction);
         }

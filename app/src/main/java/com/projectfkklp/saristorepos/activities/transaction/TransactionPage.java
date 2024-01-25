@@ -16,7 +16,6 @@ import com.projectfkklp.saristorepos.activities.transaction.transaction_history.
 import com.projectfkklp.saristorepos.models.DailyTransactions;
 import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
-import com.projectfkklp.saristorepos.utils.DateUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -56,10 +55,9 @@ public class TransactionPage extends AppCompatActivity {
         dailyTransactions = new ArrayList<>();
 
         LocalDate date = LocalDate.of(2024, 1, 1);
-        String dateStr = date.toString();
         for (int i=0; i < 30;i++){
             dailyTransactions.add(new DailyTransactions(
-                dateStr,
+                date.toString(),
                 new ArrayList<>(Arrays.asList(
                     new Transaction(
                         LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 10, 0, 0).toString(),
