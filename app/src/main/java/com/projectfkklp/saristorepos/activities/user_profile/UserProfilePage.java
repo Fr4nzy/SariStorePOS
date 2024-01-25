@@ -3,6 +3,7 @@ package com.projectfkklp.saristorepos.activities.user_profile;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -68,7 +69,16 @@ public class UserProfilePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile_page);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        initialize();
+    }
+
+    public void initialize(){
         currentUser = SessionRepository.getCurrentUser(this);
 
         initializeViews();
@@ -123,9 +133,7 @@ public class UserProfilePage extends AppCompatActivity {
             }
         });
 
-        if (currentUser.getIsSuperAdmin()){
-            superAdminBtn.setVisibility(View.VISIBLE);
-        }
+        superAdminBtn.setVisibility(currentUser.getIsSuperAdmin()? View.VISIBLE:View.GONE);
     }
 
     public void changeProfilePhoneNumber(View view){

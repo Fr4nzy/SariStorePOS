@@ -46,5 +46,9 @@ public class UserRepository {
             .whereIn("id", userIds)
             .get();
     }
+
+    public static Task<DocumentSnapshot> getUserById(String id) {
+        return getCollectionReference().document(id).get();
+    }
 }
 
