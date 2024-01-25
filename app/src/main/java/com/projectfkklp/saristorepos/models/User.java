@@ -15,6 +15,7 @@ public class User {
     private String phoneUid;
     private String gmail;
     private String gmailUid;
+    public boolean isSuperAdmin;
 
 
     // Setter methods
@@ -35,7 +36,9 @@ public class User {
     public void setGmailUid(String gmailUid) {
         this.gmailUid = gmailUid;
     }
-
+    public void setIsSuperAdmin(boolean isSuperAdmin){
+        this.isSuperAdmin = isSuperAdmin;
+    }
 
     // Getter methods
     public String getId() {
@@ -55,6 +58,9 @@ public class User {
     }
     public String getGmailUid() {
         return gmailUid;
+    }
+    public boolean getIsSuperAdmin(){
+        return isSuperAdmin;
     }
     @NonNull
     public User clone() {
