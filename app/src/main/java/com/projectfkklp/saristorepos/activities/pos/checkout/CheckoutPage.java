@@ -133,29 +133,40 @@ public class CheckoutPage extends AppCompatActivity {
     }
 
     public void submit(View view){
-        String dateTime = LocalDateTime.now().toString();
-        Transaction transaction = new Transaction(
-            dateTime,
-            transactionItems
-        );
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+            .setTitle("Submit Transaction?")
+            .setMessage("Are you sure you want to submit this transaction?")
+            .setPositiveButton("Yes", (dialog, which) -> {
+                String dateTime = LocalDateTime.now().toString();
+                Transaction transaction = new Transaction(
+                    dateTime,
+                    transactionItems
+                );
 
-        ProgressUtils.showDialog(this, "Submitting...");
-        DailyTransactionsManager
-            .addTransaction(this, transaction)
-            .addOnSuccessListener(task->{
-                // Clear cache
-                CacheUtils.saveObjectList(this, "transaction_items", new ArrayList<>());
+                ProgressUtils.showDialog(this, "Submitting...");
+                DailyTransactionsManager
+                    .addTransaction(this, transaction)
+                    .addOnSuccessListener(task->{
+                        // Clear cache
+                        CacheUtils.saveObjectList(this, "transaction_items", new ArrayList<>());
 
-                // Goto Invoice Page
-                Intent intent = new Intent(this, TransactionInvoicePage.class);
-                intent.putExtra("src", "transaction");
-                intent.putExtra("transaction", transaction);
+                        // Goto Invoice Page
+                        Intent intent = new Intent(this, TransactionInvoicePage.class);
+                        intent.putExtra("src", "transaction");
+                        intent.putExtra("transaction", transaction);
 
-                startActivity(intent);
-                finish();
+                        startActivity(intent);
+                        finish();
+                    })
+                    .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
+                    .addOnCompleteListener(task-> ProgressUtils.dismissDialog())
+                ;
             })
-            .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
-            .addOnCompleteListener(task-> ProgressUtils.dismissDialog())
+            .setNegativeButton("No", (dialog, which) -> {
+                dialog.dismiss();
+            })
+            .show()
         ;
     }
 
