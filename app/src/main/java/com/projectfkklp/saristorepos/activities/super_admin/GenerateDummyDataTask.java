@@ -18,6 +18,7 @@ import com.projectfkklp.saristorepos.repositories.DatasetRepository;
 import com.projectfkklp.saristorepos.repositories.ProductRepository;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.utils.DateUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import android.content.Context;
@@ -141,7 +142,8 @@ public class GenerateDummyDataTask extends AsyncTask<Void, Integer, Void> {
             store.getDailySales().add((double) dailyTransactions.calculateTotalSales());
         }
 
-        store.setDailySalesUpdatedAt(new Date());
+        // NOTE: Last transaction is from yesterday (Check dummyDailyTransactions)
+        store.setDailySalesUpdatedAt(DateUtils.addDays(new Date(), -1));
     }
 
     private void clearDailyTransactionsFirebaseCollection(){
