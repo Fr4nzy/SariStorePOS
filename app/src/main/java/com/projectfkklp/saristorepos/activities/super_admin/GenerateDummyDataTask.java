@@ -30,7 +30,7 @@ import java.util.Objects;
 public class GenerateDummyDataTask extends AsyncTask<Void, Integer, Void> {
     private final Context context;
     private ProgressDialog progressDialog;
-    private int max = 3;
+    private int max = 1;
     private boolean isCompleted = false;
     private Store store;
     List<Product> dummyProducts;
@@ -45,10 +45,12 @@ public class GenerateDummyDataTask extends AsyncTask<Void, Integer, Void> {
         super.onPreExecute();
 
         progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Generating Dummy Data...");
+        progressDialog.setTitle("Generating Dummy Data");
+        progressDialog.setMessage("Calculating data...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
+        progressDialog.setProgress(0);
         progressDialog.show();
     }
 
@@ -102,16 +104,15 @@ public class GenerateDummyDataTask extends AsyncTask<Void, Integer, Void> {
     }
     private void setDummyProducts(){
         dummyProducts = ProductRepository.getDummyProducts();
-        publishProgress();
     }
     private void setDummyDailyTransactions(){
         double[] datasetSales = DatasetRepository.getTrainingDataset(context);
 
         dummyDailyTransactions = DailyTransactionsRepository.getDummyDailyTransactions(datasetSales);
-        publishProgress();
     }
 
     private Task<Task<Void>> resetStoreData(){
+        progressDialog.setMessage("Resetting store products, and other data...");
         return StoreRepository.getStoreById(SessionRepository.getCurrentStore(context).getId())
             .continueWith(task->{
                 store = task.getResult().toObject(Store.class);
@@ -144,6 +145,7 @@ public class GenerateDummyDataTask extends AsyncTask<Void, Integer, Void> {
     }
 
     private void clearDailyTransactionsFirebaseCollection(){
+        progressDialog.setMessage("Clearing Daily Transactions...");
         DailyTransactionsRepository.getAll(context)
             .addOnFailureListener(e -> showErrorDialog(e.getMessage()))
             .addOnCompleteListener(task->{
@@ -181,6 +183,7 @@ public class GenerateDummyDataTask extends AsyncTask<Void, Integer, Void> {
     }
 
     private void uploadDummyDailyTransactions(){
+        progressDialog.setMessage("Uploading Dummy Daily Transactions...");
         List<Task<Void>> creationTasks = new ArrayList<>();
         for (DailyTransactions dailyTransactions:dummyDailyTransactions){
             Task<Void> creationTask = DailyTransactionsManager.save(context, dailyTransactions)
