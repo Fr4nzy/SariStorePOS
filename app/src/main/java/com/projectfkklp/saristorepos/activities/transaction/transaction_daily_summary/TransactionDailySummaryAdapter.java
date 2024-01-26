@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.models.DailyTransactions;
+import com.projectfkklp.saristorepos.utils.Serializer;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -53,7 +54,7 @@ public class TransactionDailySummaryAdapter extends RecyclerView.Adapter<Transac
         holder.container.setOnClickListener(view -> {
             Intent intent = new Intent(context, TransactionInvoicePage.class);
             intent.putExtra("src", "dailyTransactions");
-            intent.putExtra("dailyTransactions", dailyTransactions);
+            intent.putExtra("dailyTransactions", Serializer.serialize(dailyTransactions));
             context.startActivity(intent);
         });
     }

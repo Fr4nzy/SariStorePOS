@@ -25,6 +25,7 @@ import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
 import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
+import com.projectfkklp.saristorepos.utils.Serializer;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
@@ -154,7 +155,7 @@ public class CheckoutPage extends AppCompatActivity {
                         // Goto Invoice Page
                         Intent intent = new Intent(this, TransactionInvoicePage.class);
                         intent.putExtra("src", "transaction");
-                        intent.putExtra("transaction", transaction);
+                        intent.putExtra("transaction", Serializer.serialize(transaction));
 
                         startActivity(intent);
                         finish();

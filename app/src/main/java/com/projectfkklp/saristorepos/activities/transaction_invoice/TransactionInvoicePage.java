@@ -13,6 +13,7 @@ import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.DailyTransactions;
 import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
+import com.projectfkklp.saristorepos.utils.Serializer;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.time.LocalDate;
@@ -55,7 +56,7 @@ public class TransactionInvoicePage extends AppCompatActivity {
         String src = getIntent().getStringExtra("src");
         assert src != null;
         if (src.equals("dailyTransactions")) {
-            DailyTransactions dailyTransactions = getIntent().getSerializableExtra("dailyTransactions", DailyTransactions.class);
+            DailyTransactions dailyTransactions = Serializer.deserialize(getIntent().getStringExtra("dailyTransactions"), DailyTransactions.class);
             assert dailyTransactions != null;
             title = String.format(
                 "Summary Invoice — %s",
@@ -64,7 +65,7 @@ public class TransactionInvoicePage extends AppCompatActivity {
             transactions = dailyTransactions.getTransactions();
         }
         else {
-            Transaction transaction = getIntent().getSerializableExtra("transaction", Transaction.class);
+            Transaction transaction = Serializer.deserialize(getIntent().getStringExtra("transaction"), Transaction.class);
             assert transaction != null;
             title = String.format(
                 "Invoice — %s",

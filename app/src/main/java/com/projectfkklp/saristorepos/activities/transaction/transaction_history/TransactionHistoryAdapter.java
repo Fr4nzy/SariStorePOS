@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.utils.Serializer;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -52,7 +53,7 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionH
         holder.container.setOnClickListener(view -> {
             Intent intent = new Intent(context, TransactionInvoicePage.class);
             intent.putExtra("src", "transaction");
-            intent.putExtra("transaction", transaction);
+            intent.putExtra("transaction", Serializer.serialize(transaction));
             context.startActivity(intent);
         });
     }
