@@ -40,7 +40,7 @@ public class DailyTransactionsManager {
                 assert store != null;
 
                 // Update Daily Sales
-                updateDailySales(store, transaction.calculateTotalSales());
+                updateDailySales(store, transaction.calculateTotalQuantity(), transaction.calculateTotalSales());
 
                 // Update Product Stocks
                 for (TransactionItem transactionItem:transaction.getItems()){
@@ -78,7 +78,8 @@ public class DailyTransactionsManager {
         ;
     }
 
-    private static void updateDailySales(Store store, double newTransactionAmount){
+    private static void updateDailySales(Store store, int newTransactionTotalQuantity, double newTransactionAmount){
+        List<Integer> dailySold = store.getDailySold();
         List<Double> dailySales = store.getDailySales();
         Date lastUpdatedAt = store.getDailySalesUpdatedAt();
         Date currentDate = new Date();
@@ -87,6 +88,7 @@ public class DailyTransactionsManager {
 
         //If no daily sales, adds a new transaction amount
         if (dailySales.size()==0) {
+            dailySold.add(newTransactionTotalQuantity);
             dailySales.add(newTransactionAmount);
             return;
         }
@@ -94,6 +96,10 @@ public class DailyTransactionsManager {
         // If there is existing entry for today
         if(DateUtils.isSameDay(lastUpdatedAt, currentDate)){
             int lastItemIndex = dailySales.size()-1;
+
+            Integer updatedDailySold = dailySold.get(lastItemIndex) + newTransactionTotalQuantity;
+            dailySold.set(dailySold.size()-1, updatedDailySold);
+
             Double updatedDailySale = dailySales.get(lastItemIndex) + newTransactionAmount;
             dailySales.set(dailySales.size()-1, updatedDailySale);
             return;
@@ -104,10 +110,12 @@ public class DailyTransactionsManager {
             // get gaps for difference of two or more, and fill it with zeros
             long gaps = DateUtils.calculateDaysDifference(lastUpdatedAt, currentDate) - 1;
             for (int i=0; i<gaps;i++){
+                dailySold.add(0);
                 dailySales.add(0.);
             }
 
             // Append the newTransactionAmount at the end of List
+            dailySold.add(newTransactionTotalQuantity);
             dailySales.add(newTransactionAmount);
         }
     }

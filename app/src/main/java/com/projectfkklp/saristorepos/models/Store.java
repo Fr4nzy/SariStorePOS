@@ -13,12 +13,14 @@ public class Store {
     private String name;
     private String address;
     private ArrayList<Product> products;
+    private List<Integer> dailySold;
     private List<Double> dailySales;
     private Date dailySalesUpdatedAt;
 
     public Store(){
         id = ModelUtils.createShortId();
         products = new ArrayList<>();
+        dailySold = new ArrayList<>();
         dailySales = new ArrayList<>();
         dailySalesUpdatedAt = new Date();
     }
@@ -27,10 +29,6 @@ public class Store {
         this.id = id;
         this.name = name;
         products = new ArrayList<>();
-    }
-    public Store(List<Double> dailySales, Date dailySalesUpdatedAt) {
-        this.dailySales = dailySales;
-        this.dailySalesUpdatedAt = dailySalesUpdatedAt;
     }
 
     public Store(String id, String name, String address){
@@ -69,6 +67,16 @@ public class Store {
 
     public ArrayList<Product> getProducts(){
         return products;
+    }
+
+    // Getter for dailySold
+    public List<Integer> getDailySold() {
+        return dailySold;
+    }
+
+    // Setter for dailySold
+    public void setDailySold(List<Integer> dailySold) {
+        this.dailySold = dailySold;
     }
 
     // Getter for dailySales
