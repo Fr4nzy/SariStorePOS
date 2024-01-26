@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -61,6 +62,18 @@ public class DateUtils {
         LocalDate localDate1 = date1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localDate2 = date2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return ChronoUnit.DAYS.between(localDate1, localDate2);
+    }
+
+    public static LocalDate toLocalDate(Date dateToConvert){
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+    }
+
+    public static LocalDateTime toLocalDateTime(Date dateToConvert){
+        return dateToConvert.toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime();
     }
 
 }

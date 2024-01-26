@@ -4,10 +4,11 @@ import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DailyTransactions implements Serializable {
     private String date;
-    private ArrayList<Transaction> transactions;
+    private List<Transaction> transactions;
 
     public DailyTransactions() {
 
@@ -18,7 +19,7 @@ public class DailyTransactions implements Serializable {
         this.transactions = new ArrayList<>();
     }
 
-    public DailyTransactions(String date, ArrayList<Transaction> transactions) {
+    public DailyTransactions(String date, List<Transaction> transactions) {
         this.date = date;
         this.transactions = transactions;
     }
@@ -34,12 +35,12 @@ public class DailyTransactions implements Serializable {
     }
 
     // Getter method for 'transactions'
-    public ArrayList<Transaction> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 
     // Setter method for 'transactions'
-    public void setTransactions(ArrayList<Transaction> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
 
