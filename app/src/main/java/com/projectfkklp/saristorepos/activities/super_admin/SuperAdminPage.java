@@ -34,7 +34,7 @@ public class SuperAdminPage extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder
             .setTitle("Generate Dummy Data?")
-            .setMessage("This operation will delete the products, transactions, and other data under store in this session.\n\nAre you sure you want to proceed this operation?")
+            .setMessage("This operation will overwrite the products, transactions, and other data under store in this session.\n\nAre you sure you want to proceed this operation?")
             .setPositiveButton("Yes", (dialog, which) -> {
                 generateDummyData();
             })

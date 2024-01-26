@@ -51,7 +51,6 @@ public class TransactionInvoicePage extends AppCompatActivity {
         initializeRecyclerView();
     }
 
-    @SuppressLint("NewApi")
     private void loadTitleAndTransactions(){
         String src = getIntent().getStringExtra("src");
         assert src != null;

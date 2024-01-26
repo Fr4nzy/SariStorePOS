@@ -42,7 +42,7 @@ public class TransactionPage extends AppCompatActivity {
     private final DateTimeFormatter withYearDateFormatter = DateTimeFormatter.ofPattern("yyyy MMM, d");
     private final DateTimeFormatter withOutYearDateFormatter = DateTimeFormatter.ofPattern("MMM, d");
     private LocalDate firstTransactionDate;
-    private int page;
+    private int page = 0;
 
     TransactionDailySummaryAdapter dailySummaryAdapter;
     TransactionHistoryAdapter historyAdapter;
@@ -75,7 +75,7 @@ public class TransactionPage extends AppCompatActivity {
 
                 if (optionalDailyTransaction.isPresent()){
                     firstTransactionDate = LocalDate.parse(optionalDailyTransaction.get().getDate());
-                    setPage(0);
+                    setPage(page);
                     return;
                 }
 
