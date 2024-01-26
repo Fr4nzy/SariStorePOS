@@ -142,7 +142,6 @@ public class TransactionPage extends AppCompatActivity {
 
     private void setPage(int page){
         progressBar.setVisibility(View.VISIBLE);
-        dailyTransactions.clear();
 
         this.page = page;
         if (this.page==0){
@@ -181,6 +180,7 @@ public class TransactionPage extends AppCompatActivity {
         DailyTransactionsRepository
             .getDailyTransactions(this, page)
             .addOnSuccessListener(task->{
+                dailyTransactions.clear();
                 dailyTransactions.addAll(task.toObjects(DailyTransactions.class));
 
                 emptyFrame.setVisibility(dailyTransactions.isEmpty() ? View.VISIBLE: View.GONE);
