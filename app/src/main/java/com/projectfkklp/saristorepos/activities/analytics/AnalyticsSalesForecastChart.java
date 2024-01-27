@@ -53,36 +53,36 @@ public class AnalyticsSalesForecastChart extends DashboardSalesForecastChart {
             xAxis.setEnabled(true);
             xAxis.setTextSize(7);
             int labelCount =
-                    // Sometimes, our Arima will not be able to produce forecast
-                    // especially when there is not enough data
-                    // this will make actualSales.length != (forecastSales.length - {EXTRA_FORECAST_COUNT})
-                    // note: I deduct the 6, since those forecasts are for tomorrow and the following days
-                    // As a solution, we set aside first the {EXTRA_FORECAST_COUNT} forecast (which we add later)
-                    // then, we check which now produce higher counts
-                    // finally, that higher count will be added by 6
-                    Math.max(actualSalesSize, forecastSalesSize - ReportRepository.EXTRA_FORECAST_COUNT)
-                            // No matter what happen
-                            // When our Arima Model is capable to forecast
-                            // It will produce forecast with size {EXTRA_FORECAST_COUNT} days ahead from current date
-                            + ReportRepository.EXTRA_FORECAST_COUNT;
+                // Sometimes, our Arima will not be able to produce forecast
+                // especially when there is not enough data
+                // this will make actualSales.length != (forecastSales.length - {EXTRA_FORECAST_COUNT})
+                // note: I deduct the 6, since those forecasts are for tomorrow and the following days
+                // As a solution, we set aside first the {EXTRA_FORECAST_COUNT} forecast (which we add later)
+                // then, we check which now produce higher counts
+                // finally, that higher count will be added by 6
+                Math.max(actualSalesSize, forecastSalesSize - ReportRepository.EXTRA_FORECAST_COUNT)
+                    // No matter what happen
+                    // When our Arima Model is capable to forecast
+                    // It will produce forecast with size {EXTRA_FORECAST_COUNT} days ahead from current date
+                    + ReportRepository.EXTRA_FORECAST_COUNT;
             xAxis.setLabelCount(labelCount-1);
             xAxis.setLabelRotationAngle(-45);
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
             xAxis.setValueFormatter(new ValueFormatter() {
                 @Override
                 public String getFormattedValue(float value) {
-                    int datePositionFromNow = (int) (value - actualSalesSize + 1);
+                int datePositionFromNow = (int) (value - actualSalesSize + 1);
 
-                    if (datePositionFromNow == 0) {
-                        return "Today";
-                    }
-                    if (datePositionFromNow == -1) {
-                        return "Yesterday";
-                    }
-                    if (datePositionFromNow == 1) {
-                        return "Tomorrow";
-                    }
-                    return DateUtils.SHORT_DATE_FORMAT.format(DateUtils.addDays(currentData, datePositionFromNow));
+                if (datePositionFromNow == 0) {
+                    return "Today";
+                }
+                if (datePositionFromNow == -1) {
+                    return "Yesterday";
+                }
+                if (datePositionFromNow == 1) {
+                    return "Tomorrow";
+                }
+                return DateUtils.SHORT_DATE_FORMAT.format(DateUtils.addDays(currentData, datePositionFromNow));
                 }
 
             });
