@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.utils.Serializer;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.util.List;
@@ -71,7 +72,7 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
 
         holder.container.setOnClickListener(v -> {
             Intent intent = new Intent(context, InventoryProductDetailPage.class);
-            intent.putExtra("Product", product);
+            intent.putExtra("Product", Serializer.serialize(product));
             context.startActivity(intent);
         });
     }

@@ -28,6 +28,7 @@ import com.projectfkklp.saristorepos.managers.StorageManager;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.utils.ModelUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
+import com.projectfkklp.saristorepos.utils.Serializer;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -52,17 +53,14 @@ public class InventoryProductDetailPage extends AppCompatActivity {
     Button productBarcodeButton, productRemoveImageButton;
     ImageButton productBarcodeClearButton;
 
-
-    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inventory_product_detail_page);
 
-        product = getIntent().getSerializableExtra("Product", Product.class);
+        product = Serializer.deserialize(getIntent().getStringExtra("Product"), Product.class);
 
         initializeViews();
-
     }
 
     private void initializeViews() {
@@ -80,12 +78,12 @@ public class InventoryProductDetailPage extends AppCompatActivity {
         productUnitPriceText.setText(Objects.toString(product.getUnitPrice() == 0 ? "" : product.getUnitPrice()));
         productStockText.setText(String.valueOf(product.getStocks() == 0 ? "" : product.getStocks()));
         productBarcodeClearButton.setVisibility(
-                StringUtils.isNullOrEmpty(product.getBarcode())
-                ? View.GONE : View.VISIBLE
+            StringUtils.isNullOrEmpty(product.getBarcode())
+            ? View.GONE : View.VISIBLE
         );
         productRemoveImageButton.setVisibility(
-                StringUtils.isNullOrEmpty(product.getImgUrl())
-                        ? View.GONE : View.VISIBLE
+            StringUtils.isNullOrEmpty(product.getImgUrl())
+                ? View.GONE : View.VISIBLE
         );
 
         if (!StringUtils.isNullOrEmpty(product.getBarcode())){

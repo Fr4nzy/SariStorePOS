@@ -21,12 +21,13 @@ import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.utils.Serializer;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-;
+
 public class InventoryProductListPage extends AppCompatActivity {
     SearchView searchText;
     FloatingActionButton addFAB;
@@ -83,7 +84,7 @@ public class InventoryProductListPage extends AppCompatActivity {
 
         addFAB.setOnClickListener(v -> {
             Intent intent = new Intent(this, InventoryProductDetailPage.class);
-            intent.putExtra("Product", new Product());
+            intent.putExtra("Product", Serializer.serialize(new Product()));
             startActivity(intent);
         });
     }
