@@ -2,25 +2,42 @@ package com.projectfkklp.saristorepos.activities.analytics;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesForecastChart;
 
 public class AnalyticsPage extends AppCompatActivity {
-    private DashboardSalesForecastChart chart;
+    private AnalyticsSalesForecastChart analyticsChart;
+    private SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analytics_page);
 
-        chart = findViewById(R.id.dashboard_analytics_chart);
-        applyDefaultZoom();
+        initializeViews();
+        generateAnalyticsChart();
+
+    }
+    private void initializeViews() {
+        swipeRefresh = findViewById(R.id.dashboard_swipe_refresh);
+        analyticsChart = findViewById(R.id.analytics_forecast_chart);
+
+        swipeRefresh.setOnRefreshListener(() -> {
+            swipeRefresh.setRefreshing(false);
+        });
     }
 
-    private void applyDefaultZoom() {
-        float defaultZoomLevel = 1.5f;
+    private void generateAnalyticsChart() {
+        float[] actualSales = generateRandomDoubleArray(7);
+        float[] forecastSales = generateRandomDoubleArray(10);
+        analyticsChart.setData(actualSales, forecastSales);
+    }
 
-        chart.setScaleX(defaultZoomLevel);
-        chart.setScaleY(defaultZoomLevel);
+    private float[] generateRandomDoubleArray(int count) {
+        float[] values = new float[count];
+
+        for (int i = 0; i < count; i++) values[i] = (float) (Math.random() * 2500) + 3;
+
+        return values;
     }
 }

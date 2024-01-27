@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DashboardSalesForecastChart extends LineChart {
-    private int actualSalesSize;
-    private int forecastSalesSize;
-    private final Date currentData = new Date();
+    protected int actualSalesSize;
+    protected int forecastSalesSize;
+    protected final Date currentData = new Date();
 
     public DashboardSalesForecastChart(Context context) {
         super(context);
@@ -55,7 +55,7 @@ public class DashboardSalesForecastChart extends LineChart {
         setupChart(lineData);
     }
 
-    private void setupChart(LineData data) {
+    protected void setupChart(LineData data) {
         // General Configurations
         {
             ((LineDataSet) data.getDataSetByIndex(0)).setCircleHoleColor(Color.WHITE);

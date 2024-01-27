@@ -4,24 +4,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.dashboard.DashboardPage"
+    tools:context=".activities.analytics.AnalyticsPage"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_marginEnd="5dp"
+            android:onClick="navigateBack"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Analytics"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:weightSum="3"
+        android:layout_weight="2">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
             app:cardCornerRadius="2dp"
-            app:cardElevation="5dp"
-            android:layout_margin="8dp">
+            app:cardElevation="5dp">
+
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/dashboard_swipe_refresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesForecastChart
-                    android:id="@+id/dashboard_analytics_chart"
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sales history and Forecast"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_margin="8dp"/>
+
+                    <com.projectfkklp.saristorepos.activities.analytics.AnalyticsSalesForecastChart
+                        android:id="@+id/analytics_forecast_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </androidx.cardview.widget.CardView>
 
+    </LinearLayout>
 </LinearLayout>
