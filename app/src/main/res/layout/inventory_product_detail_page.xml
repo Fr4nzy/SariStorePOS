@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     android:orientation="horizontal"
     tools:context=".activities.inventory.InventoryProductDetailPage">
 
@@ -56,15 +55,32 @@
                     tools:visibility="visible" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/product_detail_image_view"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/placeholder"
-                tools:visibility="visible" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/product_detail_image_view"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/placeholder"
+                    tools:visibility="visible"
+                    android:contentDescription="Product Image" />
+
+                <Button
+                    android:id="@+id/product_detail_remove_image_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Remove Image"
+                    android:onClick="removeImage"
+                    android:textSize="9sp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+            </LinearLayout>
 
             <EditText
                 android:autofillHints="name"
@@ -108,22 +124,30 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
                 <Button
                     android:id="@+id/product_detail_barcode_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="30dp"
                     android:background="@drawable/roundback"
-                    android:text="Barcode"
+                    android:text="Scan Barcode"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     tools:visibility="visible" />
                 <ImageButton
+                    android:id="@+id/product_detail_barcode_clear"
+                    android:backgroundTint="@color/white"
+                    android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_cancel_24"/>
+                    android:layout_height="40dp"
+                    android:padding="5dp"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:visibility="visible"
+                    android:src="@drawable/clear"
+                    android:onClick="clearBarcode"/>
             </LinearLayout>
 
             <Button

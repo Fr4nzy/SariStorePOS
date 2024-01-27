@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -33,6 +35,7 @@ import com.google.zxing.integration.android.IntentResult;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 import com.projectfkklp.saristorepos.validators.ProductValidator;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -46,7 +49,8 @@ public class InventoryProductDetailPage extends AppCompatActivity {
     EditText productNameText;
     EditText productUnitPriceText;
     EditText productStockText;
-    Button detailBarcodeButton;
+    Button productBarcodeButton, productRemoveImageButton;
+    ImageButton productBarcodeClearButton;
 
 
     @SuppressLint("NewApi")
@@ -64,15 +68,33 @@ public class InventoryProductDetailPage extends AppCompatActivity {
     private void initializeViews() {
         titleText = findViewById(R.id.product_detail_title);
         productImgView = findViewById(R.id.product_detail_image_view);
-        detailBarcodeButton = findViewById(R.id.product_detail_barcode_button);
         productUnitPriceText = findViewById(R.id.product_detail_price_text);
         productStockText = findViewById(R.id.product_detail_stock_text);
         productNameText = findViewById(R.id.product_detail_product_text);
+        productBarcodeButton = findViewById(R.id.product_detail_barcode_button);
+        productBarcodeClearButton = findViewById(R.id.product_detail_barcode_clear);
+        productRemoveImageButton = findViewById(R.id.product_detail_remove_image_button);
 
         titleText.setText(StringUtils.isNullOrEmpty(product.getId()) ? "Create Product" : "Edit Product");
         productNameText.setText(Objects.toString(product.getName(), ""));
         productUnitPriceText.setText(Objects.toString(product.getUnitPrice() == 0 ? "" : product.getUnitPrice()));
         productStockText.setText(String.valueOf(product.getStocks() == 0 ? "" : product.getStocks()));
+        productBarcodeClearButton.setVisibility(
+                StringUtils.isNullOrEmpty(product.getBarcode())
+                ? View.GONE : View.VISIBLE
+        );
+        productRemoveImageButton.setVisibility(
+                StringUtils.isNullOrEmpty(product.getImgUrl())
+                        ? View.GONE : View.VISIBLE
+        );
+
+        if (!StringUtils.isNullOrEmpty(product.getBarcode())){
+            productBarcodeButton.setText(product.getBarcode());
+        }
+
+        if (!StringUtils.isNullOrEmpty(product.getImgUrl())) {
+            loadProductImage(product.getImgUrl());
+        }
 
         ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -81,6 +103,7 @@ public class InventoryProductDetailPage extends AppCompatActivity {
                     Intent data = result.getData();
                     uri = Objects.requireNonNull(data).getData();
                     productImgView.setImageURI(uri);
+                    productRemoveImageButton.setVisibility(View.VISIBLE);
                 } else {
                     Toast.makeText(InventoryProductDetailPage.this, "No Image Selected", Toast.LENGTH_SHORT).show();
                 }
@@ -93,7 +116,7 @@ public class InventoryProductDetailPage extends AppCompatActivity {
             imagePickerLauncher.launch(photoPicker);
         });
 
-        detailBarcodeButton.setOnClickListener(v -> {
+        productBarcodeButton.setOnClickListener(v -> {
             // Launch ZXing barcode scanner
             new IntentIntegrator(InventoryProductDetailPage.this).initiateScan();
         });
@@ -109,14 +132,34 @@ public class InventoryProductDetailPage extends AppCompatActivity {
             if (result.getContents() != null) {
                 tempBarcode = result.getContents();
                 // Update the button text to show the scanned barcode temporarily
-                detailBarcodeButton.setText(tempBarcode);
+                productBarcodeButton.setText(tempBarcode);
                 product.setBarcode(tempBarcode);
+                productBarcodeClearButton.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "Scanned Barcode: " + tempBarcode, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    public void saveProduct(View view) {
+    public void clearBarcode(View v) {
+        product.setBarcode("");
+        productBarcodeButton.setText("Scan Barcode");
+        productBarcodeClearButton.setVisibility(View.GONE);
+    }
+
+    public void removeImage(View view) {
+        product.setImgUrl("");
+        productImgView.setImageResource(R.drawable.placeholder);
+        productRemoveImageButton.setVisibility(View.GONE);
+    }
+
+    private void loadProductImage(String imgUrl) {
+        // Use Glide to load the image from the URL
+        Glide.with(this)
+            .load(imgUrl)
+            .into(productImgView);
+    }
+
+    public void saveProduct(View view) throws IOException {
         // Initialize Data
         String unitPriceStr = productUnitPriceText.getText().toString();
         String stocksStr = productStockText.getText().toString();
@@ -131,7 +174,14 @@ public class InventoryProductDetailPage extends AppCompatActivity {
                 ? "0"
                 : stocksStr
         ));
+
         product.setBarcode(tempBarcode);
+
+        if (tempBarcode != null) {
+            productBarcodeClearButton.setVisibility(View.VISIBLE);
+        } else {
+            productBarcodeClearButton.setVisibility(View.GONE);
+        }
 
         // Validation
         ValidationStatus validationStatus = ProductValidator.validate(product);
@@ -149,7 +199,7 @@ public class InventoryProductDetailPage extends AppCompatActivity {
         ProgressUtils.showDialog(this, "Saving...");
         StorageManager
             // Upload File
-            .uploadFile(uri, ModelUtils.createUUID())
+            .uploadImage(uri, ModelUtils.createUUID())
             // get Uploaded Image URL
             .continueWithTask(taskSnapshot -> {
                 if (!taskSnapshot.isCanceled()){
