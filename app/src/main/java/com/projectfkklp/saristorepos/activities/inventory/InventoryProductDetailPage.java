@@ -1,6 +1,5 @@
 package com.projectfkklp.saristorepos.activities.inventory;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
