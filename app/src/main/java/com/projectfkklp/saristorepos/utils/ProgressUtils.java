@@ -1,6 +1,7 @@
 package com.projectfkklp.saristorepos.utils;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 public class ProgressUtils {
     private static AlertDialog dialog = null;
+    private static ProgressDialog progressDialog;
 
     public static void showDialog(Context context, String message) {
         if(dialog == null){
@@ -80,4 +82,26 @@ public class ProgressUtils {
         }
     }
 
+    public static void showDeterminateDialog(Context context, int max,  String message){
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage(message);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setCancelable(false);
+        progressDialog.setMax(max);
+        progressDialog.setProgress(0);
+
+        progressDialog.show();
+    }
+
+    public static void dismissDeterminateDialog(){
+        progressDialog.dismiss();
+    }
+
+    public static void setDeterminateProgress(int progress){
+        progressDialog.setProgress(progress);
+    }
+
+    public static void setDeterminateMessage(String message){
+        progressDialog.setMessage(message);
+    }
 }

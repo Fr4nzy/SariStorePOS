@@ -1,4 +1,4 @@
-package com.projectfkklp.saristorepos.activities.transaction.transaction_invoice;
+package com.projectfkklp.saristorepos.activities.transaction_invoice;
 
 import android.view.View;
 import android.widget.TextView;

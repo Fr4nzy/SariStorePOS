@@ -1,43 +1,51 @@
 package com.projectfkklp.saristorepos.models;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DailyTransactions implements Serializable {
-    private LocalDate date;
-    private ArrayList<Transaction> transactions;
+    private String date;
+    private List<Transaction> transactions;
 
     public DailyTransactions() {
 
     }
 
-    public DailyTransactions(LocalDate date, ArrayList<Transaction> transactions) {
+    public DailyTransactions(String date) {
+        this.date = date;
+        this.transactions = new ArrayList<>();
+    }
+
+    public DailyTransactions(String date, List<Transaction> transactions) {
         this.date = date;
         this.transactions = transactions;
     }
 
     // Getter method for 'date'
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
     // Setter method for 'date'
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
     // Getter method for 'transactions'
-    public ArrayList<Transaction> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 
     // Setter method for 'transactions'
-    public void setTransactions(ArrayList<Transaction> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
 
-    public int getTotalSoldItems(){
+    @Exclude
+    public int calculateTotalSoldItems(){
         if (transactions == null) {
             return 0;
         }
@@ -45,13 +53,14 @@ public class DailyTransactions implements Serializable {
         int totalSoldItems = 0;
 
         for (Transaction transaction : transactions) {
-            totalSoldItems += transaction.getTotalQuantity();
+            totalSoldItems += transaction.calculateTotalQuantity();
         }
 
         return totalSoldItems;
     }
 
-    public float getTotalSales(){
+    @Exclude
+    public float calculateTotalSales(){
         if (transactions == null) {
             return 0;
         }
@@ -59,7 +68,7 @@ public class DailyTransactions implements Serializable {
         float totalSales = 0;
 
         for (Transaction transaction : transactions) {
-            totalSales += transaction.getTotalSales();
+            totalSales += transaction.calculateTotalSales();
         }
 
         return totalSales;

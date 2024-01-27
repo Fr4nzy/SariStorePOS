@@ -4,28 +4,45 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_daily_summary.TransactionDailySummaryAdapter;
 import com.projectfkklp.saristorepos.activities.transaction.transaction_history.TransactionHistoryAdapter;
 import com.projectfkklp.saristorepos.models.DailyTransactions;
 import com.projectfkklp.saristorepos.models.Transaction;
-import com.projectfkklp.saristorepos.models.TransactionItem;
+import com.projectfkklp.saristorepos.repositories.DailyTransactionsRepository;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class TransactionPage extends AppCompatActivity {
     Spinner modeDropdown;
     RecyclerView transactionRecycler;
+    FrameLayout emptyFrame;
+    ProgressBar progressBar;
+    MaterialButton prevButton, nextButton;
+    TextView dateRangeText;
+
+    // for pagination
+    private final DateTimeFormatter withYearDateFormatter = DateTimeFormatter.ofPattern("yyyy MMM, d");
+    private final DateTimeFormatter withOutYearDateFormatter = DateTimeFormatter.ofPattern("MMM, d");
+    private LocalDate firstTransactionDate;
+    private int page = 0;
 
     TransactionDailySummaryAdapter dailySummaryAdapter;
     TransactionHistoryAdapter historyAdapter;
@@ -38,83 +55,45 @@ public class TransactionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.transaction_page);
 
-        // Load & Sort Data
-        {
-            loadDailyTransactions();
-            sortDailyTransactions();
-            loadTransactions();
-            sortTransactions();
-        }
-
+        dailyTransactions = new ArrayList<>();
+        transactions = new ArrayList<>();
         initializeViews();
         initializeRecyclerView();
         initializeDropdown();
     }
 
-    private void loadDailyTransactions(){
-        dailyTransactions = new ArrayList<>();
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-        LocalDate date = LocalDate.of(2024, 1, 1);
-        for (int i=0; i < 30;i++){
-            dailyTransactions.add(new DailyTransactions(
-                date,
-                new ArrayList<>(Arrays.asList(
-                    new Transaction(
-                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 10, 0, 0),
-                        new ArrayList<>(Arrays.asList(
-                            new TransactionItem("productabc001",1,1),
-                            new TransactionItem("productabc002",1,5),
-                            new TransactionItem("productabc003",1,10),
-                            new TransactionItem("productabc004",1,20),
-                            new TransactionItem("productabc005",1,50)
-                        ))
-                    ),
-                    new Transaction(
-                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 11, 0, 0),
-                        new ArrayList<>(Arrays.asList(
-                            new TransactionItem("productabc001",2,1),
-                            new TransactionItem("productabc002",2,5),
-                            new TransactionItem("productabc003",2,10),
-                            new TransactionItem("productabc004",2,20),
-                            new TransactionItem("productabc005",2,50)
-                        ))
-                    ),
-                    new Transaction(
-                        LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 12, 0, 0),
-                        new ArrayList<>(Arrays.asList(
-                            new TransactionItem("productabc001",3,1),
-                            new TransactionItem("productabc002",3,5),
-                            new TransactionItem("productabc003",3,10),
-                            new TransactionItem("productabc004",3,20),
-                            new TransactionItem("productabc005",3,50)
-                        ))
-                    )
-                ))
-            ));
+        progressBar.setVisibility(View.VISIBLE);
+        DailyTransactionsRepository
+            .getFirstDailyTransactions(this)
+            .addOnSuccessListener(task->{
+                List<DailyTransactions> dailyTransactions = task.toObjects(DailyTransactions.class);
+                Optional<DailyTransactions> optionalDailyTransaction = dailyTransactions.stream().findFirst();
 
-            date = date.plusDays(1);
-        }
-    }
+                if (optionalDailyTransaction.isPresent()){
+                    firstTransactionDate = LocalDate.parse(optionalDailyTransaction.get().getDate());
+                    setPage(page);
+                    return;
+                }
 
-    private void sortDailyTransactions() {
-        dailyTransactions.sort((dt1, dt2) -> dt2.getDate().compareTo(dt1.getDate()));
-    }
-
-    public void loadTransactions(){
-        transactions = new ArrayList<>();
-
-        for (DailyTransactions dailyTransactions : this.dailyTransactions){
-            transactions.addAll(dailyTransactions.getTransactions());
-        }
-    }
-
-    private void sortTransactions() {
-        transactions.sort((t1, t2) -> t2.getDateTime().compareTo(t1.getDateTime()));
+                progressBar.setVisibility(View.GONE);
+                emptyFrame.setVisibility(View.VISIBLE);
+            })
+            .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()) )
+        ;
     }
 
     private void initializeViews(){
         modeDropdown = findViewById(R.id.transaction_dropdown);
         transactionRecycler = findViewById(R.id.transaction_recycler);
+        progressBar = findViewById(R.id.transaction_progress);
+        emptyFrame = findViewById(R.id.transaction_empty_frame);
+        dateRangeText = findViewById(R.id.transaction_date_range);
+        prevButton = findViewById(R.id.transaction_prev_btn);
+        nextButton = findViewById(R.id.transaction_next_btn);
     }
 
     private void initializeRecyclerView(){
@@ -149,6 +128,90 @@ public class TransactionPage extends AppCompatActivity {
                 // Do nothing here, or handle the case where nothing is selected
             }
         });
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void refreshData(){
+        sortDailyTransactions();
+        loadTransactions();
+        sortTransactions();
+
+        historyAdapter.notifyDataSetChanged();
+        dailySummaryAdapter.notifyDataSetChanged();
+    }
+
+    private void setPage(int page){
+        progressBar.setVisibility(View.VISIBLE);
+
+        this.page = page;
+        if (this.page==0){
+            nextButton.setEnabled(false);
+            nextButton.setBackgroundResource(R.drawable.navigate_right_disabled_icon);
+        }
+        else {
+            nextButton.setEnabled(true);
+            nextButton.setBackgroundResource(R.drawable.navigate_right_enabled_icon);
+        }
+
+        LocalDate currentDate = LocalDate.now();
+        long paginationLimit = DailyTransactionsRepository.PAGINATION_LIMIT;
+        LocalDate lowerDate = currentDate.plusDays(1 - paginationLimit * (page+1) );
+        LocalDate upperDate = currentDate.plusDays(-(paginationLimit *page) );
+
+        if (firstTransactionDate.isBefore(lowerDate)) {
+            prevButton.setEnabled(true);
+            prevButton.setBackgroundResource(R.drawable.navigate_left_enabled_icon);
+        }
+        else {
+            prevButton.setEnabled(false);
+            prevButton.setBackgroundResource(R.drawable.navigate_left_disabled_icon);
+        }
+
+        dateRangeText.setText(String.format(
+            "%s — %s",
+            lowerDate.format(withYearDateFormatter),
+            upperDate.format(
+                lowerDate.getYear()==upperDate.getYear()
+                    ? withOutYearDateFormatter
+                    : withYearDateFormatter
+            )
+        ));
+
+        DailyTransactionsRepository
+            .getDailyTransactions(this, page)
+            .addOnSuccessListener(task->{
+                dailyTransactions.clear();
+                dailyTransactions.addAll(task.toObjects(DailyTransactions.class));
+
+                emptyFrame.setVisibility(dailyTransactions.isEmpty() ? View.VISIBLE: View.GONE);
+                refreshData();
+            })
+            .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()) )
+            .addOnCompleteListener(completeTask-> progressBar.setVisibility(View.GONE))
+        ;
+    }
+
+    public void prev(View view){
+        setPage(page+1);
+    }
+
+    public void next(View view){
+        setPage(page-1);
+    }
+
+    private void sortDailyTransactions() {
+        dailyTransactions.sort((dt1, dt2) -> dt2.getDate().compareTo(dt1.getDate()));
+    }
+
+    public void loadTransactions(){
+        transactions.clear();
+        for (DailyTransactions dailyTransactions : this.dailyTransactions){
+            transactions.addAll(dailyTransactions.getTransactions());
+        }
+    }
+
+    private void sortTransactions() {
+        transactions.sort((t1, t2) -> t2.getDateTime().compareTo(t1.getDateTime()));
     }
 
     public void navigateBack(View view){

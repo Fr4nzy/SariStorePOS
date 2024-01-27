@@ -1,12 +1,75 @@
 package com.projectfkklp.saristorepos.repositories;
 
+import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models._Product;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ProductRepository {
 
     public ProductRepository() {
+    }
+
+    public static List<Product> getDummyProducts(){
+        List<Product> dummyProducts = new ArrayList<>();
+
+        dummyProducts.add(new Product(
+            "2VRgnU2kZ53a2gzmYPJI",
+            "Candy",
+            1000,
+            1,
+            "",
+            ""
+        ));
+
+        dummyProducts.add(new Product(
+                "rSYFiGWe0H3uKz9O5qaz",
+                "Minute Maid",
+                1000,
+                5,
+                "",
+                ""
+        ));
+
+        dummyProducts.add(new Product(
+                "1W5qiEZ7JUAZXgBT2OpE",
+                "Coffee",
+                1000,
+                10,
+                "",
+                ""
+        ));
+
+        dummyProducts.add(new Product(
+                "9xXxr8Px7RIXm4kIQdHa",
+                "Canned Tuna",
+                1000,
+                20,
+                "",
+                ""
+        ));
+
+        dummyProducts.add(new Product(
+                "9xXxr8Px7RIXm4kIQdHc",
+                "Chocolate",
+                1000,
+                100,
+                "",
+                ""
+        ));
+
+        dummyProducts.add(new Product(
+                "9xXxr8Px7RIXm4kIQdHd",
+                "Wine",
+                1000,
+                1000,
+                "",
+                ""
+        ));
+
+        return dummyProducts;
     }
 
     public static HashMap<Integer, _Product> getDummyProductHashMap(){
@@ -59,8 +122,6 @@ public class ProductRepository {
                 "https://firebasestorage.googleapis.com/v0/b/sari-store-pos.appspot.com/o/Android%20Images%2F1000006944?alt=media&token=f079c3ff-8b28-4b60-a968-058a960d77c7",
                 1000
         ));
-
-
 
         return dummyProductsHashmap;
     }

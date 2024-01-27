@@ -1,4 +1,4 @@
-package com.projectfkklp.saristorepos.activities.transaction.transaction_invoice;
+package com.projectfkklp.saristorepos.activities.transaction_invoice;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,8 +13,11 @@ import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.DailyTransactions;
 import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
+import com.projectfkklp.saristorepos.utils.Serializer;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +25,9 @@ import java.util.HashSet;
 import java.util.List;
 
 public class TransactionInvoicePage extends AppCompatActivity {
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm a");
+
     RecyclerView invoiceRecycler;
     TextView titleText;
     TextView totalAmountText;
@@ -46,31 +52,30 @@ public class TransactionInvoicePage extends AppCompatActivity {
         initializeRecyclerView();
     }
 
-    @SuppressLint("NewApi")
     private void loadTitleAndTransactions(){
         String src = getIntent().getStringExtra("src");
         assert src != null;
         if (src.equals("dailyTransactions")) {
-            DailyTransactions dailyTransactions = getIntent().getSerializableExtra("dailyTransactions", DailyTransactions.class);
+            DailyTransactions dailyTransactions = Serializer.deserialize(getIntent().getStringExtra("dailyTransactions"), DailyTransactions.class);
             assert dailyTransactions != null;
             title = String.format(
-                    "Summary Invoice — %s",
-                    dailyTransactions.getDate().format(DateTimeFormatter.ofPattern("MMMM d, yyyy"))
+                "Summary Invoice — %s",
+                LocalDate.parse(dailyTransactions.getDate()).format(dateFormatter)
             );
             transactions = dailyTransactions.getTransactions();
         }
         else {
-            Transaction transaction = getIntent().getSerializableExtra("transaction", Transaction.class);
+            Transaction transaction = Serializer.deserialize(getIntent().getStringExtra("transaction"), Transaction.class);
             assert transaction != null;
             title = String.format(
-                    "Invoice — %s",
-                    transaction.getDateTime().format(DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm a"))
+                "Invoice — %s",
+                LocalDateTime.parse(transaction.getDateTime()).format(dateTimeFormatter)
             );
             transactions = Collections.singletonList(transaction);
         }
 
         totalAmount = (float) transactions.stream()
-            .mapToDouble(Transaction::getTotalSales)
+            .mapToDouble(Transaction::calculateTotalSales)
             .sum();
     }
 

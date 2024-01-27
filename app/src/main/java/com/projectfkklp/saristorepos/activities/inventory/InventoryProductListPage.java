@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,20 +13,22 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.widget.SearchView;
 
-
+import com.github.clans.fab.FloatingActionButton;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.utils.Serializer;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-;
+
 public class InventoryProductListPage extends AppCompatActivity {
     SearchView searchText;
+    FloatingActionButton addFAB;
     RecyclerView productListRecycler;
     ProgressBar progressBar;
     FrameLayout emptyFrame;
@@ -33,6 +36,7 @@ public class InventoryProductListPage extends AppCompatActivity {
 
     private List<Product> products;
     private List<Product> searchedProducts;
+    private String searchStr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,12 @@ public class InventoryProductListPage extends AppCompatActivity {
         initializeData();
         initializeViews();
         initializedRecyclerView();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         loadProducts();
     }
 
@@ -55,6 +65,7 @@ public class InventoryProductListPage extends AppCompatActivity {
         productListRecycler = findViewById(R.id.inventory_product_list_recycler);
         progressBar = findViewById(R.id.inventory_product_list_progress);
         emptyFrame = findViewById(R.id.inventory_product_list_empty_frame);
+        addFAB = findViewById(R.id.inventory_product_list_add_fab);
 
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -67,6 +78,12 @@ public class InventoryProductListPage extends AppCompatActivity {
                 search(newText);
                 return false;
             }
+        });
+
+        addFAB.setOnClickListener(v -> {
+            Intent intent = new Intent(this, InventoryProductDetailPage.class);
+            intent.putExtra("Product", Serializer.serialize(new Product()));
+            startActivity(intent);
         });
     }
 
@@ -87,9 +104,10 @@ public class InventoryProductListPage extends AppCompatActivity {
                 Store store = successTask.toObject(Store.class);
 
                 assert store != null;
+                products.clear();
                 products.addAll(store.getProducts());
                 emptyFrame.setVisibility(products.isEmpty()? View.VISIBLE: View.GONE);
-                search("");
+                search(searchStr);
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
             .addOnCompleteListener(task-> progressBar.setVisibility(View.GONE))
@@ -102,6 +120,7 @@ public class InventoryProductListPage extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void search(String searchText){
+        searchStr = searchText;
         searchedProducts.clear();
         searchedProducts.addAll(products.stream().filter(product->product.getName().toLowerCase().contains(searchText.toLowerCase())).collect(Collectors.toList()));
         searchedProducts.sort((product1, product2)->product1.getName().compareToIgnoreCase(product2.getName()));

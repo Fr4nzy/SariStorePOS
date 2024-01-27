@@ -3,6 +3,7 @@ package com.projectfkklp.saristorepos.activities.user_profile;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -21,6 +22,7 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseUser;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.super_admin.SuperAdminPage;
 import com.projectfkklp.saristorepos.activities.user_login.UserLoginPage;
 import com.projectfkklp.saristorepos.enums.AuthenticationProvider;
 import com.projectfkklp.saristorepos.managers.SessionManager;
@@ -50,9 +52,12 @@ public class UserProfilePage extends AppCompatActivity {
     Button updateButton;
     ImageView unlinkPhoneButton;
     ImageView unlinkGmailButton;
+    Button superAdminBtn;
+
     AlertDialog.Builder cancelConfirmationDialog;
     AlertDialog.Builder unlinkPhoneConfirmationDialog;
     AlertDialog.Builder unlinkGmailConfirmationDialog;
+
     private boolean isEditing;
     private User currentUser;
     private User editUser;
@@ -64,7 +69,16 @@ public class UserProfilePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile_page);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        initialize();
+    }
+
+    public void initialize(){
         currentUser = SessionRepository.getCurrentUser(this);
 
         initializeViews();
@@ -95,6 +109,7 @@ public class UserProfilePage extends AppCompatActivity {
         unlinkGmailButton = findViewById(R.id.user_profile_unlink_gmail);
         updateButton = findViewById(R.id.user_profile_update_button);
         signOut = findViewById(R.id.user_profile_signout);
+        superAdminBtn = findViewById(R.id.user_profile_super_admin_btn);
 
         phoneText.setText(currentUser.getPhoneNumber());
         gmailText.setText(currentUser.getGmail());
@@ -117,6 +132,8 @@ public class UserProfilePage extends AppCompatActivity {
                 updateButton.setEnabled(hasEdits());
             }
         });
+
+        superAdminBtn.setVisibility(currentUser.getIsSuperAdmin()? View.VISIBLE:View.GONE);
     }
 
     public void changeProfilePhoneNumber(View view){
@@ -308,6 +325,10 @@ public class UserProfilePage extends AppCompatActivity {
                 Toast.makeText(this, "Unknown error occurred", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void gotoSuperAdmin(View view){
+        startActivity(new Intent(this, SuperAdminPage.class));
     }
 
 }

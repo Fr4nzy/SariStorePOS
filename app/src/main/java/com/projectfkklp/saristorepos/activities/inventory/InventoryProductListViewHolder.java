@@ -5,17 +5,18 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.projectfkklp.saristorepos.R;
 
-public class InventoryProductListRecycler extends RecyclerView.ViewHolder {
-    CardView container;
+public class InventoryProductListViewHolder extends RecyclerView.ViewHolder {
+    GridLayout container;
     ImageView productImg;
     TextView productNameText, productStocksText, productUnitPriceText, productOosIndicatorText;
 
-    public InventoryProductListRecycler(@NonNull View itemView) {
+    public InventoryProductListViewHolder(@NonNull View itemView) {
         super(itemView);
 
         // Initialize views

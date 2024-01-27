@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.transaction.transaction_invoice.TransactionInvoicePage"
+    tools:context=".activities.transaction_invoice.TransactionInvoicePage"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
@@ -52,27 +52,46 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="16dp">
+        app:cardElevation="16dp"
+        app:cardCornerRadius="0dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:paddingStart="8dp">
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Total Amount:"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:layout_marginEnd="5dp"/>
             <TextView
                 android:id="@+id/transaction_invoice_total_amount"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="₱ 1,000.00"
                 android:textColor="#008000"
                 android:textStyle="bold"
                 android:textSize="18sp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pos_checkout_btn"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Finish"
+                app:icon="@drawable/baseline_check_24"
+                app:iconGravity="textStart"
+                android:backgroundTint="#DD4500"
+                app:iconPadding="0dp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:insetBottom="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                app:cornerRadius="0dp"
+                android:onClick="navigateBack"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

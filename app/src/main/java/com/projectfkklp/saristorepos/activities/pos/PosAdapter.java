@@ -1,9 +1,10 @@
 package com.projectfkklp.saristorepos.activities.pos;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.content.Context;
-import android.text.InputFilter;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +19,21 @@ import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
-public class PosAdapter extends RecyclerView.Adapter<PosViewHolder>{
+public class PosAdapter extends RecyclerView.Adapter<PosViewHolder> {
+    private final int PALE_GREEN = Color.rgb(220, 255, 220);
+    private final int PALE_RED = Color.rgb(255, 220, 220);
+
     private final Context context;
-    private final List<TransactionItem> transactionItems;
     private final List<Product> products;
+    private final List<TransactionItem> transactionItems;
 
-    public PosAdapter(Context context, List<TransactionItem> transactionItems, List<Product> products) {
+    public PosAdapter(Context context, List<Product> products, List<TransactionItem> transactionItems) {
         this.context = context;
-        this.transactionItems = transactionItems;
         this.products = products;
+        this.transactionItems = transactionItems;
     }
 
     @NonNull
@@ -40,104 +46,82 @@ public class PosAdapter extends RecyclerView.Adapter<PosViewHolder>{
     @SuppressLint({"DefaultLocale", "NotifyDataSetChanged"})
     @Override
     public void onBindViewHolder(@NonNull PosViewHolder holder, int position) {
-        TransactionItem transactionItem = transactionItems.get(position);
-        Product product = products.stream()
-            .filter(p -> p.getId().equals(transactionItem.getProductId()))
-            .findFirst()
-            .orElse(null);
+        Product product = products.get(position);
 
-        assert product != null;
+        // Use Glide to load the image
         if (!StringUtils.isNullOrEmpty(product.getImgUrl())){
-            Glide.with(context).load(product.getImgUrl()).into(holder.productImage);
+            Glide.with(context).load(product.getImgUrl()).into(holder.productImg);
         }
+        else {
+            holder.productImg.setImageResource(R.drawable.placeholder);
+        }
+
         holder.productNameText.setText(product.getName());
-        holder.unitPriceText.setText(String.format(
-            "Unit Price: %s",
-            StringUtils.formatToPeso(transactionItem.getUnitPrice())
+        holder.productStocksText.setText(String.format(
+                "Stocks: %d",
+                product.getStocks()
         ));
-        holder.quantityEdit.setText(String.valueOf(transactionItem.getQuantity()));
-        holder.subtotalPriceText.setText(StringUtils.formatToPeso(transactionItem.getAmount()));
-        holder.leftItemText.setText(String.format(
-            "%d item left",
-            product.getStocks()
+        holder.productUnitPriceText.setText(String.format(
+                "Unit Price: ₱%.2f",
+                product.getUnitPrice()
         ));
 
-        holder.deleteBtn.setOnClickListener(view -> {
-            showDeleteConfirmationDialog(transactionItem, product);
-        });
+        if (product.getStocks()==0){
+            holder.productOosIndicatorText.setVisibility(View.VISIBLE);
+            holder.clickableContainer.setEnabled(false);
+            holder.container.setBackgroundColor(PALE_RED);
 
-        holder.minusBtn.setOnClickListener(view -> {
-            if (transactionItem.getQuantity() == 1 ){
-                showDeleteConfirmationDialog(transactionItem, product);
-                return;
-            }
+            return;
+        }
 
-            changeTransactionItemQuantity(holder, transactionItem, transactionItem.getQuantity()-1, product.getStocks());
-        });
+        Optional<TransactionItem> optionalTransactionItem = getOptionalTransactionItem(product);
+        boolean isListed = optionalTransactionItem.isPresent();
 
-        holder.plusButton.setEnabled(transactionItem.getQuantity()<product.getStocks());
-        holder.plusButton.setOnClickListener(view -> {
-            changeTransactionItemQuantity(holder, transactionItem, transactionItem.getQuantity()+1,  product.getStocks());
-        });
-        holder.quantityEdit.setFilters(new InputFilter[]{new InputFilterMinMax(0, product.getStocks())});
-        holder.quantityEdit.setOnFocusChangeListener((view, hasFocus) -> {
-            if (hasFocus){
-                return;
-            }
+        holder.productOosIndicatorText.setVisibility(View.GONE);
+        holder.clickableContainer.setEnabled(true);
+        holder.container.setBackgroundColor(isListed? PALE_GREEN: Color.WHITE);
+        holder.clickableContainer.setOnClickListener(view -> clickItem(holder, product));
 
-            String newQuantityText = holder.quantityEdit.getText().toString();
-            if(StringUtils.isNullOrEmpty(newQuantityText)){
-                // Reset Quantity Edit Text
-                holder.quantityEdit.setText(String.valueOf(transactionItem.getQuantity()));
-                return;
-            }
-
-            int newQuantity = Integer.parseInt(newQuantityText);
-            if (newQuantity==0){
-                showDeleteConfirmationDialog(transactionItem, product);
-                return;
-            }
-
-            transactionItem.setQuantity(newQuantity);
-            holder.plusButton.setEnabled(newQuantity<product.getStocks());
-            getParent().reloadViews();
-        });
+        if (isListed){
+            holder.cartFrame.setVisibility(View.VISIBLE);
+            holder.itemQuantityText.setText(String.valueOf(optionalTransactionItem.get().getQuantity()));
+        }
+        else {
+            holder.cartFrame.setVisibility(View.INVISIBLE);
+            holder.itemQuantityText.setText("");
+        }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private void showDeleteConfirmationDialog(TransactionItem transactionItem, Product product){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder
-            .setTitle("Remove Item?")
-            .setMessage(String.format(
-                "Are you sure you want to remove \"%s\"?",
-                product.getName()
-            ))
-            .setPositiveButton("Yes", (dialog, which) -> {
-                transactionItems.remove(transactionItem);
-                notifyDataSetChanged();
-                getParent().reloadViews();
-            })
-            .setNegativeButton("No", (dialog, which) -> {
-                dialog.dismiss();
-            })
-            .show();
+    private Optional<TransactionItem> getOptionalTransactionItem(Product product){
+        return transactionItems
+            .stream()
+            .filter(ti->ti.getProductId().equals(product.getId()))
+            .findFirst();
     }
 
-    private void changeTransactionItemQuantity(PosViewHolder holder, TransactionItem transactionItem, int newQuantity, int stocks){
-        transactionItem.setQuantity(newQuantity);
-        holder.quantityEdit.setText(String.valueOf(newQuantity));
-        holder.plusButton.setEnabled(newQuantity<stocks);
-        getParent().reloadViews();
+    private void clickItem(PosViewHolder holder, Product product){
+        // product in transactionItems?
+        Optional<TransactionItem> optionalTransactionItem = transactionItems
+            .stream()
+            .filter(ti->ti.getProductId().equals(product.getId()))
+            .findFirst();
+        boolean isListed = optionalTransactionItem.isPresent();
+
+        TransactionItem transactionItem = isListed
+                ? optionalTransactionItem.get()
+                : new TransactionItem(product.getId(), 1, product.getUnitPrice());
+
+        PosItemDetailDialog cdd = new PosItemDetailDialog((Activity) context, holder, transactionItem, product, isListed);
+        Objects.requireNonNull(cdd.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        cdd.show();
     }
 
     @Override
     public int getItemCount() {
-        return transactionItems.size();
+        return products.size();
     }
 
-    PosPage getParent(){
+    private PosPage getParent(){
         return (PosPage) context;
     }
-
 }

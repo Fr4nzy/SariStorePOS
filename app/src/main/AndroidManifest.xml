@@ -13,22 +13,31 @@
         android:theme="@style/Theme.SariStorePOS"
         tools:targetApi="31">
         <activity
+            android:name=".activities.super_admin.SuperAdminPage"
+            android:exported="false" />
+        <activity
             android:name=".activities.pos.PosPage"
             android:exported="false" />
         <activity
             android:name=".activities.analytics.AnalyticsPage"
             android:exported="false" />
         <activity
-            android:name=".activities.transaction.transaction_invoice.TransactionInvoicePage"
+            android:name=".activities.pos.checkout.CheckoutPage"
+            android:exported="false" />
+        <activity
+            android:name=".activities.transaction_invoice.TransactionInvoicePage"
             android:exported="false" />
         <activity
             android:name=".activities.transaction.TransactionPage"
             android:exported="false" />
         <activity
-            android:name=".activities.inventory.InventoryProductListRecycler"
+            android:name=".activities.inventory.InventoryProductListViewHolder"
             android:exported="false" />
         <activity
             android:name=".activities.inventory.InventoryProductListPage"
+            android:exported="false" />
+        <activity
+            android:name=".activities.inventory.InventoryProductDetailPage"
             android:exported="false" />
         <activity
             android:name=".activities.dashboard.DashboardPage"

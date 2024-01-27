@@ -1,11 +1,21 @@
 package com.projectfkklp.saristorepos.managers;
 
+import android.content.Context;
+
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models._Product;
 import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
+import com.projectfkklp.saristorepos.repositories.SessionRepository;
+import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.utils.ModelUtils;
+import com.projectfkklp.saristorepos.utils.StringUtils;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ProductManager {
@@ -31,6 +41,34 @@ public class ProductManager {
                 });
 
         return future;
+    }
+
+    public static Task<Object> save(Context context, Product product) throws Exception {
+        return StoreRepository
+            .getStoreById(SessionRepository.getCurrentStore(context).getId())
+            .continueWith(task->{
+                Store store = task.getResult().toObject(Store.class);
+                assert store != null;
+                List<Product> products = store.getProducts();
+
+                // New Product
+                if (StringUtils.isNullOrEmpty(product.getId())){
+                    product.setId(ModelUtils.createUUID());
+                    products.add(product);
+                }
+                // For existing product, update product
+                else {
+                    for (int i=0;i<products.size();i++){
+                        Product existingProduct = products.get(i);
+                        if (existingProduct.getId().equals(product.getId())){
+                            products.set(i, product);
+                            break;
+                        }
+                    }
+                }
+
+                return StoreManager.save(store);
+            });
     }
 
 }

@@ -71,7 +71,7 @@ public class DummyDataManager {
                 balance -= key * quantity;
             }
 
-            Task<Void> task = TransactionManager.saveTransaction(transaction);
+            Task<Void> task = _TransactionManager.saveTransaction(transaction);
             tasks.add(task);
 
             // Increment date

@@ -47,7 +47,7 @@ public class _InventoryEditProductPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inventory_edit_product_page);
 
-        updateButton = findViewById(R.id.updateButton);
+        updateButton = findViewById(R.id.product_detail_save_button);
         updatePrice = findViewById(R.id.updatePrice);
         updateImage = findViewById(R.id.updateImage);
         updateStock = findViewById(R.id.updateStock);

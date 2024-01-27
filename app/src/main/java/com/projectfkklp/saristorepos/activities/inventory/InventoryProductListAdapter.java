@@ -2,6 +2,7 @@ package com.projectfkklp.saristorepos.activities.inventory;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.utils.Serializer;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.util.List;
 
-public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryProductListRecycler>{
+public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryProductListViewHolder>{
 
     private final Context context;
     private final List<Product> products;
@@ -28,14 +30,14 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
 
     @NonNull
     @Override
-    public InventoryProductListRecycler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public InventoryProductListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_product_list_recycler, parent, false);
-        return new InventoryProductListRecycler(view);
+        return new InventoryProductListViewHolder(view);
     }
 
     @SuppressLint("DefaultLocale")
     @Override
-    public void onBindViewHolder(@NonNull InventoryProductListRecycler holder, int position) {
+    public void onBindViewHolder(@NonNull InventoryProductListViewHolder holder, int position) {
         Product product = products.get(position);
 
         // Use Glide to load the image
@@ -54,6 +56,7 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
         ));
 
         holder.productOosIndicatorText.setVisibility(product.getStocks()==0 ? View.VISIBLE:View.GONE);
+        holder.productOosIndicatorText.setVisibility(product.getStocks()== 0 ? View.VISIBLE:View.GONE);
 
         if (position==products.size()-1){
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.container.getLayoutParams();
@@ -67,6 +70,12 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
             // Apply the updated layout parameters to the CardView
             holder.container.setLayoutParams(layoutParams);
         }
+
+        holder.container.setOnClickListener(v -> {
+            Intent intent = new Intent(context, InventoryProductDetailPage.class);
+            intent.putExtra("Product", Serializer.serialize(product));
+            context.startActivity(intent);
+        });
     }
 
     @Override
