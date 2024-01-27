@@ -1,6 +1,8 @@
 package com.projectfkklp.saristorepos.activities.analytics;
 
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.projectfkklp.saristorepos.R;
@@ -40,4 +42,6 @@ public class AnalyticsPage extends AppCompatActivity {
 
         return values;
     }
+    public void navigateBack(View view){finish();}
+
 }

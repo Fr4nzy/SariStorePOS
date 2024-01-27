@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PosPage extends AppCompatActivity {
+    private String searchStr = "";
+
     TextView selectedText;
     SearchView searchText;
     MaterialButton checkboutBtn;
@@ -121,7 +123,7 @@ public class PosPage extends AppCompatActivity {
                 products.addAll(store.getProducts());
 
                 loadTransactionItemsFromCache();
-                search("");
+                search(searchStr);
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
             .addOnCompleteListener(task-> ProgressUtils.dismissDialog())
@@ -139,6 +141,7 @@ public class PosPage extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void search(String searchText){
+        searchStr = searchText;
         searchedProducts.clear();
         searchedProducts.addAll(
             products
@@ -175,14 +178,10 @@ public class PosPage extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private void searchProductByBarcode(String barcode){
-        searchText.setQuery("::"+barcode, false);
-
-        searchedProducts.clear();
-        searchedProducts.addAll(products.stream().filter(product->barcode.equals(product.getBarcode())).collect(Collectors.toList()));
-        searchedProducts.sort((product1, product2)->product1.getName().compareToIgnoreCase(product2.getName()));
-        posAdapter.notifyDataSetChanged();
+        String searchStr = "::"+barcode;
+        searchText.setQuery(searchStr, true);
+        search(searchStr);
     }
 
     public void checkout(View view){
