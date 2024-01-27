@@ -37,6 +37,7 @@ public class InventoryProductListPage extends AppCompatActivity {
 
     private List<Product> products;
     private List<Product> searchedProducts;
+    private String searchStr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,12 @@ public class InventoryProductListPage extends AppCompatActivity {
         initializeData();
         initializeViews();
         initializedRecyclerView();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         loadProducts();
     }
 
@@ -98,9 +105,10 @@ public class InventoryProductListPage extends AppCompatActivity {
                 Store store = successTask.toObject(Store.class);
 
                 assert store != null;
+                products.clear();
                 products.addAll(store.getProducts());
                 emptyFrame.setVisibility(products.isEmpty()? View.VISIBLE: View.GONE);
-                search("");
+                search(searchStr);
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
             .addOnCompleteListener(task-> progressBar.setVisibility(View.GONE))
@@ -113,6 +121,7 @@ public class InventoryProductListPage extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void search(String searchText){
+        searchStr = searchText;
         searchedProducts.clear();
         searchedProducts.addAll(products.stream().filter(product->product.getName().toLowerCase().contains(searchText.toLowerCase())).collect(Collectors.toList()));
         searchedProducts.sort((product1, product2)->product1.getName().compareToIgnoreCase(product2.getName()));

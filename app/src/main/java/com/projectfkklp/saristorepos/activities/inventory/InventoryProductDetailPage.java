@@ -14,37 +14,39 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.classes.ValidationStatus;
+import com.projectfkklp.saristorepos.managers.ProductManager;
+import com.projectfkklp.saristorepos.managers.StorageManager;
 import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.utils.ModelUtils;
+import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
+import com.projectfkklp.saristorepos.validators.ProductValidator;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class InventoryProductDetailPage extends AppCompatActivity {
-    Uri uri;
-    String tempBarcode, imageURL;
+    private Uri uri;
+    private String tempBarcode;
     private Product product;
-    private TextView titleText;
-    private ImageView detailImageView;
-    private Button detailBarcodeButton;
-    private Button detailSaveButton;
-    private EditText detailStockText;
-    private EditText detailProductText;
-    private EditText detailPriceText;
+
+    TextView titleText;
+    ImageView productImgView;
+    EditText productNameText;
+    EditText productUnitPriceText;
+    EditText productStockText;
+    Button detailBarcodeButton;
 
 
     @SuppressLint("NewApi")
@@ -61,44 +63,40 @@ public class InventoryProductDetailPage extends AppCompatActivity {
 
     private void initializeViews() {
         titleText = findViewById(R.id.product_detail_title);
-        detailImageView = findViewById(R.id.product_detail_image_view);
+        productImgView = findViewById(R.id.product_detail_image_view);
         detailBarcodeButton = findViewById(R.id.product_detail_barcode_button);
-        detailSaveButton = findViewById(R.id.product_detail_save_button);
-        detailPriceText = findViewById(R.id.product_detail_price_text);
-        detailStockText = findViewById(R.id.product_detail_stock_text);
-        detailProductText = findViewById(R.id.product_detail_product_text);
+        productUnitPriceText = findViewById(R.id.product_detail_price_text);
+        productStockText = findViewById(R.id.product_detail_stock_text);
+        productNameText = findViewById(R.id.product_detail_product_text);
 
         titleText.setText(StringUtils.isNullOrEmpty(product.getId()) ? "Create Product" : "Edit Product");
-        detailPriceText.setText(String.valueOf(product.getUnitPrice()));
-        detailProductText.setText(String.valueOf(product.getName()));
-        detailStockText.setText(String.valueOf(product.getStocks()));
+        productNameText.setText(Objects.toString(product.getName(), ""));
+        productUnitPriceText.setText(Objects.toString(product.getUnitPrice() == 0 ? "" : product.getUnitPrice()));
+        productStockText.setText(String.valueOf(product.getStocks() == 0 ? "" : product.getStocks()));
 
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Intent data = result.getData();
-                        uri = Objects.requireNonNull(data).getData();
-                        detailImageView.setImageURI(uri);
-                    } else {
-                        Toast.makeText(InventoryProductDetailPage.this, "No Image Selected", Toast.LENGTH_SHORT).show();
-                    }
+        ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    uri = Objects.requireNonNull(data).getData();
+                    productImgView.setImageURI(uri);
+                } else {
+                    Toast.makeText(InventoryProductDetailPage.this, "No Image Selected", Toast.LENGTH_SHORT).show();
                 }
+            }
         );
 
-        detailImageView.setOnClickListener(v -> {
+        productImgView.setOnClickListener(v -> {
             Intent photoPicker = new Intent(Intent.ACTION_PICK);
             photoPicker.setType("image/*");
-            activityResultLauncher.launch(photoPicker);
+            imagePickerLauncher.launch(photoPicker);
         });
 
         detailBarcodeButton.setOnClickListener(v -> {
             // Launch ZXing barcode scanner
             new IntentIntegrator(InventoryProductDetailPage.this).initiateScan();
         });
-
-        detailSaveButton.setOnClickListener(v -> uploadProductToDB());
-
     }
 
     // Add the following method to handle the result of the barcode scanner
@@ -111,118 +109,71 @@ public class InventoryProductDetailPage extends AppCompatActivity {
             if (result.getContents() != null) {
                 tempBarcode = result.getContents();
                 // Update the button text to show the scanned barcode temporarily
-                detailBarcodeButton.setText("" + tempBarcode);
+                detailBarcodeButton.setText(tempBarcode);
+                product.setBarcode(tempBarcode);
                 Toast.makeText(this, "Scanned Barcode: " + tempBarcode, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    public void uploadProductToDB(){
-        if (uri != null) {
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
-                    .child(Objects.requireNonNull(uri.getLastPathSegment()));
-            AlertDialog.Builder builder = new AlertDialog.Builder(InventoryProductDetailPage.this);
-            builder.setCancelable(false);
-            builder.setView(R.layout.progress_layout);
-            AlertDialog dialog = builder.create();
-            dialog.show();
+    public void saveProduct(View view) {
+        // Initialize Data
+        String unitPriceStr = productUnitPriceText.getText().toString();
+        String stocksStr = productStockText.getText().toString();
+        product.setName(productNameText.getText().toString());
+        product.setUnitPrice(Float.parseFloat(
+            StringUtils.isNullOrEmpty(unitPriceStr)
+                ? "0"
+                : unitPriceStr
+        ));
+        product.setStocks(Integer.parseInt(
+            StringUtils.isNullOrEmpty(stocksStr)
+                ? "0"
+                : stocksStr
+        ));
+        product.setBarcode(tempBarcode);
 
-            storageReference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                uriTask.addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Uri urlImage = task.getResult();
-                        imageURL = urlImage.toString();
+        // Validation
+        ValidationStatus validationStatus = ProductValidator.validate(product);
+        if (!validationStatus.isValid()) {
+            HashMap<String, String> errors = validationStatus.getErrors();
 
-                        // Check for duplicate barcode before uploading data to Firestore
-                        checkDuplicateBarcode();
-                        dialog.dismiss();
-                    }
-                });
-            }).addOnFailureListener(e -> {
-                dialog.dismiss();
-                Toast.makeText(InventoryProductDetailPage.this, "InventoryProductDetailPage failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            });
-        } else {
-            Toast.makeText(InventoryProductDetailPage.this, "Please select an image", Toast.LENGTH_SHORT).show();
-        }
-    }
+            if (errors.containsKey("name")){
+                productNameText.setError(errors.get("name"));
+            }
 
-    private void checkDuplicateBarcode() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String barcode = tempBarcode;
-
-        // Check if the barcode is empty or null
-        if (barcode == null || barcode.isEmpty()) {
-            // Barcode is empty or null, proceed to upload data to Firestore
-            saveProduct();
             return;
         }
 
-        db.collection("users").document().collection("products")
-                .whereEqualTo("barcode", barcode)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        if (task.getResult() != null && !task.getResult().isEmpty()) {
-                            // Barcode already exists, show a warning
-                            showBarcodeDuplicateWarning();
-                        } else {
-                            // Barcode is unique, proceed to upload data to Firestore
-                            saveProduct();
-                        }
-                    } else {
-                        // Handle error if needed
-                        Toast.makeText(InventoryProductDetailPage.this, "Error checking duplicate barcode: " + task.getException(), Toast.LENGTH_SHORT).show();
-                    }
+        // Start Saving
+        ProgressUtils.showDialog(this, "Saving...");
+        StorageManager
+            // Upload File
+            .uploadFile(uri, ModelUtils.createUUID())
+            // get Uploaded Image URL
+            .continueWithTask(taskSnapshot -> {
+                if (!taskSnapshot.isCanceled()){
+                    UploadTask uploadSnapshot = (UploadTask) taskSnapshot;
+                    StorageReference fileRef = uploadSnapshot.getResult().getStorage();
+                    return fileRef.getDownloadUrl();
+                }
 
-                    // Reset tempBarcode after checking for duplicates
-                    tempBarcode = null;
-                });
+                return Tasks.forCanceled();
+            })
+            // Set product imgUrl, and save product
+            .continueWithTask(downloadUrl-> {
+                if (downloadUrl.isSuccessful()){
+                    String imgUrl = downloadUrl.getResult().toString();
+                    product.setImgUrl(imgUrl);
+                }
+
+                return ProductManager.save(this, product);
+            })
+            .addOnSuccessListener(task-> ToastUtils.show(this, "Product saved successfully"))
+            .addOnFailureListener(e->ToastUtils.show(this, e.getMessage()))
+            .addOnCompleteListener(task -> ProgressUtils.dismissDialog())
+        ;
     }
 
-    private void showBarcodeDuplicateWarning() {
-        new AlertDialog.Builder(this)
-                .setTitle("Duplicate Barcode")
-                .setMessage("A product with the same barcode already exists.")
-                .setPositiveButton("OK", null)
-                .show();
-    }
-
-    public void saveProduct() {
-        String product = detailProductText.getText().toString();
-        double price = Double.parseDouble(detailPriceText.getText().toString());
-        int stock = Integer.parseInt(detailStockText.getText().toString());
-
-        // Create a Map to store the data, including the temporarily scanned barcode
-        Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("product", product);
-        dataMap.put("price", price);
-        dataMap.put("stock", stock);
-        dataMap.put("imageURL", imageURL);
-        dataMap.put("barcode", tempBarcode); // Add the temporarily scanned barcode
-
-        // Access FirebaseAuth to get the current user
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if (currentUser != null) {
-            // Access Firestore instance and add the data to the user's collection
-            String userUid = currentUser.getUid();
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("users")
-                    .document(userUid)
-                    .collection("products") // Use the specific subcollection for products
-                    .add(dataMap)
-                    .addOnSuccessListener(documentReference -> {
-                        Toast.makeText(InventoryProductDetailPage.this, "Data Uploaded", Toast.LENGTH_SHORT).show();
-                        finish();
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(InventoryProductDetailPage.this, "InventoryProductDetailPage failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-        } else {
-            // Handle the case where the user is not signed in
-            Toast.makeText(InventoryProductDetailPage.this, "User not signed in", Toast.LENGTH_SHORT).show();
-        }
-    }
-    public void navigateBack(View view){    finish();   }
+    public void navigateBack(View view){finish();}
 }
