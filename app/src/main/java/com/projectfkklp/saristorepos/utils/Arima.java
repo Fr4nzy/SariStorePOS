@@ -103,7 +103,7 @@ public final class Arima {
     public static double[] forecast(final int forecastSize, double[] dataset){
         ArimaModel model = createModel(dataset);
         ForecastResult result = model.forecast(forecastSize);
-        return result.getForecastUpperConf();
+        return result.getForecast();
     }
 
     public static void forecast(final int forecastSize, OnForecastResultRetrieved onRetrieved) throws ParseException {

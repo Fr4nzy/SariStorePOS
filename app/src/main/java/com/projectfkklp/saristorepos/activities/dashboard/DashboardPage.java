@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.loadinganimation.LoadingAnimation;
 import com.github.mikephil.charting.formatter.ValueFormatter;
@@ -19,7 +20,9 @@ import com.projectfkklp.saristorepos.activities.store_profile.StoreProfilePage;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
 import com.projectfkklp.saristorepos.activities.transaction.TransactionPage;
 import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
+import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.repositories.ReportRepository;
+import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.NumberUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
@@ -31,12 +34,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DashboardPage extends AppCompatActivity {
+    TextView storeNameText;
+    TextView storeAddressText;
     SwipeRefreshLayout swipeRefresh;
     DashboardSalesForecastChart analyticsChart;
     DashboardTopChart topSellingChart;
     DashboardTopChart topSoldChart;
     DashboardTodaySalesChart todaySalesChart;
     LoadingAnimation forecastLoading;
+
+    private Store store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,8 @@ public class DashboardPage extends AppCompatActivity {
         // Inflate the layout using DataBinding
         // To make it possible to pass data in reusable layout
         DataBindingUtil.setContentView(this,R.layout.dashboard_page);
+
+        store = SessionRepository.getCurrentStore(this);
 
         initializeViews();
 
@@ -63,6 +72,9 @@ public class DashboardPage extends AppCompatActivity {
     }
 
     private void initializeViews(){
+        storeNameText = findViewById(R.id.dashboard_store_name);
+        storeAddressText = findViewById(R.id.dashboard_store_address);
+
         swipeRefresh = findViewById(R.id.dashboard_swipe_refresh);
         analyticsChart = findViewById(R.id.dashboard_analytics_chart);
 
@@ -77,6 +89,8 @@ public class DashboardPage extends AppCompatActivity {
             swipeRefresh.setRefreshing(false);
         });
 
+        storeNameText.setText(store.getName());
+        storeAddressText.setText(store.getAddress());
         todaySalesChart.initializeTodaySalesChart("Today Sales");
         topSellingChart.initializePieChart("Top Selling Product");
         topSoldChart.initializePieChart("Top Sold Products");

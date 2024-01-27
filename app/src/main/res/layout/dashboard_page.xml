@@ -33,6 +33,7 @@
                     android:orientation="vertical"
                     android:layout_marginLeft="5dp">
                     <TextView
+                        android:id="@+id/dashboard_store_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -42,6 +43,7 @@
                         android:textStyle="bold"
                         />
                     <TextView
+                        android:id="@+id/dashboard_store_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
