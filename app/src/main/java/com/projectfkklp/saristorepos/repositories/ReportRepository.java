@@ -62,7 +62,7 @@ public class ReportRepository {
 
                 // Get Forecast History (from 7 days ago to yesterday)
                 int end = Math.min(ACTUAL_SALES_COUNT, forecastData.size());
-                for (int i=1; i<end;i++){
+                for (int i=2; i<=end;i++){
                     try{
                         double[] sublist = forecastData
                             .subList(0, forecastData.size()-i)
