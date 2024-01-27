@@ -19,6 +19,9 @@
             android:name=".activities.pos.PosPage"
             android:exported="false" />
         <activity
+            android:name=".activities.analytics.AnalyticsPage"
+            android:exported="false" />
+        <activity
             android:name=".activities.pos.checkout.CheckoutPage"
             android:exported="false" />
         <activity
