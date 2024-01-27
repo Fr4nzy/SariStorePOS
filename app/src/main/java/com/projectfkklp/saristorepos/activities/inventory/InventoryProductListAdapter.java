@@ -2,6 +2,7 @@ package com.projectfkklp.saristorepos.activities.inventory;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.utils.Serializer;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.util.List;
@@ -54,6 +56,26 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
         ));
 
         holder.productOosIndicatorText.setVisibility(product.getStocks()==0 ? View.VISIBLE:View.GONE);
+        holder.productOosIndicatorText.setVisibility(product.getStocks()== 0 ? View.VISIBLE:View.GONE);
+
+        if (position==products.size()-1){
+            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.container.getLayoutParams();
+            // Set the margin bottom
+            layoutParams.setMargins(
+                layoutParams.leftMargin,
+                layoutParams.topMargin,
+                layoutParams.rightMargin,
+                20
+            );
+            // Apply the updated layout parameters to the CardView
+            holder.container.setLayoutParams(layoutParams);
+        }
+
+        holder.container.setOnClickListener(v -> {
+            Intent intent = new Intent(context, InventoryProductDetailPage.class);
+            intent.putExtra("Product", Serializer.serialize(product));
+            context.startActivity(intent);
+        });
     }
 
     @Override
