@@ -13,10 +13,8 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.widget.SearchView;
 
-
 import com.github.clans.fab.FloatingActionButton;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.transaction.transaction_invoice.TransactionInvoicePage;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
