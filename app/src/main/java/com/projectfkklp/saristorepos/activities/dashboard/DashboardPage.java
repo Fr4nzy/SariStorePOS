@@ -17,9 +17,6 @@ import com.projectfkklp.saristorepos.activities.store_profile.StoreProfilePage;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
 import com.projectfkklp.saristorepos.activities.transaction.TransactionPage;
 import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
-import com.projectfkklp.saristorepos.utils.CacheUtils;
-import com.projectfkklp.saristorepos.managers.StoreManager;
-import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.text.DecimalFormat;
