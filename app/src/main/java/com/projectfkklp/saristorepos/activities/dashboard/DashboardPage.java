@@ -20,7 +20,6 @@ import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage
 import com.projectfkklp.saristorepos.activities.transaction.TransactionPage;
 import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
 import com.projectfkklp.saristorepos.repositories.ReportRepository;
-import com.projectfkklp.saristorepos.utils.Arima;
 import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.NumberUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
@@ -53,8 +52,6 @@ public class DashboardPage extends AppCompatActivity {
         // Double call (band aid fix to charts lay outing)
         generateCharts();
         generateCharts();
-
-        //Arima.evaluate(this);
     }
 
     private void generateCharts(){
@@ -93,14 +90,16 @@ public class DashboardPage extends AppCompatActivity {
                 List<Double> recentSales = recentSalesAndForecastWithHistoryReport.first;
                 List<Double> forecastWithHistory = recentSalesAndForecastWithHistoryReport.second;
 
-                analyticsChart.setVisibility(View.VISIBLE);
                 analyticsChart.setData(
                     NumberUtils.convertToFloatArray(recentSales),
                     NumberUtils.convertToFloatArray(forecastWithHistory)
                 );
             })
             .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
-            .addOnCompleteListener(task-> forecastLoading.setVisibility(View.GONE))
+            .addOnCompleteListener(task-> {
+                analyticsChart.setVisibility(View.VISIBLE);
+                forecastLoading.setVisibility(View.GONE);
+            })
         ;
     }
 

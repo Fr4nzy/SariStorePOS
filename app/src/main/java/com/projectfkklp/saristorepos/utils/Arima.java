@@ -3,6 +3,7 @@ package com.projectfkklp.saristorepos.utils;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.projectfkklp.saristorepos.interfaces.OnEvaluateArimaModel;
 import com.projectfkklp.saristorepos.interfaces.OnForecastResultRetrieved;
 import com.projectfkklp.saristorepos.repositories.DatasetRepository;
 import com.workday.insights.timeseries.arima.ArimaSolver;
@@ -113,7 +114,7 @@ public final class Arima {
         });
     }
 
-    public static void evaluate(Context context){
+    public static void evaluate(Context context, OnEvaluateArimaModel onEvaluate){
         double[] dataset = DatasetRepository.getDatasetFromJson(context);
         int datasetLength = dataset.length;
         int a = 365;
@@ -143,8 +144,7 @@ public final class Arima {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                ArrayList<Double> actualSales_ = actualSales;
-                ArrayList<Double> forecastSales_ = forecastSales;
+                onEvaluate.onEvaluate(actualSales, forecastSales);
             }
         }.execute();
     }
