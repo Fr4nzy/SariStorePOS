@@ -117,21 +117,21 @@ public final class Arima {
     public static void evaluate(Context context, OnEvaluateArimaModel onEvaluate){
         double[] dataset = DatasetRepository.getDatasetFromJson(context);
         int datasetLength = dataset.length;
-        int a = 365;
+        int testSize = 371; // 365 + 6 for forecast history
         int b = 0;
-        int n=a-b;
+        int n=testSize-b;
 
         ArrayList<Double> actualSales = new ArrayList<>();
         ArrayList<Double> forecastSales = new ArrayList<>();
 
-        for (double actualSale:Arrays.copyOfRange(dataset, datasetLength-a, datasetLength)) {
+        for (double actualSale:Arrays.copyOfRange(dataset, datasetLength-testSize, datasetLength)) {
             actualSales.add(actualSale);
         }
 
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                for (int i=a; i>b;i--){
+                for (int i=testSize; i>b;i--){
                     double[] trainingDataset = Arrays.copyOf(dataset, datasetLength-i);
                     ArimaModel model = createModel(trainingDataset);
                     double[] forecast = model.forecast(1).getForecast();

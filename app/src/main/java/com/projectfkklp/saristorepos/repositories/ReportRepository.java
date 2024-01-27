@@ -44,10 +44,10 @@ public class ReportRepository {
 
                     // Remove sales today before feeding to Arima model
                     if (daysSinceLastUpdate==0){
-                        forecastData = dailySales.subList(0, dailySales.size()-2);
+                        forecastData = dailySales.subList(0, dailySales.size()-1);
                     }
                     else {
-                        forecastData = dailySales.subList(0, dailySales.size()-1);
+                        forecastData = dailySales.subList(0, dailySales.size());
                     }
                 }
 
@@ -55,7 +55,7 @@ public class ReportRepository {
                 List<Double> forecastWithHistory = new ArrayList<>();
 
                 // Get Forecast History (from 7 days ago to yesterday)
-                for (int i=2; i<=ACTUAL_SALES_COUNT;i++){
+                for (int i=1; i<ACTUAL_SALES_COUNT;i++){
                     double[] sublist = forecastData
                         .subList(0, forecastData.size()-i)
                         .stream()
