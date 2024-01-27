@@ -131,7 +131,6 @@ public class DashboardSalesForecastChart extends LineChart {
     }
 
     private LineDataSet createDataSet(String name, int offset, float[] values, int color) {
-
         ArrayList<Entry> entries = new ArrayList<>();
 
         for (int i=0;i<values.length;i++) {

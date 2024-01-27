@@ -21,14 +21,20 @@ public class ReportRepository {
     public static Task<Task<Pair<List<Double>, List<Double>>>> getRecentSalesAndForecastWithHistoryReport(Context context){
         return StoreRepository.getStoreById(SessionRepository.getCurrentStore(context).getId())
             .continueWith(task->{
-                // Set dailySales (input data)
                 Store store = task.getResult().toObject(Store.class);
                 assert store != null;
+
+                //  Check if transactions is touched
+                Date lastUpdatedAt = store.getDailySalesUpdatedAt();
+                if (lastUpdatedAt == null){
+                    return Tasks.forResult(new Pair<>(new ArrayList<>(),new ArrayList<>()));
+                }
+
+                // Set dailySales (input data)
                 List<Double> dailySales = store.getDailySales();
                 List<Double> recentDailySales;
                 List<Double> forecastData;
                 {
-                    Date lastUpdatedAt = store.getDailySalesUpdatedAt();
                     Date currentDate = new Date();
                     long daysSinceLastUpdate  = DateUtils.calculateDaysDifference(lastUpdatedAt, currentDate);
 
@@ -38,7 +44,7 @@ public class ReportRepository {
 
                     // Get Recent Daily Sales (including today sale)
                     recentDailySales = dailySales.subList(
-                        dailySales.size()-ACTUAL_SALES_COUNT,
+                        Math.max(dailySales.size(), ACTUAL_SALES_COUNT)-ACTUAL_SALES_COUNT,
                         dailySales.size()
                     );
 
@@ -55,19 +61,23 @@ public class ReportRepository {
                 List<Double> forecastWithHistory = new ArrayList<>();
 
                 // Get Forecast History (from 7 days ago to yesterday)
-                for (int i=1; i<ACTUAL_SALES_COUNT;i++){
-                    double[] sublist = forecastData
-                        .subList(0, forecastData.size()-i)
-                        .stream()
-                        .mapToDouble(Double::doubleValue)
-                        .toArray();
+                int end = Math.min(ACTUAL_SALES_COUNT, forecastData.size());
+                for (int i=1; i<end;i++){
+                    try{
+                        double[] sublist = forecastData
+                            .subList(0, forecastData.size()-i)
+                            .stream()
+                            .mapToDouble(Double::doubleValue)
+                            .toArray();
 
-                    double[] result = Arima.forecast(
-                        1,
-                        sublist
-                    );
+                        double[] result = Arima.forecast(
+                            1,
+                            sublist
+                        );
 
-                    forecastWithHistory.add(0, result[0]);
+                        forecastWithHistory.add(0, result[0]);
+                    }
+                    catch (Exception ignored){}
                 }
 
                 // Get forecast for today and to the next 7 days
@@ -76,10 +86,13 @@ public class ReportRepository {
                         .stream()
                         .mapToDouble(Double::doubleValue)
                         .toArray();
-                    double[] forecastResults = Arima.forecast(7, forecastData_);
-                    for (double result : forecastResults) {
-                        forecastWithHistory.add(result);
+                    try{
+                        double[] forecastResults = Arima.forecast(7, forecastData_);
+                        for (double result : forecastResults) {
+                            forecastWithHistory.add(result);
+                        }
                     }
+                    catch (Exception ignored){}
                 }
 
                 return Tasks.forResult(new Pair<>(recentDailySales,forecastWithHistory));

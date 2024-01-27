@@ -26,6 +26,7 @@ import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.NumberUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
+import com.projectfkklp.saristorepos.utils.TestingUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.text.DecimalFormat;
@@ -58,8 +59,8 @@ public class DashboardPage extends AppCompatActivity {
 
         initializeViews();
 
-        // ignore the code below, it's a fix to the layouting issue
-        analyticsChart.setData(new float[]{1,2,3}, new float[]{2,3,4});
+        // ignore the code below, it's a fix to the lay outing issue
+        analyticsChart.setData(new float[]{}, new float[]{});
 
         generateCharts();
     }
@@ -119,11 +120,14 @@ public class DashboardPage extends AppCompatActivity {
     }
 
     private void generateTodaySalesChart() {
-        float ySales = 4_545_454_545.454545F;
-        float taSales = 5_000_000_000F;
-        float ttSales = 100_000_000_00f;
-
-        todaySalesChart.setData(ySales, taSales, ttSales);
+        // Show loading and hide chart
+        TestingUtils.delay(1500, ()->{
+            float ySales = 4_545_454_545.454545F;
+            float taSales = 5_000_000_000F;
+            float ttSales = 100_000_000_00f;
+            todaySalesChart.setData(ySales, taSales, ttSales);
+            // Hide loading and show chart
+        });
     }
 
     private void generateTopSellingChart() {
