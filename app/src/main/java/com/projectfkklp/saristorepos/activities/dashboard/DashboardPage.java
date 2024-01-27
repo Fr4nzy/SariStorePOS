@@ -106,6 +106,11 @@ public class DashboardPage extends AppCompatActivity {
                 List<Double> recentSales = recentSalesAndForecastWithHistoryReport.first;
                 List<Double> forecastWithHistory = recentSalesAndForecastWithHistoryReport.second;
 
+                if (recentSales.isEmpty()){
+                    analyticsChart.setData(null);
+                    return;
+                }
+
                 analyticsChart.setData(
                     NumberUtils.convertToFloatArray(recentSales),
                     NumberUtils.convertToFloatArray(forecastWithHistory)
