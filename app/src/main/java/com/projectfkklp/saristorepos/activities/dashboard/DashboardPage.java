@@ -43,6 +43,7 @@ public class DashboardPage extends AppCompatActivity {
     DashboardTopChart topSoldChart;
     DashboardTodaySalesChart todaySalesChart;
     LoadingAnimation forecastLoading;
+    LoadingAnimation todaySalesLoading;
 
     private Store store;
 
@@ -83,7 +84,9 @@ public class DashboardPage extends AppCompatActivity {
         topSellingChart = findViewById(R.id.dashboard_top_selling_chart);
         topSoldChart = findViewById(R.id.dashboard_top_sold_chart);
 
+        // Loadings
         forecastLoading = findViewById(R.id.dashboard_forecast_loading);
+        todaySalesLoading = findViewById(R.id.dashboard_today_sales_loading);
 
         swipeRefresh.setOnRefreshListener(()->{
             generateCharts();
@@ -126,12 +129,17 @@ public class DashboardPage extends AppCompatActivity {
 
     private void generateTodaySalesChart() {
         // Show loading and hide chart
+        todaySalesChart.setVisibility(View.INVISIBLE);
+        todaySalesLoading.setVisibility(View.VISIBLE);
+
         TestingUtils.delay(1500, ()->{
             float ySales = 4_545_454_545.454545F;
             float taSales = 5_000_000_000F;
             float ttSales = 100_000_000_00f;
             todaySalesChart.setData(ySales, taSales, ttSales);
             // Hide loading and show chart
+            todaySalesChart.setVisibility(View.VISIBLE);
+            todaySalesLoading.setVisibility(View.GONE);
         });
     }
 
