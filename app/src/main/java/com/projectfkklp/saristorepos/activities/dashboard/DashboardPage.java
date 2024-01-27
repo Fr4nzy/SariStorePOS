@@ -49,8 +49,9 @@ public class DashboardPage extends AppCompatActivity {
 
         initializeViews();
 
-        // Double call (band aid fix to charts lay outing)
-        generateCharts();
+        // ignore the code below, it's a fix to the layouting issue
+        analyticsChart.setData(new float[]{1,2,3}, new float[]{2,3,4});
+
         generateCharts();
     }
 
