@@ -24,16 +24,11 @@ public class ReportRepository {
                 Store store = task.getResult().toObject(Store.class);
                 assert store != null;
 
-                //  Check if transactions is touched
-                Date lastUpdatedAt = store.getDailySalesUpdatedAt();
-                if (lastUpdatedAt == null){
-                    return Tasks.forResult(new Pair<>(new ArrayList<>(),new ArrayList<>()));
-                }
-
                 // Set dailySales (input data)
                 List<Double> dailySales = store.getDailySales();
                 List<Double> recentDailySales;
                 List<Double> forecastData;
+                Date lastUpdatedAt = store.getDailySalesUpdatedAt();
                 {
                     Date currentDate = new Date();
                     long daysSinceLastUpdate  = DateUtils.calculateDaysDifference(lastUpdatedAt, currentDate);
@@ -47,6 +42,11 @@ public class ReportRepository {
                         Math.max(dailySales.size(), ACTUAL_SALES_COUNT)-ACTUAL_SALES_COUNT,
                         dailySales.size()
                     );
+
+                    // If no transactions yet, do not proceed
+                    if (recentDailySales.isEmpty()){
+                        return Tasks.forResult(new Pair<>(new ArrayList<>(),new ArrayList<>()));
+                    }
 
                     // Remove sales today before feeding to Arima model
                     if (daysSinceLastUpdate==0){
