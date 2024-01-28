@@ -47,15 +47,10 @@ public class ReportRepository {
                     if (recentDailySales.isEmpty()){
                         return Tasks.forResult(new Pair<>(new ArrayList<>(),new ArrayList<>()));
                     }
-
-                    // Remove sales today before feeding to Arima model
-                    if (daysSinceLastUpdate==0){
-                        forecastData = dailySales.subList(0, dailySales.size()-1);
-                    }
-                    else {
-                        forecastData = dailySales.subList(0, dailySales.size());
-                    }
                 }
+
+                // Remove sales today before feeding to Arima model
+                forecastData = dailySales.subList(0, dailySales.size()-1);
 
                 // Initialize forecastWithHistory (output data)
                 List<Double> forecastWithHistory = new ArrayList<>();
