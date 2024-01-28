@@ -203,8 +203,8 @@ public class DashboardPage extends AppCompatActivity {
             })
             .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
             .addOnCompleteListener(task-> {
-                todaySalesChart.setVisibility(View.VISIBLE);
-                todaySalesLoading.setVisibility(View.GONE);
+                /*todaySalesChart.setVisibility(View.VISIBLE);
+                todaySalesLoading.setVisibility(View.GONE);*/
             });
     }
 
