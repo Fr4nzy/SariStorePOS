@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.example.loadinganimation.LoadingAnimation;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesForecastChart;
 import com.projectfkklp.saristorepos.activities.analytics.AnalyticsPage;
 import com.projectfkklp.saristorepos.activities.inventory.InventoryProductListPage;
 import com.projectfkklp.saristorepos.activities.pos.PosPage;
@@ -27,7 +26,6 @@ import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.NumberUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
-import com.projectfkklp.saristorepos.utils.TestingUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.text.DecimalFormat;

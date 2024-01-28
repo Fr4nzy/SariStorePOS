@@ -20,8 +20,6 @@ import com.projectfkklp.saristorepos.utils.StringUtils;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 public class DashboardTodaySalesChart extends PieChart {
     private String title;

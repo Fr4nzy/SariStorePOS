@@ -1,9 +1,6 @@
 package com.projectfkklp.saristorepos.repositories;
 
-import static com.firebase.ui.auth.AuthUI.TAG;
-
 import android.content.Context;
-import android.util.Log;
 import android.util.Pair;
 
 import com.google.android.gms.tasks.Task;
@@ -114,6 +111,7 @@ public class ReportRepository {
                 Double yesterdaySales = -1.;
                 Double todayActualSales = -1.;
                 Double todayTargetSales = -1.;
+
                 List<Double> forecastData;
                 Date lastUpdatedAt = store.getDailySalesUpdatedAt();
                 {
