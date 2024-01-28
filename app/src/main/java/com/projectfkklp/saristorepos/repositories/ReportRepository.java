@@ -10,6 +10,7 @@ import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.utils.DateUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -94,4 +95,71 @@ public class ReportRepository {
             })
         ;
     }
+    public static Task<Task<List<Double>>> getTodaySalesReport(Context context){
+        return StoreRepository.getStoreById(SessionRepository.getCurrentStore(context).getId())
+            .continueWith(task->{
+                Store store = task.getResult().toObject(Store.class);
+                assert store != null;
+
+                // Set dailySales (input data)
+                List<Double> dailySales = store.getDailySales();
+                Double yesterdaySales = -1.;
+                Double todayActualSales = -1.;
+                Double todayTargetSales = -1.;
+
+                List<Double> forecastData;
+                Date lastUpdatedAt = store.getDailySalesUpdatedAt();
+                {
+                    Date currentDate = new Date();
+                    long daysSinceLastUpdate  = DateUtils.calculateDaysDifference(lastUpdatedAt, currentDate);
+
+                    // Fill missing data with 0 Sales
+                    for (int i=0; i<daysSinceLastUpdate;i++){
+                        dailySales.add(0.);
+                    }
+
+                    // If no transactions yet, do not proceed
+                    if (dailySales.isEmpty()){
+                        return Tasks.forResult(new ArrayList<>(Arrays.asList(
+                            yesterdaySales,
+                            todayActualSales,
+                            todayTargetSales
+                        )));
+                    }
+
+                    // Get todayActualSales
+                    todayActualSales = dailySales.get(dailySales.size()-1);
+
+                    // Get Yesterday Sales
+                    if(dailySales.size()>1){
+                        yesterdaySales = dailySales.get(dailySales.size()-2);
+                    }
+
+                }
+
+                // Get forecast for today
+                {
+                    // Remove sales today before feeding to Arima model
+                    forecastData = dailySales.subList(0, dailySales.size()-1);
+
+                    double[] forecastData_ = forecastData
+                            .stream()
+                            .mapToDouble(Double::doubleValue)
+                            .toArray();
+                    try{
+                        double[] forecastResults = Arima.forecast(1, forecastData_);
+                        todayTargetSales = forecastResults[0];
+
+                    }
+                    catch (Exception ignored){}
+                }
+
+                    return Tasks.forResult(new ArrayList<>(Arrays.asList(
+                        yesterdaySales,
+                        todayActualSales,
+                        todayTargetSales
+                    )));
+            });
+    }
+
 }

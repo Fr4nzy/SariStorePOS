@@ -90,7 +90,7 @@ public class StoreSelectorPage extends AppCompatActivity {
         ;
     }
 
-    private  void initializeViews(){
+    private void initializeViews(){
         userNameText = findViewById(R.id.store_selector_page_user_name);
         storeSelectorRecycler = findViewById(R.id.store_selector_recycler);
         loadingProgressBar = findViewById(R.id.store_selector_page_progress);
