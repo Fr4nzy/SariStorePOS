@@ -20,7 +20,12 @@ import com.projectfkklp.saristorepos.activities.store_profile.StoreProfilePage;
 import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage;
 import com.projectfkklp.saristorepos.activities.transaction.TransactionPage;
 import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
+import com.projectfkklp.saristorepos.classes.ProductSalesSummaryData;
+import com.projectfkklp.saristorepos.models.DailyTransactions;
 import com.projectfkklp.saristorepos.models.Store;
+import com.projectfkklp.saristorepos.models.Transaction;
+import com.projectfkklp.saristorepos.models.TransactionItem;
+import com.projectfkklp.saristorepos.repositories.DailyTransactionsRepository;
 import com.projectfkklp.saristorepos.repositories.ReportRepository;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.utils.CacheUtils;
@@ -68,8 +73,7 @@ public class DashboardPage extends AppCompatActivity {
     private void generateCharts(){
         generateAnalyticsChart();
         generateTodaySalesChart();
-        generateTopSellingChart();
-        generateTopSoldChart();
+        generateProductRelatedReports();
     }
 
     private void initializeViews(){
@@ -156,17 +160,65 @@ public class DashboardPage extends AppCompatActivity {
         ;
     }
 
-    private void generateTopSellingChart() {
-        HashMap<String, Integer> soldEntries = new HashMap<>();
-        soldEntries.put("Sky flakes", 3000);
-        soldEntries.put("Coke", 2000);
-        soldEntries.put("Pepsi", 1000);
-        soldEntries.put("Other 1", 900);
-        soldEntries.put("Other 2", 800);
-        soldEntries.put("Other 3", 300);
+    private void generateProductRelatedReports(){
+        // Fetch transactions from last 30 days up today
+        DailyTransactionsRepository.getDailyTransactions(this, 0)
+            .addOnSuccessListener(task->{
+                List<DailyTransactions> dailyTransactionsList = task.toObjects(DailyTransactions.class);
 
-        int total = soldEntries.values().stream().mapToInt(Integer::intValue).sum();
-        topSellingChart.setData(soldEntries, new ValueFormatter() {
+                // Data Preparation
+                HashMap<String, ProductSalesSummaryData> hashedProductSalesSummaryData = new HashMap<>();
+                for (DailyTransactions dailyTransactions : dailyTransactionsList){
+                    for (Transaction transaction: dailyTransactions.getTransactions()){
+                        for (TransactionItem transactionItem:transaction.getItems()){
+                            String key = transactionItem.getProductId();
+                            if (hashedProductSalesSummaryData.containsKey(key)){
+                                ProductSalesSummaryData summary = hashedProductSalesSummaryData.get(key);
+                                assert summary != null;
+                                summary.soldItems += transactionItem.getQuantity();
+                                summary.sales += transactionItem.calculateAmount();
+                                continue;
+                            }
+
+                            ProductSalesSummaryData summaryData = new ProductSalesSummaryData(
+                                key,
+                                transactionItem.getQuantity(),
+                                transactionItem.calculateAmount()
+                            );
+                            hashedProductSalesSummaryData.put(key, summaryData);
+                        }
+                    }
+                }
+
+                // At this point, data is now prepared,
+                // please process accordingly to be make it compatible to the next processes
+
+                // Top Selling Chart
+                HashMap<String, Integer> salesEntries = new HashMap<>();
+                generateTopSellingChart();
+
+                // Top Sold Chart
+                HashMap<String, Integer> soldEntries = new HashMap<>();
+                generateTopSoldChart();
+            })
+            .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
+            .addOnCompleteListener(task-> {
+                todaySalesChart.setVisibility(View.VISIBLE);
+                todaySalesLoading.setVisibility(View.GONE);
+            });
+    }
+
+    private void generateTopSellingChart() {
+        HashMap<String, Integer> salesEntries = new HashMap<>();
+        salesEntries.put("Sky flakes", 3000);
+        salesEntries.put("Coke", 2000);
+        salesEntries.put("Pepsi", 1000);
+        salesEntries.put("Other 1", 900);
+        salesEntries.put("Other 2", 800);
+        salesEntries.put("Other 3", 300);
+
+        int total = salesEntries.values().stream().mapToInt(Integer::intValue).sum();
+        topSellingChart.setData(salesEntries, new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
             if (total == 0) {
