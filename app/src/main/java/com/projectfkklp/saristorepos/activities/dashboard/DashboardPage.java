@@ -167,51 +167,55 @@ public class DashboardPage extends AppCompatActivity {
             .continueWith(task->{
                 // Use store to reference products details, like product name
                 store = task.getResult().toObject(Store.class);
-                return DailyTransactionsRepository.getDailyTransactions(this, 0);
-            })
-            .addOnSuccessListener(task->{
-                List<DailyTransactions> dailyTransactionsList = task.getResult().toObjects(DailyTransactions.class);
 
-                // Data Preparation
-                HashMap<String, ProductSalesSummaryData> hashedProductSalesSummaryData = new HashMap<>();
-                for (DailyTransactions dailyTransactions : dailyTransactionsList){
-                    for (Transaction transaction: dailyTransactions.getTransactions()){
-                        for (TransactionItem transactionItem:transaction.getItems()){
-                            String key = transactionItem.getProductId();
-                            if (hashedProductSalesSummaryData.containsKey(key)){
-                                ProductSalesSummaryData summary = hashedProductSalesSummaryData.get(key);
-                                assert summary != null;
-                                summary.soldItems += transactionItem.getQuantity();
-                                summary.sales += transactionItem.calculateAmount();
-                                continue;
+                return DailyTransactionsRepository.getDailyTransactions(this, 0)
+                    .addOnSuccessListener(dailyTransactionsTask->{
+                        List<DailyTransactions> dailyTransactionsList = dailyTransactionsTask.toObjects(DailyTransactions.class);
+
+                        // Data Preparation
+                        HashMap<String, ProductSalesSummaryData> hashedProductSalesSummaryData = new HashMap<>();
+                        for (DailyTransactions dailyTransactions : dailyTransactionsList){
+                            for (Transaction transaction: dailyTransactions.getTransactions()){
+                                for (TransactionItem transactionItem:transaction.getItems()){
+                                    String key = transactionItem.getProductId();
+                                    if (hashedProductSalesSummaryData.containsKey(key)){
+                                        ProductSalesSummaryData summary = hashedProductSalesSummaryData.get(key);
+                                        assert summary != null;
+                                        summary.soldItems += transactionItem.getQuantity();
+                                        summary.sales += transactionItem.calculateAmount();
+                                        continue;
+                                    }
+
+                                    ProductSalesSummaryData summaryData = new ProductSalesSummaryData(
+                                            key,
+                                            transactionItem.getQuantity(),
+                                            transactionItem.calculateAmount()
+                                    );
+                                    hashedProductSalesSummaryData.put(key, summaryData);
+                                }
                             }
-
-                            ProductSalesSummaryData summaryData = new ProductSalesSummaryData(
-                                key,
-                                transactionItem.getQuantity(),
-                                transactionItem.calculateAmount()
-                            );
-                            hashedProductSalesSummaryData.put(key, summaryData);
                         }
-                    }
-                }
 
-                // At this point, data is now prepared,
-                // please process accordingly to be make it compatible to the next processes
+                        // At this point, data is now prepared,
+                        // please process accordingly to be make it compatible to the next processes
 
-                // Top Selling Chart
-                HashMap<String, Integer> salesEntries = new HashMap<>();
-                generateTopSellingChart();
+                        // Top Selling Chart
+                        HashMap<String, Integer> salesEntries = new HashMap<>();
+                        generateTopSellingChart();
 
-                // Top Sold Chart
-                HashMap<String, Integer> soldEntries = new HashMap<>();
-                generateTopSoldChart();
+                        // Top Sold Chart
+                        HashMap<String, Integer> soldEntries = new HashMap<>();
+                        generateTopSoldChart();
+                    })
+                    .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
+                    .addOnCompleteListener(dailyTransactionsTask-> {
+                        /*todaySalesChart.setVisibility(View.VISIBLE);
+                        todaySalesLoading.setVisibility(View.GONE);*/
+                    })     
+                ;
             })
             .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
-            .addOnCompleteListener(task-> {
-                /*todaySalesChart.setVisibility(View.VISIBLE);
-                todaySalesLoading.setVisibility(View.GONE);*/
-            });
+        ;
     }
 
     private void generateTopSellingChart() {
