@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.loadinganimation.LoadingAnimation;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesForecastChart;
 import com.projectfkklp.saristorepos.activities.analytics.AnalyticsPage;
 import com.projectfkklp.saristorepos.activities.inventory.InventoryProductListPage;
 import com.projectfkklp.saristorepos.activities.pos.PosPage;
@@ -131,16 +132,30 @@ public class DashboardPage extends AppCompatActivity {
         // Show loading and hide chart
         todaySalesChart.setVisibility(View.INVISIBLE);
         todaySalesLoading.setVisibility(View.VISIBLE);
+        ReportRepository.getTodaySalesReport(this)
+            .addOnSuccessListener(task->{
+                List<Double> todaySalesData = task.getResult();
+                Double yesterdaySales = todaySalesData.get(0);
+                Double todayActualSales = todaySalesData.get(1);
+                Double todayTargetSales = todaySalesData.get(2);
 
-        TestingUtils.delay(1500, ()->{
-            float ySales = 4_545_454_545.454545F;
-            float taSales = 5_000_000_000F;
-            float ttSales = 100_000_000_00f;
-            todaySalesChart.setData(ySales, taSales, ttSales);
-            // Hide loading and show chart
-            todaySalesChart.setVisibility(View.VISIBLE);
-            todaySalesLoading.setVisibility(View.GONE);
-        });
+                if (yesterdaySales < 0 || todayActualSales <0 || todayTargetSales <0){
+                    todaySalesChart.setData(null);
+                    return;
+                }
+
+                // Set data on todaySalesChart (Replace with the actual method or property names)
+                todaySalesChart.setData(
+                    NumberUtils.convertToFloat(yesterdaySales),
+                    NumberUtils.convertToFloat(todayActualSales),
+                    NumberUtils.convertToFloat(todayTargetSales));
+            })
+            .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
+            .addOnCompleteListener(task-> {
+                todaySalesChart.setVisibility(View.VISIBLE);
+                todaySalesLoading.setVisibility(View.GONE);
+            })
+        ;
     }
 
     private void generateTopSellingChart() {

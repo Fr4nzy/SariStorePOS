@@ -1,5 +1,7 @@
 package com.projectfkklp.saristorepos.utils;
 
+import com.github.mikephil.charting.data.PieData;
+
 import java.util.List;
 
 public class NumberUtils {
@@ -11,6 +13,10 @@ public class NumberUtils {
         }
 
         return floatArray;
+    }
+
+    public static float convertToFloat(Double doubleValue) {
+        return doubleValue != null ? doubleValue.floatValue() : 0f;
     }
 
 }

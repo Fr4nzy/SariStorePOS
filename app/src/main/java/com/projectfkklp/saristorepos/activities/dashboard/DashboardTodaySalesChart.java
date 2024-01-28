@@ -20,6 +20,8 @@ import com.projectfkklp.saristorepos.utils.StringUtils;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class DashboardTodaySalesChart extends PieChart {
     private String title;
@@ -30,6 +32,7 @@ public class DashboardTodaySalesChart extends PieChart {
     public DashboardTodaySalesChart(Context context, AttributeSet attrs) {  super(context, attrs);  }
 
     public DashboardTodaySalesChart(Context context, AttributeSet attrs, int defStyle) {    super(context, attrs, defStyle);    }
+
     public void initializeTodaySalesChart(String title) {
         this.title = title;
 
@@ -58,14 +61,14 @@ public class DashboardTodaySalesChart extends PieChart {
         // Pie Chart Entries
         {
             pieEntries = new ArrayList<>(Arrays.asList(
-                new PieEntry(todayActualSales),
-                new PieEntry(remainingTargetSales)
+                    new PieEntry(todayActualSales),
+                    new PieEntry(remainingTargetSales)
             ));
             PieDataSet dataSet = new PieDataSet(pieEntries, title);
             dataSet.setDrawValues(false);
             dataSet.setColors(
-                Color.parseColor("#0096FF"),
-                Color.parseColor("#A9A9A9")
+                    Color.parseColor("#0096FF"),
+                    Color.parseColor("#A9A9A9")
             );
             PieData data = new PieData(dataSet);
             {
@@ -75,15 +78,19 @@ public class DashboardTodaySalesChart extends PieChart {
             setData(data);
         }
 
-        SpannableString spannableString = generateCenterText(todayActualSales, todayTargetSales,salesPerformancePercentage, salesGrowthPercentage);
-        setCenterText(spannableString);
+        SpannableString spannableString = generateCenterText(
+                todayActualSales,
+                todayTargetSales,
+                salesPerformancePercentage,
+                salesGrowthPercentage);
 
+        setCenterText(spannableString);
         animateY(1400, Easing.EaseInOutQuad);
         invalidate();
     }
 
     // Method to generate customizable center text
-    private SpannableString generateCenterText(float todayActualSales, float todayTargetSales, float salesPerformancePercentage, float salesGrowthPercentage) {
+    private SpannableString generateCenterText(float todaySalesSize, float forecastSalesSize, float salesPerformancePercentage, float salesGrowthPercentage) {
         DecimalFormat decimalFormat = new DecimalFormat("+#,##0.00;-#");
         String salesGrowthPercentageText = decimalFormat.format(salesGrowthPercentage);
 
@@ -94,8 +101,8 @@ public class DashboardTodaySalesChart extends PieChart {
                 +"Target Sales: %s\n"
                 +"%s%% vs Yesterday",
             salesPerformancePercentage,
-            StringUtils.formatToPeso(todayActualSales),
-            StringUtils.formatToPeso(todayTargetSales),
+            StringUtils.formatToPeso(todaySalesSize),
+            StringUtils.formatToPeso(forecastSalesSize),
             salesGrowthPercentageText
         );
 
