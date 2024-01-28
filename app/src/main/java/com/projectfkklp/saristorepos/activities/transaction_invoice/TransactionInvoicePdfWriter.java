@@ -15,6 +15,7 @@ import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -72,8 +73,12 @@ public class TransactionInvoicePdfWriter extends PdfWriter {
 
                 // Start writing and save to downloads
                 write();
-                save();
-                ToastUtils.show(context, "Receipt downloaded");
+                try {
+                    save();
+                    ToastUtils.show(context, "Receipt downloaded");
+                } catch (IOException e) {
+                    ToastUtils.show(context, e.getMessage());
+                }
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(context, failedTask.getMessage()))
             .addOnCompleteListener(task-> ProgressUtils.dismissDialog())

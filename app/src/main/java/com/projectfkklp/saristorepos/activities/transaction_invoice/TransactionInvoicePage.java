@@ -89,7 +89,10 @@ public class TransactionInvoicePage extends AppCompatActivity {
             assert transaction != null;
             invoiceTitle = "Orders Receipt";
             invoiceDate = LocalDateTime.parse(transaction.getDateTime()).format(dateTimeFormatter);
-            invoiceFilename = String.format("order-receipt-%s.pdf", transaction.getDateTime());
+            invoiceFilename = String.format(
+                "order-receipt-%s.pdf",
+                LocalDateTime.parse(transaction.getDateTime()).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
+            );
             title = String.format(
                 "Invoice — %s",
                 invoiceDate

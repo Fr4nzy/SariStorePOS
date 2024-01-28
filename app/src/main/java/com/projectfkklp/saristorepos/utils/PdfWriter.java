@@ -8,6 +8,7 @@ import android.os.Environment;
 import com.projectfkklp.saristorepos.interfaces.PdfCustomWrite;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -43,7 +44,7 @@ public abstract class PdfWriter {
         paint = new Paint();
     }
 
-    public void start(){
+    public void start() throws IOException {
         write();
 
         save();
@@ -51,18 +52,14 @@ public abstract class PdfWriter {
 
     protected abstract void write();
 
-    public void save(){
+    public void save() throws IOException {
         // Save to downloads
         document.finishPage(page);
         File downloadDirs = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         file = new File(downloadDirs, filename);
 
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            document.writeTo(fos);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        FileOutputStream fos = new FileOutputStream(file);
+        document.writeTo(fos);
     }
 
     public void setTextSize(float textSize){
