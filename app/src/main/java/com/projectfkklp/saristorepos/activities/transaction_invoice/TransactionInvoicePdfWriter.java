@@ -123,12 +123,14 @@ public class TransactionInvoicePdfWriter extends PdfWriter {
                     .findFirst()
                     .get();
                 int quantity = 0;
+                float unitPrice = 0;
                 float amount = 0;
                 for (TransactionItem transactionItem:transactionItems){
                     if (transactionItem.getProductId().equals(transactedProductId)){
                         quantity += transactionItem.getQuantity();
                         amount += transactionItem.calculateAmount();
 
+                        unitPrice = transactionItem.getUnitPrice();
                         totalQuantity+=quantity;
                         totalAmount+=amount;
                     }
@@ -137,7 +139,11 @@ public class TransactionInvoicePdfWriter extends PdfWriter {
                 x = writer.getX();
                 y = writer.getY();
                 canvas.drawText(Objects.toString(quantity), x, y, paint);
-                canvas.drawText(product.getName(), x+100, y, paint);
+                canvas.drawText(
+                    String.format("%s (%s)", product.getName(), StringUtils.formatToPeso(unitPrice)),
+                    x+100,
+                    y, paint
+                );
                 canvas.drawText(StringUtils.formatToPeso(amount), pageWidth-250, y, paint);
                 writer.setY((int) (y+paint.getTextSize()));
             }
