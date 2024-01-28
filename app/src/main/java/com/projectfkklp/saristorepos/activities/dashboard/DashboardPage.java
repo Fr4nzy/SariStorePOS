@@ -28,6 +28,7 @@ import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.repositories.DailyTransactionsRepository;
 import com.projectfkklp.saristorepos.repositories.ReportRepository;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
+import com.projectfkklp.saristorepos.repositories.StoreRepository;
 import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.NumberUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
@@ -162,9 +163,14 @@ public class DashboardPage extends AppCompatActivity {
 
     private void generateProductRelatedReports(){
         // Fetch transactions from last 30 days up today
-        DailyTransactionsRepository.getDailyTransactions(this, 0)
+        StoreRepository.getStoreById(SessionRepository.getCurrentStore(this).getId())
+            .continueWith(task->{
+                // Use store to reference products details, like product name
+                store = task.getResult().toObject(Store.class);
+                return DailyTransactionsRepository.getDailyTransactions(this, 0);
+            })
             .addOnSuccessListener(task->{
-                List<DailyTransactions> dailyTransactionsList = task.toObjects(DailyTransactions.class);
+                List<DailyTransactions> dailyTransactionsList = task.getResult().toObjects(DailyTransactions.class);
 
                 // Data Preparation
                 HashMap<String, ProductSalesSummaryData> hashedProductSalesSummaryData = new HashMap<>();
