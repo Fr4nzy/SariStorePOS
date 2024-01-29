@@ -64,7 +64,7 @@ public class StoreFinderPage extends AppCompatActivity {
 
                @Override
                public boolean onQueryTextSubmit(String query) {
-                   onSearch(query.toUpperCase());
+                   onSearch(query);
                    return true;
                }
            }
