@@ -64,7 +64,7 @@ public class StoreFinderPage extends AppCompatActivity {
 
                @Override
                public boolean onQueryTextSubmit(String query) {
-                   onSearch(query.toUpperCase());
+                   onSearch(query);
                    return true;
                }
            }
@@ -73,13 +73,13 @@ public class StoreFinderPage extends AppCompatActivity {
 
     private void initializeRecyclerView(){
         // Initialize views and set up RecyclerView
-         RecyclerView storeSelectoreRecycler = findViewById(R.id.store_finder_recycler);
+        RecyclerView storeSelectorRecycler = findViewById(R.id.store_finder_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        storeSelectoreRecycler.setLayoutManager(layoutManager);
+        storeSelectorRecycler.setLayoutManager(layoutManager);
 
         // Set up adapter
         storeFinderPageAdapter = new StoreFinderAdapter(this, searchedStores);
-        storeSelectoreRecycler.setAdapter(storeFinderPageAdapter);
+        storeSelectorRecycler.setAdapter(storeFinderPageAdapter);
     }
 
     private void onSearch(String searchText){

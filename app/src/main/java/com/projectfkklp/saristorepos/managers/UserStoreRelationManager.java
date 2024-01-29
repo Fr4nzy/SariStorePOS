@@ -9,6 +9,7 @@ import com.projectfkklp.saristorepos.enums.UserRole;
 import com.projectfkklp.saristorepos.enums.UserStatus;
 import com.projectfkklp.saristorepos.interfaces.OnSetFirebaseDocument;
 import com.projectfkklp.saristorepos.models.Store;
+import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.models.UserStoreRelation;
 import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.utils.ModelUtils;
@@ -38,6 +39,31 @@ public class UserStoreRelationManager {
                     .addOnSuccessListener(onSetFirebaseDocument::onSuccess)
                     .addOnFailureListener(onSetFirebaseDocument::onFailed)
                     .addOnCompleteListener(onSetFirebaseDocument::onComplete);
+            }
+            else {
+                onSetFirebaseDocument.onInvalid(validationStatus);
+            }
+        });
+    }
+
+    public static void invite(Context context, User user, UserRole userRole, OnSetFirebaseDocument onSetFirebaseDocument){
+        String id = ModelUtils.createUUID();
+        UserStoreRelation userStoreRelation = new UserStoreRelation(
+                id,
+                user.getId(),
+                SessionRepository.getCurrentStore(context).getId(),
+                userRole,
+                UserStatus.INVITED
+        );
+
+        UserStoreRelationValidator.validate(context, userStoreRelation, validationStatus -> {
+            if (validationStatus.isValid()) {
+                getCollectionReference()
+                        .document(id)
+                        .set(userStoreRelation)
+                        .addOnSuccessListener(onSetFirebaseDocument::onSuccess)
+                        .addOnFailureListener(onSetFirebaseDocument::onFailed)
+                        .addOnCompleteListener(onSetFirebaseDocument::onComplete);
             }
             else {
                 onSetFirebaseDocument.onInvalid(validationStatus);

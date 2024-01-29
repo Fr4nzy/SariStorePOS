@@ -55,6 +55,9 @@
             android:name=".activities.user_profile.UserProfilePage"
             android:exported="false" />
         <activity
+            android:name=".activities.store_recruitment.UserRecruitmentPage"
+            android:exported="false" />
+        <activity
             android:name=".activities.store_selector.StoreSelectorPage"
             android:exported="false" />
         <activity

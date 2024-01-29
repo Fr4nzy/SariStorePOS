@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.activities.store_recruitment.UserRecruitmentPage;
 import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.managers.StoreManager;
 import com.projectfkklp.saristorepos.models.Store;
@@ -270,6 +272,10 @@ public class StoreProfilePage extends AppCompatActivity {
                 Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show()
             )
             .addOnCompleteListener(completeTask-> ProgressUtils.dismissDialog());
+    }
+
+    public void goToUserRecruitPage(View view) {
+        startActivity(new Intent(this, UserRecruitmentPage.class));
     }
 
     public void dismiss(View view) {

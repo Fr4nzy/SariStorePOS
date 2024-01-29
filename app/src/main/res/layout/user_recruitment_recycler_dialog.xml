@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    android:id="@+id/store_finder_dialog_card"
+    android:id="@+id/user_recruitment_dialog_card"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,37 +21,37 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/store_finder_recycler_dialog_text"
+            android:id="@+id/user_recruitment_recycler_dialog_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Would you like to join the store with the following detail:"
+            android:text="Would you like to recruit a user with the following details:"
             android:textColor="@color/lavender"
             android:textSize="14sp"
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/store_finder_recycler_store_name"
+            android:id="@+id/user_recruitment_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Store A"
+            android:text="User Name"
             android:textColor="@color/lavender"
             android:textSize="14sp"/>
 
         <TextView
-            android:id="@+id/store_finder_recycler_store_address"
+            android:id="@+id/user_recruitment_user_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sitio Yakal, Brgy Malinao, San Pablo City, Laguna"
+            android:text="(+63)999 9999 999"
             android:textColor="@color/lavender"
             android:textSize="14sp"/>
 
         <TextView
-            android:id="@+id/store_finder_recycler_store_id"
+            android:id="@+id/user_recruitment_user_gmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="\@17f1e065a4f001"
-            android:textColor="@color/lightGray"
+            android:text="\username.mail@gmail.com"
+            android:textColor="@color/lavender"
             android:textSize="14sp"/>
 
 
@@ -64,23 +64,23 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/btn_join_as_owner"
+                android:id="@+id/btn_recruit_as_owner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
-                android:text="Join As Owner"
+                android:text="Recruit As Owner"
                 android:backgroundTint="@color/positiveButtonColor"/>
 
             <Button
-                android:id="@+id/btn_join_as_assistant"
+                android:id="@+id/btn_recruit_as_assistant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
-                android:text="Join As Assistant"
+                android:text="Recruit As Assistant"
                 android:backgroundTint="@color/positiveButtonColor"/>
 
             <Button
-                android:id="@+id/btn_store_finder_dialog_dismiss"
+                android:id="@+id/btn_user_recruitment_dialog_dismiss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"

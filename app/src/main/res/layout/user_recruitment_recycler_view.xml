@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/user_finder_store_card"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_marginHorizontal="5dp">
+
+        <TextView
+            android:id="@+id/user_finder_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:textColor="@color/lavender"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/user_recruit_user_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(+63) 945 613 9987"
+            android:textColor="@color/lavender"
+            android:textSize="9sp"
+            android:layout_marginBottom="2sp"
+            android:visibility="visible"
+            />
+
+        <TextView
+            android:id="@+id/user_recruit_user_gmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="franzy.czolo22@gmail.com"
+            android:textColor="@color/lavender"
+            android:textSize="9sp"
+            android:layout_marginBottom="2sp"
+            android:visibility="visible"
+            />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
