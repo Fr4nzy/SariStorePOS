@@ -237,8 +237,9 @@ public class DashboardPage extends AppCompatActivity {
                     })     
                 ;
             })
-            .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
-            .addOnCompleteListener(task -> {
+            .addOnFailureListener(e-> {
+                ToastUtils.show(this, e.getMessage());
+
                 // TODO: hide loading, and show charts (Same to the complete event at above)
             })
         ;
