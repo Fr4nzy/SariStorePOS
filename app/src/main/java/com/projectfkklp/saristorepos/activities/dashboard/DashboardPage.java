@@ -22,6 +22,7 @@ import com.projectfkklp.saristorepos.activities.transaction.TransactionPage;
 import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
 import com.projectfkklp.saristorepos.classes.ProductSalesSummaryData;
 import com.projectfkklp.saristorepos.models.DailyTransactions;
+import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
@@ -38,6 +39,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public class DashboardPage extends AppCompatActivity {
     TextView storeNameText;
@@ -170,11 +172,13 @@ public class DashboardPage extends AppCompatActivity {
 
         // Fetch transactions from last 30 days up today
         StoreRepository.getStoreById(SessionRepository.getCurrentStore(this).getId())
-            .continueWith(task->{
+            .addOnSuccessListener(task->{
                 // Use store to reference products details, like product name
-                store = task.getResult().toObject(Store.class);
+                store = task.toObject(Store.class);
+                assert store != null;
+                List<Product> products = store.getProducts();
 
-                return DailyTransactionsRepository.getDailyTransactions(this, 0)
+                DailyTransactionsRepository.getDailyTransactions(this, 0)
                     .addOnSuccessListener(dailyTransactionsTask->{
                         List<DailyTransactions> dailyTransactionsList = dailyTransactionsTask.toObjects(DailyTransactions.class);
 
@@ -184,6 +188,8 @@ public class DashboardPage extends AppCompatActivity {
                             for (Transaction transaction: dailyTransactions.getTransactions()){
                                 for (TransactionItem transactionItem:transaction.getItems()){
                                     String key = transactionItem.getProductId();
+
+                                    // Existing entry/Appending
                                     if (hashedProductSalesSummaryData.containsKey(key)){
                                         ProductSalesSummaryData summary = hashedProductSalesSummaryData.get(key);
                                         assert summary != null;
@@ -192,8 +198,16 @@ public class DashboardPage extends AppCompatActivity {
                                         continue;
                                     }
 
+                                    // New entry
+                                    Optional<Product> optionalProduct = products.stream().filter(p->p.getId().equals(key)).findFirst();
+                                    if (!optionalProduct.isPresent()) {
+                                        continue;
+                                    }
+
+                                    Product product = optionalProduct.get();
                                     ProductSalesSummaryData summaryData = new ProductSalesSummaryData(
                                         key,
+                                        product.getName(),
                                         transactionItem.getQuantity(),
                                         transactionItem.calculateAmount()
                                     );
