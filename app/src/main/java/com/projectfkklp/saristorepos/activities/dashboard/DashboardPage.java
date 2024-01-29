@@ -162,6 +162,12 @@ public class DashboardPage extends AppCompatActivity {
     }
 
     private void generateProductRelatedReports(){
+        // #region Top Charts Loading Here
+        // TODO: Show loading, hide charts
+
+
+        // #endregion
+
         // Fetch transactions from last 30 days up today
         StoreRepository.getStoreById(SessionRepository.getCurrentStore(this).getId())
             .continueWith(task->{
@@ -187,46 +193,58 @@ public class DashboardPage extends AppCompatActivity {
                                     }
 
                                     ProductSalesSummaryData summaryData = new ProductSalesSummaryData(
-                                            key,
-                                            transactionItem.getQuantity(),
-                                            transactionItem.calculateAmount()
+                                        key,
+                                        transactionItem.getQuantity(),
+                                        transactionItem.calculateAmount()
                                     );
                                     hashedProductSalesSummaryData.put(key, summaryData);
                                 }
                             }
                         }
 
+                        // #region Top charts implementation here
+                        // TODO: Code here
                         // At this point, data is now prepared,
-                        // please process accordingly to be make it compatible to the next processes
+                        // please process accordingly to make it compatible to the next processes
+                        // NOTE: please use store.getProducts() to get product names
 
                         // Top Selling Chart
                         HashMap<String, Integer> salesEntries = new HashMap<>();
-                        generateTopSellingChart();
+                        salesEntries.put("Sky flakes", 3000);
+                        salesEntries.put("Coke", 2000);
+                        salesEntries.put("Pepsi", 1000);
+                        salesEntries.put("Other 1", 900);
+                        salesEntries.put("Other 2", 800);
+                        salesEntries.put("Other 3", 300);
+                        generateTopSellingChart(salesEntries);
 
                         // Top Sold Chart
                         HashMap<String, Integer> soldEntries = new HashMap<>();
-                        generateTopSoldChart();
+                        soldEntries.put("Sky flakes", 3000);
+                        soldEntries.put("Coke", 2000);
+                        soldEntries.put("Pepsi", 1000);
+                        soldEntries.put("Other 1", 900);
+                        soldEntries.put("Other 2", 800);
+                        soldEntries.put("Other 3", 300);
+                        generateTopSoldChart(soldEntries);
+                        // #endregion
                     })
                     .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
                     .addOnCompleteListener(dailyTransactionsTask-> {
+                        // TODO: hide loading, and show charts
                         /*todaySalesChart.setVisibility(View.VISIBLE);
                         todaySalesLoading.setVisibility(View.GONE);*/
                     })     
                 ;
             })
             .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
+            .addOnCompleteListener(task -> {
+                // TODO: hide loading, and show charts (Same to the complete event at above)
+            })
         ;
     }
 
-    private void generateTopSellingChart() {
-        HashMap<String, Integer> salesEntries = new HashMap<>();
-        salesEntries.put("Sky flakes", 3000);
-        salesEntries.put("Coke", 2000);
-        salesEntries.put("Pepsi", 1000);
-        salesEntries.put("Other 1", 900);
-        salesEntries.put("Other 2", 800);
-        salesEntries.put("Other 3", 300);
-
+    private void generateTopSellingChart(HashMap<String, Integer> salesEntries) {
         int total = salesEntries.values().stream().mapToInt(Integer::intValue).sum();
         topSellingChart.setData(salesEntries, new ValueFormatter() {
             @Override
@@ -246,15 +264,7 @@ public class DashboardPage extends AppCompatActivity {
         });
     }
 
-    private void generateTopSoldChart() {
-        HashMap<String, Integer> soldEntries = new HashMap<>();
-        soldEntries.put("Sky flakes", 3000);
-        soldEntries.put("Coke", 2000);
-        soldEntries.put("Pepsi", 1000);
-        soldEntries.put("Other 1", 900);
-        soldEntries.put("Other 2", 800);
-        soldEntries.put("Other 3", 300);
-
+    private void generateTopSoldChart(HashMap<String, Integer> soldEntries) {
         int total = soldEntries.values().stream().mapToInt(Integer::intValue).sum();
         topSoldChart.setData(soldEntries, new ValueFormatter() {
             @Override
