@@ -31,6 +31,7 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/store_finder_recycler_store_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Store A"
@@ -38,6 +39,7 @@
             android:textSize="14sp"/>
 
         <TextView
+            android:id="@+id/store_finder_recycler_store_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sitio Yakal, Brgy Malinao, San Pablo City, Laguna"
@@ -45,6 +47,7 @@
             android:textSize="14sp"/>
 
         <TextView
+            android:id="@+id/store_finder_recycler_store_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="\@17f1e065a4f001"
