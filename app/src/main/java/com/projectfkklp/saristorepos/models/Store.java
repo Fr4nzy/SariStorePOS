@@ -36,6 +36,10 @@ public class Store {
         this.name = name;
         this.address = address;
         products = new ArrayList<>();
+
+        dailySold = new ArrayList<>();
+        dailySales = new ArrayList<>();
+        dailySalesUpdatedAt = new Date();
     }
 
     // Getter and Setter methods for 'id'

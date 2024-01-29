@@ -3,11 +3,11 @@ package com.projectfkklp.saristorepos.activities.super_admin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
 import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.managers.UserManager;
 import com.projectfkklp.saristorepos.models.User;
@@ -84,5 +84,9 @@ public class SuperAdminPage extends AppCompatActivity {
             })
             .addOnFailureListener(failedTask-> ToastUtils.show(this, failedTask.getMessage()))
             .addOnCompleteListener(task-> ProgressUtils.dismissDialog());
+    }
+
+    public void evaluateArima(View view){
+        startActivity(new Intent(this, ArimaEvaluationPage.class));
     }
 }

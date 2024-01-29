@@ -109,18 +109,18 @@ public class DashboardSalesForecastChart extends LineChart {
             xAxis.setValueFormatter(new ValueFormatter() {
                 @Override
                 public String getFormattedValue(float value) {
-                    int datePositionFromNow = (int) (value - actualSalesSize + 1);
+                int datePositionFromNow = (int) (value - actualSalesSize + 1);
 
-                    if (datePositionFromNow == 0) {
-                        return "Today";
-                    }
-                    if (datePositionFromNow == -1) {
-                        return "Yesterday";
-                    }
-                    if (datePositionFromNow == 1) {
-                        return "Tomorrow";
-                    }
-                    return DateUtils.SHORT_DATE_FORMAT.format(DateUtils.addDays(currentData, datePositionFromNow));
+                if (datePositionFromNow == 0) {
+                    return "Today";
+                }
+                if (datePositionFromNow == -1) {
+                    return "Yesterday";
+                }
+                if (datePositionFromNow == 1) {
+                    return "Tomorrow";
+                }
+                return DateUtils.SHORT_DATE_FORMAT.format(DateUtils.addDays(currentData, datePositionFromNow));
                 }
 
             });
@@ -131,7 +131,6 @@ public class DashboardSalesForecastChart extends LineChart {
     }
 
     private LineDataSet createDataSet(String name, int offset, float[] values, int color) {
-
         ArrayList<Entry> entries = new ArrayList<>();
 
         for (int i=0;i<values.length;i++) {

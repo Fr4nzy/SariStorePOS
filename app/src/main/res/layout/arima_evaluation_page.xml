@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.super_admin.SuperAdminPage"
+    tools:context=".activities.super_admin.ArimaEvaluationPage"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
@@ -29,35 +29,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Super Admin Tools"
+                android:text="Arima Evaluation"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:layout_gravity="center"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.button.MaterialButton
+    <EditText
+        android:id="@+id/arima_evaluation_textarea"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:text="Create Dummy Data"
-        android:backgroundTint="@color/red"
-        android:onClick="showCreateDummyDataConfirmation"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Revoke Super Admin Access"
-        android:backgroundTint="@color/red"
-        android:onClick="showRevokeSuperAdminAccessConfirmation"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Evaluate Arima"
-        android:backgroundTint="#0000dd"
-        android:onClick="evaluateArima"/>
+        android:gravity="top|start"
+        android:inputType="textMultiLine"
+        android:hint="Loading evaluation..."/>
 
 </LinearLayout>

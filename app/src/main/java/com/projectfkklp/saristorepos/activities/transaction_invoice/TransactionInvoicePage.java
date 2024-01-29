@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -15,6 +14,7 @@ import com.projectfkklp.saristorepos.models.Transaction;
 import com.projectfkklp.saristorepos.models.TransactionItem;
 import com.projectfkklp.saristorepos.utils.Serializer;
 import com.projectfkklp.saristorepos.utils.StringUtils;
+import com.projectfkklp.saristorepos.utils.ToastUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,6 +33,9 @@ public class TransactionInvoicePage extends AppCompatActivity {
     TextView totalAmountText;
     TransactionInvoiceAdapter invoiceAdapter;
 
+    private String invoiceFilename;
+    private String invoiceTitle;
+    private String invoiceDate;
     private String title;
     private List<Transaction> transactions;
     private List<String> transactedProductIds;
@@ -58,18 +61,27 @@ public class TransactionInvoicePage extends AppCompatActivity {
         if (src.equals("dailyTransactions")) {
             DailyTransactions dailyTransactions = Serializer.deserialize(getIntent().getStringExtra("dailyTransactions"), DailyTransactions.class);
             assert dailyTransactions != null;
+            invoiceTitle = "Orders Summary of the Day";
+            invoiceDate = LocalDate.parse(dailyTransactions.getDate()).format(dateFormatter);
+            invoiceFilename = String.format("daily-summary-%s.pdf", dailyTransactions.getDate());
             title = String.format(
                 "Summary Invoice — %s",
-                LocalDate.parse(dailyTransactions.getDate()).format(dateFormatter)
+                invoiceDate
             );
             transactions = dailyTransactions.getTransactions();
         }
         else {
             Transaction transaction = Serializer.deserialize(getIntent().getStringExtra("transaction"), Transaction.class);
             assert transaction != null;
+            invoiceTitle = "Orders Receipt";
+            invoiceDate = LocalDateTime.parse(transaction.getDateTime()).format(dateTimeFormatter);
+            invoiceFilename = String.format(
+                "order-receipt-%s.pdf",
+                LocalDateTime.parse(transaction.getDateTime()).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
+            );
             title = String.format(
                 "Invoice — %s",
-                LocalDateTime.parse(transaction.getDateTime()).format(dateTimeFormatter)
+                invoiceDate
             );
             transactions = Collections.singletonList(transaction);
         }
@@ -111,7 +123,19 @@ public class TransactionInvoicePage extends AppCompatActivity {
     }
 
     public void createPdf(View view){
-
+        try{
+            new TransactionInvoicePdfWriter(
+        this,
+                invoiceFilename,
+                invoiceTitle,
+                invoiceDate,
+                transactedProductIds,
+                transactions
+            ).start();
+        }
+        catch (Exception ignored){
+            ToastUtils.show(this, "Error writing pdf");
+        }
     }
 
     public void navigateBack(View view){

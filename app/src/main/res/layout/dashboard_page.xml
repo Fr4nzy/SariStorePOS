@@ -33,6 +33,7 @@
                     android:orientation="vertical"
                     android:layout_marginLeft="5dp">
                     <TextView
+                        android:id="@+id/dashboard_store_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -42,6 +43,7 @@
                         android:textStyle="bold"
                         />
                     <TextView
+                        android:id="@+id/dashboard_store_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -92,10 +94,21 @@
                     android:id="@+id/dashboard_swipe_refresh"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesForecastChart
-                        android:id="@+id/dashboard_analytics_chart"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent">
+                        <com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesForecastChart
+                            android:id="@+id/dashboard_analytics_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                        <com.example.loadinganimation.LoadingAnimation
+                            android:id="@+id/dashboard_forecast_loading"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            app:barType="@drawable/rollround"
+                            app:enlarge="5" />
+                    </RelativeLayout>
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             </androidx.cardview.widget.CardView>
 
@@ -124,12 +137,21 @@
                         android:textSize="11sp"
                         android:textStyle="bold"
                         />
-                    <com.projectfkklp.saristorepos.activities.dashboard.DashboardTodaySalesChart
-                        android:id="@+id/dashboard_today_sales_chart"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        />
+                        android:layout_height="match_parent">
+                        <com.projectfkklp.saristorepos.activities.dashboard.DashboardTodaySalesChart
+                            android:id="@+id/dashboard_today_sales_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                        <com.example.loadinganimation.LoadingAnimation
+                            android:id="@+id/dashboard_today_sales_loading"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            app:barType="@drawable/clock"
+                            app:enlarge="5" />
+                    </RelativeLayout>
                 </LinearLayout>
 
 

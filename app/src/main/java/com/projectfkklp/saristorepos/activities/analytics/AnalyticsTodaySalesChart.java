@@ -1,4 +1,4 @@
-package com.projectfkklp.saristorepos.activities.dashboard;
+package com.projectfkklp.saristorepos.activities.analytics;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,16 +21,15 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DashboardTodaySalesChart extends PieChart {
+public class AnalyticsTodaySalesChart extends PieChart {
     private String title;
     private ArrayList<PieEntry> pieEntries;
 
-    public DashboardTodaySalesChart(Context context) {  super(context); }
+    public AnalyticsTodaySalesChart(Context context) {  super(context); }
 
-    public DashboardTodaySalesChart(Context context, AttributeSet attrs) {  super(context, attrs);  }
+    public AnalyticsTodaySalesChart(Context context, AttributeSet attrs) {  super(context, attrs);  }
 
-    public DashboardTodaySalesChart(Context context, AttributeSet attrs, int defStyle) {    super(context, attrs, defStyle);    }
-
+    public AnalyticsTodaySalesChart(Context context, AttributeSet attrs, int defStyle) {    super(context, attrs, defStyle);    }
     public void initializeTodaySalesChart(String title) {
         this.title = title;
 
@@ -76,32 +75,28 @@ public class DashboardTodaySalesChart extends PieChart {
             setData(data);
         }
 
-        SpannableString spannableString = generateCenterText(
-                todayActualSales,
-                todayTargetSales,
-                salesPerformancePercentage,
-                salesGrowthPercentage);
-
+        SpannableString spannableString = generateCenterText(todayActualSales, todayTargetSales,salesPerformancePercentage, salesGrowthPercentage);
         setCenterText(spannableString);
+
         animateY(1400, Easing.EaseInOutQuad);
         invalidate();
     }
 
     // Method to generate customizable center text
-    private SpannableString generateCenterText(float todaySalesSize, float forecastSalesSize, float salesPerformancePercentage, float salesGrowthPercentage) {
+    private SpannableString generateCenterText(float todayActualSales, float todayTargetSales, float salesPerformancePercentage, float salesGrowthPercentage) {
         DecimalFormat decimalFormat = new DecimalFormat("+#,##0.00;-#");
         String salesGrowthPercentageText = decimalFormat.format(salesGrowthPercentage);
 
         @SuppressLint("DefaultLocale") String centerText = String.format(
-            "Summary\n"
-                +"%.0f%% to Goal\n"
-                +"Actual Sales: %s\n"
-                +"Target Sales: %s\n"
-                +"%s%% vs Yesterday",
-            salesPerformancePercentage,
-            StringUtils.formatToPeso(todaySalesSize),
-            StringUtils.formatToPeso(forecastSalesSize),
-            salesGrowthPercentageText
+                "Summary\n"
+                        +"%.0f%% to Goal\n"
+                        +"Actual Sales: %s\n"
+                        +"Target Sales: %s\n"
+                        +"%s%% vs Yesterday",
+                salesPerformancePercentage,
+                StringUtils.formatToPeso(todayActualSales),
+                StringUtils.formatToPeso(todayTargetSales),
+                salesGrowthPercentageText
         );
 
         SpannableString spannableString = new SpannableString(centerText);

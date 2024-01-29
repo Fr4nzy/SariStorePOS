@@ -15,7 +15,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models._Transaction;
 import com.projectfkklp.saristorepos.repositories.TransactionRepository;
-import com.projectfkklp.saristorepos.Arima;
+import com.projectfkklp.saristorepos.utils.Arima;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
