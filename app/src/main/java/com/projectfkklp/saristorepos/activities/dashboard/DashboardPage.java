@@ -21,6 +21,7 @@ import com.projectfkklp.saristorepos.activities.store_selector.StoreSelectorPage
 import com.projectfkklp.saristorepos.activities.transaction.TransactionPage;
 import com.projectfkklp.saristorepos.activities.user_profile.UserProfilePage;
 import com.projectfkklp.saristorepos.classes.ProductSalesSummaryData;
+import com.projectfkklp.saristorepos.classes.SalesAndSoldItemsReportData;
 import com.projectfkklp.saristorepos.models.DailyTransactions;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.Store;
@@ -76,6 +77,7 @@ public class DashboardPage extends AppCompatActivity {
     private void generateCharts(){
         generateAnalyticsChart();
         generateTodaySalesChart();
+        generateSalesAndSoldItemsReport();
         generateProductRelatedReports();
     }
 
@@ -159,6 +161,27 @@ public class DashboardPage extends AppCompatActivity {
             .addOnCompleteListener(task-> {
                 todaySalesChart.setVisibility(View.VISIBLE);
                 todaySalesLoading.setVisibility(View.GONE);
+            })
+        ;
+    }
+
+    private void generateSalesAndSoldItemsReport(){
+        // #region Top Charts Loading Here
+        // TODO: Show loading, hide charts
+
+
+        // #endregion
+        ReportRepository.getSalesAndSoldItemsReport(this)
+            .addOnSuccessListener(task->{
+                SalesAndSoldItemsReportData reportData = task.getResult();
+
+                // TODO: Report Implementation here
+            })
+            .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
+            .addOnCompleteListener(dailyTransactionsTask-> {
+                // TODO: hide loading, and show charts
+                    /*todaySalesChart.setVisibility(View.VISIBLE);
+                    todaySalesLoading.setVisibility(View.GONE);*/
             })
         ;
     }

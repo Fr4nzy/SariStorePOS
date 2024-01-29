@@ -5,6 +5,7 @@ import android.util.Pair;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.projectfkklp.saristorepos.classes.SalesAndSoldItemsReportData;
 import com.projectfkklp.saristorepos.utils.Arima;
 import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.utils.DateUtils;
@@ -160,6 +161,47 @@ public class ReportRepository {
                         todayTargetSales
                     )));
             });
+    }
+
+    public static  Task<Task<SalesAndSoldItemsReportData>> getSalesAndSoldItemsReport(Context context){
+        return StoreRepository.getStoreById(SessionRepository.getCurrentStore(context).getId())
+                .continueWith(task->{
+                    Store store = task.getResult().toObject(Store.class);
+                    assert store != null;
+
+                    // Set dailySales
+                    List<Double> dailySales = store.getDailySales();
+                    List<Integer> dailySold = store.getDailySold();
+                    Date lastUpdatedAt = store.getDailySalesUpdatedAt();
+                    {
+                        Date currentDate = new Date();
+                        long daysSinceLastUpdate  = DateUtils.calculateDaysDifference(lastUpdatedAt, currentDate);
+
+                        // Fill missing data with 0 Sales
+                        for (int i=0; i<daysSinceLastUpdate;i++){
+                            dailySales.add(0.);
+                            dailySold.add(0);
+                        }
+
+                        // If no transactions yet, do not proceed
+                        if (dailySales.isEmpty()){
+                            return Tasks.forResult(new SalesAndSoldItemsReportData());
+                        }
+                    }
+
+
+                    // TODO: Now you have dailySales and dailySold, you can now compute the report data
+                    SalesAndSoldItemsReportData result = new SalesAndSoldItemsReportData();
+
+                    // Day Data
+
+                    // Week Data
+
+                    // Year Data
+
+                    return Tasks.forResult(result);
+                })
+            ;
     }
 
 }
