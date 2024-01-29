@@ -13,8 +13,9 @@ public class RepositoryUtils {
 
     public static Filter match(String filter, String searchText) {
         return Filter.and(
-            Filter.greaterThanOrEqualTo(filter, searchText),
-            Filter.lessThanOrEqualTo(filter, searchText+'\uf8ff')
+                Filter.greaterThanOrEqualTo(filter, searchText),
+                Filter.lessThanOrEqualTo(filter, searchText + '\uf8ff'),
+                Filter.equalTo(filter, searchText)
         );
     }
 

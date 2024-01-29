@@ -50,10 +50,10 @@ public class UserStoreRelationManager {
         String id = ModelUtils.createUUID();
         UserStoreRelation userStoreRelation = new UserStoreRelation(
                 id,
-                SessionRepository.getCurrentUser(context).getId(),
                 user.getId(),
+                SessionRepository.getCurrentStore(context).getId(),
                 userRole,
-                UserStatus.REQUESTED
+                UserStatus.INVITED
         );
 
         UserStoreRelationValidator.validate(context, userStoreRelation, validationStatus -> {

@@ -65,4 +65,5 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.0.3")
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
 }

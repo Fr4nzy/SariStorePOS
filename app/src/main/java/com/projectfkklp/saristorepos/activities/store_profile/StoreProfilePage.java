@@ -17,9 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.material.chip.Chip;
 import com.projectfkklp.saristorepos.R;
-import com.projectfkklp.saristorepos.activities.store_finder.StoreFinderPage;
 import com.projectfkklp.saristorepos.activities.store_recruitment.UserRecruitmentPage;
 import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.managers.StoreManager;

@@ -63,7 +63,7 @@ public class UserRecruitmentPage extends AppCompatActivity {
 
        @Override
        public boolean onQueryTextSubmit(String query) {
-           onSearch(query.toUpperCase());
+           onSearch(query);
            return true;
        }
    }
@@ -140,7 +140,7 @@ public class UserRecruitmentPage extends AppCompatActivity {
     }
 
     public void research() {
-        onSearch(userSearch.getQuery().toString().toUpperCase());
+        onSearch(userSearch.getQuery().toString());
     }
 
 }
