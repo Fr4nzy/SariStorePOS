@@ -3,4 +3,5 @@
     <item name="pos_recycler_view" type="id" />
     <item name="pos_selected_counts" type="id" />
     <item name="analytics_top_selling_chart" type="id" />
+    <item name="dashboard_today_sales_loading" type="id" />
 </resources>

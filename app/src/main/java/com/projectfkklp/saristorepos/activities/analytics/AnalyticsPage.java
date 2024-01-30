@@ -1,5 +1,6 @@
 package com.projectfkklp.saristorepos.activities.analytics;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -8,11 +9,18 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.R;
+import com.projectfkklp.saristorepos.classes.ProductSalesSummaryData;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 import com.projectfkklp.saristorepos.utils.TestingUtils;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+
+import de.codecrafters.tableview.SortableTableView;
+import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
 public class AnalyticsPage extends AppCompatActivity {
     private AnalyticsSalesForecastChart analyticsChart;
@@ -20,11 +28,12 @@ public class AnalyticsPage extends AppCompatActivity {
     private AnalyticsTodaySalesChart todaySalesChart;
     private AnalyticsTopChart topSellingChart;
     private AnalyticsTopChart topSoldChart;
+    private SortableTableView<ProductSalesSummaryData> productsSalesTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_analytics_page);
+        setContentView(R.layout.analytics_page);
 
         initializeViews();
         generateCharts();
@@ -36,6 +45,7 @@ public class AnalyticsPage extends AppCompatActivity {
         generateTodaySalesChart();
         generateTopSellingChart();
         generateTopSoldChart();
+        generateProductsSalesReport();
     }
 
     private void initializeViews() {
@@ -45,6 +55,8 @@ public class AnalyticsPage extends AppCompatActivity {
         todaySalesChart = findViewById(R.id.analytics_today_sales_chart);
         topSellingChart = findViewById(R.id.analytics_top_selling_chart);
         topSoldChart = findViewById(R.id.analytics_top_sold_chart);
+
+        productsSalesTable = findViewById(R.id.analytics_products_sales_table);
 
         swipeRefresh.setOnRefreshListener(() -> {
             swipeRefresh.setRefreshing(false);
@@ -130,6 +142,34 @@ public class AnalyticsPage extends AppCompatActivity {
                 return String.format("%s (%s%%)", formattedValue, formattedPercent);
             }
         });
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void generateProductsSalesReport(){
+        // Header
+        productsSalesTable.setHeaderAdapter(new SimpleTableHeaderAdapter(
+            this,
+            "Product",
+            "Sold Items",
+            "Sales"
+        ));
+
+        // Data
+        List<ProductSalesSummaryData> productsSalesData = new ArrayList<>();
+        for (int i = 0; i<30;i++){
+            productsSalesData.add(new ProductSalesSummaryData(
+                String.format("id-%d", i),
+                String.format("Product %d", i),
+                i+1,
+                30-i
+            ));
+        }
+        productsSalesTable.setDataAdapter(new ProductsSalesTableDataAdapter(this, productsSalesData));
+
+        // Comparators
+        productsSalesTable.setColumnComparator(0, Comparator.comparing(ps -> ps.productName));
+        productsSalesTable.setColumnComparator(1, Comparator.comparingInt(ps -> ps.soldItems));
+        productsSalesTable.setColumnComparator(2, Comparator.comparingDouble(ps -> ps.sales));
     }
 
     private float[] generateRandomDoubleArray(int count) {

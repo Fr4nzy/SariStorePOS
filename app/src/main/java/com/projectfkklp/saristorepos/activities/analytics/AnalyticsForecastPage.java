@@ -32,7 +32,7 @@ public class AnalyticsForecastPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.analytics_forecast_page);
+        setContentView(R.layout._analytics_forecast_page);
 
         TransactionRepository.retrieveAllTransactions((transactions) -> {
             transactionList = transactions;

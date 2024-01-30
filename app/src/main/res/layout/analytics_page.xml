@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:table="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/analytics_swipe_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.analytics.AnalyticsPage">
@@ -11,7 +17,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Your existing LinearLayout for the header -->
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,90 +40,79 @@
                 android:layout_gravity="center"/>
         </LinearLayout>
 
-        <!-- Your existing LinearLayout for the content -->
+        <!-- Content -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:weightSum="3"
-            android:layout_weight="2">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <!-- Your existing CardView for Sales history and Forecast -->
+            <!-- Sales history and Forecast -->
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_width="fill_parent"
+                android:layout_height="300dp"
                 android:layout_margin="8dp"
-                android:layout_weight="1"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="5dp">
 
-                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                    android:id="@+id/analytics_swipe_refresh"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sales history and Forecast"
+                        android:textSize="17sp"
+                        android:textColor="@color/black"
+                        android:layout_margin="8dp"/>
+
+                    <com.projectfkklp.saristorepos.activities.analytics.AnalyticsSalesForecastChart
+                        android:id="@+id/analytics_forecast_chart"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sales history and Forecast"
-                            android:textSize="17sp"
-                            android:textColor="@color/black"
-                            android:layout_margin="8dp"/>
+                </LinearLayout>
 
-                        <com.projectfkklp.saristorepos.activities.analytics.AnalyticsSalesForecastChart
-                            android:id="@+id/analytics_forecast_chart"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"/>
-
-                    </LinearLayout>
-
-                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Second CardView in the first row -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    app:cardCornerRadius="2dp"
-                    app:cardElevation="5dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="20dp"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:text="Today Sales"
-                            android:textColor="@color/black"
-                            android:textSize="17sp" />
-
-                        <com.projectfkklp.saristorepos.activities.analytics.AnalyticsTodaySalesChart
-                            android:id="@+id/analytics_today_sales_chart"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
+            <!-- Today Sales -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:layout_margin="8dp"
-                android:layout_weight="1"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="Today Sales"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+
+                    <com.projectfkklp.saristorepos.activities.analytics.AnalyticsTodaySalesChart
+                        android:id="@+id/analytics_today_sales_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Sales and Sold Items -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_margin="8dp"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="5dp">
 
@@ -313,11 +308,11 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- Top Earning Products -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:layout_margin="8dp"
-                android:layout_weight="1"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="5dp">
 
@@ -349,11 +344,11 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- Top Sold Products -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:layout_margin="8dp"
-                android:layout_weight="1"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="5dp">
 
@@ -386,6 +381,46 @@
 
             </androidx.cardview.widget.CardView>
 
+            <!-- Products Sales -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Products Sales"
+                        android:textSize="17sp"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*For past 30days"
+                        android:textSize="12sp"
+                        />
+                    <de.codecrafters.tableview.SortableTableView
+                        android:id="@+id/analytics_products_sales_table"
+                        android:layout_width="wrap_content"
+                        android:layout_height="500dp"
+                        android:layout_marginTop="10dp"
+                        table:tableView_columnCount="3"
+                        android:clipToPadding="false"
+                        android:nestedScrollingEnabled="true"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

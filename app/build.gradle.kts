@@ -67,5 +67,5 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("com.github.Marvel999:Android-Loading-Animation:1.0.0")
     implementation("androidx.core:core:1.6.0")
-
+    implementation("com.github.ISchwarz23:SortableTableView:2.8.1")
 }

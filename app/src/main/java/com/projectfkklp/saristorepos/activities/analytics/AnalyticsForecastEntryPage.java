@@ -16,7 +16,7 @@ public class AnalyticsForecastEntryPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.analytics_forecast_entry);
+        setContentView(R.layout._analytics_forecast_entry);
 
         // Assuming you have initialized your UI elements
         EditText forecastSizeEditText = findViewById(R.id.forecastSize);
