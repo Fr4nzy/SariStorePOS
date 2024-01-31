@@ -42,7 +42,7 @@ public class AnalyticsTodaySalesChart extends PieChart {
         setEntryLabelColor(Color.BLACK);
         setTransparentCircleColor(Color.TRANSPARENT);
         setHoleRadius(70f);
-        setCenterTextSize(8f);
+        setCenterTextSize(12f);
         setEntryLabelTextSize(7f);
         setTransparentCircleRadius(20f);
         setCenterTextOffset(0f, 0f);

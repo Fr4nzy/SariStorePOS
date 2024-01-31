@@ -49,7 +49,7 @@
             <!-- Sales history and Forecast -->
             <androidx.cardview.widget.CardView
                 android:layout_width="fill_parent"
-                android:layout_height="300dp"
+                android:layout_height="350dp"
                 android:layout_margin="8dp"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="5dp">
@@ -66,12 +66,21 @@
                         android:textSize="17sp"
                         android:textColor="@color/black"
                         android:layout_margin="8dp"/>
-
-                    <com.projectfkklp.saristorepos.activities.analytics.AnalyticsSalesForecastChart
-                        android:id="@+id/analytics_forecast_chart"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <com.projectfkklp.saristorepos.activities.analytics.AnalyticsSalesForecastChart
+                            android:id="@+id/analytics_forecast_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                        <com.example.loadinganimation.LoadingAnimation
+                            android:id="@+id/analytics_forecast_loading"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            app:barType="@drawable/rollround"
+                            app:enlarge="3" />
+                    </RelativeLayout>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -98,13 +107,21 @@
                         android:text="Today Sales"
                         android:textColor="@color/black"
                         android:textSize="17sp" />
-
-                    <com.projectfkklp.saristorepos.activities.analytics.AnalyticsTodaySalesChart
-                        android:id="@+id/analytics_today_sales_chart"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <com.projectfkklp.saristorepos.activities.analytics.AnalyticsTodaySalesChart
+                            android:id="@+id/analytics_today_sales_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                        <com.example.loadinganimation.LoadingAnimation
+                            android:id="@+id/analytics_today_sales_loading"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            app:barType="@drawable/clock"
+                            app:enlarge="3" />
+                    </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -132,179 +149,190 @@
                         android:layout_marginBottom="10dp"
                         />
 
-                    <GridLayout
-                        xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:columnCount="3"
-                        android:rowCount="3"
-                        android:layout_gravity="center">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <GridLayout
+                            android:id="@+id/analytics_sales_and_sold_report"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:columnCount="3"
+                            android:rowCount="3"
+                            android:layout_gravity="center">
 
-                        <!-- Tile 1 -->
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:text="Week"
-                            android:textSize="20sp"/>
-
-                        <!-- Tile 2 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            <!-- Tile 1 -->
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
                                 android:textColor="@color/black"
-                                android:text="₱12.3k"
-                                android:textSize="17sp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.06%"
-                                android:textSize="14sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
+                                android:text="Week"
+                                android:textSize="20sp"/>
+
+                            <!-- Tile 2 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:text="₱12.3k"
+                                    android:textSize="17sp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="+0.06%"
+                                    android:textSize="14sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
 
 
-                        <!-- Tile 3 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            <!-- Tile 3 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:text="0.98k"
+                                    android:textSize="17sp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="+0.07%"
+                                    android:textSize="14sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
+
+                            <!-- Tile 4 -->
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
                                 android:textColor="@color/black"
-                                android:text="0.98k"
-                                android:textSize="17sp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.07%"
-                                android:textSize="14sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
+                                android:text="Month"
+                                android:textSize="20sp"/>
 
-                        <!-- Tile 4 -->
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:text="Month"
-                            android:textSize="20sp"/>
+                            <!-- Tile 5 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:text="₱42.3k"
+                                    android:textSize="17sp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="+0.06%"
+                                    android:textSize="14sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
+                            <!-- Tile 6 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:text="6.54k"
+                                    android:textSize="17sp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="+0.07%"
+                                    android:textSize="14sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
 
-                        <!-- Tile 5 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            <!-- Tile 7 -->
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
                                 android:textColor="@color/black"
-                                android:text="₱42.3k"
-                                android:textSize="17sp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.06%"
-                                android:textSize="14sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
-                        <!-- Tile 6 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:text="6.54k"
-                                android:textSize="17sp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.07%"
-                                android:textSize="14sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
+                                android:text="Year"
+                                android:textSize="20sp"/>
 
-                        <!-- Tile 7 -->
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:text="Year"
-                            android:textSize="20sp"/>
+                            <!-- Tile 8 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:text="₱0.52M"
+                                    android:textSize="17sp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="+0.06%"
+                                    android:textSize="14sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
 
-                        <!-- Tile 8 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:text="₱0.52M"
-                                android:textSize="17sp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.06%"
-                                android:textSize="14sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
-
-                        <!-- Tile 9 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:text="70.98k"
-                                android:textSize="17sp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.07%"
-                                android:textSize="14sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
-                    </GridLayout>
+                            <!-- Tile 9 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:text="70.98k"
+                                    android:textSize="17sp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="+0.07%"
+                                    android:textSize="14sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
+                        </GridLayout>
+                        <com.example.loadinganimation.LoadingAnimation
+                            android:id="@+id/analytics_sales_and_sold_loading"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            app:barType="@drawable/rainbow_ring"
+                            app:enlarge="3" />
+                    </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -335,12 +363,22 @@
                         android:text="*For past 30days"
                         android:textSize="12sp"
                         />
-                    <com.projectfkklp.saristorepos.activities.analytics.AnalyticsTopChart
-                        android:id="@+id/analytics_top_selling_chart"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <com.projectfkklp.saristorepos.activities.analytics.AnalyticsTopChart
+                            android:id="@+id/analytics_top_selling_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            />
+                        <com.example.loadinganimation.LoadingAnimation
+                            android:id="@+id/analytics_top_selling_loading"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            app:barType="@drawable/triad_ring"
+                            app:enlarge="3" />
+                    </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -371,14 +409,22 @@
                         android:text="*For past 30days"
                         android:textSize="12sp"
                         />
-                    <com.projectfkklp.saristorepos.activities.analytics.AnalyticsTopChart
-                        android:id="@+id/analytics_top_sold_chart"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <com.projectfkklp.saristorepos.activities.analytics.AnalyticsTopChart
+                            android:id="@+id/analytics_top_sold_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                        <com.example.loadinganimation.LoadingAnimation
+                            android:id="@+id/analytics_top_sold_loading"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            app:barType="@drawable/hour_glass"
+                            app:enlarge="3" />
+                    </RelativeLayout>
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
 
             <!-- Products Sales -->
@@ -408,14 +454,29 @@
                         android:text="*For past 30days"
                         android:textSize="12sp"
                         />
-                    <de.codecrafters.tableview.SortableTableView
-                        android:id="@+id/analytics_products_sales_table"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="500dp"
-                        android:layout_marginTop="10dp"
-                        table:tableView_columnCount="3"
-                        android:clipToPadding="false"
-                        android:nestedScrollingEnabled="true"/>
+                        android:layout_height="wrap_content">
+                        <de.codecrafters.tableview.SortableTableView
+                            android:id="@+id/analytics_products_sales_table"
+                            android:layout_width="wrap_content"
+                            android:layout_height="500dp"
+                            android:layout_marginTop="10dp"
+                            table:tableView_columnCount="3"
+                            android:clipToPadding="false"
+                            android:nestedScrollingEnabled="true"
+                            table:tableView_headerColor="@color/colorPrimary"
+                            />
+                        <com.example.loadinganimation.LoadingAnimation
+                            android:id="@+id/analytics_products_sales_table_loading"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            android:gravity="center"
+                            app:barType="@drawable/fidget"
+                            app:enlarge="3" />
+                    </RelativeLayout>
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
