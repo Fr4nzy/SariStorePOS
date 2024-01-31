@@ -14,8 +14,11 @@
     <color name="outOfStockColor">#D3D3D3</color>
     <color name="defaultCardColor">#FFFFFF</color>
     <color name="lightGray">#B0B0B0</color>
-    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimary">#A7FFEB</color>
     <color name="colorAccent">#FF4081</color>
     <color name="positiveButtonColor">#77dd77</color>
     <color name="negativeButtonColor">#ff6961</color>
+    <color name="skyBlue">#87CEEB</color>
+    <color name="cellBackground">#E1F8F3</color>
+    <color name="headerBackgroundColor">#EA80FC</color>
 </resources>
