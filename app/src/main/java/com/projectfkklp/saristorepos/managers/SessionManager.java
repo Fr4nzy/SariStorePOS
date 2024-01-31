@@ -2,6 +2,7 @@ package com.projectfkklp.saristorepos.managers;
 
 import android.content.Context;
 
+import com.projectfkklp.saristorepos.enums.UserRole;
 import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.utils.CacheUtils;
@@ -16,5 +17,9 @@ public class SessionManager {
     }
     public static  void setStore(Context context, Store store){
         CacheUtils.saveObject(context, "current_store", store);
+    }
+
+    public static void setUserRole(Context context, UserRole userRole){
+        CacheUtils.saveObject(context, "current_user_role", userRole);
     }
 }

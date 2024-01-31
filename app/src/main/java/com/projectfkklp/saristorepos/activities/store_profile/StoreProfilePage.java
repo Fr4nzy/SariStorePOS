@@ -1,6 +1,7 @@
 package com.projectfkklp.saristorepos.activities.store_profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.store_recruitment.UserRecruitmentPage;
+import com.projectfkklp.saristorepos.enums.UserRole;
 import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.managers.StoreManager;
 import com.projectfkklp.saristorepos.models.Store;
@@ -44,6 +46,7 @@ public class StoreProfilePage extends AppCompatActivity {
     private EditText storeAddressEditText;
     private ImageView toggleModeImageView;
     private ImageButton saveButton;
+    CardView usersContainer;
     RecyclerView storeProfileRecycler;
     ProgressBar progressBar;
     FrameLayout emptyFrame;
@@ -80,7 +83,17 @@ public class StoreProfilePage extends AppCompatActivity {
         store = SessionRepository.getCurrentStore(this);
     }
 
-    private void loadAssociatedUsers(){
+    public void loadAssociatedUsers(){
+        UserRole userRole = SessionRepository.getCurrentUserRole(this);
+        if (userRole==UserRole.ASSISTANT){
+            toggleModeImageView.setVisibility(View.GONE);
+            usersContainer.setVisibility(View.GONE);
+            return;
+        }
+
+        toggleModeImageView.setVisibility(View.VISIBLE);
+        usersContainer.setVisibility(View.VISIBLE);
+
         // Fetch Associated Users from Firebase
         // Then, update recycler view
         progressBar.setVisibility(View.VISIBLE);
@@ -118,6 +131,7 @@ public class StoreProfilePage extends AppCompatActivity {
             storeNameEditText = findViewById(R.id.store_profile_name);
             storeAddressEditText = findViewById(R.id.store_profile_address);
             saveButton = findViewById(R.id.store_profile_save_button);
+            usersContainer = findViewById(R.id.store_profile_users_container);
             storeProfileRecycler = findViewById(R.id.store_profile_recycler);
             progressBar = findViewById(R.id.store_profile_page_progress);
             emptyFrame = findViewById(R.id.store_profile_empty_frame);

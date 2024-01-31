@@ -77,6 +77,7 @@ public class StoreSelectorAdapter extends RecyclerView.Adapter<StoreSelectorRecy
             holder.positiveButton.setOnClickListener(v->{
                 if (status.equals(UserStatus.ACTIVE)) {
                     SessionManager.setStore(context, store);
+                    SessionManager.setUserRole(context, userStoreRelation.getRole());
                     context.startActivity(new Intent(context, DashboardPage.class));
                 }
                 else if (status.equals(UserStatus.INVITED)){

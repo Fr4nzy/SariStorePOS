@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.enums.UserRole;
 import com.projectfkklp.saristorepos.enums.UserStatus;
+import com.projectfkklp.saristorepos.managers.SessionManager;
 import com.projectfkklp.saristorepos.managers.UserStoreRelationManager;
 import com.projectfkklp.saristorepos.models.User;
 import com.projectfkklp.saristorepos.models.UserStoreRelation;
+import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
@@ -145,7 +147,14 @@ public class StoreProfileAdapter extends RecyclerView.Adapter<StoreProfileRecycl
                 userStoreRelation.setRole(newRole);
                 UserStoreRelationManager
                     .save(userStoreRelation)
-                    .addOnSuccessListener(t-> notifyDataSetChanged())
+                    .addOnSuccessListener(t-> {
+                        if (Objects.equals(userStoreRelation.getUserId(), SessionRepository.getCurrentUser(context).getId())) {
+                            SessionManager.setUserRole(context, userStoreRelation.getRole());
+                            StoreProfilePage parent = (StoreProfilePage) context;
+                            parent.loadAssociatedUsers();
+                        }
+                        notifyDataSetChanged();
+                    })
                     .addOnFailureListener(failedTask-> ToastUtils.show(context, failedTask.getMessage()))
                     .addOnCompleteListener(task->ProgressUtils.dismissDialog())
                 ;

@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="8dp"
-            app:cardElevation="30dp">
+            app:cardElevation="45dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="4dp"
-            app:cardElevation="30dp">
+            app:cardElevation="45dp"
+            android:layout_marginBottom="100dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +90,8 @@
                         android:focusable="true"
                         android:onClick="toggleMode"
                         android:src="@drawable/edit"
-                        app:tint="@color/gray" />
+                        app:tint="@color/gray"
+                        android:visibility="gone"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -148,13 +150,15 @@
 
         <!-- Store Users Section -->
         <androidx.cardview.widget.CardView
+            android:id="@+id/store_profile_users_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
-            app:cardElevation="30dp">
+            app:cardElevation="30dp"
+            android:visibility="gone">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
