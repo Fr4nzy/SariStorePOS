@@ -328,12 +328,6 @@ public class DashboardPage extends AppCompatActivity {
                                 }
                             }
 
-                            // #region Top charts implementation here
-                            // TODO: Code here
-                            // At this point, data is now prepared,
-                            // please process accordingly to make it compatible to the next processes
-                            // NOTE: please use store.getProducts() to get product names
-
                             // Check if the data is empty
                             if (hashedProductSalesSummaryData.isEmpty()) {
                                 // Set chart data as null
@@ -360,12 +354,9 @@ public class DashboardPage extends AppCompatActivity {
                             // Generate charts
                             generateTopSellingChart(topSellingData);
                             generateTopSoldChart(topSoldData);
-
-                            // #endregion
                         })
                         .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
                         .addOnCompleteListener(dailyTransactionsTask-> {
-                            // TODO: hide loading, and show charts
                             topSellingLoading.setVisibility(View.GONE);
                             topSoldLoading.setVisibility(View.GONE);
                             topSellingChart.setVisibility(View.VISIBLE);
