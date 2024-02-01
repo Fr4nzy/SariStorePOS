@@ -12,6 +12,8 @@ import com.projectfkklp.saristorepos.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -189,19 +191,69 @@ public class ReportRepository {
                         }
                     }
 
-
                     // TODO: Now you have dailySales and dailySold, you can now compute the report data
+                    Collections.reverse(dailySales);
+                    Collections.reverse(dailySold);
                     SalesAndSoldItemsReportData result = new SalesAndSoldItemsReportData();
 
-                    // Day Data
-
                     // Week Data
+                    List<List<Double>> groupBy7DailySales = createSubgroups(dailySales, 7);
+                    List<List<Integer>> groupBy7DailySold = createSubgroups(dailySold, 7);
+
+                    result.weekCurrentSales = (float) groupBy7DailySales.get(0).stream().mapToDouble(Double::doubleValue).sum();
+                    if (groupBy7DailySales.size()>0) {
+                        result.weekPreviousSales = (float) groupBy7DailySales.get(1).stream().mapToDouble(Double::doubleValue).sum();
+                    }
+                    result.weekCurrentSoldItems = groupBy7DailySold.get(0).stream().mapToInt(Integer::intValue).sum();
+                    if (groupBy7DailySold.size()>0) {
+                        result.weekPreviousSoldItems = groupBy7DailySold.get(1).stream().mapToInt(Integer::intValue).sum();
+                    }
+
+                    // Month Data
+                    List<List<Double>> groupBy30DailySales = createSubgroups(dailySales, 30);
+                    List<List<Integer>> groupBy30DailySold = createSubgroups(dailySold, 30);
+
+                    result.monthCurrentSales = (float) groupBy30DailySales.get(0).stream().mapToDouble(Double::doubleValue).sum();
+                    if (groupBy30DailySales.size()>0){
+                        result.monthPreviousSales = (float) groupBy30DailySales.get(1).stream().mapToDouble(Double::doubleValue).sum();
+                    }
+                    result.monthCurrentSoldItems = groupBy30DailySold.get(0).stream().mapToInt(Integer::intValue).sum();
+                    if (groupBy30DailySold.size()>0){
+                        result.monthPreviousSoldItems = groupBy30DailySold.get(1).stream().mapToInt(Integer::intValue).sum();
+                    }
 
                     // Year Data
+                    List<List<Double>> groupBy360DailySales = createSubgroups(dailySales, 360);
+                    List<List<Integer>> groupBy360DailySold = createSubgroups(dailySold, 360);
+
+                    result.yearCurrentSales = (float) groupBy360DailySales.get(0).stream().mapToDouble(Double::doubleValue).sum();
+                    if (groupBy360DailySales.size()>0){
+                        result.yearPreviousSales = (float) groupBy360DailySales.get(1).stream().mapToDouble(Double::doubleValue).sum();
+                    }
+                    result.yearCurrentSoldItems = groupBy360DailySold.get(0).stream().mapToInt(Integer::intValue).sum();
+                    if (groupBy360DailySold.size()>0){
+                        result.yearPreviousSoldItems = groupBy360DailySold.get(1).stream().mapToInt(Integer::intValue).sum();
+                    }
 
                     return Tasks.forResult(result);
                 })
             ;
+    }
+
+    public static <T> List<List<T>> createSubgroups(List<T> originalList, int n) {
+        List<List<T>> subgroups = new ArrayList<>();
+
+        // Iterate over the original list and create subgroups
+        for (int startIndex = 0; startIndex < originalList.size(); startIndex += n) {
+            // Calculate the end index for the current subgroup
+            int endIndex = Math.min(startIndex + n, originalList.size());
+            // Create a sublist from startIndex to endIndex
+            List<T> subgroup = originalList.subList(startIndex, endIndex);
+            // Add the subgroup to the list of subgroups
+            subgroups.add(subgroup);
+        }
+
+        return subgroups;
     }
 
 }
