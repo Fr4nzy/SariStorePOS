@@ -234,7 +234,6 @@ public class ReportRepository {
                     if (groupBy360DailySold.size()>0){
                         result.yearPreviousSoldItems = groupBy360DailySold.get(1).stream().mapToInt(Integer::intValue).sum();
                     }
-
                     return Tasks.forResult(result);
                 })
             ;

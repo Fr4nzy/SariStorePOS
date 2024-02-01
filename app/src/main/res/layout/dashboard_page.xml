@@ -156,7 +156,6 @@
 
 
             </androidx.cardview.widget.CardView>
-
             <!-- Third CardView in the second row -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"

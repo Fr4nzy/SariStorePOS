@@ -267,7 +267,6 @@ public class DashboardPage extends AppCompatActivity {
                         currentYearSold.setText("0");
                         previousYearSold.setText("0");
                     }
-
                 })
                 .addOnFailureListener(e -> ToastUtils.show(this, e.getMessage()))
                 .addOnCompleteListener(dailyTransactionsTask -> {
