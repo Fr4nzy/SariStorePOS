@@ -5,14 +5,19 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.projectfkklp.saristorepos.activities.dashboard.DashboardSalesForecastChart;
 import com.projectfkklp.saristorepos.repositories.ReportRepository;
 import com.projectfkklp.saristorepos.utils.DateUtils;
+import com.projectfkklp.saristorepos.utils.StringUtils;
+
+import java.util.ArrayList;
 
 public class AnalyticsSalesForecastChart extends DashboardSalesForecastChart {
+
 
     public AnalyticsSalesForecastChart(Context context) {
         super(context);
@@ -25,6 +30,26 @@ public class AnalyticsSalesForecastChart extends DashboardSalesForecastChart {
     public AnalyticsSalesForecastChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
+    public void setData(float[] actualSales, float[] forecastSales){
+        actualSalesSize = actualSales.length;
+        forecastSalesSize = forecastSales.length;
+        LineDataSet actualSalesLineDataSet = createDataSet(
+                "Actual Sales",
+                0,
+                actualSales,
+                Color.rgb(89, 199, 250)
+        );
+        LineDataSet forecastSalesLineDataSet = createDataSet(
+                "Forecast Sales",
+                ReportRepository.DATA_COUNT -forecastSalesSize,
+                forecastSales,
+                Color.rgb(250, 104, 104)
+        );
+        LineData lineData = new LineData(forecastSalesLineDataSet, actualSalesLineDataSet);
+
+        setupChart(lineData);
+    }
+
     @Override
     protected void setupChart(LineData data) {
         // General Configurations
@@ -90,4 +115,38 @@ public class AnalyticsSalesForecastChart extends DashboardSalesForecastChart {
         // animate calls invalidate()...
         animateX(2500);
     }
+
+    private LineDataSet createDataSet(String name, int offset, float[] values, int color) {
+        ArrayList<Entry> entries = new ArrayList<>();
+
+        for (int i=0;i<values.length;i++) {
+            float x = offset+i;
+            float value = values[i];
+            entries.add(new Entry(x, value));
+        }
+
+        // create a dataset and give it a type
+        LineDataSet lineDataSet = new LineDataSet(entries, name);
+        {
+            lineDataSet.setLineWidth(1.75f);
+            lineDataSet.setCircleRadius(5f);
+            lineDataSet.setCircleHoleRadius(2.5f);
+            lineDataSet.setColor(color);
+            lineDataSet.setCircleColor(color);
+            lineDataSet.setHighLightColor(color);
+            lineDataSet.setDrawValues(true);
+            lineDataSet.setValueFormatter(new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value) {
+                    // Displaying sales with a currency symbol
+                    return StringUtils.formatToPesoWithMetricPrefix(value);
+                }
+            });
+            lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        }
+
+        // create a data object with the data sets
+        return lineDataSet;
+    }
+
 }

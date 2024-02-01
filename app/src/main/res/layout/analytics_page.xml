@@ -180,12 +180,14 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
                                 <TextView
+                                    android:id="@+id/analytics_ssi_week_sales"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/black"
                                     android:text="₱12.3k"
                                     android:textSize="17sp"/>
                                 <TextView
+                                    android:id="@+id/analytics_ssi_week_growth_perc"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="+0.06%"
@@ -203,12 +205,14 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
                                 <TextView
+                                    android:id="@+id/analytics_current_week_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/black"
                                     android:text="0.98k"
                                     android:textSize="17sp"/>
                                 <TextView
+                                    android:id="@+id/analytics_previous_week_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="+0.07%"
@@ -236,12 +240,14 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
                                 <TextView
+                                    android:id="@+id/analytics_current_month_sales_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/black"
                                     android:text="₱42.3k"
                                     android:textSize="17sp"/>
                                 <TextView
+                                    android:id="@+id/analytics_previous_month_sales_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="+0.06%"
@@ -257,12 +263,14 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
                                 <TextView
+                                    android:id="@+id/analytics_current_month_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/black"
                                     android:text="6.54k"
                                     android:textSize="17sp"/>
                                 <TextView
+                                    android:id="@+id/analytics_previous_month_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="+0.07%"
@@ -290,12 +298,14 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
                                 <TextView
+                                    android:id="@+id/analytics_current_year_sales_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/black"
                                     android:text="₱0.52M"
                                     android:textSize="17sp"/>
                                 <TextView
+                                    android:id="@+id/analytics_previous_year_sales_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="+0.06%"
@@ -312,12 +322,14 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
                                 <TextView
+                                    android:id="@+id/analytics_current_year_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/black"
                                     android:text="70.98k"
                                     android:textSize="17sp"/>
                                 <TextView
+                                    android:id="@+id/analytics_previous_year_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="+0.07%"
