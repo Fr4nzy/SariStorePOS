@@ -99,9 +99,9 @@ public class DashboardPage extends AppCompatActivity {
         todaySalesChart = findViewById(R.id.dashboard_today_sales_chart);
         topSellingChart = findViewById(R.id.dashboard_top_selling_chart);
         topSoldChart = findViewById(R.id.dashboard_top_sold_chart);
+        salesAndSoldItemsGrid = findViewById(R.id.dashboard_sales_and_sold_grid);
 
         // Sales and Sold Items Views
-        salesAndSoldItemsGrid = findViewById(R.id.dashboard_sales_and_sold_grid);
         currentWeekSales = findViewById(R.id.dashboard_current_week_sales_report);
         previousWeekSales = findViewById(R.id.dashboard_previous_week_sales_report);
         currentWeekSold = findViewById(R.id.dashboard_current_week_sold_report);
@@ -191,9 +191,6 @@ public class DashboardPage extends AppCompatActivity {
         ;
     }
     private void generateSalesAndSoldItemsReport() {
-        // #region Top Charts Loading Here
-        // TODO: Show loading, hide charts
-        // Show loading and hide chart
         salesAndSoldItemsGrid.setVisibility(View.INVISIBLE);
         saleAndSoldItemsLoading.setVisibility(View.VISIBLE);
 
@@ -217,10 +214,60 @@ public class DashboardPage extends AppCompatActivity {
                     int yearCurrentSoldItems = reportData.yearCurrentSoldItems;
                     int yearPreviousSoldItems = reportData.yearPreviousSoldItems;
 
-                    // Update UI with the extracted data
-                    updateSalesAndSoldItemsUI(weekCurrentSales, weekPreviousSales, weekCurrentSoldItems, weekPreviousSoldItems,
-                            monthCurrentSales, monthPreviousSales, monthCurrentSoldItems, monthPreviousSoldItems,
-                            yearCurrentSales, yearPreviousSales, yearCurrentSoldItems, yearPreviousSoldItems);
+                    // Update week sales TextViews
+                    if (weekCurrentSales >= 0 && weekPreviousSales >= 0) {
+                        currentWeekSales.setText(StringUtils.formatToPesoWithMetricPrefix(weekCurrentSales));
+                        previousWeekSales.setText(StringUtils.formatToPesoWithMetricPrefix(weekPreviousSales));
+                    } else {
+                        currentWeekSales.setText("0.0");
+                        previousWeekSales.setText("0.0");
+                    }
+
+                    // Update week sold items TextViews
+                    if (weekCurrentSoldItems >= 0 && weekPreviousSoldItems >= 0) {
+                        currentWeekSold.setText(String.valueOf(weekCurrentSoldItems));
+                        previousWeekSold.setText(String.valueOf(weekPreviousSoldItems));
+                    } else {
+                        currentWeekSold.setText("0");
+                        previousWeekSold.setText("0");
+                    }
+
+                    // Update month sales TextViews
+                    if (monthCurrentSales >= 0 && monthPreviousSales >= 0) {
+                        currentMonthSales.setText(StringUtils.formatToPesoWithMetricPrefix(monthCurrentSales));
+                        previousMonthSales.setText(StringUtils.formatToPesoWithMetricPrefix(monthPreviousSales));
+                    } else {
+                        currentMonthSales.setText("0.0");
+                        previousMonthSales.setText("0.0");
+                    }
+
+                    // Update month sold items TextViews
+                    if (monthCurrentSoldItems >= 0 && monthPreviousSoldItems >= 0) {
+                        currentMonthSold.setText(String.valueOf(monthCurrentSoldItems));
+                        previousMonthSold.setText(String.valueOf(monthPreviousSoldItems));
+                    } else {
+                        currentMonthSold.setText("0");
+                        previousMonthSold.setText("0");
+                    }
+
+                    // Update year sales TextViews
+                    if (yearCurrentSales >= 0 && yearPreviousSales >= 0) {
+                        currentYearSales.setText(StringUtils.formatToPesoWithMetricPrefix(yearCurrentSales));
+                        previousYearSales.setText(StringUtils.formatToPesoWithMetricPrefix(yearPreviousSales));
+                    } else {
+                        currentYearSales.setText("0.0");
+                        previousYearSales.setText("0.0");
+                    }
+
+                    // Update year sold items TextViews
+                    if (yearCurrentSoldItems >= 0 && yearPreviousSoldItems >= 0) {
+                        currentYearSold.setText(String.valueOf(yearCurrentSoldItems));
+                        previousYearSold.setText(String.valueOf(yearPreviousSoldItems));
+                    } else {
+                        currentYearSold.setText("0");
+                        previousYearSold.setText("0");
+                    }
+
                 })
                 .addOnFailureListener(e -> ToastUtils.show(this, e.getMessage()))
                 .addOnCompleteListener(dailyTransactionsTask -> {
@@ -230,57 +277,11 @@ public class DashboardPage extends AppCompatActivity {
                 });
     }
 
-    // Helper method to update the sales TextViews
-    private void updateSalesText(TextView currentTextView, TextView previousTextView, float currentSales, float previousSales) {
-        if (currentSales >= 0 && previousSales >= 0) {
-            // Update TextViews with valid data
-            currentTextView.setText(StringUtils.formatToPesoWithMetricPrefix(currentSales));
-            previousTextView.setText(StringUtils.formatToPesoWithMetricPrefix(previousSales));
-        } else {
-            // Handle the case when values are negative or not available
-            currentTextView.setText("0.0");
-            previousTextView.setText("0.0");
-        }
-    }
-
-    // Helper method to update the sold items TextViews
-    private void updateSoldItemsText(TextView currentTextView, TextView previousTextView, int currentSoldItems, int previousSoldItems) {
-        if (currentSoldItems >= 0 && previousSoldItems >= 0) {
-            // Update TextViews with valid data
-            currentTextView.setText(String.valueOf(currentSoldItems));
-            previousTextView.setText(String.valueOf(previousSoldItems));
-        } else {
-            // Handle the case when values are negative or not available
-            currentTextView.setText("0");
-            previousTextView.setText("0");
-        }
-    }
-
-    // Helper method to update the sales and sold items UI
-    private void updateSalesAndSoldItemsUI(
-            float weekCurrentSales, float weekPreviousSales, int weekCurrentSoldItems, int weekPreviousSoldItems,
-            float monthCurrentSales, float monthPreviousSales, int monthCurrentSoldItems, int monthPreviousSoldItems,
-            float yearCurrentSales, float yearPreviousSales, int yearCurrentSoldItems, int yearPreviousSoldItems) {
-
-        updateSalesText(currentWeekSales, previousWeekSales, weekCurrentSales, weekPreviousSales);
-        updateSoldItemsText(currentWeekSold, previousWeekSold, weekCurrentSoldItems, weekPreviousSoldItems);
-
-        updateSalesText(currentMonthSales, previousMonthSales, monthCurrentSales, monthPreviousSales);
-        updateSoldItemsText(currentMonthSold, previousMonthSold, monthCurrentSoldItems, monthPreviousSoldItems);
-
-        updateSalesText(currentYearSales, previousYearSales, yearCurrentSales, yearPreviousSales);
-        updateSoldItemsText(currentYearSold, previousYearSold, yearCurrentSoldItems, yearPreviousSoldItems);
-    }
-
     private void generateProductRelatedReports(){
-        // #region Top Charts Loading Here
-        // TODO: Show loading, hide charts
         topSellingLoading.setVisibility(View.VISIBLE);
         topSoldLoading.setVisibility(View.VISIBLE);
         topSellingChart.setVisibility(View.INVISIBLE);
         topSoldChart.setVisibility(View.INVISIBLE);
-
-        // #endregion
 
         // Fetch transactions from last 30 days up today
         StoreRepository.getStoreById(SessionRepository.getCurrentStore(this).getId())
@@ -366,8 +367,6 @@ public class DashboardPage extends AppCompatActivity {
             })
             .addOnFailureListener(e-> {
                 ToastUtils.show(this, e.getMessage());
-
-                // TODO: hide loading, and show charts (Same to the complete event at above)
                 topSellingChart.setVisibility(View.VISIBLE);
                 topSoldChart.setVisibility(View.VISIBLE);
                 topSellingLoading.setVisibility(View.GONE);
