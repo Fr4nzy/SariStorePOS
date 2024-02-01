@@ -213,16 +213,14 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
                                 <TextView
-                                    android:id="@+id/dashboard_current_week_sales_report"
+                                    android:id="@+id/dashboard_ssi_week_sales"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:text="₱12.3k" />
+                                    android:textColor="@color/black" />
                                 <TextView
-                                    android:id="@+id/dashboard_previous_week_sales_report"
+                                    android:id="@+id/dashboard_ssi_week_growth_perc"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="+0.06%"
                                     android:textSize="9sp"
                                     android:textColor="#4CAF50"/>
                             </LinearLayout>
@@ -240,13 +238,11 @@
                                     android:id="@+id/dashboard_current_week_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:text="0.98k" />
+                                    android:textColor="@color/black" />
                                 <TextView
                                     android:id="@+id/dashboard_previous_week_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="+0.07%"
                                     android:textSize="9sp"
                                     android:textColor="#4CAF50"/>
                             </LinearLayout>
@@ -273,13 +269,11 @@
                                     android:id="@+id/dashboard_current_month_sales_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:text="₱42.3k" />
+                                    android:textColor="@color/black" />
                                 <TextView
                                     android:id="@+id/dashboard_previous_month_sales_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="+0.06%"
                                     android:textSize="9sp"
                                     android:textColor="#4CAF50"/>
                             </LinearLayout>
@@ -295,13 +289,11 @@
                                     android:id="@+id/dashboard_current_month_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:text="6.54k" />
+                                    android:textColor="@color/black" />
                                 <TextView
                                     android:id="@+id/dashboard_previous_month_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="+0.07%"
                                     android:textSize="9sp"
                                     android:textColor="#4CAF50"/>
                             </LinearLayout>
@@ -328,13 +320,11 @@
                                     android:id="@+id/dashboard_current_year_sales_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:text="₱0.52M" />
+                                    android:textColor="@color/black" />
                                 <TextView
                                     android:id="@+id/dashboard_previous_year_sales_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="+0.06%"
                                     android:textSize="9sp"
                                     android:textColor="#4CAF50"/>
                             </LinearLayout>
@@ -351,13 +341,11 @@
                                     android:id="@+id/dashboard_current_year_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/black"
-                                    android:text="70.98k" />
+                                    android:textColor="@color/black"/>
                                 <TextView
                                     android:id="@+id/dashboard_previous_year_sold_report"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="+0.07%"
                                     android:textSize="9sp"
                                     android:textColor="#4CAF50"/>
                             </LinearLayout>

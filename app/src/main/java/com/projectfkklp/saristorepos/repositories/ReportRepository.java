@@ -191,7 +191,7 @@ public class ReportRepository {
                         }
                     }
 
-                    // TODO: Now you have dailySales and dailySold, you can now compute the report data
+                    // Now you have dailySales and dailySold, you can now compute the report data
                     Collections.reverse(dailySales);
                     Collections.reverse(dailySold);
                     SalesAndSoldItemsReportData result = new SalesAndSoldItemsReportData();
@@ -201,11 +201,11 @@ public class ReportRepository {
                     List<List<Integer>> groupBy7DailySold = createSubgroups(dailySold, 7);
 
                     result.weekCurrentSales = (float) groupBy7DailySales.get(0).stream().mapToDouble(Double::doubleValue).sum();
-                    if (groupBy7DailySales.size()>0) {
+                    if (groupBy7DailySales.size()>1) {
                         result.weekPreviousSales = (float) groupBy7DailySales.get(1).stream().mapToDouble(Double::doubleValue).sum();
                     }
                     result.weekCurrentSoldItems = groupBy7DailySold.get(0).stream().mapToInt(Integer::intValue).sum();
-                    if (groupBy7DailySold.size()>0) {
+                    if (groupBy7DailySold.size()>1) {
                         result.weekPreviousSoldItems = groupBy7DailySold.get(1).stream().mapToInt(Integer::intValue).sum();
                     }
 
@@ -214,11 +214,11 @@ public class ReportRepository {
                     List<List<Integer>> groupBy30DailySold = createSubgroups(dailySold, 30);
 
                     result.monthCurrentSales = (float) groupBy30DailySales.get(0).stream().mapToDouble(Double::doubleValue).sum();
-                    if (groupBy30DailySales.size()>0){
+                    if (groupBy30DailySales.size()>1){
                         result.monthPreviousSales = (float) groupBy30DailySales.get(1).stream().mapToDouble(Double::doubleValue).sum();
                     }
                     result.monthCurrentSoldItems = groupBy30DailySold.get(0).stream().mapToInt(Integer::intValue).sum();
-                    if (groupBy30DailySold.size()>0){
+                    if (groupBy30DailySold.size()>1){
                         result.monthPreviousSoldItems = groupBy30DailySold.get(1).stream().mapToInt(Integer::intValue).sum();
                     }
 
@@ -227,11 +227,11 @@ public class ReportRepository {
                     List<List<Integer>> groupBy360DailySold = createSubgroups(dailySold, 360);
 
                     result.yearCurrentSales = (float) groupBy360DailySales.get(0).stream().mapToDouble(Double::doubleValue).sum();
-                    if (groupBy360DailySales.size()>0){
+                    if (groupBy360DailySales.size()>1){
                         result.yearPreviousSales = (float) groupBy360DailySales.get(1).stream().mapToDouble(Double::doubleValue).sum();
                     }
                     result.yearCurrentSoldItems = groupBy360DailySold.get(0).stream().mapToInt(Integer::intValue).sum();
-                    if (groupBy360DailySold.size()>0){
+                    if (groupBy360DailySold.size()>1){
                         result.yearPreviousSoldItems = groupBy360DailySold.get(1).stream().mapToInt(Integer::intValue).sum();
                     }
                     return Tasks.forResult(result);
