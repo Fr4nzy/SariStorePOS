@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.TextView;
 
 import com.example.loadinganimation.LoadingAnimation;
@@ -45,6 +48,13 @@ import java.util.Optional;
 public class DashboardPage extends AppCompatActivity {
     TextView storeNameText;
     TextView storeAddressText;
+    GridLayout salesAndSoldItemsGrid;
+    TextView ssiWeekSalesText, ssiWeekSalesGrowthPercText,
+            ssiWeekSoldItemsText, ssiWeekSoldItemsGrowthPercText,
+            ssiMonthSalesText, ssiMonthSalesGrowthPercText,
+            ssiMonthSoldItemsText, ssiMonthSoldItemsGrowthPercText,
+            ssiYearSalesText, ssiYearSalesGrowthPercText,
+            ssiYearSoldItemsText, ssiYearSoldItemsGrowthPercText;
     SwipeRefreshLayout swipeRefresh;
     DashboardSalesForecastChart analyticsChart;
     DashboardTopChart topSellingChart;
@@ -52,6 +62,9 @@ public class DashboardPage extends AppCompatActivity {
     DashboardTodaySalesChart todaySalesChart;
     LoadingAnimation forecastLoading;
     LoadingAnimation todaySalesLoading;
+    LoadingAnimation topSellingLoading;
+    LoadingAnimation topSoldLoading;
+    LoadingAnimation saleAndSoldItemsLoading;
 
     private Store store;
 
@@ -91,10 +104,28 @@ public class DashboardPage extends AppCompatActivity {
         todaySalesChart = findViewById(R.id.dashboard_today_sales_chart);
         topSellingChart = findViewById(R.id.dashboard_top_selling_chart);
         topSoldChart = findViewById(R.id.dashboard_top_sold_chart);
+        salesAndSoldItemsGrid = findViewById(R.id.dashboard_sales_and_sold_grid);
 
-        // Loadings
+        // Sales and Sold Items Views
+        ssiWeekSalesText = findViewById(R.id.dashboard_ssi_week_sales);
+        ssiWeekSalesGrowthPercText = findViewById(R.id.dashboard_ssi_week_growth_perc);
+        ssiWeekSoldItemsText = findViewById(R.id.dashboard_current_week_sold_report);
+        ssiWeekSoldItemsGrowthPercText = findViewById(R.id.dashboard_previous_week_sold_report);
+        ssiMonthSalesText = findViewById(R.id.dashboard_current_month_sales_report);
+        ssiMonthSalesGrowthPercText = findViewById(R.id.dashboard_previous_month_sales_report);
+        ssiMonthSoldItemsText = findViewById(R.id.dashboard_current_month_sold_report);
+        ssiMonthSoldItemsGrowthPercText = findViewById(R.id.dashboard_previous_month_sold_report);
+        ssiYearSalesText = findViewById(R.id.dashboard_current_year_sales_report);
+        ssiYearSalesGrowthPercText = findViewById(R.id.dashboard_previous_year_sales_report);
+        ssiYearSoldItemsText = findViewById(R.id.dashboard_current_year_sold_report);
+        ssiYearSoldItemsGrowthPercText = findViewById(R.id.dashboard_previous_year_sold_report);
+
+        // Loading Animations Views
         forecastLoading = findViewById(R.id.dashboard_forecast_loading);
         todaySalesLoading = findViewById(R.id.dashboard_today_sales_loading);
+        topSellingLoading = findViewById(R.id.dashboard_top_selling_loading);
+        topSoldLoading = findViewById(R.id.dashboard_top_sold_loading);
+        saleAndSoldItemsLoading = findViewById(R.id.dashboard_sales_and_sold_items_loading);
 
         swipeRefresh.setOnRefreshListener(()->{
             generateCharts();
@@ -112,26 +143,26 @@ public class DashboardPage extends AppCompatActivity {
         analyticsChart.setVisibility(View.INVISIBLE);
         forecastLoading.setVisibility(View.VISIBLE);
         ReportRepository.getRecentSalesAndForecastWithHistoryReport(this)
-            .addOnSuccessListener(task->{
-                Pair<List<Double>, List<Double>> recentSalesAndForecastWithHistoryReport = task.getResult();
-                List<Double> recentSales = recentSalesAndForecastWithHistoryReport.first;
-                List<Double> forecastWithHistory = recentSalesAndForecastWithHistoryReport.second;
+                .addOnSuccessListener(task->{
+                    Pair<List<Double>, List<Double>> recentSalesAndForecastWithHistoryReport = task.getResult();
+                    List<Double> recentSales = recentSalesAndForecastWithHistoryReport.first;
+                    List<Double> forecastWithHistory = recentSalesAndForecastWithHistoryReport.second;
 
-                if (recentSales.isEmpty()){
-                    analyticsChart.setData(null);
-                    return;
-                }
+                    if (recentSales.isEmpty()){
+                        analyticsChart.setData(null);
+                        return;
+                    }
 
-                analyticsChart.setData(
-                    NumberUtils.convertToFloatArray(recentSales),
-                    NumberUtils.convertToFloatArray(forecastWithHistory)
-                );
-            })
-            .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
-            .addOnCompleteListener(task-> {
-                analyticsChart.setVisibility(View.VISIBLE);
-                forecastLoading.setVisibility(View.GONE);
-            })
+                    analyticsChart.setData(
+                            NumberUtils.convertToFloatArray(recentSales),
+                            NumberUtils.convertToFloatArray(forecastWithHistory)
+                    );
+                })
+                .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
+                .addOnCompleteListener(task-> {
+                    analyticsChart.setVisibility(View.VISIBLE);
+                    forecastLoading.setVisibility(View.GONE);
+                })
         ;
     }
 
@@ -140,58 +171,133 @@ public class DashboardPage extends AppCompatActivity {
         todaySalesChart.setVisibility(View.INVISIBLE);
         todaySalesLoading.setVisibility(View.VISIBLE);
         ReportRepository.getTodaySalesReport(this)
-            .addOnSuccessListener(task->{
-                List<Double> todaySalesData = task.getResult();
-                Double yesterdaySales = todaySalesData.get(0);
-                Double todayActualSales = todaySalesData.get(1);
-                Double todayTargetSales = todaySalesData.get(2);
+                .addOnSuccessListener(task->{
+                    List<Double> todaySalesData = task.getResult();
+                    Double yesterdaySales = todaySalesData.get(0);
+                    Double todayActualSales = todaySalesData.get(1);
+                    Double todayTargetSales = todaySalesData.get(2);
 
-                if (yesterdaySales < 0 || todayActualSales <0 || todayTargetSales <0){
-                    todaySalesChart.setData(null);
-                    return;
-                }
+                    if (yesterdaySales < 0 && todayActualSales < 0 && todayTargetSales < 0){
+                        todaySalesChart.setData(null);
+                        return;
+                    }
 
-                // Set data on todaySalesChart (Replace with the actual method or property names)
-                todaySalesChart.setData(
-                    NumberUtils.convertToFloat(yesterdaySales),
-                    NumberUtils.convertToFloat(todayActualSales),
-                    NumberUtils.convertToFloat(todayTargetSales));
+                    // Set data on todaySalesChart (Replace with the actual method or property names)
+                    todaySalesChart.setData(
+                            NumberUtils.convertToFloat(yesterdaySales),
+                            NumberUtils.convertToFloat(todayActualSales),
+                            NumberUtils.convertToFloat(todayTargetSales));
+                })
+                .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
+                .addOnCompleteListener(task-> {
+                    todaySalesChart.setVisibility(View.VISIBLE);
+                    todaySalesLoading.setVisibility(View.GONE);
+                })
+        ;
+    }
+    @SuppressLint("DefaultLocale")
+    private void generateSalesAndSoldItemsReport() {
+        salesAndSoldItemsGrid.setVisibility(View.INVISIBLE);
+        saleAndSoldItemsLoading.setVisibility(View.VISIBLE);
+
+        ReportRepository.getSalesAndSoldItemsReport(this)
+            .addOnSuccessListener(task -> {
+                SalesAndSoldItemsReportData reportData = task.getResult();
+
+                // Week Data
+                setSsiGridData(
+                    reportData.weekCurrentSales,
+                    reportData.weekPreviousSales,
+                    ssiWeekSalesText,
+                    ssiWeekSalesGrowthPercText,
+                    reportData.weekCurrentSoldItems,
+                    reportData.weekPreviousSoldItems,
+                    ssiWeekSoldItemsText,
+                    ssiWeekSoldItemsGrowthPercText
+                );
+                // Month Data
+                setSsiGridData(
+                    reportData.monthCurrentSales,
+                    reportData.monthPreviousSales,
+                    ssiMonthSalesText,
+                    ssiMonthSalesGrowthPercText,
+                    reportData.monthCurrentSoldItems,
+                    reportData.monthPreviousSoldItems,
+                    ssiMonthSoldItemsText,
+                    ssiMonthSoldItemsGrowthPercText
+                );
+                // Year Data
+                setSsiGridData(
+                    reportData.yearCurrentSales,
+                    reportData.yearPreviousSales,
+                    ssiYearSalesText,
+                    ssiYearSalesGrowthPercText,
+                    reportData.yearCurrentSoldItems,
+                    reportData.yearPreviousSoldItems,
+                    ssiYearSoldItemsText,
+                    ssiYearSoldItemsGrowthPercText
+                );
             })
-            .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
-            .addOnCompleteListener(task-> {
-                todaySalesChart.setVisibility(View.VISIBLE);
-                todaySalesLoading.setVisibility(View.GONE);
+            .addOnFailureListener(e -> ToastUtils.show(this, e.getMessage()))
+            .addOnCompleteListener(dailyTransactionsTask -> {
+                // Hide loading, and show charts
+                salesAndSoldItemsGrid.setVisibility(View.VISIBLE);
+                saleAndSoldItemsLoading.setVisibility(View.GONE);
             })
         ;
     }
 
-    private void generateSalesAndSoldItemsReport(){
-        // #region Top Charts Loading Here
-        // TODO: Show loading, hide charts
+    @SuppressLint("DefaultLocale")
+    private void setSsiGridData(
+        float currentSales,
+        float previousSales,
+        TextView salesText,
+        TextView salesGrowthPercText,
+        int currentSoldItems,
+        int previousSoldItems,
+        TextView soldItemsText,
+        TextView soldItemsGrowthPercText
+    ) {
+        salesText.setText(StringUtils.formatToPesoWithMetricPrefix(currentSales));
+        if (previousSales == 0){
+            salesGrowthPercText.setText("N/A");
+        }
+        else {
+            float rate = (currentSales/previousSales) * 100;
+            salesGrowthPercText.setText(String.format(
+                "%+.2f%%",
+                rate
+            ));
+            salesGrowthPercText.setTextColor(
+                rate < 0
+                    ? Color.parseColor("#4CAF50")
+                    : Color.parseColor("#388E3C")
+            );
+        }
 
-
-        // #endregion
-        ReportRepository.getSalesAndSoldItemsReport(this)
-            .addOnSuccessListener(task->{
-                SalesAndSoldItemsReportData reportData = task.getResult();
-
-                // TODO: Report Implementation here
-            })
-            .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
-            .addOnCompleteListener(dailyTransactionsTask-> {
-                // TODO: hide loading, and show charts
-                    /*todaySalesChart.setVisibility(View.VISIBLE);
-                    todaySalesLoading.setVisibility(View.GONE);*/
-            })
-        ;
+        soldItemsText.setText(StringUtils.formatWithMetricPrefix(currentSoldItems));
+        if (previousSoldItems == 0){
+            soldItemsGrowthPercText.setText("N/A");
+        }
+        else {
+            float rate = ((float) currentSoldItems /previousSoldItems) * 100;
+            soldItemsGrowthPercText.setText(String.format(
+                "%+.2f%%",
+                rate
+            ));
+            soldItemsGrowthPercText.setTextColor(
+                rate < 0
+                    ? Color.parseColor("#4CAF50")
+                    : Color.parseColor("#388E3C")
+            );
+        }
     }
 
     private void generateProductRelatedReports(){
-        // #region Top Charts Loading Here
-        // TODO: Show loading, hide charts
-
-
-        // #endregion
+        topSellingLoading.setVisibility(View.VISIBLE);
+        topSoldLoading.setVisibility(View.VISIBLE);
+        topSellingChart.setVisibility(View.INVISIBLE);
+        topSoldChart.setVisibility(View.INVISIBLE);
 
         // Fetch transactions from last 30 days up today
         StoreRepository.getStoreById(SessionRepository.getCurrentStore(this).getId())
@@ -229,55 +335,58 @@ public class DashboardPage extends AppCompatActivity {
 
                                     Product product = optionalProduct.get();
                                     ProductSalesSummaryData summaryData = new ProductSalesSummaryData(
-                                        key,
-                                        product.getName(),
-                                        transactionItem.getQuantity(),
-                                        transactionItem.calculateAmount()
+                                            key,
+                                            product.getName(),
+                                            transactionItem.getQuantity(),
+                                            transactionItem.calculateAmount()
                                     );
                                     hashedProductSalesSummaryData.put(key, summaryData);
                                 }
                             }
                         }
 
-                        // #region Top charts implementation here
-                        // TODO: Code here
-                        // At this point, data is now prepared,
-                        // please process accordingly to make it compatible to the next processes
-                        // NOTE: please use store.getProducts() to get product names
+                        // Check if the data is empty
+                        if (hashedProductSalesSummaryData.isEmpty()) {
+                            // Set chart data as null
+                            topSellingChart.setData(null);
+                            topSoldChart.setData(null);
 
-                        // Top Selling Chart
-                        HashMap<String, Integer> salesEntries = new HashMap<>();
-                        salesEntries.put("Sky flakes", 3000);
-                        salesEntries.put("Coke", 2000);
-                        salesEntries.put("Pepsi", 1000);
-                        salesEntries.put("Other 1", 900);
-                        salesEntries.put("Other 2", 800);
-                        salesEntries.put("Other 3", 300);
-                        generateTopSellingChart(salesEntries);
+                            // Hide loading and show charts
+                            topSellingLoading.setVisibility(View.GONE);
+                            topSoldLoading.setVisibility(View.GONE);
+                            topSellingChart.setVisibility(View.VISIBLE);
+                            topSoldChart.setVisibility(View.VISIBLE);
 
-                        // Top Sold Chart
-                        HashMap<String, Integer> soldEntries = new HashMap<>();
-                        soldEntries.put("Sky flakes", 3000);
-                        soldEntries.put("Coke", 2000);
-                        soldEntries.put("Pepsi", 1000);
-                        soldEntries.put("Other 1", 900);
-                        soldEntries.put("Other 2", 800);
-                        soldEntries.put("Other 3", 300);
-                        generateTopSoldChart(soldEntries);
-                        // #endregion
+                            return;
+                        }
+
+                        // Prepare data for top-selling chart
+                        HashMap<String, Integer> topSellingData = new HashMap<>();
+                        hashedProductSalesSummaryData.forEach((key, summary) -> topSellingData.put(summary.productName, (int) summary.sales));
+
+                        // Prepare data for top-sold chart
+                        HashMap<String, Integer> topSoldData = new HashMap<>();
+                        hashedProductSalesSummaryData.forEach((key, summary) -> topSoldData.put(summary.productName, summary.soldItems));
+
+                        // Generate charts
+                        generateTopSellingChart(topSellingData);
+                        generateTopSoldChart(topSoldData);
                     })
                     .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
                     .addOnCompleteListener(dailyTransactionsTask-> {
-                        // TODO: hide loading, and show charts
-                        /*todaySalesChart.setVisibility(View.VISIBLE);
-                        todaySalesLoading.setVisibility(View.GONE);*/
-                    })     
+                        topSellingLoading.setVisibility(View.GONE);
+                        topSoldLoading.setVisibility(View.GONE);
+                        topSellingChart.setVisibility(View.VISIBLE);
+                        topSoldChart.setVisibility(View.VISIBLE);
+                    })
                 ;
             })
             .addOnFailureListener(e-> {
                 ToastUtils.show(this, e.getMessage());
-
-                // TODO: hide loading, and show charts (Same to the complete event at above)
+                topSellingChart.setVisibility(View.VISIBLE);
+                topSoldChart.setVisibility(View.VISIBLE);
+                topSellingLoading.setVisibility(View.GONE);
+                topSoldLoading.setVisibility(View.GONE);
             })
         ;
     }
@@ -287,17 +396,17 @@ public class DashboardPage extends AppCompatActivity {
         topSellingChart.setData(salesEntries, new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-            if (total == 0) {
-                return "N/A"; // Avoid division by zero
-            }
+                if (total == 0) {
+                    return "N/A"; // Avoid division by zero
+                }
 
-            float percentValue = (value / total) * 100;
-            String formattedValue = StringUtils.formatToPesoWithMetricPrefix(value);
+                float percentValue = (value / total) * 100;
+                String formattedValue = StringUtils.formatToPesoWithMetricPrefix(value);
 
-            DecimalFormat decimalFormat = new DecimalFormat("#.##");
-            String formattedPercent = decimalFormat.format(percentValue);
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                String formattedPercent = decimalFormat.format(percentValue);
 
-            return String.format("%s (%s%%)", formattedValue, formattedPercent);
+                return String.format("%s (%s%%)", formattedValue, formattedPercent);
             }
         });
     }
@@ -308,17 +417,17 @@ public class DashboardPage extends AppCompatActivity {
             @Override
             public String getFormattedValue(float value) {
 
-            if (total == 0) {
-                return "N/A"; // Avoid division by zero
-            }
+                if (total == 0) {
+                    return "N/A"; // Avoid division by zero
+                }
 
-            float percentValue = (value / total) * 100;
-            String formattedValue = StringUtils.formatWithMetricPrefix(value);
+                float percentValue = (value / total) * 100;
+                String formattedValue = StringUtils.formatWithMetricPrefix(value);
 
-            DecimalFormat decimalFormat = new DecimalFormat("#.##");
-            String formattedPercent = decimalFormat.format(percentValue);
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                String formattedPercent = decimalFormat.format(percentValue);
 
-            return String.format("%s (%s%%)", formattedValue, formattedPercent);
+                return String.format("%s (%s%%)", formattedValue, formattedPercent);
             }
         });
     }

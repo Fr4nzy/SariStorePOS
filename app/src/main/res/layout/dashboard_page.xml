@@ -156,7 +156,6 @@
 
 
             </androidx.cardview.widget.CardView>
-
             <!-- Third CardView in the second row -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
@@ -183,170 +182,184 @@
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp" />
 
-                    <GridLayout
-                        xmlns:android="http://schemas.android.com/apk/res/android"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:columnCount="3"
-                        android:rowCount="3"
-                        android:layout_gravity="center">
+                        android:layout_height="match_parent">
+                        <GridLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/dashboard_sales_and_sold_grid"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:columnCount="3"
+                            android:rowCount="3"
+                            android:layout_gravity="center">
 
-                        <!-- Tile 1 -->
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:text="Week" />
-
-                        <!-- Tile 2 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            <!-- Tile 1 -->
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
                                 android:textColor="@color/black"
-                                android:text="₱12.3k" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.06%"
-                                android:textSize="9sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
+                                android:text="Week" />
+
+                            <!-- Tile 2 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/dashboard_ssi_week_sales"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black" />
+                                <TextView
+                                    android:id="@+id/dashboard_ssi_week_growth_perc"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="9sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
 
 
-                        <!-- Tile 3 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            <!-- Tile 3 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/dashboard_current_week_sold_report"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black" />
+                                <TextView
+                                    android:id="@+id/dashboard_previous_week_sold_report"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="9sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
+
+                            <!-- Tile 4 -->
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
                                 android:textColor="@color/black"
-                                android:text="0.98k" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.07%"
-                                android:textSize="9sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
+                                android:text="Month" />
 
-                        <!-- Tile 4 -->
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:text="Month" />
+                            <!-- Tile 5 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/dashboard_current_month_sales_report"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black" />
+                                <TextView
+                                    android:id="@+id/dashboard_previous_month_sales_report"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="9sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
+                            <!-- Tile 6 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/dashboard_current_month_sold_report"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black" />
+                                <TextView
+                                    android:id="@+id/dashboard_previous_month_sold_report"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="9sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
 
-                        <!-- Tile 5 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            <!-- Tile 7 -->
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
                                 android:textColor="@color/black"
-                                android:text="₱42.3k" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.06%"
-                                android:textSize="9sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
-                        <!-- Tile 6 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:text="6.54k" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.07%"
-                                android:textSize="9sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
+                                android:text="Year" />
 
-                        <!-- Tile 7 -->
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:text="Year" />
+                            <!-- Tile 8 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/dashboard_current_year_sales_report"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black" />
+                                <TextView
+                                    android:id="@+id/dashboard_previous_year_sales_report"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="9sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
 
-                        <!-- Tile 8 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:text="₱0.52M" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.06%"
-                                android:textSize="9sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
+                            <!-- Tile 9 -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_columnWeight="1"
+                                android:layout_rowWeight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/dashboard_current_year_sold_report"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"/>
+                                <TextView
+                                    android:id="@+id/dashboard_previous_year_sold_report"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="9sp"
+                                    android:textColor="#4CAF50"/>
+                            </LinearLayout>
+                        </GridLayout>
+                        <com.example.loadinganimation.LoadingAnimation
+                            android:id="@+id/dashboard_sales_and_sold_items_loading"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            app:barType="@drawable/clock"
+                            app:enlarge="5" />
+                    </RelativeLayout>
 
-                        <!-- Tile 9 -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_columnWeight="1"
-                            android:layout_rowWeight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:text="70.98k" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="+0.07%"
-                                android:textSize="9sp"
-                                android:textColor="#4CAF50"/>
-                        </LinearLayout>
-                    </GridLayout>
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -387,6 +400,13 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         />
+                    <com.example.loadinganimation.LoadingAnimation
+                        android:id="@+id/dashboard_top_selling_loading"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:elevation="10dp"
+                        app:barType="@drawable/clock"
+                        app:enlarge="5" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -426,6 +446,13 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         />
+                    <com.example.loadinganimation.LoadingAnimation
+                        android:id="@+id/dashboard_top_sold_loading"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:elevation="10dp"
+                        app:barType="@drawable/clock"
+                        app:enlarge="5" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

@@ -9,6 +9,7 @@ public class StringUtils {
     public static int getLinesCount(String str){
         return str.split("\n").length;
     }
+
     public static String formatToPesoWithMetricPrefix(float number){
         return "₱"+formatWithMetricPrefix((long)number);
     }

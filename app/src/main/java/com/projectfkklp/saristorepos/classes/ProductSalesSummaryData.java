@@ -6,7 +6,7 @@ public class ProductSalesSummaryData {
     public int soldItems;
     public float sales;
 
-    public ProductSalesSummaryData(String productId,String productName, int soldItems, float sales){
+    public ProductSalesSummaryData(String productId, String productName, int soldItems, float sales){
         this.productId = productId;
         this.productName = productName;
         this.soldItems = soldItems;
