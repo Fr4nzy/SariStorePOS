@@ -41,6 +41,7 @@ public class AnalyticsTopChart extends PieChart {
         getDescription().setEnabled(false);
         setMinAngleForSlices(35f);
 
+
         setEntryLabelColor(Color.BLACK);
         setEntryLabelTextSize(11f);
         setDragDecelerationFrictionCoef(0.95f);
