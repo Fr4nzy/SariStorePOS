@@ -166,7 +166,7 @@ public class AnalyticsPage extends AppCompatActivity {
                     Double todayActualSales = todaySalesData.get(1);
                     Double todayTargetSales = todaySalesData.get(2);
 
-                    if (yesterdaySales < 0 && todayActualSales < 0 && todayTargetSales < 0){
+                    if (yesterdaySales <= 0 || todayTargetSales <= 0){
                         todaySalesChart.setData(null);
                         return;
                     }
