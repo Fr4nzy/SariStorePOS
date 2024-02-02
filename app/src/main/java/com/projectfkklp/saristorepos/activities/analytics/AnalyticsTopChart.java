@@ -39,6 +39,7 @@ public class AnalyticsTopChart extends PieChart {
         setDrawHoleEnabled(false);
         getLegend().setEnabled(false);
         getDescription().setEnabled(false);
+        setMinAngleForSlices(35f);
 
         setEntryLabelColor(Color.BLACK);
         setEntryLabelTextSize(11f);
