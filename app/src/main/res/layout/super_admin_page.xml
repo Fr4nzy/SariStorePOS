@@ -48,16 +48,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Revoke Super Admin Access"
+        android:text="Dump Data"
         android:backgroundTint="@color/red"
-        android:onClick="showRevokeSuperAdminAccessConfirmation"/>
+        android:onClick="showDumpDataConfirmation"/>
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:text="Revoke Super Admin Access"
+        android:backgroundTint="@color/red"
+        android:onClick="showRevokeSuperAdminAccessConfirmation"/>
+
+    <!--<com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="Evaluate Arima"
         android:backgroundTint="#0000dd"
-        android:onClick="evaluateArima"/>
+        android:onClick="evaluateArima"/>-->
 
 </LinearLayout>

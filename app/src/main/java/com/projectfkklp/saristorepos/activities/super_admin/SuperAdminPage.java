@@ -44,8 +44,26 @@ public class SuperAdminPage extends AppCompatActivity {
             .show();
     }
 
+    public void showDumpDataConfirmation(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+            .setTitle("Dump Data?")
+            .setMessage("This operation will dump/clear the products, transactions, and other data under store in this session.\n\nAre you sure you want to proceed this operation?")
+            .setPositiveButton("Yes", (dialog, which) -> {
+                dumpData();
+            })
+            .setNegativeButton("No", (dialog, which) -> {
+                dialog.dismiss();
+            })
+            .show();
+    }
+
     private void generateDummyData(){
         new GenerateDummyDataTask(this).execute();
+    }
+
+    private void dumpData(){
+        new DumpDataTask(this).execute();
     }
 
     public void showRevokeSuperAdminAccessConfirmation(View view){
