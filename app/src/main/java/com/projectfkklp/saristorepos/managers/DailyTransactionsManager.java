@@ -92,13 +92,6 @@ public class DailyTransactionsManager {
 
         store.setDailySalesUpdatedAt(currentDate);
 
-        //If no daily sales, adds a new transaction amount
-        if (dailySales.size()==0) {
-            dailySold.add(newTransactionTotalQuantity);
-            dailySales.add(newTransactionAmount);
-            return;
-        }
-
         // If there is existing entry for today
         if(DateUtils.isSameDay(lastUpdatedAt, currentDate)){
             int lastItemIndex = dailySales.size()-1;
