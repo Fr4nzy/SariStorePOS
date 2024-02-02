@@ -81,9 +81,8 @@ public class AnalyticsPage extends AppCompatActivity {
     private void generateCharts(){
         generateAnalyticsChart();
         generateTodaySalesChart();
-        generateProductRelatedReports();
         generateSalesAndSoldItems();
-        generateProductsSalesReport();
+        generateProductRelatedReports();
     }
 
     private void initializeViews() {
@@ -287,96 +286,103 @@ public class AnalyticsPage extends AppCompatActivity {
         topSoldLoading.setVisibility(View.VISIBLE);
         topSellingChart.setVisibility(View.INVISIBLE);
         topSoldChart.setVisibility(View.INVISIBLE);
+        productsSalesTable.setVisibility(View.INVISIBLE);
+        productsSalesTableLoading.setVisibility(View.VISIBLE);
 
         // Fetch transactions from last 30 days up today
         StoreRepository.getStoreById(SessionRepository.getCurrentStore(this).getId())
-                .addOnSuccessListener(task->{
-                    // Use store to reference products details, like product name
-                    store = task.toObject(Store.class);
-                    assert store != null;
-                    List<Product> products = store.getProducts();
+            .addOnSuccessListener(task->{
+                // Use store to reference products details, like product name
+                store = task.toObject(Store.class);
+                assert store != null;
+                List<Product> products = store.getProducts();
 
-                    DailyTransactionsRepository.getDailyTransactions(this, 0)
-                            .addOnSuccessListener(dailyTransactionsTask->{
-                                List<DailyTransactions> dailyTransactionsList = dailyTransactionsTask.toObjects(DailyTransactions.class);
+                DailyTransactionsRepository.getDailyTransactions(this, 0)
+                    .addOnSuccessListener(dailyTransactionsTask->{
+                        List<DailyTransactions> dailyTransactionsList = dailyTransactionsTask.toObjects(DailyTransactions.class);
 
-                                // Data Preparation
-                                HashMap<String, ProductSalesSummaryData> hashedProductSalesSummaryData = new HashMap<>();
-                                for (DailyTransactions dailyTransactions : dailyTransactionsList){
-                                    for (Transaction transaction: dailyTransactions.getTransactions()){
-                                        for (TransactionItem transactionItem:transaction.getItems()){
-                                            String key = transactionItem.getProductId();
+                        // Data Preparation
+                        HashMap<String, ProductSalesSummaryData> hashedProductSalesSummaryData = new HashMap<>();
+                        for (DailyTransactions dailyTransactions : dailyTransactionsList){
+                            for (Transaction transaction: dailyTransactions.getTransactions()){
+                                for (TransactionItem transactionItem:transaction.getItems()){
+                                    String key = transactionItem.getProductId();
 
-                                            // Existing entry/Appending
-                                            if (hashedProductSalesSummaryData.containsKey(key)){
-                                                ProductSalesSummaryData summary = hashedProductSalesSummaryData.get(key);
-                                                assert summary != null;
-                                                summary.soldItems += transactionItem.getQuantity();
-                                                summary.sales += transactionItem.calculateAmount();
-                                                continue;
-                                            }
-
-                                            // New entry
-                                            Optional<Product> optionalProduct = products.stream().filter(p->p.getId().equals(key)).findFirst();
-                                            if (!optionalProduct.isPresent()) {
-                                                continue;
-                                            }
-
-                                            Product product = optionalProduct.get();
-                                            ProductSalesSummaryData summaryData = new ProductSalesSummaryData(
-                                                    key,
-                                                    product.getName(),
-                                                    transactionItem.getQuantity(),
-                                                    transactionItem.calculateAmount()
-                                            );
-                                            hashedProductSalesSummaryData.put(key, summaryData);
-                                        }
+                                    // Existing entry/Appending
+                                    if (hashedProductSalesSummaryData.containsKey(key)){
+                                        ProductSalesSummaryData summary = hashedProductSalesSummaryData.get(key);
+                                        assert summary != null;
+                                        summary.soldItems += transactionItem.getQuantity();
+                                        summary.sales += transactionItem.calculateAmount();
+                                        continue;
                                     }
+
+                                    // New entry
+                                    Optional<Product> optionalProduct = products.stream().filter(p->p.getId().equals(key)).findFirst();
+                                    if (!optionalProduct.isPresent()) {
+                                        continue;
+                                    }
+
+                                    Product product = optionalProduct.get();
+                                    ProductSalesSummaryData summaryData = new ProductSalesSummaryData(
+                                            key,
+                                            product.getName(),
+                                            transactionItem.getQuantity(),
+                                            transactionItem.calculateAmount()
+                                    );
+                                    hashedProductSalesSummaryData.put(key, summaryData);
                                 }
+                            }
+                        }
 
-                                // Check if the data is empty
-                                if (hashedProductSalesSummaryData.isEmpty()) {
-                                    // Set chart data as null
-                                    topSellingChart.setData(null);
-                                    topSoldChart.setData(null);
+                        // Check if the data is empty
+                        if (hashedProductSalesSummaryData.isEmpty()) {
+                            // Set chart data as null
+                            topSellingChart.setData(null);
+                            topSoldChart.setData(null);
 
-                                    // Hide loading and show charts
-                                    topSellingLoading.setVisibility(View.GONE);
-                                    topSoldLoading.setVisibility(View.GONE);
-                                    topSellingChart.setVisibility(View.VISIBLE);
-                                    topSoldChart.setVisibility(View.VISIBLE);
+                            // Hide loading and show charts
+                            topSellingLoading.setVisibility(View.GONE);
+                            topSoldLoading.setVisibility(View.GONE);
+                            topSellingChart.setVisibility(View.VISIBLE);
+                            topSoldChart.setVisibility(View.VISIBLE);
 
-                                    return;
-                                }
+                            return;
+                        }
 
-                                // Prepare data for top-selling chart
-                                HashMap<String, Integer> topSellingData = new HashMap<>();
-                                hashedProductSalesSummaryData.forEach((key, summary) -> topSellingData.put(summary.productName, (int) summary.sales));
+                        // Prepare data for top-selling chart
+                        HashMap<String, Integer> topSellingData = new HashMap<>();
+                        hashedProductSalesSummaryData.forEach((key, summary) -> topSellingData.put(summary.productName, (int) summary.sales));
 
-                                // Prepare data for top-sold chart
-                                HashMap<String, Integer> topSoldData = new HashMap<>();
-                                hashedProductSalesSummaryData.forEach((key, summary) -> topSoldData.put(summary.productName, summary.soldItems));
+                        // Prepare data for top-sold chart
+                        HashMap<String, Integer> topSoldData = new HashMap<>();
+                        hashedProductSalesSummaryData.forEach((key, summary) -> topSoldData.put(summary.productName, summary.soldItems));
 
-                                // Generate charts
-                                generateTopSellingChart(topSellingData);
-                                generateTopSoldChart(topSoldData);
-                            })
-                            .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
-                            .addOnCompleteListener(dailyTransactionsTask-> {
-                                topSellingLoading.setVisibility(View.GONE);
-                                topSoldLoading.setVisibility(View.GONE);
-                                topSellingChart.setVisibility(View.VISIBLE);
-                                topSoldChart.setVisibility(View.VISIBLE);
-                            })
-                    ;
-                })
-                .addOnFailureListener(e-> {
-                    ToastUtils.show(this, e.getMessage());
-                    topSellingChart.setVisibility(View.VISIBLE);
-                    topSoldChart.setVisibility(View.VISIBLE);
-                    topSellingLoading.setVisibility(View.GONE);
-                    topSoldLoading.setVisibility(View.GONE);
-                })
+                        // Generate charts and reports
+                        generateTopSellingChart(topSellingData);
+                        generateTopSoldChart(topSoldData);
+                        generateProductsSalesReport(new ArrayList<>(hashedProductSalesSummaryData.values()));
+                    })
+                    .addOnFailureListener(e-> ToastUtils.show(this, e.getMessage()))
+                    .addOnCompleteListener(dailyTransactionsTask-> {
+                        topSellingLoading.setVisibility(View.GONE);
+                        topSellingChart.setVisibility(View.VISIBLE);
+                        topSoldLoading.setVisibility(View.GONE);
+                        topSoldChart.setVisibility(View.VISIBLE);
+                        productsSalesTableLoading.setVisibility(View.GONE);
+                        productsSalesTable.setVisibility(View.VISIBLE);
+                    })
+                ;
+            })
+            .addOnFailureListener(e-> {
+                ToastUtils.show(this, e.getMessage());
+                topSellingLoading.setVisibility(View.GONE);
+                topSellingChart.setVisibility(View.VISIBLE);
+                topSoldLoading.setVisibility(View.GONE);
+                topSoldChart.setVisibility(View.VISIBLE);
+                productsSalesTableLoading.setVisibility(View.GONE);
+                productsSalesTable.setVisibility(View.VISIBLE);
+            })
         ;
     }
 
@@ -426,39 +432,34 @@ public class AnalyticsPage extends AppCompatActivity {
     }
 
     @SuppressLint("DefaultLocale")
-    private void generateProductsSalesReport(){
-        productsSalesTable.setVisibility(View.INVISIBLE);
-        productsSalesTableLoading.setVisibility(View.VISIBLE);
-        TestingUtils.delay(3000, ()->{
-            // Header
-            productsSalesTable.setHeaderAdapter(new SimpleTableHeaderAdapter(
-                    this,
-                    "Product",
-                    "Sold Items",
-                    "Sales"
+    private void generateProductsSalesReport(List<ProductSalesSummaryData> productsSalesData){
+        // Header
+        productsSalesTable.setHeaderAdapter(new SimpleTableHeaderAdapter(
+                this,
+                "Product",
+                "Sold Items",
+                "Sales"
+        ));
+
+        //Data
+        /* = new ArrayList<>();
+        for (int i = 0; i<30;i++){
+            productsSalesData.add(new ProductSalesSummaryData(
+                    String.format("id-%d", i),
+                    String.format("Product %d", i),
+                    i+1,
+                    30-i
             ));
+        }*/
+        productsSalesTable.setDataAdapter(new ProductsSalesTableDataAdapter(this, productsSalesData));
 
-            //Data
-            List<ProductSalesSummaryData> productsSalesData = new ArrayList<>();
-            for (int i = 0; i<30;i++){
-                productsSalesData.add(new ProductSalesSummaryData(
-                        String.format("id-%d", i),
-                        String.format("Product %d", i),
-                        i+1,
-                        30-i
-                ));
-            }
-            productsSalesTable.setDataAdapter(new ProductsSalesTableDataAdapter(this, productsSalesData));
+        // Comparators
+        productsSalesTable.setColumnComparator(0, Comparator.comparing(ps -> ps.productName));
+        productsSalesTable.setColumnComparator(1, Comparator.comparingInt(ps -> ps.soldItems));
+        productsSalesTable.setColumnComparator(2, Comparator.comparingDouble(ps -> ps.sales));
 
-            // Comparators
-            productsSalesTable.setColumnComparator(0, Comparator.comparing(ps -> ps.productName));
-            productsSalesTable.setColumnComparator(1, Comparator.comparingInt(ps -> ps.soldItems));
-            productsSalesTable.setColumnComparator(2, Comparator.comparingDouble(ps -> ps.sales));
-
-            productsSalesTable.setVisibility(View.VISIBLE);
-            productsSalesTableLoading.setVisibility(View.GONE);
-        });
-
+        productsSalesTable.setVisibility(View.VISIBLE);
+        productsSalesTableLoading.setVisibility(View.GONE);
     }
 
     public void navigateBack(View view){finish();}
