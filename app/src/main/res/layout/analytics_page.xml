@@ -388,7 +388,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:elevation="10dp"
-                            app:barType="@drawable/triad_ring"
+                            app:barType="@drawable/gear_duo"
                             app:enlarge="3" />
                     </RelativeLayout>
                 </LinearLayout>

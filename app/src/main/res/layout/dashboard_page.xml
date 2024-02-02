@@ -150,7 +150,7 @@
                             android:layout_height="match_parent"
                             android:elevation="10dp"
                             app:barType="@drawable/clock"
-                            app:enlarge="5" />
+                            app:enlarge="3" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -355,8 +355,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:elevation="10dp"
-                            app:barType="@drawable/clock"
-                            app:enlarge="5" />
+                            app:barType="@drawable/rainbow_ring"
+                            app:enlarge="3" />
                     </RelativeLayout>
 
 
@@ -394,19 +394,22 @@
                         android:text="*For past 30days"
                         android:textSize="7sp"
                         />
-                    <com.projectfkklp.saristorepos.activities.dashboard.DashboardTopChart
-                        android:id="@+id/dashboard_top_selling_chart"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        />
-                    <com.example.loadinganimation.LoadingAnimation
-                        android:id="@+id/dashboard_top_selling_loading"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:elevation="10dp"
-                        app:barType="@drawable/clock"
-                        app:enlarge="5" />
+                        android:layout_height="match_parent">
+                        <com.projectfkklp.saristorepos.activities.dashboard.DashboardTopChart
+                            android:id="@+id/dashboard_top_selling_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            />
+                        <com.example.loadinganimation.LoadingAnimation
+                            android:id="@+id/dashboard_top_selling_loading"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            app:barType="@drawable/gear_duo"
+                            app:enlarge="2" />
+                    </RelativeLayout>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -440,19 +443,22 @@
                         android:text="*For past 30days"
                         android:textSize="7sp"
                         />
-                    <com.projectfkklp.saristorepos.activities.dashboard.DashboardTopChart
-                        android:id="@+id/dashboard_top_sold_chart"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        />
-                    <com.example.loadinganimation.LoadingAnimation
-                        android:id="@+id/dashboard_top_sold_loading"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:elevation="10dp"
-                        app:barType="@drawable/clock"
-                        app:enlarge="5" />
+                        android:layout_height="match_parent">
+                        <com.projectfkklp.saristorepos.activities.dashboard.DashboardTopChart
+                            android:id="@+id/dashboard_top_sold_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            />
+                        <com.example.loadinganimation.LoadingAnimation
+                            android:id="@+id/dashboard_top_sold_loading"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="10dp"
+                            app:barType="@drawable/hour_glass"
+                            app:enlarge="2" />
+                    </RelativeLayout>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
