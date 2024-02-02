@@ -146,9 +146,13 @@
                         android:text="Sales and Sold Items"
                         android:textSize="17sp"
                         android:textColor="@color/black"
-                        android:layout_marginBottom="10dp"
                         />
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*The chart displays sales and sold items data over different time frames: the past 7 days (week), 30 days (month), and 365 days (year), each represented in pesos (currency) and quantity.\n\nBelow the chart, the colored text indicates the growth percentage compared to the preceding period for both sales and sold items. This provides insight into the performance trends, highlighting whether there has been an increase or decrease in sales and quantity sold over time."
+                        android:textSize="12sp"
+                        />
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
