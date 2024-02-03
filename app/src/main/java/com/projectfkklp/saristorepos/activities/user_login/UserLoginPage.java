@@ -84,6 +84,7 @@ public class UserLoginPage extends AppCompatActivity {
                         // Start session and next activity
                         SessionManager.setUser(this, user);
                         startActivity(new Intent(this, StoreSelectorPage.class));
+                        finish();
                     }
                 }
             );
