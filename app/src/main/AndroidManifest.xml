@@ -14,54 +14,88 @@
         tools:targetApi="31">
         <activity
             android:name=".activities.super_admin.ArimaEvaluationPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.super_admin.SuperAdminPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.pos.PosPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.analytics.AnalyticsPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.pos.checkout.CheckoutPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.transaction_invoice.TransactionInvoicePage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.transaction.TransactionPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.inventory.InventoryProductListViewHolder"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.inventory.InventoryProductListPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.inventory.InventoryProductDetailPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.dashboard.DashboardPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.store_finder.StoreFinderPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.store_registration.StoreRegistrationPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.user_profile.UserProfilePage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.store_recruitment.UserRecruitmentPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.store_selector.StoreSelectorPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.entry.EntryPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,48 +105,78 @@
         </activity>
         <activity
             android:name=".activities.transaction.transaction_daily_summary._TransactionDailySummaryPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.analytics.AnalyticsDailySalesPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.transaction.transaction_history._TransactionHistoryPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.analytics.AnalyticsForecastEntryPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.pos._PosCheckoutPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.inventory._InventoryEditProductPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.inventory._InventoryProductDetailPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.inventory._InventoryCreateProductPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.analytics.AnalyticsForecastPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.pos._PosPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.inventory._InventoryProductListPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.user_login.UserLoginPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.user_registration.UserRegistrationPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.store_profile.StoreProfilePage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.dashboard._DashboardPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:exported="false" />
 
         <meta-data
