@@ -1,26 +1,80 @@
 {
   "project_info": {
     "project_number": "649363559184",
+    "firebase_url": "https://sari-store-pos-default-rtdb.firebaseio.com",
     "project_id": "sari-store-pos",
     "storage_bucket": "sari-store-pos.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:649363559184:android:39a765a6cfe1bc2e994b95",
+        "mobilesdk_app_id": "1:649363559184:android:aafe8cf9339e2a3a994b95",
         "android_client_info": {
           "package_name": "com.projectfkklp.saristorepos"
         }
       },
       "oauth_client": [
         {
-          "client_id": "649363559184-bmjq485s05u4m7b3enoulf24k745v64s.apps.googleusercontent.com",
+          "client_id": "649363559184-1nmg05bb4vqrk0v3gj9dtrse4dq4lecc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.projectfkklp.saristorepos",
+            "certificate_hash": "061c0341b93bcba196ffa8e2e313f30848d94036"
+          }
+        },
+        {
+          "client_id": "649363559184-8563het02hh992i9uhqudacq7pusher7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.projectfkklp.saristorepos",
             "certificate_hash": "6404cc2bfc39ab4eac8f94743472f3c7e16a3936"
           }
         },
+        {
+          "client_id": "649363559184-cusu8qfr84e6c7hafttj27ga5s1brnd9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.projectfkklp.saristorepos",
+            "certificate_hash": "b7cb9dabb97575a7ff3a79c468398e8e7c4275fd"
+          }
+        },
+        {
+          "client_id": "649363559184-lr5pmi846mnn633u1q5tb0unshou0m7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.projectfkklp.saristorepos",
+            "certificate_hash": "c6e99713bba5c6b9b972c61a393a9dd6f5b183c4"
+          }
+        },
+        {
+          "client_id": "649363559184-ke7hb2lqtpr0nlveel92tgnhsda3nh9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOqE6nhUfH4QZjCXDHsLCdrzWMGZp24Uc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "649363559184-ke7hb2lqtpr0nlveel92tgnhsda3nh9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649363559184:android:947c8fe9b4accdc8994b95",
+        "android_client_info": {
+          "package_name": "org.lu.sarisaristorepos"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "649363559184-ke7hb2lqtpr0nlveel92tgnhsda3nh9p.apps.googleusercontent.com",
           "client_type": 3
