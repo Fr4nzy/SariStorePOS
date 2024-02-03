@@ -87,11 +87,34 @@ public class UserProfilePage extends AppCompatActivity {
 
         profileLauncher = AuthenticationUtils.createSignInLauncher(this, this::profileSignIn);
         signOut.setOnClickListener(view -> {
+            showLogoutConfirmationDialog();
+
             // Clear sessions and navigate to login page
+            /*SessionManager.reset(UserProfilePage.this);
+            ActivityUtils.navigateToWithFlags(UserProfilePage.this, UserLoginPage.class);
+            finish();*/
+        });
+    }
+
+    private void showLogoutConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserProfilePage.this);
+        builder.setTitle("Confirm Logout");
+        builder.setMessage("Are you sure you want to sign out?");
+
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            // User clicked Yes, clear sessions and navigate to login page
             SessionManager.reset(UserProfilePage.this);
             ActivityUtils.navigateToWithFlags(UserProfilePage.this, UserLoginPage.class);
             finish();
         });
+
+        builder.setNegativeButton("No", (dialog, which) -> {
+            // User clicked No, do nothing
+            dialog.dismiss();
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void initializeData(){
