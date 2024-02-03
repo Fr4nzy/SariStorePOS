@@ -48,11 +48,6 @@
             tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.inventory.InventoryProductListViewHolder"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.inventory.InventoryProductListPage"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
@@ -104,42 +99,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.transaction.transaction_daily_summary._TransactionDailySummaryPage"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.analytics.AnalyticsDailySalesPage"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.transaction.transaction_history._TransactionHistoryPage"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.analytics.AnalyticsForecastEntryPage"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.pos._PosCheckoutPage"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.inventory._InventoryEditProductPage"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.inventory._InventoryProductDetailPage"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.inventory._InventoryCreateProductPage"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             android:exported="false" />
@@ -150,11 +115,6 @@
             android:exported="false" />
         <activity
             android:name=".activities.pos._PosPage"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.inventory._InventoryProductListPage"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             android:exported="false" />
@@ -170,11 +130,6 @@
             android:exported="false" />
         <activity
             android:name=".activities.store_profile.StoreProfilePage"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.dashboard._DashboardPage"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             android:exported="false" />
