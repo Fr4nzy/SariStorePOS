@@ -96,8 +96,8 @@ public class UserProfilePage extends AppCompatActivity {
         builder.setPositiveButton("Yes", (dialog, which) -> {
             // User clicked Yes, clear sessions and navigate to login page
             SessionManager.reset(UserProfilePage.this);
-            ActivityUtils.navigateToWithFlags(UserProfilePage.this, UserLoginPage.class);
-            finish();
+            ActivityUtils.navigateTo(this, UserLoginPage.class);
+            finishAffinity();
         });
 
         builder.setNegativeButton("No", (dialog, which) -> {
