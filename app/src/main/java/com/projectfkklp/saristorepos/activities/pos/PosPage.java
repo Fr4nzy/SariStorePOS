@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
@@ -40,6 +41,7 @@ public class PosPage extends AppCompatActivity {
     MaterialButton checkboutBtn;
     RecyclerView posRecycler;
     PosAdapter posAdapter;
+    FrameLayout emptyFrame;
 
     private List<Product> products;
     private List<TransactionItem> transactionItems;
@@ -81,6 +83,8 @@ public class PosPage extends AppCompatActivity {
         searchText = findViewById(R.id.pos_search);
         checkboutBtn = findViewById(R.id.pos_checkout_btn);
         posRecycler = findViewById(R.id.product_picker_recycler_view);
+        emptyFrame = findViewById(R.id.product_picker_product_list_empty_frame);
+
 
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -119,8 +123,10 @@ public class PosPage extends AppCompatActivity {
             .addOnSuccessListener(successTask->{
                 Store store = successTask.toObject(Store.class);
                 assert store != null;
+
                 products.clear();
                 products.addAll(store.getProducts());
+                emptyFrame.setVisibility(products.isEmpty()? View.VISIBLE: View.GONE);
 
                 loadTransactionItemsFromCache();
                 search(searchStr);
@@ -198,12 +204,8 @@ public class PosPage extends AppCompatActivity {
         builder
             .setTitle("Cancel Transaction?")
             .setMessage("Are you sure you want to cancel this transaction?")
-            .setPositiveButton("Yes", (dialog, which) -> {
-                finish();
-            })
-            .setNegativeButton("No", (dialog, which) -> {
-                dialog.dismiss();
-            })
+            .setPositiveButton("Yes", (dialog, which) -> finish())
+            .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
             .show();
     }
 
