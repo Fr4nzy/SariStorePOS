@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "649363559184-5ojhu8an9buivf85udhl7notrvsoor2h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.projectfkklp.saristorepos",
+            "certificate_hash": "cd9e25bfee01d5bc8bb93a75e058f1c5025b802a"
+          }
+        },
+        {
           "client_id": "649363559184-8563het02hh992i9uhqudacq7pusher7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

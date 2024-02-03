@@ -28,7 +28,7 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.projectfkklp.saristorepos" />
-                  <option name="mobileSdkAppId" value="1:649363559184:android:39a765a6cfe1bc2e994b95" />
+                  <option name="mobileSdkAppId" value="1:649363559184:android:aafe8cf9339e2a3a994b95" />
                   <option name="projectId" value="sari-store-pos" />
                   <option name="projectNumber" value="649363559184" />
                 </ConnectionSetting>
