@@ -86,14 +86,7 @@ public class UserProfilePage extends AppCompatActivity {
         initializeDialogs();
 
         profileLauncher = AuthenticationUtils.createSignInLauncher(this, this::profileSignIn);
-        signOut.setOnClickListener(view -> {
-            showLogoutConfirmationDialog();
-
-            // Clear sessions and navigate to login page
-            /*SessionManager.reset(UserProfilePage.this);
-            ActivityUtils.navigateToWithFlags(UserProfilePage.this, UserLoginPage.class);
-            finish();*/
-        });
+        signOut.setOnClickListener(view -> showLogoutConfirmationDialog());
     }
 
     private void showLogoutConfirmationDialog() {
