@@ -143,7 +143,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/pid_dialog_dismiss"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="110dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancel"
                 app:icon="@drawable/close"
@@ -160,7 +160,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/pid_dialog_submit"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="110dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save"
                 app:icon="@drawable/baseline_check_24"
