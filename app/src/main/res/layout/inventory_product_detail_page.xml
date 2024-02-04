@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_gravity="center_vertical"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
         tools:visibility="visible">
@@ -47,7 +47,7 @@
                     android:id="@+id/product_detail_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="-35dp"
+                    android:layout_marginStart="-20dp"
                     android:text="@string/create_product"
                     android:textAlignment="center"
                     android:textColor="@color/lavender"
