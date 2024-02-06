@@ -29,8 +29,7 @@ public class PosItemDetailDialog extends Dialog implements
     private final int PALE_GREEN = Color.rgb(220, 255, 220);
 
     ShapeableImageView productImage;
-    TextView productNameText, unitPriceText, subtotalPriceText, leftItemText;
-    EditText quantityEdit;
+    TextView productNameText, unitPriceText, subtotalPriceText, leftItemText, quantityEdit;
     ImageButton deleteButton, minusButton, plusButton;
 
     Button btnDismiss, btnSubmit;
@@ -119,15 +118,6 @@ public class PosItemDetailDialog extends Dialog implements
         );
 
         quantityEdit.setFilters(new InputFilter[]{new InputFilterMinMax(1, product.getStocks())});
-        quantityEdit.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                // Clear focus when the "Done" key is pressed
-                quantityEdit.clearFocus();
-                ActivityUtils.hideKeyboard(v);
-                return true;
-            }
-            return false;
-        });
         quantityEdit.setOnFocusChangeListener((view, hasFocus) -> {
             if (hasFocus){
                 return;

@@ -74,7 +74,7 @@
                         app:srcCompat="@drawable/minus"
                         app:tint="?attr/colorControlNormal"/>
 
-                    <EditText
+                    <TextView
                         android:id="@+id/pid_dialog_quantity_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -85,8 +85,6 @@
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
                         android:gravity="center"
-                        android:inputType="number"
-                        android:imeOptions="actionDone"
                         style="@style/EditTextNoUnderline"/>
 
                     <ImageButton
