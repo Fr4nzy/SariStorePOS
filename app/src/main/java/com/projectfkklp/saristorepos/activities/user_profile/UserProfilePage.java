@@ -47,11 +47,9 @@ public class UserProfilePage extends AppCompatActivity {
     EditText profileNameText;
     TextView phoneText;
     TextView gmailText;
-    TextView signOut;
-    Button updateButton;
+    Button updateButton, superAdminBtn, signOut ;
     ImageView unlinkPhoneButton;
     ImageView unlinkGmailButton;
-    Button superAdminBtn;
 
     AlertDialog.Builder cancelConfirmationDialog;
     AlertDialog.Builder unlinkPhoneConfirmationDialog;

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_4"
     tools:context=".activities.store_profile.StoreProfilePage">
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingStart="24dp">
+                android:paddingStart="24dp"
+                tools:ignore="RtlSymmetry">
                 <!-- Icon/Image for the Store -->
                 <ImageView
                     android:layout_width="24dp"
@@ -35,13 +37,13 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginLeft="5dp">
+                    android:layout_marginStart="5dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        android:text="STORE PROFILE"
+                        android:text="@string/store_profile_name_placeholder"
                         android:textSize="15dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -50,12 +52,13 @@
                     android:id="@+id/outlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dismiss"
-                    android:layout_marginRight="10dp"
+                    android:text="@string/store_profile_dismiss_button_label"
+                    android:layout_marginEnd="10dp"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     style="?attr/materialButtonOutlinedStyle"
                     android:textSize="11sp"
+                    app:cornerRadius="50dp"
                     android:onClick="dismiss"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -96,10 +99,10 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="STORE INFORMATION"
-                        android:textSize="15dp"
+                        android:text="@string/store_profile_store_information_label"
+                        android:textSize="15sp"
                         android:textStyle="bold"
-                        android:layout_marginRight="50dp"/>
+                        android:layout_marginEnd="50dp"/>
                     <ImageButton
                         android:id="@+id/store_profile_save_button"
                         android:layout_width="24dp"
@@ -123,10 +126,10 @@
                     android:drawableStart="@drawable/store"
                     android:drawablePadding="8dp"
                     android:enabled="false"
-                    android:hint="Store Name"
+                    android:hint="@string/store_profile_store_name_placeholder"
                     android:inputType="textPersonName"
                     android:textColor="@color/black"
-                    android:textSize="15dp"/>
+                    android:textSize="15sp"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -138,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:drawablePadding="8dp"
-                        android:hint="Store Address"
+                        android:hint="@string/store_profile_store_address_placeholder"
                         android:enabled="false"
                         android:textColor="@color/black"
                         android:onClick="changeProfileAddress"
@@ -174,7 +177,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical"
-                        android:text="STORE USERS"
+                        android:text="@string/store_profile_store_users_placeholder"
                         android:textSize="15dp"
                         android:textStyle="bold"/>
 
@@ -185,9 +188,10 @@
                         app:chipIcon="@drawable/search_user"
                         app:chipIconSize="12sp"
                         app:chipStartPadding="12dp"
-                        android:text="Recruit"
+                        android:text="@string/store_profile_recruit_button_label"
                         android:textSize="10sp"
-                        android:onClick="goToUserRecruitPage"/>
+                        android:onClick="goToUserRecruitPage"
+                        tools:ignore="SmallSp" />
                 </LinearLayout>
 
                 <RelativeLayout

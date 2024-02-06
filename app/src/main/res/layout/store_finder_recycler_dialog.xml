@@ -3,7 +3,6 @@
     android:id="@+id/store_finder_dialog_card"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
@@ -25,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Would you like to join the store with the following detail:"
+            android:text="@string/store_finder_description"
             android:textColor="@color/lavender"
             android:textSize="14sp"
             android:textStyle="bold"/>
@@ -34,7 +33,7 @@
             android:id="@+id/store_finder_recycler_store_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Store A"
+            android:text="@string/store_finder_store_placeholder"
             android:textColor="@color/lavender"
             android:textSize="14sp"/>
 
@@ -42,7 +41,7 @@
             android:id="@+id/store_finder_recycler_store_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sitio Yakal, Brgy Malinao, San Pablo City, Laguna"
+            android:text="@string/store_finder_address_placeholder"
             android:textColor="@color/lavender"
             android:textSize="14sp"/>
 
@@ -50,7 +49,7 @@
             android:id="@+id/store_finder_recycler_store_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="\@17f1e065a4f001"
+            android:text="@string/store_finder_uid_placeholder"
             android:textColor="@color/lightGray"
             android:textSize="14sp"/>
 
@@ -67,24 +66,27 @@
                 android:id="@+id/btn_join_as_owner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:text="Join As Owner"
+                android:textSize="12sp"
+                android:text="@string/store_finder_join_as_owner_label"
+                app:cornerRadius="50dp"
                 android:backgroundTint="@color/positiveButtonColor"/>
 
             <Button
                 android:id="@+id/btn_join_as_assistant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:text="Join As Assistant"
+                android:textSize="12sp"
+                android:text="@string/store_finder_join_as_assistant_label"
+                app:cornerRadius="50dp"
                 android:backgroundTint="@color/positiveButtonColor"/>
 
             <Button
                 android:id="@+id/btn_store_finder_dialog_dismiss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:text="Cancel"
+                android:textSize="12sp"
+                android:text="@string/store_finder_cancel_label"
+                app:cornerRadius="50dp"
                 android:backgroundTint="@color/negativeButtonColor"/>
 
         </LinearLayout>
