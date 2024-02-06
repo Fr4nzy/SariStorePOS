@@ -1,8 +1,11 @@
 package com.projectfkklp.saristorepos.activities.user_login;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -40,6 +43,21 @@ public class UserLoginPage extends AppCompatActivity {
         AuthenticationManager.logout(this, task -> {});
 
         signInLauncher = AuthenticationUtils.createSignInLauncher(this, this::onSignInResult);
+
+        // Get and display the app version
+        displayAppVersion();
+    }
+
+    private void displayAppVersion() {
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String versionName = packageInfo.versionName;
+
+            TextView versionTextView = findViewById(R.id.user_login_page_version_number);
+            versionTextView.setText("Version " + versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void loginViaPhone(View view){

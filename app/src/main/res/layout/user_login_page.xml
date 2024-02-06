@@ -101,4 +101,18 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/user_login_page_version_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/user_login_version_placeholder"/>
+
+    </LinearLayout>
+
 </LinearLayout>
