@@ -29,5 +29,15 @@
     <string name="price_placeholder">Price</string>
     <string name="stock_placeholder">Stock</string>
     <string name="save_product_button">Save</string>
+    <string name="sample_product_placeholder">Sample Product</string>
+    <string name="unit_price_placeholder">Unit Price: ₱100.00</string>
+    <string name="pos_item_add">+</string>
+    <string name="pos_quantity_placeholder">1</string>
+    <string name="pos_item_minus">-</string>
+    <string name="pos_unit_price_placeholder">₱ 1.00</string>
+    <string name="pos_quantity_remaining_placeholder">1 item left</string>
+    <string name="pos_item_detail_remove">Remove</string>
+    <string name="pos_item_cancel_label">Cancel</string>
+    <string name="pos_item_save_label">Save</string>
 
 </resources>

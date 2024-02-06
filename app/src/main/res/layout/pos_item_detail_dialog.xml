@@ -40,7 +40,7 @@
                     android:id="@+id/pid_dialog_product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sample Product"
+                    android:text="@string/sample_product_placeholder"
                     android:textSize="15sp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -53,7 +53,7 @@
                     android:id="@+id/pid_dialog_unit_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Unit Price: ₱100.00"
+                    android:text="@string/unit_price_placeholder"
                     android:textSize="13sp"
                     android:layout_row="1"
                     android:layout_column="1"/>
@@ -72,14 +72,15 @@
                         android:layout_height="28dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         app:srcCompat="@drawable/minus"
-                        app:tint="?attr/colorControlNormal"/>
+                        app:tint="?attr/colorControlNormal"
+                        android:contentDescription="@string/pos_item_add" />
 
                     <TextView
                         android:id="@+id/pid_dialog_quantity_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxWidth="70dp"
-                        android:text="1"
+                        android:text="@string/pos_quantity_placeholder"
                         android:textSize="18sp"
                         android:textColor="?android:attr/textColorPrimary"
                         android:paddingStart="8dp"
@@ -93,7 +94,8 @@
                         android:layout_height="28dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         app:srcCompat="@drawable/add"
-                        app:tint="?attr/colorControlNormal"/>
+                        app:tint="?attr/colorControlNormal"
+                        android:contentDescription="@string/pos_item_minus" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -109,7 +111,7 @@
                         android:id="@+id/pid_dialog_subtotal_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₱ 1.00"
+                        android:text="@string/pos_unit_price_placeholder"
                         android:textColor="#090"
                         android:textSize="15sp"
                         android:textStyle="bold"/>
@@ -117,7 +119,7 @@
                         android:id="@+id/pid_dialog_left_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1 item left"
+                        android:text="@string/pos_quantity_remaining_placeholder"
                         android:textColor="#DD4500"
                         android:textSize="13sp"/>
                 </LinearLayout>
@@ -131,7 +133,8 @@
                 android:layout_alignParentEnd="true"
                 android:padding="5dp"
                 android:src="@drawable/delete"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/pos_item_detail_remove" />
         </RelativeLayout>
 
         <LinearLayout
@@ -143,7 +146,7 @@
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancel"
+                android:text="@string/pos_item_cancel_label"
                 app:icon="@drawable/close"
                 app:iconSize="20sp"
                 app:iconGravity="textStart"
@@ -160,7 +163,7 @@
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"
+                android:text="@string/pos_item_save_label"
                 app:icon="@drawable/baseline_check_24"
                 app:iconGravity="textStart"
                 android:backgroundTint="#006400"
