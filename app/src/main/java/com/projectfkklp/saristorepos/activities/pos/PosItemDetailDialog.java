@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
 import android.view.Window;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -21,7 +19,6 @@ import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.pos.checkout.InputFilterMinMax;
 import com.projectfkklp.saristorepos.models.Product;
 import com.projectfkklp.saristorepos.models.TransactionItem;
-import com.projectfkklp.saristorepos.utils.ActivityUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
 
 public class PosItemDetailDialog extends Dialog implements
@@ -100,13 +97,11 @@ public class PosItemDetailDialog extends Dialog implements
         deleteButton.setOnClickListener(view -> showDeleteConfirmationDialog());
 
         minusButton.setEnabled(editTransactionItem.getQuantity()>1);
-        minusButton.setOnClickListener(view -> {
-            changeTransactionItemQuantity(
-                    editTransactionItem,
-                editTransactionItem.getQuantity()-1,
-                product.getStocks()
-            );
-        });
+        minusButton.setOnClickListener(view -> changeTransactionItemQuantity(
+                editTransactionItem,
+            editTransactionItem.getQuantity()-1,
+            product.getStocks()
+        ));
 
         plusButton.setEnabled(editTransactionItem.getQuantity()<product.getStocks());
         plusButton.setOnClickListener(view ->
@@ -166,9 +161,7 @@ public class PosItemDetailDialog extends Dialog implements
                 getParent().reloadViews();
                 dismiss();
             })
-            .setNegativeButton("No", (dialog, which) -> {
-                dialog.dismiss();
-            })
+            .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
             .show();
     }
 
