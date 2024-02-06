@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="4dp"
@@ -21,7 +22,7 @@
 
             <TextView
                 android:id="@+id/store_profile_user_name"
-                android:text="Juan Dela Cruz"
+                android:text="@string/store_profile_username_placeholder"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,7 +31,7 @@
 
             <TextView
                 android:id="@+id/store_profile_user_role"
-                android:text="ASSISTANT"
+                android:text="@string/store_profile_position_placeholder"
                 android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,72 +39,76 @@
 
             <TextView
                 android:id="@+id/store_profile_user_gmail"
-                android:text="jdelacruz@gmail.com"
+                android:text="@string/store_profile_gmail_placeholder"
                 android:textSize="9sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                tools:ignore="SmallSp" />
 
             <TextView
                 android:id="@+id/store_profile_user_phone"
-                android:text="+639672410294"
+                android:text="@string/store_profile_phonenumber_placeholder"
                 android:textSize="9sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                tools:ignore="SmallSp" />
 
             <TextView
                 android:id="@+id/store_profile_user_id"
-                android:text="\@RANDOMID1234"
+                android:text="@string/store_profile_uid_placeholder"
                 android:textColor="@color/lightGray"
                 android:textSize="9sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                tools:ignore="SmallSp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 >
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/store_profile_positive_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:padding="10dp"
-                    android:minHeight="40dp"
-                    android:minWidth="-0dp"
+                    android:layout_marginEnd="10dp"
                     android:backgroundTint="@color/positiveButtonColor"
+                    android:minWidth="-0dp"
+                    android:minHeight="20dp"
+                    android:padding="12dp"
+                    android:text="@string/store_profile_positive_button_label"
                     android:textColor="@color/black"
-                    android:textSize="8dp"
-                    android:text="Positive"
-                    />
+                    android:textSize="8sp"
+                    app:cornerRadius="50dp"
+                    tools:ignore="SmallSp,TouchTargetSizeCheck" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/store_profile_negative_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_marginRight="5dp"
-                    android:minHeight="40dp"
-                    android:minWidth="-0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:backgroundTint="@color/negativeButtonColor"
+                    android:minWidth="-0dp"
+                    android:minHeight="20dp"
+                    android:padding="12dp"
+                    android:text="@string/store_profile_negative_button_label"
                     android:textColor="@color/black"
-                    android:textSize="8dp"
-                    android:text="Negative"
-                    />
+                    android:textSize="8sp"
+                    app:cornerRadius="50dp"
+                    tools:ignore="SmallSp,TouchTargetSizeCheck" />
             </LinearLayout>
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/store_profile_user_status"
-            android:text="Status"
+            android:text="@string/store_profile_status_placeholder"
             android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             />
 
     </RelativeLayout>

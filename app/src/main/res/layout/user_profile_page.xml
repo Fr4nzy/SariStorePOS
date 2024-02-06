@@ -5,13 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="@drawable/background_3"
     android:orientation="vertical">
 
     <Button
         android:id="@+id/user_profile_super_admin_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Goto Super Admin Page"
+        android:text="Super Admin"
+        app:cornerRadius="50dp"
+        android:backgroundTint="#F8012D"
+        android:textColor="@color/white"
         android:onClick="gotoSuperAdmin"
         android:visibility="gone"/>
 
@@ -53,7 +57,7 @@
                     android:textSize="25sp"
                     android:textAlignment="center"
                     android:textStyle="bold"
-                    android:textColor="@color/lavender" />
+                    android:textColor="#2091AB" />
 
             </LinearLayout>
 
@@ -147,23 +151,29 @@
             android:id="@+id/user_profile_update_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="@string/string_update"
             android:visibility="gone"
             android:enabled="false"
             android:gravity="center"
             android:layout_gravity="center"
+            app:cornerRadius="50dp"
+            android:backgroundTint="#2091AB"
+            android:textColor="@color/white"
             android:onClick="updateUser" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <!-- Logout Button -->
-    <TextView
+    <Button
         android:id="@+id/user_profile_signout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_sign_out"
-        android:textSize="18sp"
-        android:textColor="@color/lavender" />
+        app:cornerRadius="50dp"
+        android:gravity="center"
+        android:backgroundTint="#F8012D"
+        android:textColor="@color/white" />
 
 </LinearLayout>

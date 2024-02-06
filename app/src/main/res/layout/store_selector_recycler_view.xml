@@ -24,7 +24,7 @@
 
             <TextView
                 android:id="@+id/store_selector_store_name"
-                android:text="ALING NENA'S SARI SARI STORE"
+                android:text="@string/store_selector_name_placeholder"
                 android:textColor="@color/lavender"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
 
             <TextView
                 android:id="@+id/store_selector_store_role"
-                android:text="ASSISTANT"
+                android:text="@string/store_selector_assistant_placeholder"
                 android:textColor="@color/lavender"
                 android:textSize="12sp"
                 android:layout_width="wrap_content"
@@ -43,58 +43,59 @@
 
             <TextView
                 android:id="@+id/store_selector_store_address"
-                android:text="CASILAGAN MANGATAREM PANGASINAN"
+                android:text="@string/store_selector_address_placeholder"
                 android:textColor="@color/lavender"
                 android:textSize="9sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                tools:ignore="SmallSp" />
 
             <TextView
                 android:id="@+id/store_selector_store_id"
-                android:text="\@RANDOMID1234"
+                android:text="@string/store_selector_id_placeholder"
                 android:textColor="@color/lightGray"
                 android:textSize="9sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                tools:ignore="SmallSp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                >
+                android:layout_gravity="end">
                 <Button
                     android:id="@+id/store_selector_store_positive_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Positive"
-                    android:textSize="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="@string/store_selector_positive_label"
+                    android:textSize="12sp"
                     android:textColor="@color/black"
+                    app:cornerRadius="50dp"
                     android:backgroundTint="@color/positiveButtonColor"
-                    android:layout_marginRight="5dp"
-                    />
+                    style="?android:attr/buttonBarButtonStyle" />
                 <Button
                     android:id="@+id/store_selector_store_negative_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Negative"
-                    android:textSize="10dp"
+                    android:text="@string/store_selector_negative_label"
+                    android:textSize="12sp"
                     android:textColor="@color/black"
+                    app:cornerRadius="50dp"
                     android:backgroundTint="@color/negativeButtonColor"
-                    />
+                    style="?android:attr/buttonBarButtonStyle" />
             </LinearLayout>
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/store_selector_store_status"
-            android:text="Status"
+            android:text="@string/store_selector_status_placeholder"
             android:textColor="@color/lavender"
             android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             />
 
     </RelativeLayout>

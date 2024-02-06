@@ -38,10 +38,11 @@
                     android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/inventory_back_navigation_button_content_desc"
                     android:onClick="navigateBack"
                     android:scaleType="fitCenter"
                     android:src="@drawable/baseline_arrow_back_24"
-                    />
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <TextView
                     android:id="@+id/product_detail_title"
@@ -62,24 +63,28 @@
                 android:layout_gravity="center">
                 <ImageView
                     android:id="@+id/product_detail_image_view"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/placeholder"
                     tools:visibility="visible"
-                    android:contentDescription="Product Image" />
+                    android:contentDescription="@string/inventory_product_image_content_desc" />
 
                 <Button
                     android:id="@+id/product_detail_remove_image_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Remove Image"
-                    android:onClick="removeImage"
-                    android:textSize="9sp"
+                    android:backgroundTint="#F8012D"
                     android:minWidth="0dp"
-                    android:minHeight="0dp"/>
+                    android:minHeight="20dp"
+                    android:onClick="removeImage"
+                    android:text="@string/inventory_remove_image_label"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:cornerRadius="50dp"
+                    tools:ignore="SmallSp" />
             </LinearLayout>
 
             <EditText
@@ -129,34 +134,39 @@
                 <Button
                     android:id="@+id/product_detail_barcode_button"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:background="@drawable/roundback"
-                    android:text="Scan Barcode"
+                    android:text="@string/inventory_scan_barcode_placeholder"
+                    app:cornerRadius="50dp"
+                    android:backgroundTint="#F05D20"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     tools:visibility="visible" />
+
                 <ImageButton
                     android:id="@+id/product_detail_barcode_clear"
-                    android:backgroundTint="@color/white"
-                    android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:adjustViewBounds="true"
+                    android:backgroundTint="@color/white"
+                    android:contentDescription="@string/inventory_clear_barcode_content_desc"
+                    android:onClick="clearBarcode"
                     android:padding="5dp"
                     android:scaleType="fitCenter"
-                    android:adjustViewBounds="true"
-                    android:visibility="visible"
                     android:src="@drawable/clear"
-                    android:onClick="clearBarcode"/>
+                    android:visibility="visible"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/product_detail_save_button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/roundback"
+                android:layout_marginTop="10dp"
                 android:text="@string/save_product_button"
+                app:cornerRadius="50dp"
+                android:backgroundTint="#F05D20"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 tools:visibility="visible"

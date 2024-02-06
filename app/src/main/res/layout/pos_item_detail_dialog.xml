@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -39,6 +40,7 @@
                     android:id="@+id/pid_dialog_product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="@string/sample_product_placeholder"
                     android:textSize="15sp"
                     android:textColor="@color/black"
@@ -52,6 +54,7 @@
                     android:id="@+id/pid_dialog_unit_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:text="@string/unit_price_placeholder"
                     android:textSize="13sp"
                     android:layout_row="1"
@@ -98,6 +101,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_row="1"
@@ -130,13 +134,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:src="@drawable/delete"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/pos_item_detail_remove" />
         </RelativeLayout>
 
         <LinearLayout
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end">
@@ -156,12 +162,14 @@
                 android:insetBottom="0dp"
                 android:insetTop="0dp"
                 android:insetRight="0dp"
-                app:cornerRadius="0dp"/>
+                app:cornerRadius="50dp"/>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/pid_dialog_submit"
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/pos_item_save_label"
                 app:icon="@drawable/baseline_check_24"
                 app:iconGravity="textStart"
@@ -173,7 +181,7 @@
                 android:insetBottom="0dp"
                 android:insetTop="0dp"
                 android:insetRight="0dp"
-                app:cornerRadius="0dp"
+                app:cornerRadius="50dp"
                 />
         </LinearLayout>
     </LinearLayout>
