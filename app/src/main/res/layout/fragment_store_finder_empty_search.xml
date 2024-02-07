@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,19 +10,20 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/store_search_icon" />
+        android:src="@drawable/store_search_icon"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Search Result Available"
+        android:text="@string/no_search_result_available_text"
         android:textSize="15sp"
         android:textColor="@android:color/darker_gray" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please search existing unassociated stores"
+        android:text="@string/no_search_result_available_text_description"
         android:textSize="12sp"
         android:textColor="@android:color/darker_gray" />
 

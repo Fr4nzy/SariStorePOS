@@ -24,7 +24,8 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:layout_marginEnd="5dp"
-                android:onClick="navigateBack"/>
+                android:onClick="navigateBack"
+                tools:ignore="ContentDescription" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -32,7 +33,8 @@
                 android:text="Super Admin Tools"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -42,7 +44,8 @@
         android:layout_margin="10dp"
         android:text="Create Dummy Data"
         android:backgroundTint="@color/red"
-        android:onClick="showCreateDummyDataConfirmation"/>
+        android:onClick="showCreateDummyDataConfirmation"
+        tools:ignore="HardcodedText" />
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
@@ -50,7 +53,8 @@
         android:layout_margin="10dp"
         android:text="Dump Data"
         android:backgroundTint="@color/red"
-        android:onClick="showDumpDataConfirmation"/>
+        android:onClick="showDumpDataConfirmation"
+        tools:ignore="HardcodedText" />
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
@@ -58,7 +62,8 @@
         android:layout_margin="10dp"
         android:text="Revoke Super Admin Access"
         android:backgroundTint="@color/red"
-        android:onClick="showRevokeSuperAdminAccessConfirmation"/>
+        android:onClick="showRevokeSuperAdminAccessConfirmation"
+        tools:ignore="HardcodedText" />
 
     <!--<com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"

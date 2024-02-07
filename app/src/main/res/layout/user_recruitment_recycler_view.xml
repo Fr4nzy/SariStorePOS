@@ -28,29 +28,29 @@
             android:textColor="@color/lavender"
             android:textSize="18sp"
             android:textStyle="bold"
-            />
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/user_recruit_user_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(+63) 945 613 9987"
+            android:text="(+63) 999 999 9999"
             android:textColor="@color/lavender"
             android:textSize="9sp"
             android:layout_marginBottom="2sp"
             android:visibility="visible"
-            />
+            tools:ignore="HardcodedText,SmallSp" />
 
         <TextView
             android:id="@+id/user_recruit_user_gmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="franzy.czolo22@gmail.com"
+            android:text="email.email123@gmail.com"
             android:textColor="@color/lavender"
             android:textSize="9sp"
             android:layout_marginBottom="2sp"
             android:visibility="visible"
-            />
+            tools:ignore="HardcodedText,SmallSp" />
 
     </LinearLayout>
 

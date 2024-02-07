@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_1"
     tools:context=".activities.pos.checkout.CheckoutPage"
     android:orientation="vertical">
 
@@ -38,7 +37,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Checkout"
+                    android:text="@string/checkout_page_label"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="@color/black"/>
@@ -51,7 +50,9 @@
                     android:scaleType="fitCenter"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:tint="?attr/colorControlNormal"
-                    android:onClick="reset"/>
+                    android:onClick="reset"
+                    android:contentDescription="Resets Fields"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -96,12 +97,14 @@
                                 android:layout_height="wrap_content"
                                 android:text="Empty POS"
                                 android:textSize="24sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText" />
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Please add item!"
-                                android:textAlignment="center" />
+                                android:text="Please Add an Item!"
+                                android:textAlignment="center"
+                                tools:ignore="HardcodedText" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -133,13 +136,15 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="28dp"
-                                android:src="@drawable/baseline_add_circle_24" />
+                                android:src="@drawable/baseline_add_circle_24"
+                                tools:ignore="ContentDescription" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Add More"
                                 android:textStyle="bold"
-                                android:textSize="24sp"/>
+                                android:textSize="24sp"
+                                tools:ignore="HardcodedText" />
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -160,14 +165,15 @@
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
             android:gravity="center"
-            >
+            tools:ignore="RtlSymmetry">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total: "
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
             <TextView
                 android:id="@+id/pos_total_amount"
                 android:layout_width="0dp"
@@ -176,7 +182,8 @@
                 android:text="—"
                 android:textColor="#008000"
                 android:textStyle="bold"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/pos_submit"
                 style="@style/Widget.MaterialComponents.Button.Icon"
@@ -193,7 +200,8 @@
                 android:insetTop="0dp"
                 android:insetRight="0dp"
                 app:cornerRadius="0dp"
-                android:onClick="submit"/>
+                android:onClick="submit"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

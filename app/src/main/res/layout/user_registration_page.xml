@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:background="@drawable/background">
+    android:gravity="center">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -22,7 +21,7 @@
             android:orientation="vertical"
             android:layout_gravity="center_horizontal"
             android:padding="24dp"
-            android:background="@drawable/lavender_border">
+            android:background="@drawable/teal_border">
 
             <TextView
                 android:layout_width="match_parent"
@@ -31,26 +30,29 @@
                 android:textSize="30sp"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                android:textColor="@color/lavender"/>
+                android:textColor="#2091AB"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/signup_name"
-                android:background="@drawable/lavender_border"
+                android:background="@drawable/teal_border"
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:hint="Name"
                 android:drawableLeft="@drawable/baseline_person_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/gray"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName"
+                android:autofillHints="Name"
+                tools:ignore="HardcodedText,RtlHardcoded" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/signup_gmail"
-                android:background="@drawable/lavender_border"
+                android:background="@drawable/teal_border"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Gmail"
@@ -58,13 +60,14 @@
                 android:drawablePadding="8dp"
                 android:textColor="@color/gray"
                 android:editable="false"
-                android:onClick="changeGmail"/>
+                android:onClick="changeGmail"
+                tools:ignore="Autofill,HardcodedText,RtlHardcoded,TextFields" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/signup_phone_number"
-                android:background="@drawable/lavender_border"
+                android:background="@drawable/teal_border"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Phone Number"
@@ -72,19 +75,21 @@
                 android:drawablePadding="8dp"
                 android:textColor="@color/gray"
                 android:editable="false"
-                android:onClick="changePhoneNumber"/>
+                android:onClick="changePhoneNumber"
+                tools:ignore="Autofill,HardcodedText,RtlHardcoded,TextFields" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Register"
                 android:id="@+id/signup_button"
-                android:background="@drawable/roundback"
                 android:textSize="18sp"
                 android:textColor="@color/white"
+                android:backgroundTint="#2091AB"
                 android:layout_marginTop="30dp"
-                app:cornerRadius = "20dp"
-                android:onClick="register"/>
+                app:cornerRadius="50dp"
+                android:onClick="register"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/loginRedirectText"
@@ -96,8 +101,9 @@
                 android:onClick="loginUsingOtherAccount"
                 android:padding="8dp"
                 android:text="Login using other account"
-                android:textColor="@color/lavender"
-                android:textSize="18sp" />
+                android:textColor="#2091AB"
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 

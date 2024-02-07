@@ -104,17 +104,7 @@
             tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.analytics.AnalyticsForecastEntryPage"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.analytics.AnalyticsForecastPage"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.pos._PosPage"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             android:exported="false" />

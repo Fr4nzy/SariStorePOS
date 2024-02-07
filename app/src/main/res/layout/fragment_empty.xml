@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
@@ -9,13 +10,14 @@
         android:layout_height="80dp"
         android:layout_centerInParent="true"
         android:layout_marginBottom="40dp"
-        android:src="@drawable/empty_icon" />
+        android:src="@drawable/empty_icon"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/fragment_empty_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Content Available"
+        android:text="@string/fragment_empty_text"
         android:textSize="18sp"
         android:textColor="@android:color/darker_gray"
         android:layout_below="@id/fragment_empty_image"

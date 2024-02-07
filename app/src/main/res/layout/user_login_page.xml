@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/background_3"
+    android:background="@drawable/loginbg"
     tools:context="com.projectfkklp.saristorepos.activities.user_login.UserLoginPage">
 
     <ImageView
@@ -19,7 +19,8 @@
         android:layout_marginBottom="0dp"
         android:foregroundGravity="center"
         android:paddingBottom="0dp"
-        android:src="@drawable/store_colored" />
+        android:src="@drawable/store_colored"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/firebasename"
@@ -49,7 +50,7 @@
             android:orientation="vertical"
             android:layout_gravity="center_horizontal"
             android:padding="24dp"
-            android:background="@drawable/lavender_border">
+            android:background="@drawable/teal_border">
 
             <TextView
                 android:layout_gravity="center_horizontal"

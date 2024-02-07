@@ -28,7 +28,7 @@
             android:textColor="@color/lavender"
             android:textSize="18sp"
             android:textStyle="bold"
-            />
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/store_finder_store_address"
@@ -38,7 +38,7 @@
             android:textColor="@color/lavender"
             android:textSize="9sp"
             android:layout_marginBottom="2sp"
-            />
+            tools:ignore="HardcodedText,SmallSp" />
 
 
         <TextView
@@ -48,7 +48,7 @@
             android:text="\@StoreID"
             android:textColor="@color/lightGray"
             android:textSize="9sp"
-            />
+            tools:ignore="HardcodedText,SmallSp" />
 
     </LinearLayout>
 

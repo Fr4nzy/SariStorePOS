@@ -98,7 +98,8 @@
                 android:hint="@string/product_name_placeholder"
                 android:padding="16dp"
                 android:textColor="@color/lavender"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                android:inputType="textNoSuggestions" />
 
             <EditText
                 android:id="@+id/product_detail_price_text"
@@ -111,7 +112,8 @@
                 android:padding="16dp"
                 android:textColor="@color/lavender"
                 android:inputType="numberDecimal"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                android:importantForAutofill="no" />
 
 
             <EditText
@@ -125,7 +127,8 @@
                 android:padding="16dp"
                 android:textColor="@color/lavender"
                 android:inputType="number"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                android:importantForAutofill="no" />
 
             <LinearLayout
                 android:layout_width="match_parent"

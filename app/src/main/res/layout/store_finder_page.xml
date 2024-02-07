@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_4"
     tools:context=".activities.store_finder.StoreFinderPage"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
@@ -24,7 +23,9 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:layout_marginEnd="5dp"
-                android:onClick="navigateBack"/>
+                android:onClick="navigateBack"
+                android:contentDescription="Back Navigation"
+                tools:ignore="HardcodedText" />
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/store_search_view"
                 android:layout_width="match_parent"
@@ -35,7 +36,8 @@
                 app:iconifiedByDefault="false"
                 app:queryHint="Search name/address/@id"
                 app:searchHintIcon="@null"
-                app:searchIcon="@drawable/search"/>
+                app:searchIcon="@drawable/search"
+                tools:ignore="RtlSymmetry" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     <RelativeLayout
@@ -53,7 +55,8 @@
             <fragment
                 android:name="com.projectfkklp.saristorepos.activities.store_finder.StoreFinderEmptySearchFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                tools:ignore="FragmentTagUsage,MissingId" />
         </FrameLayout>
         <ProgressBar
             android:id="@+id/store_finder_search_progress"

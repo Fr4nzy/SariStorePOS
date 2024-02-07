@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_1"
     tools:context="com.projectfkklp.saristorepos.activities.pos.PosPage">
 
     <LinearLayout
@@ -33,7 +32,9 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:layout_marginEnd="5dp"
-                    android:onClick="navigateBack"/>
+                    android:onClick="navigateBack"
+                    android:contentDescription="Back Navigation"
+                    tools:ignore="HardcodedText" />
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/pos_search"
                     android:layout_width="0dp"
@@ -45,7 +46,8 @@
                     app:iconifiedByDefault="false"
                     app:queryHint="Search Products"
                     app:searchHintIcon="@null"
-                    app:searchIcon="@drawable/search"/>
+                    app:searchIcon="@drawable/search"
+                    tools:ignore="RtlSymmetry" />
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
@@ -56,7 +58,9 @@
                     android:scaleType="fitCenter"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     app:tint="?attr/colorControlNormal"
-                    android:onClick="scan"/>
+                    android:onClick="scan"
+                    android:contentDescription="Scan for Searching"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -79,7 +83,8 @@
                 <fragment
                     android:name="com.projectfkklp.saristorepos.fragments.EmptyFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    tools:ignore="FragmentTagUsage,MissingId" />
             </FrameLayout>
             <ProgressBar
                 android:id="@+id/product_picker_product_list_progress"
@@ -101,14 +106,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
-            android:gravity="center">
+            android:gravity="center"
+            tools:ignore="RtlSymmetry">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Selected: "
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
             <TextView
                 android:id="@+id/pos_selected_counts"
                 android:layout_width="0dp"
@@ -117,7 +124,8 @@
                 android:text="12"
                 android:textColor="#008000"
                 android:textStyle="bold"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/pos_checkout_btn"
                 style="@style/Widget.MaterialComponents.Button.Icon"
@@ -134,7 +142,8 @@
                 android:insetTop="0dp"
                 android:insetRight="0dp"
                 app:cornerRadius="0dp"
-                android:onClick="checkout"/>
+                android:onClick="checkout"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
