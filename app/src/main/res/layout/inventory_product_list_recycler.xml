@@ -46,7 +46,7 @@
             android:layout_column="1"
             android:layout_columnSpan="2"
             android:layout_gravity="fill"
-            />
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/inventory_product_list_stocks"
@@ -57,7 +57,8 @@
             android:textSize="13sp"
             android:layout_row="1"
             android:layout_column="1"
-            android:layout_gravity="fill"/>
+            android:layout_gravity="fill"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/inventory_product_list_unit_price"
@@ -68,7 +69,8 @@
             android:textSize="13sp"
             android:layout_row="1"
             android:layout_column="2"
-            android:layout_gravity="fill"/>
+            android:layout_gravity="fill"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/inventory_product_list_out_of_stock"
@@ -81,7 +83,8 @@
             android:layout_row="2"
             android:layout_column="1"
             android:layout_columnSpan="2"
-            android:layout_gravity="fill"/>
+            android:layout_gravity="fill"
+            tools:ignore="HardcodedText,SmallSp" />
 
     </GridLayout>
 

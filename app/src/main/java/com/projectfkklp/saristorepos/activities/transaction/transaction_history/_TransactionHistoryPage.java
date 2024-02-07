@@ -32,7 +32,7 @@ public class _TransactionHistoryPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout._transaction_history_page);
+        setContentView(R.layout.transaction_history_page);
 
         RecyclerView recyclerView = findViewById(R.id.transactionHistoryRV);
         transactionList = new ArrayList<>();

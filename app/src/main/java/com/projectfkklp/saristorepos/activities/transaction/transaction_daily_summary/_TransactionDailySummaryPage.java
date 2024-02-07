@@ -48,7 +48,7 @@ public class _TransactionDailySummaryPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout._transaction_daily_summary_page);
+        setContentView(R.layout.transaction_daily_summary_page);
 
         overallSummaryTextview = findViewById(R.id.summary_overall);
         RecyclerView recyclerView = findViewById(R.id.summary_content);

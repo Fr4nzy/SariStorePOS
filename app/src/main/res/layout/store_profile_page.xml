@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_4"
     tools:context=".activities.store_profile.StoreProfilePage">
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +29,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/store_colored"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    tools:ignore="ContentDescription" />
                 <!-- Store Name -->
                 <LinearLayout
                     android:layout_width="0dp"
@@ -44,7 +44,7 @@
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:text="@string/store_profile_name_placeholder"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
                 </LinearLayout>
                 <!-- Dismiss Button -->
@@ -94,7 +94,9 @@
                         android:onClick="toggleMode"
                         android:src="@drawable/edit"
                         app:tint="@color/gray"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        android:contentDescription="Toggle Mode for Editing Store"
+                        tools:ignore="HardcodedText" />
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -115,7 +117,9 @@
                         android:onClick="saveChanges"
                         android:src="@drawable/save_icon"
                         app:tint="@color/gray"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:contentDescription="Store Profile Save Button"
+                        tools:ignore="HardcodedText" />
 
                 </LinearLayout>
                 <EditText
@@ -146,7 +150,8 @@
                         android:textColor="@color/black"
                         android:onClick="changeProfileAddress"
                         tools:ignore="RtlSymmetry"
-                        app:drawableStartCompat="@drawable/baseline_location_pin_24"/>
+                        app:drawableStartCompat="@drawable/baseline_location_pin_24"
+                        android:inputType="textPostalAddress" />
                 </RelativeLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -178,7 +183,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center_vertical"
                         android:text="@string/store_profile_store_users_placeholder"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:textStyle="bold"/>
 
                     <com.google.android.material.chip.Chip
@@ -212,7 +217,8 @@
                         <fragment
                             android:name="com.projectfkklp.saristorepos.fragments.EmptyFragment"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            tools:ignore="FragmentTagUsage,MissingId" />
                     </FrameLayout>
                     <ProgressBar
                         android:id="@+id/store_profile_page_progress"

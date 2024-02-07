@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_4"
     tools:context=".activities.store_recruitment.UserRecruitmentPage"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
@@ -24,7 +23,8 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:layout_marginEnd="5dp"
-                android:onClick="navigateBack"/>
+                android:onClick="navigateBack"
+                tools:ignore="ContentDescription" />
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/user_search_view"
                 android:layout_width="match_parent"
@@ -35,7 +35,8 @@
                 app:iconifiedByDefault="false"
                 app:queryHint="Search name/phone/gmail/@id"
                 app:searchHintIcon="@null"
-                app:searchIcon="@drawable/search"/>
+                app:searchIcon="@drawable/search"
+                tools:ignore="RtlSymmetry" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     <RelativeLayout
@@ -53,7 +54,8 @@
             <fragment
                 android:name="com.projectfkklp.saristorepos.activities.store_recruitment.UserRecruitmentEmptySearchFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                tools:ignore="FragmentTagUsage,MissingId" />
         </FrameLayout>
         <ProgressBar
             android:id="@+id/user_recruitment_search_progress"

@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background_4"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -23,23 +22,24 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="10dp"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:layout_width="34dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/baseline_person_pin_24"
                     android:layout_gravity="center"
-                    />
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/store_selector_page_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Juan Dela Cruz"
-                    android:textSize="18dp"
+                    android:textSize="18sp"
                     android:layout_marginLeft="5dp"
-                    />
+                    tools:ignore="HardcodedText,RtlHardcoded" />
 
             </LinearLayout>
 
@@ -56,22 +56,23 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="10dp"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:layout_width="34dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/search"
                     android:layout_gravity="center"
-                    />
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Connect with other stores"
-                    android:textSize="18dp"
+                    android:textSize="18sp"
                     android:layout_marginLeft="5dp"
-                    />
+                    tools:ignore="HardcodedText,RtlHardcoded" />
 
             </LinearLayout>
 
@@ -96,7 +97,8 @@
                 <fragment
                     android:name="com.projectfkklp.saristorepos.fragments.EmptyFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    tools:ignore="FragmentTagUsage,MissingId" />
             </FrameLayout>
 
             <ProgressBar
@@ -115,7 +117,8 @@
                 android:padding="8dp"
                 android:textColor="@color/lavender"
                 android:textSize="15sp"
-                android:onClick="gotoStoreRegistrationPage"/>
+                android:onClick="gotoStoreRegistrationPage"
+                tools:ignore="HardcodedText" />
 
     </LinearLayout>
 

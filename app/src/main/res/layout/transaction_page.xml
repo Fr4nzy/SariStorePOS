@@ -24,14 +24,16 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:layout_marginEnd="5dp"
-                android:onClick="navigateBack"/>
+                android:onClick="navigateBack"
+                tools:ignore="ContentDescription" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Transactions"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                tools:ignore="HardcodedText" />
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,8 +89,10 @@
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             app:icon="@drawable/navigate_left_enabled_icon"
             android:text="PREV"
+            android:textColor="#2091AB"
             android:enabled="false"
-            android:onClick="prev"/>
+            android:onClick="prev"
+            tools:ignore="HardcodedText" />
         <TextView
             android:id="@+id/transaction_date_range"
             android:layout_width="0dp"
@@ -96,7 +100,9 @@
             android:layout_weight="1"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="—"/>
+            android:text="—"
+            android:textColor="#2091AB"
+            tools:ignore="HardcodedText" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/transaction_next_btn"
             android:layout_width="wrap_content"
@@ -105,8 +111,10 @@
             app:icon="@drawable/navigate_right_enabled_icon"
             app:iconGravity="end"
             android:text="NEXT"
+            android:textColor="#2091AB"
             android:enabled="false"
-            android:onClick="next"/>
+            android:onClick="next"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
 </LinearLayout>

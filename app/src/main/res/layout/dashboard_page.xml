@@ -5,7 +5,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_4"
         tools:context=".activities.dashboard.DashboardPage"
         android:orientation="vertical">
 
@@ -26,7 +25,9 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/store_colored"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:contentDescription="Store Icon"
+                    tools:ignore="HardcodedText" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -489,7 +490,9 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/transactions_icon"/>
+                    android:src="@drawable/transactions_icon"
+                    android:contentDescription="Transaction Icon"
+                    tools:ignore="HardcodedText" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -510,7 +513,9 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/inventory_icon"/>
+                    android:src="@drawable/inventory_icon"
+                    android:contentDescription="Inventory Icon"
+                    tools:ignore="HardcodedText" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -529,10 +534,12 @@
                 android:background="?attr/selectableItemBackground"
                 android:onClick="gotoAnalytics">
                 <ImageView
+                    android:contentDescription="Analytics Icon"
                     android:scaleType="centerCrop"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/analytics_icon" />
+                    android:src="@drawable/analytics_icon"
+                    tools:ignore="HardcodedText" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -552,8 +559,10 @@
                 android:onClick="gotoStoreProfile">
                 <ImageView
                     android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/store_icon"/>
+                    android:layout_height="18dp"
+                    android:contentDescription="Store Profile Icon"
+                    android:src="@drawable/store_icon"
+                    tools:ignore="HardcodedText" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -572,9 +581,11 @@
                 android:background="?attr/selectableItemBackground"
                 android:onClick="gotoProfile">
                 <ImageView
+                    android:contentDescription="Profile Icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/profile_icon"/>
+                    android:src="@drawable/profile_icon"
+                    tools:ignore="HardcodedText" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

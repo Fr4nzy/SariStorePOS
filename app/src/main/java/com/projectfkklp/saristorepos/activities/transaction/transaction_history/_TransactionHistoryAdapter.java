@@ -52,8 +52,6 @@ public class _TransactionHistoryAdapter extends RecyclerView.Adapter<_Transactio
         holder.transactionIdTextView.setLines(StringUtils.getLinesCount(transactionSummary));
     }
 
-
-
     @Override
     public int getItemCount() {
         // Return the size of the list

@@ -12,8 +12,7 @@
     <LinearLayout
         android:id="@+id/pos_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
         <GridLayout
             android:id="@+id/pos_container_clickable"
             android:layout_width="match_parent"
@@ -23,7 +22,8 @@
             android:padding="5dp"
             android:clickable="true"
             android:focusable="true"
-            android:background="?attr/selectableItemBackground">
+            android:background="?attr/selectableItemBackground"
+            tools:ignore="UselessParent">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/pos_image"
@@ -49,7 +49,7 @@
                 android:layout_column="1"
                 android:layout_columnSpan="2"
                 android:layout_gravity="fill"
-                />
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/pos_stocks"
@@ -60,7 +60,8 @@
                 android:layout_columnWeight="2"
                 android:layout_gravity="fill"
                 android:text="Stocks: 100"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/pos_unit_price"
@@ -71,7 +72,8 @@
                 android:textSize="13sp"
                 android:layout_row="1"
                 android:layout_column="2"
-                android:layout_gravity="fill"/>
+                android:layout_gravity="fill"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/pos_out_of_stock"
@@ -84,7 +86,8 @@
                 android:layout_row="2"
                 android:layout_column="1"
                 android:layout_columnSpan="2"
-                android:layout_gravity="fill"/>
+                android:layout_gravity="fill"
+                tools:ignore="HardcodedText,SmallSp" />
 
             <FrameLayout
                 android:id="@+id/pos_cart_frame"
@@ -103,7 +106,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/cart_colored"/>
+                    android:src="@drawable/cart_colored"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/pos_quantity"
@@ -117,7 +121,8 @@
                     android:padding="3dp"
                     android:textColor="@android:color/white"
                     android:text="0"
-                    android:textSize="10sp"/>
+                    android:textSize="10sp"
+                    tools:ignore="HardcodedText,SmallSp" />
             </FrameLayout>
 
         </GridLayout>

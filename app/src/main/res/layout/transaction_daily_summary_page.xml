@@ -20,7 +20,8 @@
             android:text="Daily Sales Summary"
             android:gravity="center"
             android:textSize="20sp"
-            android:textAppearance="@font/amaranth_bold" />
+            android:textAppearance="@font/amaranth_bold"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/summary_overall"
@@ -30,7 +31,7 @@
             android:inputType="textMultiLine"
             android:lines="4"
 
-            />
+            tools:ignore="HardcodedText,TextViewEdits" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/summary_content"
@@ -71,7 +72,8 @@
             android:layout_height="50dp"
             android:background="@drawable/navigate_left_disabled_icon"
             android:onClick="onPrevClick"
-            android:enabled="false"/>
+            android:enabled="false"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/next_button"
@@ -79,7 +81,8 @@
             android:layout_height="50dp"
             android:background="@drawable/navigate_right_disabled_icon"
             android:onClick="onNextClick"
-            android:enabled="false"/>
+            android:enabled="false"
+            tools:ignore="ButtonStyle" />
 
     </LinearLayout>
 

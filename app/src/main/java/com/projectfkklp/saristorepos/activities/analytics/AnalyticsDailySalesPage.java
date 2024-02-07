@@ -32,7 +32,7 @@ public class AnalyticsDailySalesPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout._analytics_daily_sales_page);
+        setContentView(R.layout.analytics_daily_sales_page);
 
         summaryList = new ArrayList<>();
         try {

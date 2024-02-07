@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@drawable/background_3"
     android:orientation="vertical">
 
     <Button
@@ -17,7 +16,8 @@
         android:backgroundTint="#F8012D"
         android:textColor="@color/white"
         android:onClick="gotoSuperAdmin"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        tools:ignore="HardcodedText" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -32,13 +32,14 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:padding="24dp"
-            android:background="@drawable/lavender_border">
+            android:background="@drawable/teal_border">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:id="@+id/user_profile_toggle_mode"
@@ -48,7 +49,9 @@
                     android:layout_marginEnd="10dp"
                     android:onClick="toggleMode"
                     android:src="@drawable/edit"
-                    app:tint="@color/gray" />
+                    app:tint="@color/gray"
+                    android:contentDescription="Edit Profile Button"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -66,7 +69,8 @@
                 android:layout_below="@id/user_profile_gmail"
                 android:id="@+id/user_profile_errors"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                tools:ignore="ObsoleteLayoutParam" />
 
             <!-- Name -->
             <EditText
@@ -110,7 +114,8 @@
                 android:src="@drawable/baseline_link_off_24"
                 android:padding="8dp"
                 android:visibility="gone"
-                android:onClick="showUnlinkPhoneConfirmationDialog"/>
+                android:onClick="showUnlinkPhoneConfirmationDialog"
+                tools:ignore="ContentDescription" />
 
         </RelativeLayout>
 
@@ -142,7 +147,8 @@
                 android:src="@drawable/baseline_link_off_24"
                 android:padding="8dp"
                 android:visibility="gone"
-                android:onClick="showUnlinkGmailConfirmationDialog"/>
+                android:onClick="showUnlinkGmailConfirmationDialog"
+                tools:ignore="ContentDescription" />
 
         </RelativeLayout>
 

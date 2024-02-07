@@ -102,5 +102,11 @@
     <string name="dashboard_page_store_address_placeholder">SITIO TUROD, BRGY CASILAGAN, MANGATAREM, PANGASINAN</string>
     <string name="dashboard_page_store_name_placeholder">SARI SARI STORE</string>
     <string name="user_login_version_placeholder">Version 0.0</string>
+    <string name="checkout_page_label">Checkout</string>
+    <string name="fragment_empty_text">No Content Available</string>
+    <string name="no_search_result_available_text">No Search Result Available</string>
+    <string name="no_search_result_available_text_description">Please search existing unassociated stores</string>
+    <string name="recruit_no_search_result_available_text">No Search Result Available</string>
+    <string name="recruit_no_search_result_available_text_description">Please search existing unassigned users</string>
 
 </resources>
