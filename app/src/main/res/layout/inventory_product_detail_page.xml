@@ -4,179 +4,169 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".activities.inventory.InventoryProductDetailPage">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_gravity="center_vertical"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp"
-        tools:visibility="visible">
+        android:orientation="horizontal">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/product_detail_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/inventory_back_navigation_button_content_desc"
+            android:onClick="navigateBack"
+            android:scaleType="fitCenter"
+            android:src="@drawable/baseline_arrow_back_24"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/product_detail_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/create_product"
+            android:textColor="@color/lavender"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <ImageView
+            android:id="@+id/product_detail_image_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/border"
-            android:orientation="vertical"
-            android:padding="20dp"
-            tools:visibility="visible">
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
+            tools:visibility="visible"
+            android:contentDescription="@string/inventory_product_image_content_desc" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <Button
+            android:id="@+id/product_detail_remove_image_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F8012D"
+            android:minWidth="0dp"
+            android:minHeight="20dp"
+            android:onClick="removeImage"
+            android:text="@string/inventory_remove_image_label"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:cornerRadius="50dp"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/product_detail_back_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/inventory_back_navigation_button_content_desc"
-                    android:onClick="navigateBack"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/baseline_arrow_back_24"
-                    tools:ignore="TouchTargetSizeCheck" />
+    <EditText
+        android:autofillHints="name"
+        android:id="@+id/product_detail_product_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/border"
+        android:gravity="start|center_vertical"
+        android:hint="@string/product_name_placeholder"
+        android:padding="8dp"
+        android:textColor="@color/lavender"
+        tools:visibility="visible"
+        android:inputType="textNoSuggestions" />
 
-                <TextView
-                    android:id="@+id/product_detail_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-20dp"
-                    android:text="@string/create_product"
-                    android:textAlignment="center"
-                    android:textColor="@color/lavender"
-                    android:textSize="30sp"
-                    tools:visibility="visible" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
-                <ImageView
-                    android:id="@+id/product_detail_image_view"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/placeholder"
-                    tools:visibility="visible"
-                    android:contentDescription="@string/inventory_product_image_content_desc" />
-
-                <Button
-                    android:id="@+id/product_detail_remove_image_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#F8012D"
-                    android:minWidth="0dp"
-                    android:minHeight="20dp"
-                    android:onClick="removeImage"
-                    android:text="@string/inventory_remove_image_label"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    app:cornerRadius="50dp"
-                    tools:ignore="SmallSp" />
-            </LinearLayout>
-
-            <EditText
-                android:autofillHints="name"
-                android:id="@+id/product_detail_product_text"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/border"
-                android:gravity="start|center_vertical"
-                android:hint="@string/product_name_placeholder"
-                android:padding="16dp"
-                android:textColor="@color/lavender"
-                tools:visibility="visible"
-                android:inputType="textNoSuggestions" />
-
-            <EditText
-                android:id="@+id/product_detail_price_text"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/border"
-                android:gravity="start|center_vertical"
-                android:hint="@string/price_placeholder"
-                android:padding="16dp"
-                android:textColor="@color/lavender"
-                android:inputType="numberDecimal"
-                tools:visibility="visible"
-                android:importantForAutofill="no" />
+    <EditText
+        android:id="@+id/product_detail_price_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        android:gravity="start|center_vertical"
+        android:hint="@string/price_placeholder"
+        android:padding="8dp"
+        android:textColor="@color/lavender"
+        android:inputType="numberDecimal"
+        tools:visibility="visible"
+        android:importantForAutofill="no" />
 
 
-            <EditText
-                android:id="@+id/product_detail_stock_text"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/border"
-                android:gravity="start|center_vertical"
-                android:hint="@string/stock_placeholder"
-                android:padding="16dp"
-                android:textColor="@color/lavender"
-                android:inputType="number"
-                tools:visibility="visible"
-                android:importantForAutofill="no" />
+    <EditText
+        android:id="@+id/product_detail_stock_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        android:gravity="start|center_vertical"
+        android:hint="@string/stock_placeholder"
+        android:padding="8dp"
+        android:textColor="@color/lavender"
+        android:inputType="number"
+        tools:visibility="visible"
+        android:importantForAutofill="no" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
-                <Button
-                    android:id="@+id/product_detail_barcode_button"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:text="@string/inventory_scan_barcode_placeholder"
-                    app:cornerRadius="50dp"
-                    android:backgroundTint="#F05D20"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    tools:visibility="visible" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+        <Button
+            android:id="@+id/product_detail_barcode_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/inventory_scan_barcode_placeholder"
+            app:cornerRadius="50dp"
+            android:backgroundTint="#F05D20"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            tools:visibility="visible" />
 
-                <ImageButton
-                    android:id="@+id/product_detail_barcode_clear"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:adjustViewBounds="true"
-                    android:backgroundTint="@color/white"
-                    android:contentDescription="@string/inventory_clear_barcode_content_desc"
-                    android:onClick="clearBarcode"
-                    android:padding="5dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/clear"
-                    android:visibility="visible"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </LinearLayout>
+        <ImageButton
+            android:id="@+id/product_detail_barcode_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:adjustViewBounds="true"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/inventory_clear_barcode_content_desc"
+            android:onClick="clearBarcode"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/clear"
+            android:visibility="visible"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/product_detail_save_button"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/save_product_button"
-                app:cornerRadius="50dp"
-                android:backgroundTint="#F05D20"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                tools:visibility="visible"
-                android:onClick="saveProduct"/>
+    <Button
+        android:id="@+id/product_detail_save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/save_product_button"
+        app:cornerRadius="50dp"
+        android:backgroundTint="#F05D20"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        tools:visibility="visible"
+        android:onClick="saveProduct"/>
 
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/product_detail_delete_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Delete"
+        app:cornerRadius="50dp"
+        android:backgroundTint="#F02020"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        tools:visibility="visible"
+        android:onClick="deleteProduct"/>
 
 </LinearLayout>

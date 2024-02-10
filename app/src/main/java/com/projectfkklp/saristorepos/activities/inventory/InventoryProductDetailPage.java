@@ -22,6 +22,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.classes.ValidationStatus;
+import com.projectfkklp.saristorepos.enums.Status;
 import com.projectfkklp.saristorepos.managers.ProductManager;
 import com.projectfkklp.saristorepos.managers.StorageManager;
 import com.projectfkklp.saristorepos.models.Product;
@@ -51,6 +52,7 @@ public class InventoryProductDetailPage extends AppCompatActivity {
     EditText productStockText;
     Button productBarcodeButton, productRemoveImageButton;
     ImageButton productBarcodeClearButton;
+    Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class InventoryProductDetailPage extends AppCompatActivity {
         productBarcodeButton = findViewById(R.id.product_detail_barcode_button);
         productBarcodeClearButton = findViewById(R.id.product_detail_barcode_clear);
         productRemoveImageButton = findViewById(R.id.product_detail_remove_image_button);
+        deleteButton = findViewById(R.id.product_detail_delete_button);
 
         titleText.setText(StringUtils.isNullOrEmpty(product.getId()) ? "Create Product" : "Edit Product");
         productNameText.setText(Objects.toString(product.getName(), ""));
@@ -117,6 +120,8 @@ public class InventoryProductDetailPage extends AppCompatActivity {
             // Launch ZXing barcode scanner
             new IntentIntegrator(InventoryProductDetailPage.this).initiateScan();
         });
+
+        deleteButton.setVisibility(StringUtils.isNullOrEmpty(product.getId()) ? View.GONE : View.VISIBLE);
     }
 
     // Add the following method to handle the result of the barcode scanner
@@ -217,6 +222,26 @@ public class InventoryProductDetailPage extends AppCompatActivity {
                 return ProductManager.save(this, product);
             })
             .addOnSuccessListener(task-> ToastUtils.show(this, "Product saved successfully"))
+            .addOnFailureListener(e->ToastUtils.show(this, e.getMessage()))
+            .addOnCompleteListener(task -> ProgressUtils.dismissDialog())
+        ;
+    }
+
+    public void showDeleteConfirmationDialog(View view){
+
+    }
+
+    public void deleteProduct(View view) throws Exception {
+        // Initialize Data
+        product.setStatus(Status.INACTIVE);
+
+        // Sync to firebase
+        ProgressUtils.showDialog(this, "Deleting...");
+        ProductManager.save(this, product)
+            .addOnSuccessListener(task-> {
+                ToastUtils.show(this, "Product deleted successfully");
+                finish();
+            })
             .addOnFailureListener(e->ToastUtils.show(this, e.getMessage()))
             .addOnCompleteListener(task -> ProgressUtils.dismissDialog())
         ;

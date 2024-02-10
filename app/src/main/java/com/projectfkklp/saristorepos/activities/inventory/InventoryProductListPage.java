@@ -16,9 +16,7 @@ import androidx.appcompat.widget.SearchView;
 import com.github.clans.fab.FloatingActionButton;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.models.Product;
-import com.projectfkklp.saristorepos.models.Store;
-import com.projectfkklp.saristorepos.repositories.SessionRepository;
-import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.repositories.ProductRepository;
 import com.projectfkklp.saristorepos.utils.Serializer;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
@@ -98,14 +96,11 @@ public class InventoryProductListPage extends AppCompatActivity {
 
     private void loadProducts(){
         progressBar.setVisibility(View.VISIBLE);
-        StoreRepository
-            .getStoreById(SessionRepository.getCurrentStore(this).getId())
-            .addOnSuccessListener(successTask->{
-                Store store = successTask.toObject(Store.class);
-
-                assert store != null;
+        ProductRepository
+            .getActiveProducts(this)
+            .addOnSuccessListener(activeProducts->{
                 products.clear();
-                products.addAll(store.getProducts());
+                products.addAll(activeProducts);
                 emptyFrame.setVisibility(products.isEmpty()? View.VISIBLE: View.GONE);
                 search(searchStr);
             })

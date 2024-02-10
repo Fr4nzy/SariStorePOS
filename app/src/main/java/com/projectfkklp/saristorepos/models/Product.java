@@ -1,5 +1,7 @@
 package com.projectfkklp.saristorepos.models;
 
+import com.projectfkklp.saristorepos.enums.Status;
+
 import java.io.Serializable;
 
 public class Product implements Serializable {
@@ -10,9 +12,11 @@ public class Product implements Serializable {
     private float unitPrice;
     private String imgUrl;
     private String barcode;
+    private Status status;
     // endregion
 
     public Product(){
+        status = Status.ACTIVE;
     }
 
     public Product(String id, String name, int stocks, float unitPrice, String imgUrl, String barcode){
@@ -22,6 +26,7 @@ public class Product implements Serializable {
         this.unitPrice = unitPrice;
         this.imgUrl=imgUrl;
         this.barcode=barcode;
+        status = Status.ACTIVE;
     }
 
     // region Getters
@@ -48,6 +53,9 @@ public class Product implements Serializable {
 
     public String getBarcode() {
         return barcode;
+    }
+    public Status getStatus() {
+        return status;
     }
 
     // endregion
@@ -78,6 +86,9 @@ public class Product implements Serializable {
         this.barcode = barcode;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     // endregion
 }

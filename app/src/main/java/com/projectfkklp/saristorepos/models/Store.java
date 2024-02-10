@@ -2,17 +2,19 @@ package com.projectfkklp.saristorepos.models;
 
 import androidx.annotation.NonNull;
 
+import com.projectfkklp.saristorepos.enums.Status;
 import com.projectfkklp.saristorepos.utils.ModelUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Store {
     private String id;
     private String name;
     private String address;
-    private ArrayList<Product> products;
+    private List<Product> products;
     private List<Integer> dailySold;
     private List<Double> dailySales;
     private Date dailySalesUpdatedAt;
@@ -69,7 +71,7 @@ public class Store {
         this.address = address;
     }
 
-    public ArrayList<Product> getProducts(){
+    public List<Product> getProducts(){
         return products;
     }
 

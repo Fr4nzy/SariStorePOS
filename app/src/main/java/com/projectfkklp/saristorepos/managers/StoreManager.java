@@ -11,6 +11,7 @@ import com.projectfkklp.saristorepos.utils.ModelUtils;
 import com.projectfkklp.saristorepos.validators.StoreValidator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StoreManager {
 
@@ -30,7 +31,7 @@ public class StoreManager {
     }
 
     public static void saveStoreWithDummyProducts(Store store){
-        ArrayList<Product> products = store.getProducts();
+        List<Product> products = store.getProducts();
         products.clear();
         for (int i=0;i<100;i++){
             products.add(new Product(

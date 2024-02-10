@@ -20,10 +20,8 @@ import com.google.zxing.integration.android.IntentResult;
 import com.projectfkklp.saristorepos.R;
 import com.projectfkklp.saristorepos.activities.pos.checkout.CheckoutPage;
 import com.projectfkklp.saristorepos.models.Product;
-import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models.TransactionItem;
-import com.projectfkklp.saristorepos.repositories.SessionRepository;
-import com.projectfkklp.saristorepos.repositories.StoreRepository;
+import com.projectfkklp.saristorepos.repositories.ProductRepository;
 import com.projectfkklp.saristorepos.utils.CacheUtils;
 import com.projectfkklp.saristorepos.utils.ProgressUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
@@ -118,14 +116,11 @@ public class PosPage extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged")
     private void loadProducts(){
         ProgressUtils.showDialog(this, "Loading products...");
-        StoreRepository
-            .getStoreById(SessionRepository.getCurrentStore(this).getId())
-            .addOnSuccessListener(successTask->{
-                Store store = successTask.toObject(Store.class);
-                assert store != null;
-
+        ProductRepository
+            .getActiveProducts(this)
+            .addOnSuccessListener(activeProducts->{
                 products.clear();
-                products.addAll(store.getProducts());
+                products.addAll(activeProducts);
                 emptyFrame.setVisibility(products.isEmpty()? View.VISIBLE: View.GONE);
 
                 loadTransactionItemsFromCache();

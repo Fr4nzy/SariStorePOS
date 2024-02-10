@@ -1,15 +1,37 @@
 package com.projectfkklp.saristorepos.repositories;
 
+import android.content.Context;
+
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.projectfkklp.saristorepos.enums.Status;
 import com.projectfkklp.saristorepos.models.Product;
+import com.projectfkklp.saristorepos.models.Store;
 import com.projectfkklp.saristorepos.models._Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductRepository {
 
     public ProductRepository() {
+    }
+
+    public static Task<List<Product>> getActiveProducts(Context context){
+        return StoreRepository
+            .getStoreById(SessionRepository.getCurrentStore(context).getId())
+            .continueWithTask(task->{
+                Store store = task.getResult().toObject(Store.class);
+                assert store != null;
+                List<Product> activeProducts = store.getProducts()
+                    .stream()
+                    .filter(p->p.getStatus()== Status.ACTIVE)
+                    .collect(Collectors.toList());
+
+                return Tasks.forResult(activeProducts);
+            });
     }
 
     public static List<Product> getDummyProducts(){
