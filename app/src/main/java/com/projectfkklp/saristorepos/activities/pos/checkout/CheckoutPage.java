@@ -39,7 +39,6 @@ public class CheckoutPage extends AppCompatActivity {
     RecyclerView posRecycler;
     CardView emptyCard;
     CheckoutAdapter posAdapter;
-
     private List<Product> products;
     private List<TransactionItem> transactionItems;
 

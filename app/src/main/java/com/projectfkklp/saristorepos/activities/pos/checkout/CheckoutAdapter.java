@@ -131,6 +131,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutViewHolder>{
         transactionItem.setQuantity(newQuantity);
         holder.quantityEdit.setText(String.valueOf(newQuantity));
         holder.plusButton.setEnabled(newQuantity<stocks);
+        holder.subtotalPriceText.setText(StringUtils.formatToPeso(transactionItem.calculateAmount()));
         getParent().reloadViews();
     }
 

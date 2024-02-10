@@ -11,8 +11,8 @@ android {
         applicationId = "com.projectfkklp.saristorepos"
         minSdk = 26
         targetSdk = 34
-        versionCode = 9
-        versionName = "7.3"
+        versionCode = 10
+        versionName = "7.7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
