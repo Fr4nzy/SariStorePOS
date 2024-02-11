@@ -25,7 +25,7 @@
             <TextView
                 android:id="@+id/store_selector_store_name"
                 android:text="@string/store_selector_name_placeholder"
-                android:textColor="@color/lavender"
+                android:textColor="#FF2091AB"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             <TextView
                 android:id="@+id/store_selector_store_role"
                 android:text="@string/store_selector_assistant_placeholder"
-                android:textColor="@color/lavender"
+                android:textColor="#FF2091AB"
                 android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             <TextView
                 android:id="@+id/store_selector_store_address"
                 android:text="@string/store_selector_address_placeholder"
-                android:textColor="@color/lavender"
+                android:textColor="#FF2091AB"
                 android:textSize="9sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

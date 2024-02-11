@@ -43,7 +43,7 @@ public class ProductManager {
         return future;
     }
 
-    public static Task<Object> save(Context context, Product product) throws Exception {
+    public static Task<Object> save(Context context, Product product) {
         return StoreRepository
             .getStoreById(SessionRepository.getCurrentStore(context).getId())
             .continueWith(task->{

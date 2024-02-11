@@ -115,7 +115,7 @@
                 android:text="Register your own store"
                 android:minHeight="48dp"
                 android:padding="8dp"
-                android:textColor="@color/lavender"
+                android:textColor="#FF2091AB"
                 android:textSize="15sp"
                 android:onClick="gotoStoreRegistrationPage"
                 tools:ignore="HardcodedText" />

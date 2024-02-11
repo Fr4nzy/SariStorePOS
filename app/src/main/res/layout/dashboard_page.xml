@@ -122,7 +122,7 @@
                 android:layout_rowWeight="1"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="5dp"
-                android:layout_margin="2dp"
+                android:layout_margin="8dp"
                 android:layout_marginStart="8dp">
 
                 <!-- Your content for the second CardView (e.g., icon, title, etc.) -->
@@ -166,7 +166,7 @@
                 android:layout_rowWeight="1"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="5dp"
-                android:layout_margin="2dp"
+                android:layout_margin="8dp"
                 android:layout_marginEnd="8dp">
 
                 <LinearLayout
@@ -379,7 +379,7 @@
                 android:layout_rowWeight="1"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="5dp"
-                android:layout_margin="2dp"
+                android:layout_margin="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="4dp">
 
@@ -428,7 +428,7 @@
                 android:layout_rowWeight="1"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="5dp"
-                android:layout_margin="2dp"
+                android:layout_margin="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="4dp">
 

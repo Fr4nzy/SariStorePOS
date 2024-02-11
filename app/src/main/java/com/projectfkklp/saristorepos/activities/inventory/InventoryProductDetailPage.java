@@ -1,6 +1,7 @@
 package com.projectfkklp.saristorepos.activities.inventory;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -228,10 +229,16 @@ public class InventoryProductDetailPage extends AppCompatActivity {
     }
 
     public void showDeleteConfirmationDialog(View view){
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete this product?")
+            .setTitle("Delete Product")
+            .setPositiveButton("Yes", (dialog, id) -> deleteProduct())
+            .setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
-    public void deleteProduct(View view) throws Exception {
+    private void deleteProduct() {
         // Initialize Data
         product.setStatus(Status.INACTIVE);
 

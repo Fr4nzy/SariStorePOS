@@ -7,40 +7,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/loginbg"
     tools:context="com.projectfkklp.saristorepos.activities.user_login.UserLoginPage">
 
     <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:scaleType="fitCenter"
         android:layout_gravity="center"
         android:layout_marginTop="-50dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="10dp"
         android:foregroundGravity="center"
-        android:paddingBottom="0dp"
-        android:src="@drawable/store_colored"
+        android:src="@drawable/logo"
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/firebasename"
+        android:id="@+id/user_login_page_greetings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1px"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="1px"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="30dp"
-        android:fontFamily="@font/amaranth_bold"
+        android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="@string/login_welcome_label"
-        android:textColor="#FCFFFF"
-        android:textSize="45sp"
-        android:textStyle="bold" />
+        android:textColor="#040C0E"
+        android:textSize="20sp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="30dp">
 
@@ -49,7 +45,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center_horizontal"
-            android:padding="24dp"
+            android:padding="20dp"
             android:background="@drawable/teal_border">
 
             <TextView
@@ -59,15 +55,15 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/sign_in_label"
                 android:textAlignment="center"
-                android:textColor="#FD6C30"
-                android:textSize="35sp"
+                android:textColor="#000000"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <Button
                 android:backgroundTint="#2091AB"
-                android:layout_width="260dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/amaranth_bold"
                 android:text="@string/login_phone_number_label"
@@ -88,8 +84,8 @@
 
             <Button
                 android:backgroundTint="#2091AB"
-                android:layout_width="260dp"
-                android:layout_height="70dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/amaranth_bold"
@@ -97,7 +93,7 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:cornerRadius="50dp"
+                app:cornerRadius="60dp"
                 android:onClick="loginViaGmail"/>
 
         </LinearLayout>

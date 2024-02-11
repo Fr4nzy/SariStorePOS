@@ -167,6 +167,6 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         tools:visibility="visible"
-        android:onClick="deleteProduct"/>
+        android:onClick="showDeleteConfirmationDialog"/>
 
 </LinearLayout>

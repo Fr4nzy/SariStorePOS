@@ -3,6 +3,7 @@ package com.projectfkklp.saristorepos.utils;
 import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.NavigableMap;
+import java.util.Random;
 import java.util.TreeMap;
 
 public class StringUtils {
@@ -48,6 +49,25 @@ public class StringUtils {
 
     public static  String formatWithMetricPrefix(float value){
         return formatWithMetricPrefix((long)value);
+    }
+
+    public static String getRandomGreeting() {
+        String[] GREETINGS = {
+                "Welcome back to SarisAirStore!",
+                "Hello! Ready to explore SarisAirStore?",
+                "Great to see you again! Let's get started with SarisAirStore.",
+                "Hi there! Login to access SarisAirStore.",
+                "Greetings! Sign in to your SarisAirStore account.",
+                "Welcome aboard! Login now to experience SarisAirStore.",
+                "Hello, traveler! Your journey with SarisAirStore begins here.",
+                "Welcome back! Your adventure with SarisAirStore continues.",
+                "Hey! It's SarisAirStore time. Sign in to begin.",
+                "Good to have you here! Let's dive into SarisAirStore together."
+        };
+
+        Random random = new Random();
+        int index = random.nextInt(GREETINGS.length);
+        return GREETINGS[index];
     }
 
 }

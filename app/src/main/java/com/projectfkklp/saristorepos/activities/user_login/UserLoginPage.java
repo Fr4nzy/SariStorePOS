@@ -27,6 +27,7 @@ import com.projectfkklp.saristorepos.managers.UserManager;
 import com.projectfkklp.saristorepos.repositories.AuthenticationRepository;
 import com.projectfkklp.saristorepos.repositories.UserRepository;
 import com.projectfkklp.saristorepos.utils.AuthenticationUtils;
+import com.projectfkklp.saristorepos.utils.StringUtils;
 
 import java.util.Objects;
 
@@ -45,7 +46,16 @@ public class UserLoginPage extends AppCompatActivity {
         signInLauncher = AuthenticationUtils.createSignInLauncher(this, this::onSignInResult);
 
         // Get and display the app version
+        initializeViews();
         displayAppVersion();
+    }
+
+    private void initializeViews(){
+        String randomGreeting = StringUtils.getRandomGreeting();
+
+        // Display the same random greeting in another TextView with id user_login_page_greetings
+        TextView userLoginPageGreetings = findViewById(R.id.user_login_page_greetings);
+        userLoginPageGreetings.setText(randomGreeting);
     }
 
     private void displayAppVersion() {
