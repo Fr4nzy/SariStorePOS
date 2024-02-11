@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:text="Jan 3, 2024 10:04 PM"
             android:textStyle="bold"
+            android:textColor="#0D6B87"
             tools:ignore="HardcodedText" />
         <TextView
             android:id="@+id/transaction_history_sold_items"

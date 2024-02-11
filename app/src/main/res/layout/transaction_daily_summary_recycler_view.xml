@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:text="January 1, 2024"
             android:textStyle="bold"
+            android:textColor="#0D6B87"
             tools:ignore="HardcodedText" />
         <TextView
             android:id="@+id/transaction_daily_summary_sold_items"
