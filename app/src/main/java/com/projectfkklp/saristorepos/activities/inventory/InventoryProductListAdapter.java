@@ -3,6 +3,7 @@ package com.projectfkklp.saristorepos.activities.inventory;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import com.projectfkklp.saristorepos.utils.StringUtils;
 import java.util.List;
 
 public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryProductListViewHolder>{
-
+    private final int PALE_RED = Color.rgb(255, 220, 220);
     private final Context context;
     private final List<Product> products;
 
@@ -55,8 +56,13 @@ public class InventoryProductListAdapter extends RecyclerView.Adapter<InventoryP
             product.getUnitPrice()
         ));
 
-        holder.productOosIndicatorText.setVisibility(product.getStocks()==0 ? View.VISIBLE:View.GONE);
-        holder.productOosIndicatorText.setVisibility(product.getStocks()== 0 ? View.VISIBLE:View.GONE);
+        if (product.getStocks() == 0) {
+            holder.productOosIndicatorText.setVisibility(View.VISIBLE);
+            holder.container.setBackgroundColor(PALE_RED);
+        } else {
+            holder.productOosIndicatorText.setVisibility(View.GONE);
+            holder.container.setBackgroundColor(Color.WHITE);
+        }
 
         if (position==products.size()-1){
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.container.getLayoutParams();
