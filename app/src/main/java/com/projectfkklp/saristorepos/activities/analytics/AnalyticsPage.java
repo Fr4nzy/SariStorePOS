@@ -27,10 +27,8 @@ import com.projectfkklp.saristorepos.repositories.SessionRepository;
 import com.projectfkklp.saristorepos.repositories.StoreRepository;
 import com.projectfkklp.saristorepos.utils.NumberUtils;
 import com.projectfkklp.saristorepos.utils.StringUtils;
-import com.projectfkklp.saristorepos.utils.TestingUtils;
 import com.projectfkklp.saristorepos.utils.ToastUtils;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -253,7 +251,7 @@ public class AnalyticsPage extends AppCompatActivity {
         else {
             float rate = (currentSales/previousSales) * 100;
             salesGrowthPercText.setText(String.format(
-                    "%+.2f%%",
+                    "%+.0f%%",
                     rate
             ));
             salesGrowthPercText.setTextColor(
@@ -270,7 +268,7 @@ public class AnalyticsPage extends AppCompatActivity {
         else {
             float rate = ((float) currentSoldItems /previousSoldItems) * 100;
             soldItemsGrowthPercText.setText(String.format(
-                    "%+.2f%%",
+                    "%+.0f%%",
                     rate
             ));
             soldItemsGrowthPercText.setTextColor(
@@ -391,6 +389,7 @@ public class AnalyticsPage extends AppCompatActivity {
         topSellingLoading.setVisibility(View.VISIBLE);
         int total = salesEntries.values().stream().mapToInt(Integer::intValue).sum();
         topSellingChart.setData(salesEntries, new ValueFormatter() {
+            @SuppressLint("DefaultLocale")
             @Override
             public String getFormattedValue(float value) {
                 if (total == 0) {
@@ -398,12 +397,10 @@ public class AnalyticsPage extends AppCompatActivity {
                 }
 
                 float percentValue = (value / total) * 100;
+
                 String formattedValue = StringUtils.formatToPesoWithMetricPrefix(value);
 
-                DecimalFormat decimalFormat = new DecimalFormat("#.##");
-                String formattedPercent = decimalFormat.format(percentValue);
-
-                return String.format("%s (%s%%)", formattedValue, formattedPercent);
+                return String.format("%s (%.2f%%)", formattedValue, percentValue);
             }
         });
     }
@@ -413,6 +410,7 @@ public class AnalyticsPage extends AppCompatActivity {
         topSoldLoading.setVisibility(View.VISIBLE);
         int total = soldEntries.values().stream().mapToInt(Integer::intValue).sum();
         topSoldChart.setData(soldEntries, new ValueFormatter() {
+            @SuppressLint("DefaultLocale")
             @Override
             public String getFormattedValue(float value) {
 
@@ -421,14 +419,13 @@ public class AnalyticsPage extends AppCompatActivity {
                 }
 
                 float percentValue = (value / total) * 100;
-                String formattedValue = StringUtils.formatWithMetricPrefix(value);
 
-                DecimalFormat decimalFormat = new DecimalFormat("#.##");
-                String formattedPercent = decimalFormat.format(percentValue);
+                String formattedValue = StringUtils.formatToPesoWithMetricPrefix(value);
 
-                return String.format("%s (%s%%)", formattedValue, formattedPercent);
+                return String.format("%s (%.2f%%)", formattedValue, percentValue);
             }
         });
+
     }
 
     @SuppressLint("DefaultLocale")
@@ -441,16 +438,6 @@ public class AnalyticsPage extends AppCompatActivity {
                 "Sales"
         ));
 
-        //Data
-        /* = new ArrayList<>();
-        for (int i = 0; i<30;i++){
-            productsSalesData.add(new ProductSalesSummaryData(
-                    String.format("id-%d", i),
-                    String.format("Product %d", i),
-                    i+1,
-                    30-i
-            ));
-        }*/
         productsSalesTable.setDataAdapter(new ProductsSalesTableDataAdapter(this, productsSalesData));
 
         // Comparators

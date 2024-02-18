@@ -84,8 +84,7 @@ public class AnalyticsTodaySalesChart extends PieChart {
 
     // Method to generate customizable center text
     private SpannableString generateCenterText(float todayActualSales, float todayTargetSales, float salesPerformancePercentage, float salesGrowthPercentage) {
-        DecimalFormat decimalFormat = new DecimalFormat("+#,##0.00;-#");
-        String salesGrowthPercentageText = decimalFormat.format(salesGrowthPercentage);
+        String salesGrowthPercentageText = StringUtils.formatWithMetricPrefix((long) salesGrowthPercentage);
 
         @SuppressLint("DefaultLocale") String centerText = String.format(
                 "Summary\n"

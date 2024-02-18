@@ -47,22 +47,18 @@ public class StringUtils {
 
     public static boolean isNullOrEmpty(String str) {   return str == null || str.isEmpty();    }
 
-    public static  String formatWithMetricPrefix(float value){
-        return formatWithMetricPrefix((long)value);
-    }
-
     public static String getRandomGreeting() {
         String[] GREETINGS = {
-                "Welcome back to SarisAirStore!",
-                "Hello! Ready to explore SarisAirStore?",
-                "Great to see you again! Let's get started with SarisAirStore.",
-                "Hi there! Login to access SarisAirStore.",
-                "Greetings! Sign in to your SarisAirStore account.",
-                "Welcome aboard! Login now to experience SarisAirStore.",
-                "Hello, traveler! Your journey with SarisAirStore begins here.",
-                "Welcome back! Your adventure with SarisAirStore continues.",
-                "Hey! It's SarisAirStore time. Sign in to begin.",
-                "Good to have you here! Let's dive into SarisAirStore together."
+                "Welcome back to SariStore POS!",
+                "Hello! \nReady to explore SariStore POS?",
+                "Great to see you again! Let's get started with SariStore POS.",
+                "Hi there! \nLogin to access SariStore POS.",
+                "Greetings! \nSign in to your SariStore POS account.",
+                "Welcome aboard! \nLogin now to experience SariStore POS.",
+                "Hello, traveler! \nYour journey with SariStore POS begins here.",
+                "Welcome back! \nYour adventure with SariStore POS continues.",
+                "Hey! \nIt's SariStore POS time. Sign in to begin.",
+                "Good to have you here! \nLet's dive into SariStore POS together."
         };
 
         Random random = new Random();

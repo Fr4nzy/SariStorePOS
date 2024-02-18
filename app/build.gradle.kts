@@ -11,7 +11,7 @@ android {
         applicationId = "com.projectfkklp.saristorepos"
         minSdk = 26
         targetSdk = 34
-        versionCode = 10
+        versionCode = 14
         versionName = "7.7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -66,7 +66,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
 
     testImplementation("junit:junit:4.13.2")
