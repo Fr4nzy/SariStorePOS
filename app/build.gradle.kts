@@ -11,7 +11,7 @@ android {
         applicationId = "com.projectfkklp.saristorepos"
         minSdk = 26
         targetSdk = 34
-        versionCode = 15
+        versionCode = 19
         versionName = "7.7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -36,8 +36,10 @@ android {
 
 dependencies {
 
+    //noinspection GradleDependency
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.firebaseui:firebase-ui-auth:8.0.2")
+    //noinspection GradleDependency
     implementation("com.google.firebase:firebase-firestore:24.10.1")
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation("com.google.firebase:firebase-auth:22.3.1")
@@ -59,6 +61,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.0.3")
+    implementation("com.github.douglasjunior:android-simple-tooltip:1.1.0")
     implementation("com.github.clans:fab:1.6.4")
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")

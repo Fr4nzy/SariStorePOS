@@ -21,4 +21,5 @@
     <color name="skyBlue">#87CEEB</color>
     <color name="cellBackground">#E1F8F3</color>
     <color name="headerBackgroundColor">#EA80FC</color>
+    <color name="tooltipBackgroundColor">#ffd500</color>
 </resources>
