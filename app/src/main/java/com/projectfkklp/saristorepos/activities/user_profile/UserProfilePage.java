@@ -344,4 +344,7 @@ public class UserProfilePage extends AppCompatActivity {
         startActivity(new Intent(this, SuperAdminPage.class));
     }
 
+    public void navigateBack(View view){
+        finish();
+    }
 }

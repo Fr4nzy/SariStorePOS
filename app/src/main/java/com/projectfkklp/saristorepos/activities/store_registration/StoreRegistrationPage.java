@@ -82,4 +82,8 @@ public class StoreRegistrationPage extends AppCompatActivity {
         });
     }
 
+    public void navigateBack(View view){
+        finish();
+    }
+
 }

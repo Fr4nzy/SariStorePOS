@@ -108,5 +108,6 @@
     <string name="no_search_result_available_text_description">Please search existing unassociated stores</string>
     <string name="recruit_no_search_result_available_text">No Search Result Available</string>
     <string name="recruit_no_search_result_available_text_description">Please search existing unassigned users</string>
+    <string name="store_profile_save_button_cD">Store Profile Save Button</string>
 
 </resources>

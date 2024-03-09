@@ -13,6 +13,17 @@
         android:theme="@style/Theme.SariStorePOS"
         tools:targetApi="31">
         <activity
+            android:name=".activities.entry.EntryPage"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.super_admin.ArimaEvaluationPage"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
@@ -88,17 +99,6 @@
             tools:ignore="LockedOrientationActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.entry.EntryPage"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".activities.analytics.AnalyticsDailySalesPage"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
@@ -123,7 +123,6 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             android:exported="false" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

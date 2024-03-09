@@ -1,185 +1,223 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="center_vertical"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/user_profile_super_admin_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Super Admin"
-        app:cornerRadius="50dp"
-        android:backgroundTint="#F8012D"
-        android:textColor="@color/white"
-        android:onClick="gotoSuperAdmin"
-        android:visibility="gone"
-        tools:ignore="HardcodedText" />
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:onClick="navigateBack"
+        android:scaleType="fitCenter"
+        android:src="@drawable/baseline_arrow_back_24"
+        tools:ignore="ContentDescription" />
 
-    <androidx.cardview.widget.CardView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp">
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
 
-        <LinearLayout
+        <Button
+            android:id="@+id/user_profile_super_admin_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#F8012D"
+            android:onClick="gotoSuperAdmin"
+            android:text="Super Admin"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:cornerRadius="50dp"
+            tools:ignore="HardcodedText" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profile_cardview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:padding="24dp"
-            android:background="@drawable/teal_border">
+            android:layout_below="@id/user_profile_super_admin_btn"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp"
-                tools:ignore="UseCompoundDrawables">
+                android:layout_gravity="center"
+                android:background="@drawable/teal_border"
+                android:orientation="vertical"
+                android:padding="24dp">
 
-                <ImageView
-                    android:id="@+id/user_profile_toggle_mode"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:id="@+id/user_profile_toggle_mode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:contentDescription="Edit Profile Button"
+                        android:onClick="toggleMode"
+                        android:src="@drawable/edit"
+                        app:tint="@color/gray"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_profile_page_label"
+                        android:textAlignment="center"
+                        android:textColor="#2091AB"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Error Alert -->
+                <com.projectfkklp.saristorepos.views.ErrorAlert
+                    android:id="@+id/user_profile_errors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/user_profile_gmail"
+                    tools:ignore="ObsoleteLayoutParam" />
+
+                <!-- Name -->
+                <EditText
+                    android:id="@+id/user_profile_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:drawableStart="@drawable/baseline_person_24"
+                    android:layout_marginStart="2dp"
+                    android:drawablePadding="10dp"
+                    android:enabled="false"
+                    android:hint="@string/string_name"
+                    android:inputType="textPersonName"
+                    android:maxLength="35"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <!-- Phone Number -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/user_profile_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="phone"
+                        android:drawablePadding="8dp"
+                        android:enabled="false"
+                        android:hint="@string/string_phone_number"
+                        android:maxLength="13"
+                        android:onClick="changeProfilePhoneNumber"
+                        android:padding="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        app:drawableStartCompat="@drawable/baseline_call_24"
+                        tools:ignore="RtlSymmetry" />
+
+                    <ImageView
+                        android:id="@+id/user_profile_unlink_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:onClick="showUnlinkPhoneConfirmationDialog"
+                        android:padding="8dp"
+                        android:src="@drawable/baseline_link_off_24"
+                        android:visibility="gone"
+                        tools:ignore="ContentDescription" />
+
+                </RelativeLayout>
+
+                <!-- Gmail -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/user_profile_gmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="emailAddress"
+                        android:drawablePadding="8dp"
+                        android:enabled="false"
+                        android:hint="@string/string_gmail"
+                        android:maxLength="254"
+                        android:onClick="changeProfileGmail"
+                        android:padding="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        app:drawableStartCompat="@drawable/baseline_email_24" />
+
+                    <ImageView
+                        android:id="@+id/user_profile_unlink_gmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:onClick="showUnlinkGmailConfirmationDialog"
+                        android:padding="8dp"
+                        android:src="@drawable/baseline_link_off_24"
+                        android:visibility="gone"
+                        tools:ignore="ContentDescription" />
+
+                </RelativeLayout>
+
+                <!-- Update Button -->
+                <Button
+                    android:id="@+id/user_profile_update_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="10dp"
-                    android:onClick="toggleMode"
-                    android:src="@drawable/edit"
-                    app:tint="@color/gray"
-                    android:contentDescription="Edit Profile Button"
-                    tools:ignore="HardcodedText" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_profile_page_label"
-                    android:textSize="25sp"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:textColor="#2091AB" />
-
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="#2091AB"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:onClick="updateUser"
+                    android:text="@string/string_update"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:cornerRadius="50dp" />
             </LinearLayout>
 
-            <!-- Error Alert -->
-            <com.projectfkklp.saristorepos.views.ErrorAlert
-                android:layout_below="@id/user_profile_gmail"
-                android:id="@+id/user_profile_errors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="ObsoleteLayoutParam" />
+        </androidx.cardview.widget.CardView>
 
-            <!-- Name -->
-            <EditText
-                android:id="@+id/user_profile_name"
-                android:autofillHints="name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/baseline_person_24"
-                android:drawablePadding="8dp"
-                android:enabled="false"
-                android:hint="@string/string_name"
-                android:inputType="textPersonName"
-                android:textColor="@color/black"/>
-
-        <!-- Phone Number -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/user_profile_phone"
-                android:autofillHints="phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textSize="18sp"
-                android:drawablePadding="8dp"
-                android:hint="@string/string_phone_number"
-                android:enabled="false"
-                android:textColor="@color/black"
-                android:onClick="changeProfilePhoneNumber"
-                tools:ignore="RtlSymmetry"
-                app:drawableStartCompat="@drawable/baseline_call_24" />
-
-            <ImageView
-                android:id="@+id/user_profile_unlink_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/baseline_link_off_24"
-                android:padding="8dp"
-                android:visibility="gone"
-                android:onClick="showUnlinkPhoneConfirmationDialog"
-                tools:ignore="ContentDescription" />
-
-        </RelativeLayout>
-
-        <!-- Gmail -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/user_profile_gmail"
-                android:autofillHints="emailAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textSize="18sp"
-                android:drawablePadding="8dp"
-                android:hint="@string/string_gmail"
-                android:enabled="false"
-                android:textColor="@color/black"
-                android:onClick="changeProfileGmail"
-                app:drawableStartCompat="@drawable/baseline_email_24" />
-
-            <ImageView
-                android:id="@+id/user_profile_unlink_gmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/baseline_link_off_24"
-                android:padding="8dp"
-                android:visibility="gone"
-                android:onClick="showUnlinkGmailConfirmationDialog"
-                tools:ignore="ContentDescription" />
-
-        </RelativeLayout>
-
-        <!-- Update Button -->
+        <!-- Logout Button -->
         <Button
-            android:id="@+id/user_profile_update_button"
+            android:id="@+id/user_profile_signout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/string_update"
-            android:visibility="gone"
-            android:enabled="false"
+            android:layout_below="@id/profile_cardview"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="#F8012D"
             android:gravity="center"
-            android:layout_gravity="center"
-            app:cornerRadius="50dp"
-            android:backgroundTint="#2091AB"
+            android:text="@string/string_sign_out"
+            android:textSize="12sp"
             android:textColor="@color/white"
-            android:onClick="updateUser" />
-        </LinearLayout>
+            app:cornerRadius="50dp" />
 
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
-    <!-- Logout Button -->
-    <Button
-        android:id="@+id/user_profile_signout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/string_sign_out"
-        app:cornerRadius="50dp"
-        android:gravity="center"
-        android:backgroundTint="#F8012D"
-        android:textColor="@color/white" />
 
-</LinearLayout>
+</RelativeLayout>

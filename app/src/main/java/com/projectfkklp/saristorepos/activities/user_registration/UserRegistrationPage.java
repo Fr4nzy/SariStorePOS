@@ -187,4 +187,8 @@ public class UserRegistrationPage  extends AppCompatActivity {
     public void loginUsingOtherAccount(View view){
         startActivity(new Intent(this, UserLoginPage.class));
     }
+
+    public void navigateBack(View view){
+        finish();
+    }
 }

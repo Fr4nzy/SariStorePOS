@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.projectfkklp.saristorepos.R;
 
 import java.util.Collections;
 
@@ -22,12 +23,14 @@ public class AuthenticationUtils {
             .setAvailableProviders(Collections.singletonList(
                     new AuthUI.IdpConfig.PhoneBuilder().build()
             ))
+            .setTheme(R.style.Theme_SariStorePOS)
             .build();
     public static final Intent GMAIL_SIGN_IN_INTENT = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(Collections.singletonList(
                     new AuthUI.IdpConfig.GoogleBuilder().build()
             ))
+            .setTheme(R.style.Theme_SariStorePOS)
             .build();
 
     public static ActivityResultLauncher<Intent> createSignInLauncher(
